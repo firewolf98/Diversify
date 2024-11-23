@@ -1,6 +1,6 @@
 package it.unisa.diversifybe.Model;
 
-import java.util.Date;
+import java.util.*;
 import lombok.*;
 
 @Getter
