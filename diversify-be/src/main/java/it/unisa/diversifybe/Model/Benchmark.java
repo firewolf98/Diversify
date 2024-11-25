@@ -7,7 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class DocumentoInformativo {
-    private String titolo;
-    private String link;
+public class Benchmark {
+    private String tipo;
+    private String gravita;
+    private String descrizione;
 }
