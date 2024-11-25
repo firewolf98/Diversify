@@ -7,9 +7,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Utente {
-
     private String id;
     private String nome;
     private String cognome;
