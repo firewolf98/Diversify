@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class CampagnaCrowdFunding {
     private String id;
     private String titolo;
