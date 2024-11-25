@@ -6,7 +6,6 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Commento {
 
     private String id_autore;
