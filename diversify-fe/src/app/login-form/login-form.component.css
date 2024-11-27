@@ -1,0 +1,113 @@
+/* Contenitore principale */
+.login-container { 
+  width: 100%; /* Larghezza totale del contenitore */
+  max-width: 350px; /* Imposta una larghezza massima per il contenitore */
+  margin: 50px auto; /* Centra il contenitore orizzontalmente e aggiunge un margine sopra e sotto */
+  padding: 20px; /* Aggiunge un po' di spazio interno */
+  border: 1px solid #d1d1d1; /* Bordo grigio chiaro */
+  border-radius: 10px; /* Angoli arrotondati */
+  background-color: #ffe9d6; /* Colore pesca chiaro per lo sfondo */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Aggiunge una leggera ombra al contenitore */
+  display: flex; /* Usa flexbox per disporre gli elementi dentro il contenitore */
+  flex-direction: column; /* Disposizione verticale degli elementi */
+  align-items: center; /* Centra gli elementi orizzontalmente */
+}
+
+h2 {
+  text-align: center; /* Allinea il titolo al centro */
+  margin-bottom: 20px; /* Distanza sotto il titolo */
+  color: #333333; /* Colore del testo scuro */
+  font-family: Arial, sans-serif; /* Font del titolo */
+}
+
+.form-group {
+  margin-bottom: 15px; /* Distanza tra i campi del form */
+  width: 100%; /* Fa sì che gli input si adattino alla larghezza del contenitore */
+}
+
+label {
+  font-weight: bold; /* Testo in grassetto */
+  display: block; /* Fa sì che l'etichetta occupi l'intera larghezza */
+  color: #000000; /* Colore del testo nero */
+  font-family: Arial, sans-serif; /* Font per l'etichetta */
+}
+
+input {
+  width: 100%; /* Imposta la larghezza dell'input per occupare tutta la larghezza disponibile */
+  padding: 10px 10px 10px 30px; /* Aggiunge spazio intorno al testo con un po' più di spazio a sinistra per l'icona */
+  margin-top: 5px; /* Distanza sopra l'input */
+  border: 1px solid #d1d1d1; 
+  border-radius: 5px; 
+  background-color: #ffffff; /* Sfondo bianco per l'input */
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box; /* Include il padding nel calcolo della larghezza totale */
+}
+
+/* Cambia il colore del bordo dell'input quando è selezionato */
+input:focus {
+  border-color: #007bff; /* Colore blu per il bordo quando l'input è attivo */
+}
+
+form {
+  display: flex; 
+  flex-direction: column; /* Disposizione verticale degli input */
+  width: 100%; /* Occupa tutta la larghezza disponibile */
+}
+
+/* Stile per il bottone di login */
+button {
+  padding: 10px 20px; /* Aggiunge spazio interno al bottone */
+  border: none; /* Rimuove il bordo predefinito */
+  border-radius: 5px;
+  background-color: #007bff; /* Colore di sfondo blu per il bottone */
+  color: white; /* Colore del testo bianco */
+  font-size: 16px; /* Dimensione del testo */
+  font-family: Arial, sans-serif; 
+  cursor: pointer; /* Cambia il cursore quando passa sopra il bottone */
+  margin-left: auto; /* Allinea il bottone a destra */
+  margin-bottom: 0px; /* Rimuove margine sotto il bottone */
+}
+
+
+/* Cambia colore al passaggio del mouse sopra il bottone */
+button:hover {
+  background-color: #0056b3; /* Colore blu scuro quando il mouse è sopra */
+}
+
+/* Quando il bottone è disabilitato */
+button:disabled {
+  background-color: #aaa; /* Colore di sfondo grigio quando disabilitato */
+  cursor: not-allowed; /* Cambia il cursore per indicare che non è possibile cliccare */
+  opacity: 0.7; /* Rende il bottone più trasparente per far capire che è disabilitato */
+}
+
+/* Sezione per il link di recupero password */
+.forgot-password {
+  text-align: center; /* Centra il testo */
+  margin-top: 15px; /* Aggiunge margine sopra il link */
+  font-size: 0.9em; 
+}
+
+.forgot-password a {
+  color: #007bff; /* Colore blu per il link */
+  text-decoration: none; /* Rimuove la sottolineatura */
+  font-weight: bold; /* Rende il link in grassetto */
+}
+
+/* Cambia lo stile del link quando il mouse è sopra */
+.forgot-password a:hover {
+  text-decoration: underline; /* Aggiunge una sottolineatura quando si passa sopra il link */
+}
+
+/* Messaggio di errore sotto il bottone */
+.error-message {
+  margin-top: 10px; /* Distanza tra il bottone e il messaggio di errore */
+  font-size: 14px; /* Dimensione del testo dell'errore */
+  text-align: center; /* Centra il messaggio di errore */
+}
+
+/* Colore rosso per il testo di errore */
+.text-danger {
+  color: red;
+  font-size: 0.9em; /* Imposta la dimensione del testo dell'errore a 0.9em */
+}
