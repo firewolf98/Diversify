@@ -4,13 +4,13 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
+import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CampagnaCrowdFunding {
-    private String id;
+    private String id_campagna;
     private String titolo;
     private String contenuto;
     private String email;
