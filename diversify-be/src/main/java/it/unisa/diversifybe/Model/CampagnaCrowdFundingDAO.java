@@ -76,5 +76,4 @@ public interface CampagnaCrowdFundingDAO extends MongoRepository<CampagnaCrowdFu
      * @return una lista di campagne con lo stato specificato.
      */
     List<CampagnaCrowdFunding> findByStato(String stato);
-
 }
