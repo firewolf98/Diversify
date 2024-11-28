@@ -30,6 +30,4 @@ public class CampagnaCrowdFunding {
         if (!paymentMethods.contains("PayPal")) {
             paymentMethods.add("PayPal");
      */
-
-
 }
