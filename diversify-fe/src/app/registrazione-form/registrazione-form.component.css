@@ -35,7 +35,7 @@ label {
 }
 
 /* Input degli utenti */
-input, select {
+input {
     width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
     padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
     margin-top: 5px;
@@ -111,4 +111,42 @@ button:hover {
 button:disabled {
     background-color: #aaa;
     cursor: not-allowed;
+}
+
+/* Campo Domanda Personale */
+select {
+    width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
+    padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
+    margin-top: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
+}
+
+/* Cambia il colore del bordo quando un select è in focus */
+select:focus {
+    border-color: #007bff !important; /* Colore blu quando il select è in focus */
+    outline: none !important;
+}
+
+/* Cambia il colore del bordo mentre l'utente sta scrivendo (ng-dirty) */
+select.ng-dirty {
+    border-color: #007bff !important; /* Bordo blu mentre si scrive */
+}
+
+/* Cambia il colore del bordo quando il campo è valido e ha ricevuto un input */
+select.ng-dirty.ng-valid {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido e modificato */
+}
+
+/* Cambia il colore del bordo quando il campo è valido */
+select.ng-valid.ng-touched {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido */
+}
+
+/* Cambia il colore del bordo quando il campo è invalido */
+select.ng-invalid.ng-touched {
+    border-color: red !important; /* Bordo rosso quando il campo è invalido */
 }
