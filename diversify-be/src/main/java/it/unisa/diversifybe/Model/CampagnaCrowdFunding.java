@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CampagnaCrowdFunding {
-    private String id;
+    private String id_campagna;
     private String titolo;
     private String contenuto;
     private String email;
@@ -30,6 +30,4 @@ public class CampagnaCrowdFunding {
         if (!paymentMethods.contains("PayPal")) {
             paymentMethods.add("PayPal");
      */
-
-
 }
