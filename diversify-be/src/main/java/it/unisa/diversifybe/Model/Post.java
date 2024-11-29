@@ -10,9 +10,9 @@ import lombok.*;
 public class Post {
     private String ID;
     private String titolo;
-    private String id_autore;
+    private String idAutore;
     private String contenuto;
-    private Date data_creazione;
+    private Date dataCreazione;
     private int like;
     private List<Commento> commenti;
 }
