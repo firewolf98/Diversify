@@ -5,15 +5,18 @@
     <div class="form-group"> 
       <label for="email">Email</label>  
       <input type="email" id="email" class="form-control"
-             formControlName="email" /> 
+             formControlName="email"
+             placeholder="Inserisci la tua email" /> 
+
       
+
       <!-- Messaggio di errore se il controllo 'email' non è stato compilato -->
-      <div *ngIf="hasError('email', 'required')" class="text-danger">
+      <div *ngIf="hasError('email', 'required')" class="text-danger error-message">
         L'email è obbligatoria.
       </div>
       
       <!-- Messaggio di errore se l'email non è valida -->
-      <div *ngIf="hasError('email', 'email')" class="text-danger">
+      <div *ngIf="hasError('email', 'email')" class="text-danger error-message">
         Inserisci un'email valida.
       </div>
     </div>
@@ -21,20 +24,21 @@
     <div class="form-group"> <!-- Sezione del campo password -->
       <label for="password">Password</label>  
       <input type="password" id="password" class="form-control"
-             formControlName="password" />  
+             formControlName="password"
+             placeholder="Inserisci la tua password" />  
       
       <!-- Messaggio di errore se la password non è stata compilata -->
-      <div *ngIf="hasError('password', 'required')" class="text-danger">
+      <div *ngIf="hasError('password', 'required')" class="text-danger error-message">
         La password è obbligatoria.
       </div>
       
       <!-- Messaggio di errore se la password è troppo corta -->
-      <div *ngIf="hasError('password', 'minlength')" class="text-danger">
+      <div *ngIf="hasError('password', 'minlength')" class="text-danger error-message">
         La password deve essere lunga almeno 8 caratteri.
       </div>
       
       <!-- Messaggio di errore se la password non rispetta il pattern (deve contenere una maiuscola, un numero e un carattere speciale) -->
-      <div *ngIf="hasError('password', 'pattern')" class="text-danger">
+      <div *ngIf="hasError('password', 'pattern')" class="text-danger error-message">
         La password deve contenere almeno una maiuscola, un numero e un carattere speciale.
       </div>
     </div>
