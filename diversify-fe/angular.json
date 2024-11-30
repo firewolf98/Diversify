@@ -30,9 +30,7 @@
               "src/styles.css",
               "node_modules/ol/ol.css"
             ],
-            "scripts": [
-              "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

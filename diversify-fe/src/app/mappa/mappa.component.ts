@@ -8,6 +8,7 @@ import { Overlay } from 'ol';
 
 @Component({
   selector: 'app-map',
+  standalone: true,
   templateUrl: './mappa.component.html',
   styleUrls: ['./mappa.component.css']
 })
