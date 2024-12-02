@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service'; // Importa il servizio AuthService
 
 @Component({
   selector: 'app-login-form',
@@ -15,7 +16,9 @@ export class LoginFormComponent {
   loginForm: FormGroup;  // FormGroup per gestire il form di login
   errorMessage: string = '';  // Variabile per memorizzare i messaggi di errore
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, 
+              private router: Router,
+              private authService: AuthService) {
     // Inizializza il form di login con i campi email e password
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],  // L'email è obbligatoria e deve essere un'email valida
@@ -32,26 +35,24 @@ export class LoginFormComponent {
     if (this.loginForm.valid) {  // Se il form è valido
       const email = this.loginForm.get('email')?.value;  // Ottieni il valore dell'email
       const password = this.loginForm.get('password')?.value;  // Ottieni il valore della password
-      this.login(email, password);  // Chiama la funzione login per verificare le credenziali
-    } else {
-      // Se il form non è valido, mostra un messaggio di errore
-      this.errorMessage = 'Per favore, compila correttamente i campi.';
-    }
-  }
 
-  // Funzione per verificare le credenziali
-  login(email: string, password: string): void {
-    const validEmail = 'test@example.com';
-    const validPassword = 'Password123!';
-
-    if (email === validEmail && password === validPassword) {
-      // Se le credenziali sono corrette, naviga alla home
-      this.router.navigate(['/home']);
-    } else {
-      // Se le credenziali sono errate, mostra un messaggio di errore
-      this.errorMessage = 'Email o password errati';
-    }
-  }
+            // Usa il servizio AuthService per eseguire il login
+            this.authService.login(email, password).subscribe({
+              next: (response) => {
+                // Se il login è riuscito, reindirizza alla home
+                console.log('Login successful:', response);
+                this.router.navigate(['/home']);
+              },
+              error: (error) => {
+                // Se c'è un errore (credenziali errate, errore di rete, ecc.), mostra un messaggio di errore
+                console.error('Login failed:', error);
+                this.errorMessage = 'Email o password errati';
+              }
+          });
+          } else {
+            this.errorMessage = 'Per favore, compila correttamente i campi.';
+          }
+        }
 
   // Funzione per verificare se un controllo del form ha un errore specifico
   hasError(controlName: string, errorCode: string): boolean {
