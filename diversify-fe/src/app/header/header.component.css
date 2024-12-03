@@ -100,28 +100,3 @@ cursor: pointer; /* Imposta il puntatore a mano */
   background-color: #000000c1;
   border-radius: 2px;
 }
-
-
-/* Media queries per pc */
-@media only screen and (min-width: 1024px) {
-  /* Stili per PC */
-  .descrizione {
-      font-size: 20px;
-  }
-}
-
-/* Media queries per tablet */
-@media only screen and (max-width: 768px) {
-  /* Stili per tablet */
-  .descrizione {
-      font-size: 18px;
-  }
-}
-
-/* Media queries per cellulare */
-@media only screen and (max-width: 480px) {
-  /* Stili per cellulare */
-  .descrizione {
-      font-size: 16px;
-  }
-}
