@@ -1,8 +1,9 @@
-package it.unisa.diversifybe.Model;
+package it.unisa.diversifybe.Repository;
 
+import it.unisa.diversifybe.Model.Forum;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ForumDAO extends MongoRepository<Forum, String>{
+public interface ForumRepository extends MongoRepository<Forum, String>{
     // Aggiunge un nuovo forum
     void addForum(Forum forum);
 

@@ -1,9 +1,10 @@
-package it.unisa.diversifybe.Model;
+package it.unisa.diversifybe.Repository;
 
+import it.unisa.diversifybe.Model.Paese;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
-public interface PaeseDAO extends MongoRepository<Paese, String> {
+public interface PaeseRepository extends MongoRepository<Paese, String> {
 
     // Trova un paese in base al nome
     List<Paese> findByNome(String nome);

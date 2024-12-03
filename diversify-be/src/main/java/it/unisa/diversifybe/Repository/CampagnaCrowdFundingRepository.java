@@ -1,5 +1,6 @@
-package it.unisa.diversifybe.Model;
+package it.unisa.diversifybe.Repository;
 
+import it.unisa.diversifybe.Model.CampagnaCrowdFunding;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.List;
  * <p>
  * Estende {@link MongoRepository}, che include operazioni CRUD standard per MongoDB.
  */
-public interface CampagnaCrowdFundingDAO extends MongoRepository<CampagnaCrowdFunding, String> {
+public interface CampagnaCrowdFundingRepository extends MongoRepository<CampagnaCrowdFunding, String> {
 
     /**
      * Restituisce una lista di campagne che corrispondono all'ID specificato.

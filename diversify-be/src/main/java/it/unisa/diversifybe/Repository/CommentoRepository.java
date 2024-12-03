@@ -1,10 +1,11 @@
-package it.unisa.diversifybe.Model;
+package it.unisa.diversifybe.Repository;
 
+import it.unisa.diversifybe.Model.Commento;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Date;
 import java.util.List;
 
-public interface CommentoDAO extends MongoRepository<Commento,String> {
+public interface CommentoRepository extends MongoRepository<Commento,String> {
     List<Commento> findById_autore(String id_autore);
     List<Commento> findByContenutoContaining(String keyword);
     List<Commento> findByData_creazioneIs(Date data_creazione);

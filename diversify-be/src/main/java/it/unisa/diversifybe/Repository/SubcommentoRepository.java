@@ -1,10 +1,11 @@
-package it.unisa.diversifybe.Model;
+package it.unisa.diversifybe.Repository;
 
+import it.unisa.diversifybe.Model.Subcommento;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Date;
 import java.util.List;
 
-public interface SubcommentoDAO extends MongoRepository<Subcommento,String> {
+public interface SubcommentoRepository extends MongoRepository<Subcommento,String> {
     List<Subcommento> findById_autore(String id_autore);
     List<Subcommento> findByContenutoContaining(String keyword);
     List<Subcommento> findByData_creazioneIs(Date data_creazione);

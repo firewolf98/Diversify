@@ -1,10 +1,11 @@
-package it.unisa.diversifybe.Model;
+package it.unisa.diversifybe.Repository;
 
+import it.unisa.diversifybe.Model.Post;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Date;
 import java.util.List;
 
-public interface PostDAO extends MongoRepository<Post, String> {
+public interface PostRepository extends MongoRepository<Post, String> {
     List<Post> findByIdAutore(String idAutore); // Cerca tutti i post di un autore specifico
     List<Post> findByTitoloContainingIgnoreCase(String titolo); // Cerca per titolo contenente una parola
     List<Post> findByDataCreazione(Date dataCreazione); // Cerca per data esatta di creazione
