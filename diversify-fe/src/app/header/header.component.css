@@ -22,10 +22,6 @@ display: flex;
 justify-content: center;
 align-items: center;
 position: relative; /* Posizione relativa per l'icona */
-}
-
-/* Stile per il background sotto la barra di ricerca */
-.search-bar-background {
 border: 1px solid #ccc; 
 background-color: white; /* Colore di sfondo bianco */
 }
@@ -99,4 +95,72 @@ cursor: pointer; /* Imposta il puntatore a mano */
   width: 60%;
   background-color: #000000c1;
   border-radius: 2px;
+}
+
+/* Media query per dispositivi con larghezza massima di 1024px (Tablet) */
+@media screen and (max-width: 1024px) {
+  .header-container {
+    justify-content: space-between; /* Adattare la spaziatura */
+    padding: 0 12px; /* Ridurre il padding laterale */
+  }
+
+  .search-bar-container {
+    flex: 3; /* Ridurre la larghezza relativa */
+  }
+
+  .search-bar {
+    max-width: 300px; /* Ridurre la larghezza massima */
+  }
+
+  .menu-icon-container {
+    margin-left: 5px; /* Ridurre il margine a sinistra */
+    padding-left: 2px; /* Ridurre il padding */
+  }
+}
+
+/* Media query per dispositivi con larghezza massima di 600px (Telefono) */
+@media screen and (max-width: 600px) {
+  .header-container {
+    justify-content: space-between; /* Mantieni la spaziatura in orizzontale */
+    padding: 0 8px; /* Riduci ulteriormente il padding laterale */
+  }
+
+  .logo-container {
+    flex: none;
+    margin-right: 8px; /* Aggiungi spazio a destra del logo */
+  }
+
+  .search-bar-container {
+    flex: 2; /* Riduci ulteriormente la larghezza relativa */
+    margin: 0; /* Elimina margini */
+  }
+
+  .search-bar {
+    max-width: 200px; /* Riduci ulteriormente la larghezza massima */
+    padding:  6px 10px; /* Riduci padding interno */
+  }
+
+  .search-input {
+    font-size: 12px; /* Riduci dimensione del testo */
+    padding-left: 20px; /* Riduci spazio a sinistra */
+    padding-right: 40px; /* Riduci spazio a destra */
+  }
+
+  .icona {
+    height: 9px; /* Riduci dimensione dell'icona */
+  }
+
+  .menu-icon-container {
+    margin-left: 0; /* Elimina margine sinistro */
+    padding: 0 3px; /* Riduci padding */
+  }
+
+  .menu-icon {
+    width: 18px; /* Riduci dimensioni del menu */
+    height: 14px; /* Riduci altezza */
+  }
+
+  .menu-icon span {
+    width: 50%; /* Riduci larghezza delle linee */
+  }
 }
