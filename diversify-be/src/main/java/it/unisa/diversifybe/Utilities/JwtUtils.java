@@ -1,9 +1,12 @@
-package it.unisa.diversifybe.Utils;
+package it.unisa.diversifybe.Utilities;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Claims;
 
 import java.util.Date;
 
@@ -53,7 +56,14 @@ public class JwtUtils {
      */
 
     public String getUsernameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        // Use Jwts.parserBuilder() and build the JwtParser
+        JwtParser parser = Jwts.parserBuilder()
+                .setSigningKey(jwtSecret)  // Set the signing key
+                .build();  // Build the JwtParser
+
+        // Parse the JWT and extract the claims
+        Jws<Claims> claimsJws = parser.parseClaimsJws(token);
+        return claimsJws.getBody().getSubject();  // Extract the subject (username)
     }
 
     /**
@@ -68,7 +78,11 @@ public class JwtUtils {
 
     public boolean validateJwtToken(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            JwtParser parser = Jwts.parserBuilder().build()
+                    .setSigningKey(jwtSecret)
+                    .build(); 
+
+            parser.parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;

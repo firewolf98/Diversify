@@ -52,9 +52,15 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.11.5</version>
+            <version>0.12.0</version>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
