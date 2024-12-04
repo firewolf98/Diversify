@@ -45,36 +45,22 @@ public class UtenteController {
 
     @PostMapping("/cambia_password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
-        // Trova l'utente in base allo username
-        Optional<Utente> utenteOptional = utenteService.findByUsername(changePasswordRequest.getUsername());
-        if (!utenteOptional.isPresent()) {
+        // Verifica se l'utente esiste
+        Optional<Utente> utente = utenteService.findByUsername(changePasswordRequest.getUsername());
+        if (!utente.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato");
         }
 
-        Utente utente = utenteOptional.get();
-
-        // Verifica che la password attuale sia corretta
-        if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), utente.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password attuale errata");
+        // Verifica se la password corrente è corretta
+        if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), utente.get().getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password corrente errata");
         }
 
-        // Controlla che la nuova password soddisfi i criteri di validazione
-        String newPassword = changePasswordRequest.getNewPassword();
-        if (!isPasswordValid(newPassword)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La nuova password non soddisfa i criteri di sicurezza");
-        }
+        // Aggiorna la password con quella nuova criptata
+        String encodedNewPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
+        utente.get().setPassword(encodedNewPassword);
+        utenteService.save(utente.get());
 
-        // Aggiorna la password con la nuova codificata
-        String encodedNewPassword = passwordEncoder.encode(newPassword);
-        utente.setPassword(encodedNewPassword);
-        utenteService.updateUtente(utente); // Metodo per aggiornare l'utente nel database
-
-        return ResponseEntity.ok("Password cambiata con successo");
-    }
-
-    private boolean isPasswordValid(String password) {
-        // Regex per validare la password: almeno 8 caratteri, una maiuscola, una minuscola, un numero e un carattere speciale
-        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$";
-        return password != null && password.matches(passwordRegex);
+        return ResponseEntity.ok("Password aggiornata con successo");
     }
 }
