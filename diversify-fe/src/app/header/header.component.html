@@ -1,0 +1,17 @@
+<header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <!-- Logo o titolo del progetto -->
+        <h1>My App</h1>
+      </div>
+      <div class="search-bar">
+        <input
+          type="text"
+          placeholder="Cerca sulla mappa..."
+
+          (keyup.enter)="onSearch()"
+        />
+        <button (click)="onSearch()">🔍</button>
+      </div>
+    </div>
+</header>
