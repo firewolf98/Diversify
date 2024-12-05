@@ -3,6 +3,7 @@ package it.unisa.diversifybe.Controller;
 import it.unisa.diversifybe.DTO.JwtResponse;
 import it.unisa.diversifybe.DTO.LoginRequest;
 import it.unisa.diversifybe.DTO.RegisterRequest;
+import it.unisa.diversifybe.Model.Utente;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +41,26 @@ public class UtenteController {
         // Logica di registrazione
         utenteService.registraUtente(registerRequest);
         return ResponseEntity.ok("Utente registrato con successo!");
+    }
+
+    @PostMapping("/cambia_password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        // Verifica se l'utente esiste
+        Optional<Utente> utente = utenteService.findByUsername(changePasswordRequest.getUsername());
+        if (!utente.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato");
+        }
+
+        // Verifica se la password corrente è corretta
+        if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), utente.get().getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password corrente errata");
+        }
+
+        // Aggiorna la password con quella nuova criptata
+        String encodedNewPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
+        utente.get().setPassword(encodedNewPassword);
+        utenteService.save(utente.get());
+
+        return ResponseEntity.ok("Password aggiornata con successo");
     }
 }
