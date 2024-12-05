@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+// Importa il componente figlio
+import { SchedaAreaPersonaleComponent } from './scheda-area-personale/scheda-area-personale.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true, // Questo specifica che è un componente standalone
+  imports: [SchedaAreaPersonaleComponent], // Aggiungi il componente figlio agli imports
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent {
   title = 'diversify-fe';
 }
