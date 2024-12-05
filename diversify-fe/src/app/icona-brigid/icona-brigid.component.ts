@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-icona-brigid',
+  imports: [],
   templateUrl: './icona-brigid.component.html',
-  styleUrls: ['./icona-brigid.component.css']
+  styleUrl: './icona-brigid.component.css'
 })
-export class IconaBrigidComponent {}
+export class IconaBrigidComponent {
+
+}
