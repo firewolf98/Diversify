@@ -132,3 +132,84 @@ button:disabled {
   margin-top: 5px;
 }
 
+/* Media Query per dispositivi mobili (smartphone) - Login */
+@media (max-width: 600px) {
+  /* Contenitore principale */
+  .login-container {
+    width: 90%; /* La larghezza del contenitore si adatta al 90% */
+    margin: 20px auto; /* Aggiunge margine sopra e sotto */
+  }
+
+  /* Titolo del modulo */
+  .login-container h2 {
+    font-size: 1.5rem; /* Riduce la dimensione del titolo */
+  }
+
+  /* Gruppi di input */
+  .form-group {
+    margin-bottom: 10px; /* Riduce lo spazio tra i campi */
+  }
+
+  /* Etichette dei campi */
+  label {
+    font-size: 0.9rem; /* Riduce la dimensione del testo dell'etichetta */
+  }
+
+  /* Input */
+  input {
+    padding: 8px 10px; /* Riduce il padding */
+    font-size: 1rem; /* Riduce la dimensione del testo */
+  }
+
+  /* Pulsante */
+  button {
+    padding: 12px; /* Aumenta un po' l'altezza del bottone */
+    font-size: 14px; /* Riduce la dimensione del font del bottone */
+  }
+
+  /* Link di recupero password */
+  .forgot-password {
+    font-size: 0.9rem; /* Riduce la dimensione del font */
+  }
+}
+
+/* Media Query per dispositivi tablet (max-width: 1024px) - Login */
+@media (max-width: 1024px) {
+  /* Contenitore principale */
+  .login-container {
+    width: 80%; /* Riduce la larghezza per tablet */
+    margin: 30px auto; /* Margine superiore ridotto */
+  }
+
+  /* Titolo del modulo */
+  .login-container h2 {
+    font-size: 1.75rem; /* Riduce la dimensione del titolo */
+  }
+
+  /* Gruppi di input */
+  .form-group {
+    margin-bottom: 12px; /* Distanza ridotta tra i campi */
+  }
+
+  /* Etichette dei campi */
+  label {
+    font-size: 1rem; /* Riduce la dimensione del testo dell'etichetta */
+  }
+
+  /* Input */
+  input {
+    padding: 10px 12px; /* Aumenta leggermente il padding */
+    font-size: 1.1rem; /* Aumenta la dimensione del testo */
+  }
+
+  /* Pulsante */
+  button {
+    padding: 14px; /* Aumenta l'altezza del bottone */
+    font-size: 16px; /* Aumenta la dimensione del font del bottone */
+  }
+
+  /* Link di recupero password */
+  .forgot-password {
+    font-size: 1rem; /* Aumenta la dimensione del font del link */
+  }
+}
