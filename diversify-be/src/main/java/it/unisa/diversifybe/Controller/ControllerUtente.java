@@ -9,13 +9,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
+/**
+ * Controller REST per la gestione degli utenti.
+ * Fornisce endpoint per autenticazione, registrazione e aggiornamento della password.
+ */
+
 @RestController
 @RequestMapping("/utenti")
 public class UtenteController {
 
+    /**
+     * Autentica un utente esistente basandosi sulle credenziali fornite.
+     * Genera un token JWT se le credenziali sono corrette.
+     *
+     * @param loginRequest l'oggetto {@link LoginRequest} contenente username e password.
+     * @return {@link ResponseEntity} contenente il token JWT in caso di successo, oppure un errore HTTP in caso contrario.
+     */
+
     // Endpoint per ottenere un utente
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+
         // Verifica se l'utente esiste e se la password è corretta
         Optional<Utente> utente = utenteService.findByUsername(loginRequest.getUsername());
         if (!utente.isPresent() || !passwordEncoder.matches(loginRequest.getPassword(), utente.get().getPassword())) {
@@ -26,6 +40,14 @@ public class UtenteController {
         String jwt = authService.generateJwtToken(utente.get());
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
+
+    /**
+     * Registra un nuovo utente se l username e l'email non sono già in uso.
+     *
+     * @param registerRequest l'oggetto {@link RegisterRequest} contenente i dati del nuovo utente.
+     * @return {@link ResponseEntity} contenente un messaggio di successo in caso di registrazione completata,
+     *         oppure un errore HTTP se lo username o l'email sono già in uso.
+     */
 
     //Logica registrazione utente
     @PostMapping("/registrazione")
@@ -42,6 +64,15 @@ public class UtenteController {
         utenteService.registraUtente(registerRequest);
         return ResponseEntity.ok("Utente registrato con successo!");
     }
+
+    /**
+     * Cambia la password di un utente esistente dopo aver verificato la password corrente.
+     *
+     * @param changePasswordRequest l'oggetto {@link ChangePasswordRequest} contenente username, password corrente
+     *                              e nuova password.
+     * @return {@link ResponseEntity} con un messaggio di successo in caso di aggiornamento completato,
+     *         oppure un errore HTTP se l'utente non esiste o la password corrente è errata.
+     */
 
     @PostMapping("/cambia_password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
