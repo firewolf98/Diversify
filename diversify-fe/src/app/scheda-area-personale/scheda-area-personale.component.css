@@ -1,5 +1,5 @@
 /* Contenitore dell'area personale */
-.scheda-area-personale {
+.scheda-container {
     width: 100%;
     max-width: 350px; /* Imposta una larghezza massima */
     margin: 50px auto;
@@ -13,51 +13,26 @@
 }
 
 /* Titolo dell'area personale */
-.scheda-area-personale h2 {
+.scheda h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #333333; /* Testo scuro */
     font-family: 'Arial', sans-serif;
 }
 
-/* Pulsante di chiusura (X) */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #fe3737; /* Colore rosso per la X */
-    cursor: pointer;
-}
-
 /* Gruppi di informazioni utente */
-.info-gruppo {
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-/* Etichette delle informazioni */
-label {
-    font-weight: bold;
-    display: block;
-    color: #555555; /* Grigio scuro */
+.scheda p {
+    margin-bottom: 10px;
     font-family: 'Arial', sans-serif;
-}
-
-/* Visualizzazione delle informazioni utente come testo */
-.info {
-    padding: 10px;
-    border: none; /* Rimuove il bordo */
-    border-radius: 5px;
-    font-family: 'Arial', sans-serif;
-    color: #333; /* Colore del testo */
     font-size: 16px;
-    font-weight: normal;
+    color: #333;
 }
 
-/* Pulsanti */
+/* Pulsanti di azione */
+.form-actions {
+    margin-top: 20px;
+}
+
 button {
     width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
     padding: 10px;
@@ -82,64 +57,132 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Pulsante Elimina Account (rosso) */
+button.btn-danger {
+    background-color: #fe3737; /* Rosso per il pulsante di eliminazione account */
+}
+
+button.btn-danger:hover {
+    background-color: #d72f2f; /* Rosso più scuro al passaggio del mouse */
+}
+
+/* Sezione Modifica Password */
+.modifica-password,
+.elimina-account {
+    margin-top: 20px;
+}
+
+.modifica-password h3,
+.elimina-account h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+}
+
+/* Gruppi di input */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%; /* Assicura che gli input non escano dal contenitore */
+}
+
+/* Etichette dei campi */
+label {
+    font-weight: bold;
+    display: block;
+    color: #555555; /* Grigio scuro */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Input degli utenti */
+input {
+    width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
+    padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
+    margin-top: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
+}
+
+/* Cambia il colore del bordo quando un input è in focus */
+input:focus, select:focus {
+    border-color: #007bff !important; /* Colore blu quando l'input è in focus */
+    outline: none !important;
+}
+
+/* Cambia il colore del bordo mentre l'utente sta scrivendo (ng-dirty) */
+input.ng-dirty, select.ng-dirty {
+    border-color: #007bff !important; /* Bordo blu mentre si scrive */
+}
+
+/* Cambia il colore del bordo quando il campo è valido e ha ricevuto un input */
+input.ng-dirty.ng-valid, select.ng-dirty.ng-valid {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido e modificato */
+}
+
+/* Cambia il colore del bordo quando il campo è valido */
+input.ng-valid.ng-touched, select.ng-valid.ng-touched {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido */
+}
+
+/* Validazione dei campi: quando il campo è invalido */
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border-color: red !important; /* Bordo rosso quando il campo è invalido */
+}
+
+/* Messaggi di errore */
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
 /* Media Queries */
 
 /* Per dispositivi piccoli (smartphone) */
 @media (max-width: 600px) {
-    .scheda-area-personale {
+    .scheda-container {
         max-width: 100%; /* Utilizza tutta la larghezza disponibile */
         padding: 15px; /* Riduce il padding */
     }
 
-    /* Titolo della scheda */
-    .scheda-area-personale h2 {
+    .scheda h2 {
         font-size: 18px; /* Riduce la dimensione del font per i dispositivi più piccoli */
     }
 
-    /* Testo delle informazioni utente */
-    .info {
-        font-size: 14px; /* Riduce la dimensione del testo */
+    .form-actions button {
+        font-size: 14px; /* Riduce la dimensione del font del bottone */
     }
 
-    /* Pulsanti */
-    button {
-        font-size: 14px; /* Riduce la dimensione del font del bottone */
+    .modifica-password h3,
+    .elimina-account h3 {
+        font-size: 16px; /* Riduce la dimensione del font per i dispositivi più piccoli */
     }
 }
 
 /* Per tablet (dai 600px ai 900px) */
 @media (max-width: 900px) {
-    .scheda-area-personale {
+    .scheda-container {
         max-width: 90%; /* Utilizza il 90% della larghezza disponibile */
     }
 
-    /* Riduce il padding del contenitore */
-    .scheda-area-personale {
-        padding: 20px;
-    }
-
-    .info {
-        font-size: 15px; /* Riduce la dimensione del font per i tablet */
-    }
-
-    button {
+    .form-actions button {
         font-size: 15px; /* Riduce la dimensione del font del bottone */
     }
 }
 
 /* Per desktop (oltre i 900px) */
 @media (min-width: 901px) {
-    .scheda-area-personale {
+    .scheda-container {
         max-width: 350px; /* Mantiene la larghezza massima su desktop */
         margin: 50px auto;
         padding: 20px; /* Padding standard per desktop */
     }
 
-    .info {
-        font-size: 16px; /* Imposta la dimensione del font standard */
-    }
-
-    button {
+    .form-actions button {
         font-size: 16px; /* Imposta la dimensione del font del bottone */
     }
 }
