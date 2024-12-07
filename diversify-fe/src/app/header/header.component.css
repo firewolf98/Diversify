@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 16px;
-  background-color: #fdece8; /* Colore di sfondo rosa pesca */
+  padding: 20px ;
+  background-color: #fdece8 ; /* Colore di sfondo rosa pesca */
   height: 60px; /* Altezza dell'header */
 }
 
