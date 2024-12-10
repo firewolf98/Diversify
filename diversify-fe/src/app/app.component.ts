@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MapComponent } from './mappa/mappa.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet], // Corretto: separa i componenti con una virgola
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'], // Corretto: usa `styleUrls` al plurale
 })
 export class AppComponent {
   title = 'diversify-fe';
