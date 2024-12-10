@@ -5,9 +5,9 @@ import { SchedaAreaPersonaleComponent } from "./scheda-area-personale/scheda-are
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet], // Corretto: separa i componenti con una virgola
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'], // Corretto: usa `styleUrls` al plurale
 })
 
 
