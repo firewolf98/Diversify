@@ -86,7 +86,7 @@ public class UtenteService {
         Utente utente = utenteOptional.get();
 
         if (utente.getPasswordHash().equals(hashPassword(loginRequest.getPasswordHash()))) {
-            String jwt = jwtUtils.generateJwtToken(utente.getUsername());
+            String jwt = jwtUtils.generateToken(utente.getUsername());
             return new JwtResponse(jwt);
         }
         return null;
