@@ -16,6 +16,11 @@ export class SchedaAreaPersonaleComponent {
   modificaPassword: boolean = false;
   eliminaAccount: boolean = false;
 
+  isVecchiaPasswordVisible = false;
+  isPasswordVisible = false;
+  isConfermaPasswordVisible = false;
+  isPasswordEliminazioneVisible = false;
+
   formModificaPassword: FormGroup;
   formEliminaAccount: FormGroup;
 
@@ -45,7 +50,11 @@ export class SchedaAreaPersonaleComponent {
 		  Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]+$'),
 		],
 	  ],
-	  confermaPassword: ['', Validators.required],
+	  confermaPassword: ['',
+    [
+      Validators.required,      
+    ], 
+    ],
 	}, { validators: this.passwordsMustMatch });
   
 	this.formEliminaAccount = this.fb.group({
@@ -60,13 +69,13 @@ export class SchedaAreaPersonaleComponent {
 	});
   }
   
-  // Funzione per la validazione personalizzata della password
-  passwordsMustMatch(group: FormGroup): { [key: string]: boolean } | null {
-	const password = group.get('password')?.value;
-	const confermaPassword = group.get('confermaPassword')?.value;
-	return password && confermaPassword && password !== confermaPassword
-	  ? { passwordsMismatch: true }
-	  : null;
+  passwordsMustMatch(group: AbstractControl): ValidationErrors | null {
+    const password = group.get('password')?.value;
+    const confermaPassword = group.get('confermaPassword')?.value;
+    if (password && confermaPassword && password !== confermaPassword) {
+      return { passwordsNonCoincidenti: true };  // Ritorna errore se le password non corrispondono
+    }
+    return null;  // Restituisce null se le password sono valide
   }
   
   // Funzione per inviare la modifica della password
@@ -97,6 +106,19 @@ export class SchedaAreaPersonaleComponent {
       console.log('Form valido, procedere con l’eliminazione!');
     } else {
       console.log('Form non valido, correggere gli errori.');
+    }
+  }
+
+    // Metodo per alternare la visibilità della password
+   togglePasswordVisibility(field: string) {
+    if (field === 'vecchiaPassword') {
+      this.isVecchiaPasswordVisible = !this.isVecchiaPasswordVisible;
+    } else if (field === 'password') {
+      this.isPasswordVisible = !this.isPasswordVisible;
+    } else if (field === 'confermaPassword') {
+      this.isConfermaPasswordVisible = !this.isConfermaPasswordVisible;
+    } else if (field === 'passwordEliminazione') {
+      this.isPasswordEliminazioneVisible = !this.isPasswordEliminazioneVisible;
     }
   }
 

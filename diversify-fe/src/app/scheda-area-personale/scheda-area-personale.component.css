@@ -33,6 +33,31 @@
     margin-top: 20px;
 }
 
+/* Gestione della visibilità della password */
+.password-container {
+    position: relative;
+}
+
+button.toggle-password {
+    position: absolute;
+    width: 10%;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: black;
+    padding: 0;
+}
+
+button.toggle-password:hover {
+    background-color: #a7a7a7;
+}
+
+input[type="password"], input[type="text"] {
+    padding-right: 40px; /* Aggiungi spazio per il pulsante di visibilità */
+}
+
 button {
     width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
     padding: 10px;
@@ -186,3 +211,5 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
         font-size: 16px; /* Imposta la dimensione del font del bottone */
     }
 }
+
+

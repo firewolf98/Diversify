@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SchedaAreaPersonaleComponent } from "./scheda-area-personale/scheda-area-personale.component";
 
 @Component({
   selector: 'app-root',
