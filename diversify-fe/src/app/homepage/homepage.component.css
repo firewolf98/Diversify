@@ -1,0 +1,21 @@
+.homepage-container {
+    display: flex;
+    flex-direction: column; /* Per un layout verticale */
+    align-items: center; /* Allinea al centro orizzontalmente */
+    justify-content: center; /* Centra i contenuti verticalmente */
+    height: 100vh; /* Occupa tutta l'altezza della viewport */
+  }
+  
+  app-map {
+    width: 100%; /* Adatta la mappa alla larghezza del contenitore */
+    height: 70vh; /* Imposta l'altezza della mappa, aggiustabile */
+    margin: 0;
+}
+  
+  app-icona-brigid {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    margin: 0;
+}
+  
