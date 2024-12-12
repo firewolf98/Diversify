@@ -17,15 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/utenti")
 public class UtenteController {
-
-    /**
-     * Autentica un utente esistente basandosi sulle credenziali fornite.
-     * Genera un token JWT se le credenziali sono corrette.
-     *
-     * @param loginRequest l'oggetto {@link LoginRequest} contenente username e password.
-     * @return {@link ResponseEntity} contenente il token JWT in caso di successo, oppure un errore HTTP in caso contrario.
-     */
-
+    
     // Endpoint per ottenere un utente
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
