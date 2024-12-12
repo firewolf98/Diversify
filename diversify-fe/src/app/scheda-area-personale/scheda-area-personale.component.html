@@ -1,0 +1,99 @@
+<div class="scheda-container">
+	<!-- Contenuto principale -->
+	<div class="scheda">
+	  <h2>Area Personale</h2>
+	  <p><strong>Username:</strong> {{ username }}</p>
+	  <p><strong>Nome:</strong> {{ nome }}</p>
+	  <p><strong>Cognome:</strong> {{ cognome }}</p>
+	  <p><strong>Email:</strong> {{ email }}</p>
+	  <p><strong>Domanda personale:</strong> {{ domandaPersonale }}</p>
+  
+	  <!-- Pulsanti di azione -->
+	  <div class="form-actions">
+		<button class="form-control btn-primary" (click)="toggleModificaPassword()">Modifica Password</button>
+		<button class="form-control btn-danger" (click)="toggleEliminaAccount()">Elimina Account</button>
+	  </div>
+  
+	  <!-- Sezione Modifica Password -->
+	  <div *ngIf="modificaPassword" class="modifica-password">
+		<h3>Modifica Password</h3>
+  
+		<!-- Form di Modifica Password -->
+		<form [formGroup]="formModificaPassword" (ngSubmit)="salvaModificaPassword()">
+  
+		  <!-- Vecchia Password -->
+		  <div class="form-group">
+			<label for="vecchiaPassword">Vecchia Password</label>
+			<div class="password-container">
+			  <input id="vecchiaPassword" [type]="isVecchiaPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la tua vecchia password" formControlName="vecchiaPassword" />
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('vecchiaPassword')" aria-label="Mostra/Nascondi password">{{ isVecchiaPasswordVisible ? '🙈' : '👁' }}</button>
+			</div>
+			<div *ngIf="formModificaPassword.get('vecchiaPassword')?.touched && formModificaPassword.get('vecchiaPassword')?.invalid" class="error-message">
+			  <div *ngIf="formModificaPassword.get('vecchiaPassword')?.hasError('required')">La vecchia password è obbligatoria</div>
+			  <div *ngIf="formModificaPassword.get('vecchiaPassword')?.hasError('minlength')">La password deve contenere almeno 8 caratteri</div>
+			  <div *ngIf="formModificaPassword.get('vecchiaPassword')?.hasError('pattern')">La password deve contenere almeno una lettera maiuscola, un numero e un carattere speciale</div>
+			</div>
+		  </div>
+  
+		  <!-- Nuova Password -->
+		  <div class="form-group">
+			<label for="password">Nuova Password</label>
+			<div class="password-container">
+			  <input id="password" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la nuova password" formControlName="password" />
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" aria-label="Mostra/Nascondi password">{{ isPasswordVisible ? '🙈' : '👁' }}</button>
+			</div>
+			<div *ngIf="formModificaPassword.get('password')?.touched && formModificaPassword.get('password')?.invalid" class="error-message">
+			  <div *ngIf="formModificaPassword.get('password')?.hasError('required')">La nuova password è obbligatoria</div>
+			  <div *ngIf="formModificaPassword.get('password')?.hasError('minlength')">La password deve contenere almeno 8 caratteri</div>
+			  <div *ngIf="formModificaPassword.get('password')?.hasError('pattern')">La password deve contenere almeno una lettera maiuscola, un numero e un carattere speciale</div>
+			</div>
+		  </div>
+  
+		  <!-- Conferma Nuova Password -->
+		  <div class="form-group">
+			<label for="confermaPassword">Conferma Nuova Password</label>
+			<div class="password-container">
+			  <input id="confermaPassword" [type]="isConfermaPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Conferma la nuova password" formControlName="confermaPassword" />
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confermaPassword')" aria-label="Mostra/Nascondi password">{{ isConfermaPasswordVisible ? '🙈' : '👁' }}</button>
+			</div>
+			<div *ngIf="formModificaPassword.get('confermaPassword')?.touched && formModificaPassword.get('confermaPassword')?.invalid" class="error-message">
+			  <div *ngIf="formModificaPassword.get('confermaPassword')?.hasError('required')">La conferma della password è obbligatoria</div>
+			</div>  
+			<div *ngIf="formModificaPassword.errors?.['passwordsNonCoincidenti'] && formModificaPassword.touched" class="error-message">Le password non corrispondono</div>
+		  </div>
+  
+		  <!-- Pulsante Salva -->
+		  <button type="submit" class="btn btn-primary" [disabled]="formModificaPassword.invalid">Salva</button>
+  
+		</form>
+	  </div>
+  
+	  <!-- Sezione Elimina Account -->
+	  <div *ngIf="eliminaAccount" class="elimina-account">
+		<h3>Conferma Eliminazione Account</h3>
+		<p>Sei sicuro di voler eliminare il tuo account? Questa operazione è irreversibile.</p>
+  
+		<form [formGroup]="formEliminaAccount" (ngSubmit)="confermaEliminazione()">
+		  <!-- Input per la password -->
+		  <div class="form-group">
+			<label for="passwordEliminazione">Inserisci la tua password per confermare</label>
+			<div class="password-container">
+			  <input id="passwordEliminazione" [type]="isPasswordEliminazioneVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la tua password" formControlName="passwordEliminazione" required />
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('passwordEliminazione')" aria-label="Mostra/Nascondi password">{{ isPasswordEliminazioneVisible ? '🙈' : '👁' }}</button>
+			</div>
+			<div *ngIf="formEliminaAccount.get('passwordEliminazione')?.touched && formEliminaAccount.get('passwordEliminazione')?.invalid" class="error-message">
+			  <div *ngIf="formEliminaAccount.get('passwordEliminazione')?.hasError('required')">La password è obbligatoria</div>
+			  <div *ngIf="formEliminaAccount.get('passwordEliminazione')?.hasError('minlength')">La password deve contenere almeno 8 caratteri</div>
+			  <div *ngIf="formEliminaAccount.get('passwordEliminazione')?.hasError('pattern')">La password deve contenere almeno una lettera maiuscola, un numero e un carattere speciale</div>
+			</div>
+		  </div>
+  
+		  <!-- Conferma Eliminazione -->
+		  <button type="submit" class="btn btn-danger" [disabled]="formEliminaAccount.invalid">Elimina</button>
+  
+		  <!-- Annulla Eliminazione -->
+		  <button class="form-control btn-secondary" (click)="annullaEliminazione()">Annulla</button>
+		</form>
+	  </div>
+	</div>
+  </div>
