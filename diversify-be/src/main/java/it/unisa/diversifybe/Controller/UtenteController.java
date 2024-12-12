@@ -84,4 +84,34 @@ public class UtenteController {
             return ResponseEntity.status(500).body("Errore durante la registrazione");
         }
     }
+
+    /**
+     * Cambia la password di un utente esistente dopo aver verificato la password corrente.
+     *
+     * @param changePasswordRequest l'oggetto {@link ChangePasswordRequest} contenente username, password corrente
+     *                              e nuova password.
+     * @return {@link ResponseEntity} con un messaggio di successo in caso di aggiornamento completato,
+     *         oppure un errore HTTP se l'utente non esiste o la password corrente è errata.
+     */
+
+    @PostMapping("/cambia_password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        // Verifica se l'utente esiste
+        Optional<Utente> utente = utenteService.findByUsername(changePasswordRequest.getUsername());
+        if (!utente.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato");
+        }
+
+        // Verifica se la password corrente è corretta
+        if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), utente.get().getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password corrente errata");
+        }
+
+        // Aggiorna la password con quella nuova criptata
+        String encodedNewPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
+        utente.get().setPassword(encodedNewPassword);
+        utenteService.save(utente.get());
+
+        return ResponseEntity.ok("Password aggiornata con successo");
+    }
 }
