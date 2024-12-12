@@ -9,15 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
-/**
- * Controller REST per la gestione degli utenti.
- * Fornisce endpoint per autenticazione, registrazione e aggiornamento della password.
- */
-
 @RestController
 @RequestMapping("/utenti")
 public class UtenteController {
-    
+
+    /**
+     * Autentica un utente esistente basandosi sulle credenziali fornite.
+     * Genera un token JWT se le credenziali sono corrette.
+     *
+     * @param loginRequest l'oggetto {@link LoginRequest} contenente username e password.
+     * @return {@link ResponseEntity} contenente il token JWT in caso di successo, oppure un errore HTTP in caso contrario.
+     */
+
     // Endpoint per ottenere un utente
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
