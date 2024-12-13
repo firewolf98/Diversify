@@ -44,7 +44,13 @@ public class JwtUtils {
      */
     public JwtUtils(@Value("${jwt.secret}") String secret,
                     @Value("${jwt.expiration-time}") long expirationTime) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        // Use the secret key for HMAC-SHA256 or generate a secure key if the secret is not provided or too short
+        if (secret != null && secret.length() >= 32) {
+            this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        } else {
+            // Automatically generate a key of correct length for HS256 if the provided secret is too short
+            this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        }
         this.expirationTime = expirationTime;
     }
 

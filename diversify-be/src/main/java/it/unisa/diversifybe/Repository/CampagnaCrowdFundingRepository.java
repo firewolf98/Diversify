@@ -18,11 +18,11 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
     /**
      * Trova una lista di campagne con l'ID specificato.
      *
-     * @param id_campagna l'ID univoco della campagna.
+     * @param idCampagna l'ID univoco della campagna.
      * @return una lista di campagne con l'ID specificato.
      */
 
-    List<CampagnaCrowdFunding> findById_campagna(String id_campagna);
+    List<CampagnaCrowdFunding> findByIdCampagna(String idCampagna);
 
     /**
      * Trova una lista di campagne con il titolo esattamente corrispondente.
@@ -40,43 +40,43 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
      * @return una lista di campagne con titoli che contengono la parola chiave specificata.
      */
 
-    List<CampagnaCrowdFunding> findByTitoloContains(String keyword);
+    List<CampagnaCrowdFunding> findByTitoloContaining(String keyword);
 
     /**
      * Trova una lista di campagne che iniziano in una data specifica.
      *
-     * @param data_inizio la data di inizio della campagna.
+     * @param dataInizio la data di inizio della campagna.
      * @return una lista di campagne con la data di inizio specificata.
      */
 
-    List<CampagnaCrowdFunding> findByData_inizio(LocalDate data_inizio);
+    List<CampagnaCrowdFunding> findByDataInizio(LocalDate dataInizio);
 
     /**
      * Trova una lista di campagne che iniziano in una data specifica o successiva.
      *
-     * @param data_inizio la data di inizio della campagna.
+     * @param dataInizio la data di inizio della campagna.
      * @return una lista di campagne con data di inizio uguale o successiva a quella specificata.
      */
 
-    List<CampagnaCrowdFunding> findByData_inizioGreaterThanEqual(LocalDate data_inizio);
+    List<CampagnaCrowdFunding> findByDataInizioGreaterThanEqual(LocalDate dataInizio);
 
     /**
      * Trova una lista di campagne che terminano in una data prevista specifica.
      *
-     * @param data_prevista_fine la data prevista di fine della campagna.
+     * @param dataPrevistaFine la data prevista di fine della campagna.
      * @return una lista di campagne con la data prevista di fine specificata.
      */
 
-    List<CampagnaCrowdFunding> findByData_prevista_fine(LocalDate data_prevista_fine);
+    List<CampagnaCrowdFunding> findByDataPrevistaFine(LocalDate dataPrevistaFine);
 
     /**
      * Trova una lista di campagne che terminano in una data prevista specifica o successiva.
      *
-     * @param data_prevista_fine la data prevista di fine della campagna.
+     * @param dataPrevistaFine la data prevista di fine della campagna.
      * @return una lista di campagne con data prevista di fine uguale o successiva a quella specificata.
      */
 
-    List<CampagnaCrowdFunding> findByData_prevista_fineGreaterThanEqual(LocalDate data_prevista_fine);
+    List<CampagnaCrowdFunding> findByDataPrevistaFineGreaterThanEqual(LocalDate dataPrevistaFine);
 
     /**
      * Trova una lista di campagne con lo stato specificato.

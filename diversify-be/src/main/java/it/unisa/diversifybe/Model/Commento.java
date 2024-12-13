@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class Commento {
      * Questo rappresenta l'ID dell'utente che ha scritto il commento.
      */
 
-    private String id_autore;
+    private String idCommento;
 
     /**
      * Il contenuto del commento.
@@ -33,7 +34,7 @@ public class Commento {
      * Indica quando il commento è stato creato.
      */
 
-    private Date data_creazione;
+    private Date dataCreazione;
 
     /**
      * Il numero di like ricevuti dal commento.

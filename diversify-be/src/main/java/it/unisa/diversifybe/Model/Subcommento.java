@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class Subcommento {
      * Rappresenta l'utente che ha scritto il sottocommento.
      */
 
-    private String id_autore;
+    private String idAutore;
 
     /**
      * Il contenuto del sottocommento.
@@ -32,5 +33,6 @@ public class Subcommento {
      * Rappresenta il momento in cui il sottocommento è stato pubblicato.
      */
 
-    private Date data_creazione;
+    private Date dataCreazione;
 }
+

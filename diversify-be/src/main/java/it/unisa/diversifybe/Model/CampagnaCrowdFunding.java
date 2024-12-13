@@ -20,7 +20,7 @@ public class CampagnaCrowdFunding {
      * Identificativo unico della campagna di crowdfunding.
      */
 
-    private String id_campagna;
+    private String idCampagna;
 
     /**
      * Titolo della campagna di crowdfunding.
@@ -45,25 +45,25 @@ public class CampagnaCrowdFunding {
      * Data di inizio della campagna di crowdfunding.
      */
 
-    private LocalDate data_inizio;
+    private LocalDate dataInizio;
 
     /**
      * Data di fine prevista della campagna di crowdfunding.
      */
 
-    private LocalDate data_prevista_fine;
+    private LocalDate dataPrevistaFine;
 
     /**
      * L'importo che la campagna di crowdfunding si propone di raccogliere.
      */
 
-    private BigDecimal somma_da_raccogliere;
+    private BigDecimal sommaDaRaccogliere;
 
     /**
      * L'importo effettivamente raccolto dalla campagna di crowdfunding.
      */
 
-    private BigDecimal somma_raccolta;
+    private BigDecimal sommaRaccolta;
 
     /**
      * Stato attuale della campagna di crowdfunding.
@@ -71,12 +71,4 @@ public class CampagnaCrowdFunding {
      */
 
     private String stato;
-
-    /* Possibile aggiunta di pagamento PayPal
-    private List<String> paymentMethods;  // Esempio: ["PayPal"]
-
-    public void addPaypalPaymentMethod() {
-        if (!paymentMethods.contains("PayPal")) {
-            paymentMethods.add("PayPal");
-     */
 }

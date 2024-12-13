@@ -17,12 +17,12 @@ public class DomandaPersonale {
      * Ad esempio, la domanda potrebbe essere "Qual è il tuo colore preferito?".
      */
 
-    private String tipo_domanda;
+    private String tipoDomanda;
 
     /**
      * La risposta personale associata alla domanda.
      * La risposta è memorizzata come una stringa hashata usando l'algoritmo SHA-256.
      */
 
-    private String risposta_personale_sha256;
+    private String rispostaPersonaleSha256;
 }

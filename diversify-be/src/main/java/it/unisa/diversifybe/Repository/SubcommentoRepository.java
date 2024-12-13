@@ -17,11 +17,11 @@ public interface SubcommentoRepository extends MongoRepository<Subcommento,Strin
     /**
      * Trova tutti i subcommenti scritti da un autore specifico.
      *
-     * @param id_autore l'ID dell'autore del subcommento.
+     * @param idAutore l'ID dell'autore del subcommento.
      * @return una lista di subcommenti creati dall'autore specificato.
      */
 
-    List<Subcommento> findById_autore(String id_autore);
+    List<Subcommento> findByIdAutore(String idAutore);
 
     /**
      * Trova tutti i subcommenti che contengono una parola chiave specificata nel contenuto.
@@ -35,27 +35,27 @@ public interface SubcommentoRepository extends MongoRepository<Subcommento,Strin
     /**
      * Trova tutti i subcommenti creati in una data specifica.
      *
-     * @param data_creazione la data esatta di creazione dei subcommenti.
+     * @param dataCreazione la data esatta di creazione dei subcommenti.
      * @return una lista di subcommenti creati nella data specificata.
      */
 
-    List<Subcommento> findByData_creazioneIs(Date data_creazione);
+    List<Subcommento> findByDataCreazioneIs(Date dataCreazione);
 
     /**
      * Trova tutti i subcommenti creati in una data specifica o successiva.
      *
-     * @param data_creazione la data minima di creazione dei subcommenti.
+     * @param dataCreazione la data minima di creazione dei subcommenti.
      * @return una lista di subcommenti creati nella data specificata o successivamente.
      */
 
-    List<Subcommento> findByData_creazioneGreaterThanEqual(Date data_creazione);
+    List<Subcommento> findByDataCreazioneGreaterThanEqual(Date dataCreazione);
 
     /**
      * Trova tutti i subcommenti creati in una data specifica o precedente.
      *
-     * @param data_creazione la data massima di creazione dei subcommenti.
+     * @param dataCreazione la data massima di creazione dei subcommenti.
      * @return una lista di subcommenti creati nella data specificata o precedentemente.
      */
 
-    List<Subcommento> findByData_creazioneSmallerThanEqual(Date data_creazione);
+    List<Subcommento> findByDataCreazioneLessThanEqual(Date dataCreazione);
 }

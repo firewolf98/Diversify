@@ -17,11 +17,11 @@ public interface SegnalazioneRepository extends MongoRepository<Segnalazione, Ob
     /**
      * Trova una segnalazione in base al suo ID.
      *
-     * @param id l'ID della segnalazione.
+     * @param idSegnalazione l'ID della segnalazione.
      * @return la segnalazione corrispondente all'ID specificato, o null se non trovata.
      */
 
-    Segnalazione findById(int id);
+    List<Segnalazione> findByIdSegnalazione(String idSegnalazione);
 
     /**
      * Trova tutte le segnalazioni effettuate da un utente specifico.
@@ -53,27 +53,27 @@ public interface SegnalazioneRepository extends MongoRepository<Segnalazione, Ob
     /**
      * Trova tutte le segnalazioni effettuate in una data specifica.
      *
-     * @param data la data della segnalazione.
+     * @param dataSegnalazione la data della segnalazione.
      * @return una lista di segnalazioni effettuate nella data specificata.
      */
 
-    List<Segnalazione> findByDataSegnalazione(Date data);
+    List<Segnalazione> findByDataSegnalazione(Date dataSegnalazione);
 
     /**
      * Trova tutte le segnalazioni con un tipo specifico.
      *
-     * @param tipo il tipo della segnalazione (ad esempio: "abuso", "spam").
+     * @param tipoSegnalazione il tipo della segnalazione (ad esempio: "abuso", "spam").
      * @return una lista di segnalazioni con il tipo specificato.
      */
 
-    List<Segnalazione> findByTipoSegnalazione(String tipo);
+    List<Segnalazione> findByTipoSegnalazione(String tipoSegnalazione);
 
     /**
      * Trova tutte le segnalazioni effettuate a partire da una data specifica (inclusa).
      *
-     * @param data la data minima della segnalazione.
+     * @param dataSegnalazione la data minima della segnalazione.
      * @return una lista di segnalazioni effettuate nella data specificata o successivamente.
      */
 
-    List<Segnalazione> findByDataSegnalazioneGreaterThanEqual(Date data);
+    List<Segnalazione> findByDataSegnalazioneGreaterThanEqual(Date dataSegnalazione);
 }
