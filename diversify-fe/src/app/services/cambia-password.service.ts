@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CambiaPasswordService {
-  private apiUrl = 'http://localhost:8080/api/cambia_password';
+  private apiUrl = 'http://localhost:8080/api/utente';
 
   constructor(private http: HttpClient) {}
 
