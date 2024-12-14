@@ -4,3 +4,5 @@
     height: 100vh; /* Full viewport height */
     border: 1px solid black; /* Optional border for debugging visibility */
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

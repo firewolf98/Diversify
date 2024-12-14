@@ -1,0 +1,29 @@
+
+<head>
+    <!-- Aggiungi questo link al tuo head -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <div class="popup-container">
+    <!-- Tasto Torna alla mappa -->
+    <div class="back-button" (click)="goBack()">
+      ← Torna alla mappa
+    </div>
+  
+    <!-- Titolo con bandiera -->
+    <div class="title">
+      <span>{{ flag }}</span>
+      <h2>{{ countryName }}</h2>
+    </div>
+  
+    <!-- Griglia dei bottoni -->
+    <div class="grid-container">
+      <button
+        *ngFor="let btn of buttons"
+        class="grid-item"
+        [ngClass]="[btn.color, btn.size]"
+      >
+        {{ btn.label }}
+      </button>
+    </div>
+  </div>
+  
