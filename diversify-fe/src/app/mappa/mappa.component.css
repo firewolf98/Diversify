@@ -1,4 +1,5 @@
 #map {
-  height: 80vh;    
+  height: 100%; /* Altezza al 100% del container */
   width: 100%;
+  margin: 0;
 }
