@@ -103,7 +103,7 @@ public class UtenteService {
      * @throws NoSuchAlgorithmException se l'algoritmo SHA-256 non è disponibile.
      */
 
-    private String hashPassword(String password) throws NoSuchAlgorithmException {
+    public String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = digest.digest(password.getBytes());
         StringBuilder hexString = new StringBuilder();
@@ -112,4 +112,42 @@ public class UtenteService {
         }
         return hexString.toString();
     }
+
+    /**
+     * Trova un utente nel database in base al suo username.
+     *
+     * @param username il nome utente dell'utente da cercare
+     * @return un {@link Optional} contenente l'utente se trovato, altrimenti un {@link Optional#empty()}
+     */
+    public Optional<Utente> findByUsername(String username) {
+        return utenteRepository.findByUsername(username);
+    }
+
+    /**
+     * Recupera un utente dal database utilizzando l'email e il codice fiscale forniti.
+     * <p>
+     * Questo metodo utilizza il repository per effettuare una query al database e
+     * verificare l'esistenza di un utente che corrisponda ai criteri specificati.
+     * Restituisce un oggetto {@link Optional} che può contenere l'utente trovato
+     * o essere vuoto se non esiste alcun utente con i dati forniti.
+     *
+     * @param email         l'indirizzo email dell'utente da cercare.
+     * @param codiceFiscale il codice fiscale dell'utente da cercare.
+     * @return un oggetto {@link Optional} contenente l'utente corrispondente,
+     * oppure {@code Optional.empty()} se nessun utente è stato trovato.
+     */
+
+    public Optional<Utente> findByEmailAndCodiceFiscale(String email, String codiceFiscale) {
+        return utenteRepository.findByEmailAndCodiceFiscale(email, codiceFiscale);
+    }
+
+    /**
+     * Salva un utente nel database.
+     *
+     * @param utente l'entità utente da salvare.
+     */
+    public void save(Utente utente) {
+        utenteRepository.save(utente);
+    }
+
 }
