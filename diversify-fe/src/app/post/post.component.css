@@ -1,0 +1,239 @@
+body {
+    background-color: #fff; /* Colore di sfondo bianco per la pagina */
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+}
+
+.background-container {
+    background-color: #ffe3d8; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px; /* Ridotto lo spazio intorno al contenitore */
+    height: auto; 
+    max-height: 500px; /* Imposta un'altezza massima per il contenitore rosa */
+    margin-top: 50px; /* Aggiunge uno spazio sopra */
+    margin-left: 5%; /* Margine sinistro per lasciare spazio */
+    margin-right: 5%; /* Margine destro per lasciare spazio */
+}
+
+/* Contenitore del post */
+.post-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px 50px;
+    width: 100%; /* La larghezza del post occupa tutto lo spazio disponibile */
+    max-width: 800px;
+    font-family: 'Arial', sans-serif;
+}
+  
+  /* Link "Torna alla mappa" */
+  .back-link {
+    color: #5a67d8; 
+    font-size: 18px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Titolo principale */
+  .post-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Contenuto del post */
+  .post-content {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  /* Header del post */
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .post-icon {
+    font-size: 30px;
+    color: #3182ce;
+    margin-right: 10px;
+  }
+  
+  .post-title-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3182ce;
+  }
+  
+  .badge {
+    background-color: #bee3f8;
+    color: #2b6cb0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  
+  /* Descrizione */
+  .post-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  .post-footer .post-author a {
+    color: #3182ce; 
+    text-decoration: none;
+    margin-left: 8px; /* Ridurre il margine tra il nome "Lucia" e le azioni */
+
+}
+
+.post-footer .post-author a:hover {
+    text-decoration: underline; /* Aggiungi sottolineatura al passaggio del mouse */
+}
+
+  /* Footer del post */
+.post-footer {
+    display: flex;
+    justify-content: flex-start; /* Allinea gli elementi a sinistra */
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Azioni del post (Rispondi, Condividi) */
+.post-action {
+    color: #3182ce;
+    text-decoration: none;
+    margin-left: 8px; /* Ridurre il margine a sinistra per spostare a sinistra */
+}
+
+.post-action:hover {
+    text-decoration: underline;
+}
+
+/* Ridurre lo spazio tra il nome e le azioni */
+.post-footer .post-author {
+     margin-right: 8px; /* Ridurre il margine tra il nome "Lucia" e le azioni */
+}
+
+/* Ridurre ulteriormente lo spazio tra le due azioni */
+.post-footer .post-action + .post-action {
+    margin-left: 15px; /* Ridurre lo spazio tra "Rispondi" e "Condividi" */
+}
+
+/* Stile per il contenitore delle azioni, per garantirne l'allineamento orizzontale */
+.post-actions-container {
+    display: flex; 
+    justify-content: flex-start; /* Allinea a sinistra */
+    gap:8px; /* Riduci lo spazio tra le azioni */
+}
+
+  .post-icon {
+    width: 30px; /* Dimensione dell'icona */
+    height: 30px;
+    margin-right: 10px; /* Spazio tra l'icona e il testo */
+    vertical-align: middle; /* Allinea l'icona verticalmente */
+}
+
+/* Media query per dispositivi con larghezza massima di 1024px (Tablet) */
+@media screen and (max-width: 1024px) {
+    .background-container {
+      padding: 20px; /* Ridurre il padding laterale e superiore */
+      margin-left: 5%; /* Ridurre i margini laterali per avere più spazio */
+      margin-right: 5%; /* Ridurre i margini laterali per avere più spazio */
+    }
+  
+    .post-container {
+      width: 90%; /* Ridurre la larghezza del post per adattarlo meglio ai tablet */
+      padding: 15px 25px; /* Ridurre il padding interno */
+    }
+  
+    .post-title {
+      font-size: 30px; /* Ridurre la dimensione del titolo */
+      margin-bottom: 15px; /* Spazio ridotto sotto il titolo */
+    }
+  
+    .post-description {
+      font-size: 14px; /* Ridurre la dimensione del testo */
+    }
+  
+    .post-footer {
+      font-size: 12px; /* Ridurre la dimensione del testo del footer */
+    }
+  
+    .post-action {
+      font-size: 14px; /* Ridurre la dimensione del testo per le azioni */
+      margin-left: 10px; /* Ridurre il margine tra le azioni */
+    }
+  /* Media query per dispositivi con larghezza massima di 600px (Telefono) */
+@media screen and (max-width: 600px) {
+    .background-container {
+      padding: 10px; /* Ridurre ulteriormente il padding */
+      margin-left: 0; /* Rimuovere il margine laterale per adattarlo meglio alla larghezza */
+      margin-right: 0; /* Rimuovere il margine laterale per adattarlo meglio alla larghezza */
+    }
+  
+    .post-container {
+      width: 100%; /* Rimuovere il limite di larghezza per occupare tutta la larghezza disponibile */
+      padding: 10px 15px; /* Ridurre il padding interno */
+    }
+  
+    .post-title {
+      font-size: 24px; /* Ridurre ulteriormente la dimensione del titolo */
+      margin-bottom: 10px; /* Spazio ridotto sotto il titolo */
+    }
+  
+    .post-description {
+      font-size: 12px; /* Ridurre ulteriormente la dimensione del testo */
+    }
+  
+    .post-footer {
+      font-size: 10px; /* Ridurre ulteriormente la dimensione del testo del footer */
+    }
+  
+    .post-action {
+      font-size: 12px; /* Ridurre ulteriormente la dimensione del testo per le azioni */
+      margin-left: 5px; /* Ridurre il margine tra le azioni */
+    }
+  
+    .search-bar {
+      max-width: 150px; /* Ridurre ulteriormente la larghezza massima della barra di ricerca */
+      padding: 4px 8px; /* Ridurre il padding */
+    }
+  
+    .search-input {
+      font-size: 10px; /* Ridurre la dimensione del testo */
+      padding-left: 15px; /* Ridurre il padding */
+      padding-right: 30px; /* Ridurre il padding */
+    }
+  
+    .menu-icon {
+      width: 16px; /* Ridurre le dimensioni dell'icona del menu */
+      height: 12px; /* Ridurre l'altezza */
+    }
+  
+    .menu-icon-container {
+      margin-left: 0; /* Rimuovere il margine sinistro */
+      padding: 0 2px; /* Ridurre il padding */
+    }
+  
+    .menu-icon span {
+      width: 40%; /* Ridurre la larghezza delle linee */
+    }
+}
+}
+  
