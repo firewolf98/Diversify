@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Data
-@Document(collection = "Campagne di crowdfunding")
+@Document(collection = "Campagne")
 public class CampagnaCrowdFunding {
 
     /**
