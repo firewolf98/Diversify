@@ -1,0 +1,143 @@
+/* Imposta lo sfondo per tutto il body */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffebe2; /* Colore dello sfondo principale */
+    min-height: 100vh; /* Copre l'altezza della finestra */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenitore del forum */
+.forum-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* Spazio tra sezioni */
+    padding: 20px;
+    flex: 1; /* Rende il contenuto flessibile */
+    background-color: transparent; /* Non sovrascrivere il body */
+}
+
+/* Stile per il link "Torna alla mappa" con la freccia */
+.back-to-map {
+    display: flex;
+    align-items: center; /* Allinea la freccia e il testo */
+    justify-content: center; /* Allinea il contenuto orizzontalmente */
+    text-align: center;
+    background-color: #004b8f; /* Blu più scuro */
+    color: white;
+    text-decoration: none; /* Rimuove la sottolineatura */
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px; /* Spazio tra il link e la scritta Forum */
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.back-to-map:hover {
+    background-color: #003366; /* Blu ancora più scuro al passaggio del mouse */
+}
+
+/* Aggiungi uno spazio tra la freccia e il testo */
+.back-to-map::before {
+    content: '\2190'; /* Unicode per la freccia sinistra (←) */
+    margin-right: 10px; /* Distanza tra la freccia e il testo */
+}
+
+/* Sidebar del forum */
+.forum-sidebar {
+    width: 35%;
+    background-color: #ffebe2; /* Sfondo della sidebar */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Aggiungi una distanza tra il titolo "Forum" e il bordo della sidebar */
+.forum-sidebar h3 {
+    margin-top: 0;
+}
+
+.forum-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.forum-sidebar li {
+    margin-bottom: 10px;
+}
+
+.forum-sidebar button {
+    width: 100%;
+    background-color: #004b8f; /* Blu più scuro per i bottoni */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.forum-sidebar button:hover {
+    background-color: #003366; /* Blu ancora più scuro al passaggio del mouse */
+}
+
+/* Sezione principale del forum (in evidenza) */
+.forum-main {
+    width: 60%;
+    background-color: #ffebe2; /* Sfondo per il contenuto in evidenza */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+/* Stile per i singoli post */
+.forum-post {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.forum-post a {
+    text-decoration: none;
+    color: #004b8f; /* Blu più scuro per i link */
+    font-weight: bold;
+}
+
+.forum-post a:hover {
+    color: #003366; /* Blu più scuro al passaggio del mouse */
+}
+
+/* Paginazione */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #004b8f; /* Blu più scuro per i bottoni */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.pagination button:hover {
+    background-color: #003366; /* Blu ancora più scuro al passaggio del mouse */
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Footer del forum */
+.footer-container {
+    text-align: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    position: relative;
+    margin-top: auto; /* Posiziona in basso */
+}
