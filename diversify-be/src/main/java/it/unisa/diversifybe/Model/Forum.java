@@ -18,7 +18,7 @@ public class Forum {
      * Questo campo viene utilizzato per distinguere il forum dagli altri nella piattaforma.
      */
 
-    private String id_forum;
+    private String idForum;
 
     /**
      * Il titolo del forum.

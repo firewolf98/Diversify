@@ -19,7 +19,7 @@ public class Utente {
      * L'identificativo unico dell'utente nel sistema.
      */
 
-    private String id;
+    private String idUtente;
 
     /**
      * Il nome dell'utente.

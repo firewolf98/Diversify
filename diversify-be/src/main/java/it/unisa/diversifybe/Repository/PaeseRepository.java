@@ -1,5 +1,7 @@
 package it.unisa.diversifybe.Repository;
 
+import it.unisa.diversifybe.Model.Benchmark;
+import it.unisa.diversifybe.Model.DocumentoInformativo;
 import it.unisa.diversifybe.Model.Paese;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
@@ -34,20 +36,20 @@ public interface PaeseRepository extends MongoRepository<Paese, String> {
     /**
      * Trova i paesi che sono associati a un forum specifico.
      *
-     * @param forumID l'ID del forum associato al paese.
+     * @param idForum l'ID del forum associato al paese.
      * @return una lista di paesi con il forum specificato.
      */
 
-    List<Paese> findByForum(String forumID);
+    List<Paese> findByForum(String idForum);
 
     /**
      * Trova i paesi che contengono una specifica campagna di crowdfunding.
      *
-     * @param campagnaID l'ID della campagna di crowdfunding.
+     * @param idCampagna l'ID della campagna di crowdfunding.
      * @return una lista di paesi che includono la campagna di crowdfunding specificata.
      */
 
-    List<Paese> findByCampagne_crowdfundingContaining(String campagnaID);
+    List<Paese> findByCampagneCrowdfundingContains(String idCampagna);
 
     /**
      * Trova i paesi che hanno un benchmark di un tipo specifico.
@@ -56,14 +58,14 @@ public interface PaeseRepository extends MongoRepository<Paese, String> {
      * @return una lista di paesi che includono il benchmark con il tipo specificato.
      */
 
-    List<Paese> findByBenchmark_Tipo(String tipo);
+    List<Paese> findByBenchmark(List<Benchmark> tipo);
 
     /**
-     * Trova i paesi che includono un documento informativo con un titolo specifico.
+     * Trova i paesi associati a documenti informativi specifici.
      *
-     * @param titoloDocumento il titolo del documento informativo da cercare.
-     * @return una lista di paesi che includono un documento con il titolo specificato.
+     * @param documentiInformativi il nome o l'identificatore dei documenti informativi da cercare.
+     * @return una lista di paesi che contengono i documenti informativi specificati.
      */
 
-    List<Paese> findByDocumenti_informativi_Titolo(String titoloDocumento);
+    List<Paese> findByDocumentiInformativi(String documentiInformativi);
 }

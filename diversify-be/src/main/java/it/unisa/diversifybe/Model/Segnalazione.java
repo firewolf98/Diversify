@@ -18,21 +18,21 @@ public class Segnalazione {
      * L'identificativo univoco della segnalazione.
      */
 
-    private String id_segnalazione;
+    private String idSegnalazione;
 
     /**
      * L'identificativo dell'utente che ha effettuato la segnalazione.
      * Questo campo fa riferimento all'utente che ha deciso di segnalare un altro utente.
      */
 
-    private String id_segnalante;
+    private String idSegnalante;
 
     /**
      * L'identificativo dell'utente segnalato.
      * Questo campo fa riferimento all'utente che è stato segnalato.
      */
 
-    private String id_segnalato;
+    private String idSegnalato;
 
 
     /**
@@ -47,12 +47,12 @@ public class Segnalazione {
      * Rappresenta il momento in cui l'utente ha effettuato la segnalazione.
      */
 
-    private Date data_segnalazione;
+    private Date dataSegnalazione;
 
     /**
      * Il tipo di segnalazione.
      * Indica la natura della segnalazione (ad esempio: "offensivo", "spam", ecc.).
      */
 
-    private String tipo_segnalazione;
+    private String tipoSegnalazione;
 }
