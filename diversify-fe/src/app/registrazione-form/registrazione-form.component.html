@@ -79,40 +79,35 @@
         </div>
       </div>
   
-      <!-- Campo Password -->
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          formControlName="password"
-          class="form-control"
-          placeholder="Inserisci la tua password"
-        />
-        <div *ngIf="moduloRegistrazione.get('password')?.touched && moduloRegistrazione.get('password')?.invalid" class="error-message">
-          <div *ngIf="moduloRegistrazione.get('password')?.hasError('required')">La password è obbligatoria</div>
-          <div *ngIf="moduloRegistrazione.get('password')?.hasError('minlength')">La password deve contenere almeno 8 caratteri</div>
-          <div *ngIf="moduloRegistrazione.get('password')?.hasError('pattern')">La password deve contenere almeno una lettera maiuscola, un numero e un carattere speciale</div>
-        </div>
-      </div>
-  
-  <!-- Campo Conferma Password -->
-  <div class="form-group">
-    <label for="confirmPassword">Conferma Password</label>
-    <input
-      id="confirmPassword"
-      type="password"
-      formControlName="confermaPassword"
-      class="form-control"
-      placeholder="Conferma la tua password"
-    />
-    <div *ngIf="moduloRegistrazione.get('confermaPassword')?.touched && moduloRegistrazione.get('confermaPassword')?.invalid" class="error-message">
-      <div *ngIf="moduloRegistrazione.get('confermaPassword')?.hasError('required')">La conferma della password è obbligatoria</div>
-    </div>
-    <div *ngIf="moduloRegistrazione.hasError('passwordsNonCoincidenti') && moduloRegistrazione.get('confermaPassword')?.touched" class="error-message">
-      Le password non corrispondono
-    </div>
+<!-- Campo Password -->
+<div class="form-group">
+  <label for="password">Password</label>
+  <div class="password-container">
+    <input id="password" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la tua password" formControlName="password" />
+    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" aria-label="Mostra/Nascondi password">{{ isPasswordVisible ? '🙈' : '👁' }}</button>
   </div>
+  <div *ngIf="moduloRegistrazione.get('password')?.touched && moduloRegistrazione.get('password')?.invalid" class="error-message">
+    <div *ngIf="moduloRegistrazione.get('password')?.hasError('required')">La password è obbligatoria</div>
+    <div *ngIf="moduloRegistrazione.get('password')?.hasError('minlength')">La password deve contenere almeno 8 caratteri</div>
+    <div *ngIf="moduloRegistrazione.get('password')?.hasError('pattern')">La password deve contenere almeno una lettera maiuscola, un numero e un carattere speciale</div>
+  </div>
+</div>
+
+<!-- Campo Conferma Password -->
+<div class="form-group">
+  <label for="confirmPassword">Conferma Password</label>
+  <div class="password-container">
+    <input id="confermaPassword" [type]="isConfermaPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Conferma la tua password" formControlName="confermaPassword" />
+    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confermaPassword')" aria-label="Mostra/Nascondi password">{{ isConfermaPasswordVisible ? '🙈' : '👁' }}</button>
+  </div>
+  <div *ngIf="moduloRegistrazione.get('confermaPassword')?.touched && moduloRegistrazione.get('confermaPassword')?.invalid" class="error-message">
+    <div *ngIf="moduloRegistrazione.get('confermaPassword')?.hasError('required')">La conferma della password è obbligatoria</div>
+  </div>
+  <div *ngIf="moduloRegistrazione.hasError('passwordsNonCoincidenti') && moduloRegistrazione.get('confermaPassword')?.touched" class="error-message">
+    Le password non corrispondono
+  </div>
+</div>
+
   
 
       <!-- Campo Codice Fiscale -->

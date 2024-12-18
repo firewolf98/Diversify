@@ -37,14 +37,14 @@ label {
 
 /* Input degli utenti */
 input {
-  width: 100%; /* Imposta la larghezza dell'input per occupare tutta la larghezza disponibile */
-  padding: 10px 10px 10px 30px; /* Aggiunge spazio intorno al testo con un po' più di spazio a sinistra per l'icona */
-  margin-top: 5px; /* Distanza sopra l'input */
-  border: 1px solid #d1d1d1; 
-  border-radius: 5px; 
-  background-color: #ffffff; /* Sfondo bianco per l'input */
+  width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
+  padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
+  margin-top: 5px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  background-color: #ffffff;
   font-family: 'Arial', sans-serif;
-  box-sizing: border-box; /* Include il padding nel calcolo della larghezza totale */
+  box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
 }
 
 /* Cambia il colore del bordo dell'input quando è selezionato */
@@ -83,7 +83,6 @@ form {
   gap: 15px; /* Distanza tra i campi di input */
 }
 
-/* Pulsante di login */
 button {
   width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
   padding: 10px;
@@ -94,7 +93,7 @@ button {
   font-size: 16px;
   font-family: 'Arial', sans-serif;
   cursor: pointer;
-  align-self: flex-end; /* Allinea il bottone a destra */
+  margin-top: 10px; /* Spazio tra i pulsanti */
 }
 
 
@@ -131,6 +130,37 @@ button:disabled {
   font-size: 0.875rem;
   margin-top: 5px;
 }
+
+/* Pulsanti di azione */
+.form-actions {
+  margin-top: 20px;
+}
+
+/* Gestione della visibilità della password */
+.password-container {
+  position: relative;
+}
+
+button.toggle-password {
+  position: absolute;
+  width: 10%;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+  padding: 0;
+}
+
+button.toggle-password:hover {
+  background-color: #a7a7a7;
+}
+
+input[type="password"], input[type="text"] {
+  padding-right: 40px; /* Aggiungi spazio per il pulsante di visibilità */
+}
+
 
 /* Media Query per dispositivi mobili (smartphone) - Login */
 @media (max-width: 600px) {
