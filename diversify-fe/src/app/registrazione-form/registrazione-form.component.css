@@ -34,6 +34,32 @@ label {
     font-family: 'Arial', sans-serif;
 }
 
+/* Gestione della visibilità della password */
+.password-container {
+  position: relative;
+}
+
+button.toggle-password {
+  position: absolute;
+  width: 10%;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+  padding: 0;
+}
+
+button.toggle-password:hover {
+  background-color: #a7a7a7;
+}
+
+input[type="password"], input[type="text"] {
+  padding-right: 40px; /* Aggiungi spazio per il pulsante di visibilità */
+}
+
+
 /* Input degli utenti */
 input {
     width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
@@ -90,16 +116,16 @@ form {
 
 /* Pulsante di registrazione */
 button {
-    width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    cursor: pointer;
-    align-self: flex-end; /* Allinea il bottone a destra */
+  width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  margin-top: 10px; /* Spazio tra i pulsanti */
 }
 
 /* Effetto hover per il bottone */

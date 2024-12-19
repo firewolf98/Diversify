@@ -18,7 +18,7 @@ public class Post {
      * Questo campo viene utilizzato per identificare in modo univoco un post all'interno della piattaforma.
      */
 
-    private String id_post;
+    private String idPost;
 
     /**
      * Il titolo del post.

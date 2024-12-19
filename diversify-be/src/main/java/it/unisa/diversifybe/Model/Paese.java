@@ -39,7 +39,7 @@ public class Paese {
      * Ogni campagna è rappresentata da un identificativo (ID).
      */
 
-    private List<String> campagne_crowdfunding;
+    private List<String> campagneCrowdfunding;
 
     /**
      * Una lista di benchmark associati al paese.
@@ -54,12 +54,12 @@ public class Paese {
      * Questo campo contiene l'URL dell'immagine della bandiera.
      */
 
-    private String link_immagine_bandiera;
+    private String linkImmagineBandiera;
 
     /**
      * Una lista di documenti informativi relativi al paese.
      * Ogni documento contiene un titolo e un link al documento stesso.
      */
 
-    private List<DocumentoInformativo> documenti_informativi;
+    private List<DocumentoInformativo> documentiInformativi;
 }

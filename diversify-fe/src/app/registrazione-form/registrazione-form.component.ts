@@ -13,6 +13,9 @@ import { Observable, of } from 'rxjs'; // Aggiunto per mockare la verifica del d
 export class RegistrazioneFormComponent {
   moduloRegistrazione: FormGroup;
 
+  isPasswordVisible: boolean = false;
+  isConfermaPasswordVisible: boolean = false;
+
   constructor(private fb: FormBuilder) {
     this.moduloRegistrazione = this.fb.group({
       nome: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]], // Nome con prima lettera maiuscola
@@ -101,5 +104,13 @@ export class RegistrazioneFormComponent {
       }
       return null;
     };
+  }
+
+  togglePasswordVisibility(field: 'password' | 'confermaPassword'): void {
+    if (field === 'password') {
+      this.isPasswordVisible = !this.isPasswordVisible;
+    } else if (field === 'confermaPassword') {
+      this.isConfermaPasswordVisible = !this.isConfermaPasswordVisible;
+    }
   }
 }

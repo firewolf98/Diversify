@@ -1,24 +1,21 @@
 package it.unisa.diversifybe.Controller;
 
+import it.unisa.diversifybe.DTO.ChangePasswordRequest;
+import it.unisa.diversifybe.DTO.RecuperaPasswordRequest;
 import it.unisa.diversifybe.DTO.JwtResponse;
 import it.unisa.diversifybe.DTO.LoginRequest;
 import it.unisa.diversifybe.DTO.RegisterRequest;
+import it.unisa.diversifybe.Model.Utente;
 import it.unisa.diversifybe.Service.UtenteService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/utenti")
-
-/**
- * Controller che gestisce le operazioni di autenticazione e registrazione degli utenti.
- *
- * Questo controller espone i seguenti endpoint:
- * - /login: per l'autenticazione dell'utente tramite username e password.
- * - /registrazione: per la registrazione di un nuovo utente.
- */
 
 public class UtenteController {
 
@@ -45,7 +42,7 @@ public class UtenteController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {
-            // Prova a autenticare l'utente utilizzando il servizio
+            // Prova ad autenticare l'utente utilizzando il servizio
             JwtResponse jwtResponse = utenteService.authenticateUser(loginRequest);
             if (jwtResponse != null) {
                 // Se l'autenticazione è riuscita, restituisci il JWT token
@@ -86,32 +83,110 @@ public class UtenteController {
     }
 
     /**
-     * Cambia la password di un utente esistente dopo aver verificato la password corrente.
+     * Modifica la password di un utente esistente nel sistema.
+     * <p>
+     * Il metodo verifica se l'utente esiste, controlla che la password corrente fornita
+     * sia corretta e, se tutte le verifiche passano, aggiorna la password con la nuova
+     * versione criptata. La crittografia della password utilizza SHA-256.
+     * </p>
      *
-     * @param changePasswordRequest l'oggetto {@link ChangePasswordRequest} contenente username, password corrente
-     *                              e nuova password.
-     * @return {@link ResponseEntity} con un messaggio di successo in caso di aggiornamento completato,
-     *         oppure un errore HTTP se l'utente non esiste o la password corrente è errata.
+     * @param changePasswordRequest l'oggetto che contiene i dati necessari per modificare la password:
+     *                              <ul>
+     *                                  <li>username: il nome utente dell'utente.</li>
+     *                                  <li>currentPassword: la password corrente dell'utente.</li>
+     *                                  <li>newPassword: la nuova password da impostare.</li>
+     *                              </ul>
+     * @return una {@link ResponseEntity} che rappresenta il risultato dell'operazione:
+     * <ul>
+     *     <li>HTTP 200 OK: se la password è stata aggiornata con successo.</li>
+     *     <li>HTTP 404 NOT FOUND: se l'utente con il nome utente fornito non esiste.</li>
+     *     <li>HTTP 401 UNAUTHORIZED: se la password corrente fornita è errata.</li>
+     *     <li>HTTP 500 INTERNAL SERVER ERROR: se si verifica un errore nell'hashing della password.</li>
+     * </ul>
      */
 
     @PostMapping("/cambia_password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
-        // Verifica se l'utente esiste
-        Optional<Utente> utente = utenteService.findByUsername(changePasswordRequest.getUsername());
-        if (!utente.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato");
+        try {
+            // Verifica se l'utente esiste
+            Optional<Utente> utente = utenteService.findByUsername(changePasswordRequest.getUsername());
+            if (utente.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato");
+            }
+
+            // Verifica se la password corrente è corretta
+            String hashedCurrentPassword = utenteService.hashPassword(changePasswordRequest.getCurrentPassword());
+            if (!hashedCurrentPassword.equals(utente.get().getPasswordHash())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password corrente errata");
+            }
+
+            // Aggiorna la password con quella nuova criptata
+            String hashedNewPassword = utenteService.hashPassword(changePasswordRequest.getNewPassword());
+            utente.get().setPasswordHash(hashedNewPassword);
+
+            // Salva l'utente con la nuova password tramite il repository del service
+            utenteService.save(utente.get());
+
+            return ResponseEntity.ok("Password aggiornata con successo");
+
+        } catch (NoSuchAlgorithmException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'hashing della password");
         }
+    }
 
-        // Verifica se la password corrente è corretta
-        if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), utente.get().getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password corrente errata");
+    /**
+     * Recupera la password di un utente esistente nel sistema.
+     * <p>
+     * Il metodo verifica i dati forniti dall'utente, tra cui email, codice fiscale e risposta alla domanda personale.
+     * Se tutte le verifiche passano, la password viene aggiornata con una nuova versione criptata utilizzando SHA-256.
+     * </p>
+     *
+     * @param recuperaPasswordRequest l'oggetto che contiene i dati necessari per il recupero della password:
+     *                                 <ul>
+     *                                     <li>email: l'indirizzo email dell'utente.</li>
+     *                                     <li>codiceFiscale: il codice fiscale dell'utente.</li>
+     *                                     <li>personalAnswer: la risposta alla domanda personale dell'utente.</li>
+     *                                     <li>newPassword: la nuova password da impostare.</li>
+     *                                 </ul>
+     * @return una {@link ResponseEntity} che rappresenta il risultato dell'operazione:
+     *         <ul>
+     *             <li>HTTP 200 OK: se la password è stata aggiornata con successo.</li>
+     *             <li>HTTP 404 NOT FOUND: se non esiste un utente con i dati forniti (email o codice fiscale errati).</li>
+     *             <li>HTTP 401 UNAUTHORIZED: se la risposta alla domanda personale è errata.</li>
+     *             <li>HTTP 500 INTERNAL SERVER ERROR: se si verifica un errore durante l'hashing della password.</li>
+     *         </ul>
+     */
+
+    @PostMapping("/recupera_password")
+    public ResponseEntity<?> recuperaPassword(@RequestBody RecuperaPasswordRequest recuperaPasswordRequest) {
+        try {
+            // Passo 1: Verifica email e codice fiscale
+            Optional<Utente> utenteOptional = utenteService.findByEmailAndCodiceFiscale(
+                    recuperaPasswordRequest.getEmail(),
+                    recuperaPasswordRequest.getCodiceFiscale()
+            );
+
+            if (utenteOptional.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato con i dati forniti");
+            }
+
+            Utente utente = utenteOptional.get();
+
+            // Passo 2: Criptare la risposta fornita e confrontarla con quella salvata
+            String hashedAnswer = utenteService.hashPassword(recuperaPasswordRequest.getPersonalAnswer());
+            if (!hashedAnswer.equals(utente.getRispostaHash())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Risposta alla domanda personale errata");
+            }
+
+            // Passo 3: Criptare la nuova password e aggiornarla nel database
+            String hashedNewPassword = utenteService.hashPassword(recuperaPasswordRequest.getNewPassword());
+            utente.setPasswordHash(hashedNewPassword);
+            utenteService.save(utente);
+
+            return ResponseEntity.ok("Password aggiornata con successo");
+
+        } catch (NoSuchAlgorithmException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
         }
-
-        // Aggiorna la password con quella nuova criptata
-        String encodedNewPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
-        utente.get().setPassword(encodedNewPassword);
-        utenteService.save(utente.get());
-
-        return ResponseEntity.ok("Password aggiornata con successo");
     }
 }

@@ -1,7 +1,7 @@
 package it.unisa.diversifybe.Controller;
 
 import it.unisa.diversifybe.Model.Paese;
-import it.unisa.diversifybe.Model.PaeseDAO;
+import it.unisa.diversifybe.Repository.PaeseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +18,13 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/paesi")
-public class ControllerPaese {
+public class PaeseController {
 
     /**
      * DAO per accedere ai dati dei Paesi.
      */
-    @Autowired
-    private PaeseDAO paeseDAO;
+
+    private PaeseRepository paeseRepository;
 
     /**
      * Restituisce una lista di tutti i Paesi disponibili.
@@ -33,7 +33,7 @@ public class ControllerPaese {
      */
     @GetMapping
     public List<Paese> getAllPaesi() {
-        return paeseDAO.findAll();
+        return paeseRepository.findAll();
     }
 
     /**
@@ -45,7 +45,7 @@ public class ControllerPaese {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Paese> getPaeseById(@PathVariable String id) {
-        Optional<Paese> paese = paeseDAO.findById(id);
+        Optional<Paese> paese = paeseRepository.findById(id);
         return paese.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -60,7 +60,7 @@ public class ControllerPaese {
 
     @PostMapping
     public Paese createPaese(@RequestBody Paese paese) {
-        return paeseDAO.save(paese);
+        return paeseRepository.save(paese);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ControllerPaese {
 
     @PutMapping("/{id}")
     public ResponseEntity<Paese> updatePaese(@PathVariable String id, @RequestBody Paese updatedPaese) {
-        Optional<Paese> existingPaese = paeseDAO.findById(id);
+        Optional<Paese> existingPaese = paeseRepository.findById(id);
         if (existingPaese.isPresent()) {
             Paese paese = existingPaese.get();
             paese.setNome(updatedPaese.getNome());
@@ -84,7 +84,7 @@ public class ControllerPaese {
             paese.setBenchmark(updatedPaese.getBenchmark());
             paese.setLink_immagine_bandiera(updatedPaese.getLink_immagine_bandiera());
             paese.setDocumenti_informativi(updatedPaese.getDocumenti_informativi());
-            return ResponseEntity.ok(paeseDAO.save(paese));
+            return ResponseEntity.ok(paeseRepository.save(paese));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -101,8 +101,8 @@ public class ControllerPaese {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePaese(@PathVariable String id) {
-        if (paeseDAO.existsById(id)) {
-            paeseDAO.deleteById(id);
+        if (paeseRepository.existsById(id)) {
+            paeseRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

@@ -6,3 +6,10 @@
 html, body {
     height: 100%; /* Occupa tutta la viewport */
 }
+/* You can add global styles to this file, and also import other style files */
+#map {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    border: 1px solid black; /* Optional border for debugging visibility */
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

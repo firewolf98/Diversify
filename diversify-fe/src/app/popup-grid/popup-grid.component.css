@@ -1,0 +1,130 @@
+/* Contenitore principale */
+.popup-container {
+  position: fixed;
+  top: 50%; /* Posiziona il popup a metà schermo verticalmente */
+  left: 50%; /* Posiziona il popup a metà schermo orizzontalmente */
+  transform: translate(-50%, -50%); /* Centra il popup esattamente */
+  width: 90%;
+  max-width: 800px; /* Limita la larghezza massima */
+  height: auto;
+  max-height: 90vh; /* Non supera il 90% dell'altezza dello schermo */
+  background-color: #ffece5;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto; /* Aggiunge uno scroll se il contenuto eccede */
+  box-sizing: border-box;
+}
+
+/* Tasto "Torna alla mappa" */
+.back-button {
+  font-size: 1.2rem;
+  color: #444;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.back-button:hover {
+  color: #000;
+  transform: translateX(-3px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Titolo */
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: #444;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.title span {
+  font-size: 2.5rem;
+}
+
+/* Griglia con effetto a zig-zag */
+.grid-container {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-areas: 
+    "button1 button2"
+    "button3 button3"
+    "button4 button5"
+    "button6 button6";
+  margin-top: 10px;
+  flex-grow: 1;
+}
+
+.grid-item {
+  font-family: 'Roboto', sans-serif;
+  background-color: #cce5ff;
+  color: white;
+  border: none;
+  padding: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Personalizza colori */
+.pink { background-color: #7f0889; }
+.green { background-color: #228b22; }
+.blue { background-color: #334089; }
+
+/* Griglia in zig-zag */
+.grid-item:nth-child(1) { grid-area: button1; }
+.grid-item:nth-child(2) { grid-area: button2; }
+.grid-item:nth-child(3) { grid-area: button3; }
+.grid-item:nth-child(4) { grid-area: button4; }
+.grid-item:nth-child(5) { grid-area: button5; }
+.grid-item:nth-child(6) { grid-area: button6; }
+
+/* Media query per schermi più piccoli */
+@media (max-width: 768px) {
+  .popup-container {
+      width: 95%;
+      max-width: none; /* Rimuove la larghezza massima su schermi piccoli */
+      height: 95%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+      padding: 10px;
+  }
+
+  .title {
+      font-size: 1.5rem;
+  }
+
+  .grid-container {
+      grid-template-areas: 
+          "button1"
+          "button2"
+          "button3"
+          "button4"
+          "button5"
+          "button6";
+  }
+
+  .grid-item {
+      font-size: 1rem;
+      padding: 12px;
+  }
+}

@@ -2,6 +2,7 @@ package it.unisa.diversifybe.Repository;
 
 import it.unisa.diversifybe.Model.Utente;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
 import java.util.Optional;
 
 /**
@@ -40,5 +41,20 @@ public interface UtenteRepository extends MongoRepository<Utente, String> {
      */
 
     Optional<Utente> findByRispostaHash(String rispostaHash);
+
+    /**
+     * Cerca un utente nel database utilizzando l'email e il codice fiscale forniti.
+     * <p>
+     * Questo metodo restituisce un oggetto {@link Optional} che può contenere l'utente trovato
+     * o essere vuoto se nessun utente corrisponde ai criteri forniti.
+     *
+     * @param email         l'email dell'utente da cercare.
+     * @param codiceFiscale il codice fiscale dell'utente da cercare.
+     * @return un oggetto {@link Optional} contenente l'utente corrispondente ai criteri,
+     * oppure {@code Optional.empty()} se non esiste alcun utente con i dati forniti.
+     */
+
+    Optional<Utente> findByEmailAndCodiceFiscale(String email, String codiceFiscale);
+
 
 }
