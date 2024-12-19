@@ -5,7 +5,7 @@
     padding: 0 16px;
     background-color: #fdece8 ; /* Colore di sfondo rosa pesca */
     height: 60px; /* Altezza del footer */
-    margin-top: 50px;           /* Spazio sopra il footer per separarlo dalla mappa */
+    margin-top: 0; /* Spazio sopra il footer per separarlo dalla mappa */
     width: 100%;
 }
 

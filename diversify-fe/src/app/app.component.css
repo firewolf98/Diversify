@@ -1,8 +1,19 @@
 .content {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-  }
-  
+    height: 100vh; /* Occupa l'intera altezza della viewport */
+    margin: 0; /* Elimina margini esterni */
+    padding: 0; /* Elimina padding */
+}
+
+router-outlet {
+    flex: 1; /* Occupa lo spazio rimanente */
+}
+
+app-footer {
+  margin: 0; /* Elimina eventuali margini */
+  padding: 0; /* Elimina eventuali padding */
+  flex-shrink: 0; /* Impedisce al footer di ridursi */
+}
  
   
