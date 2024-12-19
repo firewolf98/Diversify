@@ -38,7 +38,7 @@ public class Utente {
      * Il codice fiscale dell'utente.
      */
 
-    private String cf;
+    private String codiceFiscale;
 
     /**
      * L'indirizzo email dell'utente.
