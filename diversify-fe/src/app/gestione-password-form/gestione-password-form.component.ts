@@ -1,52 +1,70 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'; 
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gestione-password-form',
-  standalone: true, 
+  standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './gestione-password-form.component.html',
-  styleUrls: ['./gestione-password-form.component.css']
+  styleUrls: ['./gestione-password-form.component.css'],
 })
 export class GestionePasswordFormComponent {
   currentStep: string = 'forgotPassword'; // Step iniziale
-  forgotPasswordForm: FormGroup; // Dichiarazione del FormGroup
-  
+  forgotPasswordForm: FormGroup;
+  securityQuestionForm: FormGroup;
+  resetPasswordForm: FormGroup;
+
   email: string = '';
   fiscalCode: string = '';
-  securityAnswer: string = '';
-  newPassword: string = '';
-  confirmPassword: string = '';
 
-  // Regex per validare la password
-  private passwordPattern: string = '^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]+$';
-  
   // Regex per validare l'email (standard)
-  private emailPattern: string = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+  private emailPattern: string = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
 
   // Regex per validare il codice fiscale (italiano - semplificata)
-  private fiscalCodePattern: string = '^[A-Za-z0-9]{16}$';  // Formato generico, 16 caratteri
-  
+  private fiscalCodePattern: string = '^[A-Za-z0-9]{16}$';
+
   constructor(private fb: FormBuilder) {
-    // Inizializzazione del form
+    // Inizializzazione del form per email e codice fiscale
     this.forgotPasswordForm = this.fb.group({
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(this.emailPattern) // Regex per email
-        ],
-      ],
+      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       fiscalCode: [
         '',
         [
           Validators.required,
-          Validators.pattern(this.fiscalCodePattern) // Regex per codice fiscale
+          Validators.pattern(this.fiscalCodePattern),
+          Validators.minLength(16),
+          Validators.maxLength(16),
         ],
       ],
     });
+
+    // Inizializzazione del form per la domanda di sicurezza
+    this.securityQuestionForm = this.fb.group({
+      securityAnswer: ['', Validators.required],
+    });
+
+    // Inizializzazione del form per la reimpostazione della password
+    this.resetPasswordForm = this.fb.group(
+      {
+        newPassword: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        validators: this.passwordMatchValidator, // Applichiamo la validazione personalizzata
+      }
+    );
+  }
+
+  // Validazione personalizzata per confrontare le due password
+  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+    const password = group.get('newPassword')?.value;
+    const confermaPassword = group.get('confirmPassword')?.value;
+    if (password && confermaPassword && password !== confermaPassword) {
+      return { passwordsNonCoincidenti: true };  // Ritorna errore se le password non corrispondono
+    }
+    return null;
   }
 
   // Getter per accedere facilmente ai controlli del form
@@ -56,6 +74,18 @@ export class GestionePasswordFormComponent {
 
   get fiscalCodeControl() {
     return this.forgotPasswordForm.get('fiscalCode')!;
+  }
+
+  get securityAnswerControl() {
+    return this.securityQuestionForm.get('securityAnswer')!;
+  }
+
+  get newPasswordControl() {
+    return this.resetPasswordForm.get('newPassword')!;
+  }
+
+  get confirmPasswordControl() {
+    return this.resetPasswordForm.get('confirmPassword')!;
   }
 
   // Passa al prossimo step
@@ -75,21 +105,24 @@ export class GestionePasswordFormComponent {
 
   // Verifica la risposta alla domanda di sicurezza
   submitSecurityAnswer(): void {
-    if (this.securityAnswer === 'animale') { // Simulazione risposta corretta
-      console.log('Risposta valida:', this.securityAnswer);
+    if (this.securityQuestionForm.valid) {
+      console.log('Risposta valida:', this.securityQuestionForm.value.securityAnswer);
       this.goToStep('resetPassword');
     } else {
-      alert('Risposta errata!');
+      alert('Compila la risposta personale!');
     }
   }
 
   // Reimposta la password
   resetPassword(): void {
-    if (this.newPassword === this.confirmPassword && this.newPassword.length >= 6) {
-      console.log('Nuova password salvata:', this.newPassword);
+    const newPassword = this.resetPasswordForm.value.newPassword;
+    const confirmPassword = this.resetPasswordForm.value.confirmPassword;
+
+    if (this.resetPasswordForm.valid && newPassword === confirmPassword) {
+      console.log('Nuova password salvata:', newPassword);
       this.goToStep('success');
     } else {
-      alert('Le password non coincidono o non sono valide!');
+      alert('Correggi gli errori per continuare!');
     }
   }
 }
