@@ -80,15 +80,16 @@ public class PaeseController {
             Paese paese = existingPaese.get();
             paese.setNome(updatedPaese.getNome());
             paese.setForum(updatedPaese.getForum());
-            paese.setCampagne_crowdfunding(updatedPaese.getCampagne_crowdfunding());
+            paese.setCampagneCrowdfunding(updatedPaese.getCampagneCrowdfunding());
             paese.setBenchmark(updatedPaese.getBenchmark());
-            paese.setLink_immagine_bandiera(updatedPaese.getLink_immagine_bandiera());
-            paese.setDocumenti_informativi(updatedPaese.getDocumenti_informativi());
+            paese.setLinkImmagineBandiera(updatedPaese.getLinkImmagineBandiera());
+            paese.setDocumentiInformativi(updatedPaese.getDocumentiInformativi());
             return ResponseEntity.ok(paeseRepository.save(paese));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     /**
      * Cancella un Paese esistente dato il suo ID.
