@@ -7,59 +7,59 @@ import Map from 'ol/Map';
 import { Overlay } from 'ol';
 
 @Component({
-  selector: 'app-map',
-  standalone: true,
-  templateUrl: './mappa.component.html',
-  styleUrls: ['./mappa.component.css']
+	selector: 'app-map',
+	standalone: true,
+	templateUrl: './mappa.component.html',
+	styleUrls: ['./mappa.component.css']
 })
 export class MapComponent implements OnInit, AfterViewInit {
-  private map: Map | undefined;
+	private map: Map | undefined;
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
-  ngAfterViewInit(): void {
-    this.initializeMap();
-  }
+	ngAfterViewInit(): void {
+		this.initializeMap();
+	}
 
-  private initializeMap(): void {
-    const osmLayer = new TileLayer({
-      source: new OSM()
-    });
+	private initializeMap(): void {
+		const osmLayer = new TileLayer({
+			source: new OSM()
+		});
 
-    const view = new View({
-      center: [0, 0],  
-      zoom: 2
-    });
-
-  
-    this.map = new Map({
-      target: 'map', 
-      layers: [osmLayer],
-      view: view
-    });
+		const view = new View({
+			center: [0, 0],
+			zoom: 2
+		});
 
 
-    this.map.on('click', (event: any) => {
-      const coordinate = event.coordinate;
+		this.map = new Map({
+			target: 'map',
+			layers: [osmLayer],
+			view: view
+		});
 
-      const popupOverlay = new Overlay({
-        element: document.createElement('div'), 
-        position: coordinate,
-        positioning: 'center-center',
-        stopEvent: false
-      });
 
-      const popupElement = popupOverlay.getElement();
-      if (popupElement) {
-        popupElement.classList.add('popup');  // 
-        popupElement.innerHTML = `<p>Clicked at coordinates: [${coordinate[0].toFixed(2)}, ${coordinate[1].toFixed(2)}]</p>`;
-      
-       
-        this.map?.addOverlay(popupOverlay);
-      } else {
-        console.error('Popup element is not defined');
-      }
-    });
-  }
+		this.map.on('click', (event: any) => {
+			const coordinate = event.coordinate;
+
+			const popupOverlay = new Overlay({
+				element: document.createElement('div'),
+				position: coordinate,
+				positioning: 'center-center',
+				stopEvent: false
+			});
+
+			const popupElement = popupOverlay.getElement();
+			if (popupElement) {
+				popupElement.classList.add('popup');  // 
+				popupElement.innerHTML = `<p>Clicked at coordinates: [${coordinate[0].toFixed(2)}, ${coordinate[1].toFixed(2)}]</p>`;
+
+
+				this.map?.addOverlay(popupOverlay);
+			} else {
+				console.error('Popup element is not defined');
+			}
+		});
+	}
 }

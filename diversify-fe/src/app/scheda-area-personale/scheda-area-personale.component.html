@@ -26,7 +26,9 @@
 			<label for="vecchiaPassword">Vecchia Password</label>
 			<div class="password-container">
 			  <input id="vecchiaPassword" [type]="isVecchiaPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la tua vecchia password" formControlName="vecchiaPassword" />
-			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('vecchiaPassword')" aria-label="Mostra/Nascondi password">{{ isVecchiaPasswordVisible ? '🙈' : '👁' }}</button>
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('vecchiaPassword')" aria-label="Mostra/Nascondi password">
+				<i [class]="isVecchiaPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+			  </button>
 			</div>
 			<div *ngIf="formModificaPassword.get('vecchiaPassword')?.touched && formModificaPassword.get('vecchiaPassword')?.invalid" class="error-message">
 			  <div *ngIf="formModificaPassword.get('vecchiaPassword')?.hasError('required')">La vecchia password è obbligatoria</div>
@@ -40,7 +42,9 @@
 			<label for="password">Nuova Password</label>
 			<div class="password-container">
 			  <input id="password" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la nuova password" formControlName="password" />
-			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" aria-label="Mostra/Nascondi password">{{ isPasswordVisible ? '🙈' : '👁' }}</button>
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" aria-label="Mostra/Nascondi password">
+				<i [class]="isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+			  </button>
 			</div>
 			<div *ngIf="formModificaPassword.get('password')?.touched && formModificaPassword.get('password')?.invalid" class="error-message">
 			  <div *ngIf="formModificaPassword.get('password')?.hasError('required')">La nuova password è obbligatoria</div>
@@ -54,7 +58,9 @@
 			<label for="confermaPassword">Conferma Nuova Password</label>
 			<div class="password-container">
 			  <input id="confermaPassword" [type]="isConfermaPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Conferma la nuova password" formControlName="confermaPassword" />
-			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confermaPassword')" aria-label="Mostra/Nascondi password">{{ isConfermaPasswordVisible ? '🙈' : '👁' }}</button>
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confermaPassword')" aria-label="Mostra/Nascondi password">
+				<i [class]="isConfermaPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+			  </button>
 			</div>
 			<div *ngIf="formModificaPassword.get('confermaPassword')?.touched && formModificaPassword.get('confermaPassword')?.invalid" class="error-message">
 			  <div *ngIf="formModificaPassword.get('confermaPassword')?.hasError('required')">La conferma della password è obbligatoria</div>
@@ -79,7 +85,9 @@
 			<label for="passwordEliminazione">Inserisci la tua password per confermare</label>
 			<div class="password-container">
 			  <input id="passwordEliminazione" [type]="isPasswordEliminazioneVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la tua password" formControlName="passwordEliminazione" required />
-			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('passwordEliminazione')" aria-label="Mostra/Nascondi password">{{ isPasswordEliminazioneVisible ? '🙈' : '👁' }}</button>
+			  <button type="button" class="toggle-password" (click)="togglePasswordVisibility('passwordEliminazione')" aria-label="Mostra/Nascondi password">
+				<i [class]="isPasswordEliminazioneVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+			  </button>
 			</div>
 			<div *ngIf="formEliminaAccount.get('passwordEliminazione')?.touched && formEliminaAccount.get('passwordEliminazione')?.invalid" class="error-message">
 			  <div *ngIf="formEliminaAccount.get('passwordEliminazione')?.hasError('required')">La password è obbligatoria</div>

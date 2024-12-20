@@ -84,7 +84,9 @@
   <label for="password">Password</label>
   <div class="password-container">
     <input id="password" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la tua password" formControlName="password" />
-    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" aria-label="Mostra/Nascondi password">{{ isPasswordVisible ? '🙈' : '👁' }}</button>
+    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" aria-label="Mostra/Nascondi password">
+      <i class="fa" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+    </button>
   </div>
   <div *ngIf="moduloRegistrazione.get('password')?.touched && moduloRegistrazione.get('password')?.invalid" class="error-message">
     <div *ngIf="moduloRegistrazione.get('password')?.hasError('required')">La password è obbligatoria</div>
@@ -95,10 +97,12 @@
 
 <!-- Campo Conferma Password -->
 <div class="form-group">
-  <label for="confirmPassword">Conferma Password</label>
+  <label for="confermaPassword">Conferma Password</label>
   <div class="password-container">
     <input id="confermaPassword" [type]="isConfermaPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Conferma la tua password" formControlName="confermaPassword" />
-    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confermaPassword')" aria-label="Mostra/Nascondi password">{{ isConfermaPasswordVisible ? '🙈' : '👁' }}</button>
+    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confermaPassword')" aria-label="Mostra/Nascondi password">
+      <i class="fa" [ngClass]="isConfermaPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+    </button>
   </div>
   <div *ngIf="moduloRegistrazione.get('confermaPassword')?.touched && moduloRegistrazione.get('confermaPassword')?.invalid" class="error-message">
     <div *ngIf="moduloRegistrazione.get('confermaPassword')?.hasError('required')">La conferma della password è obbligatoria</div>
@@ -107,7 +111,6 @@
     Le password non corrispondono
   </div>
 </div>
-
   
 
       <!-- Campo Codice Fiscale -->

@@ -170,37 +170,49 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
 /* Per dispositivi piccoli (smartphone) */
 @media (max-width: 600px) {
     .scheda-container {
-        max-width: 100%; /* Utilizza tutta la larghezza disponibile */
-        padding: 15px; /* Riduce il padding */
+        width: 90%; /* Adatta il contenitore come la registrazione */
+        margin: 20px auto; /* Centra il contenitore */
     }
 
     .scheda h2 {
-        font-size: 18px; /* Riduce la dimensione del font per i dispositivi più piccoli */
+        font-size: 1.5rem; /* Riduce la dimensione per i titoli */
     }
 
     .form-actions button {
-        font-size: 14px; /* Riduce la dimensione del font del bottone */
+        padding: 12px; /* Uniforma l'altezza del bottone */
+        font-size: 14px; /* Match dimensione font bottone */
     }
 
     .modifica-password h3,
     .elimina-account h3 {
-        font-size: 16px; /* Riduce la dimensione del font per i dispositivi più piccoli */
+        font-size: 1rem; /* Uniforma la dimensione del testo */
     }
 }
 
-/* Per tablet (dai 600px ai 900px) */
-@media (max-width: 900px) {
+/* Per tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
     .scheda-container {
-        max-width: 90%; /* Utilizza il 90% della larghezza disponibile */
+        width: 80%; /* Adatta la larghezza per tablet */
+        margin: 30px auto; /* Centra il contenitore con margine simile alla registrazione */
+    }
+
+    .scheda h2 {
+        font-size: 1.75rem; /* Dimensione titolo per tablet */
     }
 
     .form-actions button {
-        font-size: 15px; /* Riduce la dimensione del font del bottone */
+        padding: 14px; /* Altezza bottone adeguata per tablet */
+        font-size: 16px; /* Font dimensione maggiore per tablet */
+    }
+
+    .modifica-password h3,
+    .elimina-account h3 {
+        font-size: 1.1rem; /* Leggero aumento per testi in tablet */
     }
 }
 
-/* Per desktop (oltre i 900px) */
-@media (min-width: 901px) {
+/* Per desktop (oltre i 1024px) */
+@media (min-width: 1025px) {
     .scheda-container {
         max-width: 350px; /* Mantiene la larghezza massima su desktop */
         margin: 50px auto;
@@ -208,7 +220,7 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
     }
 
     .form-actions button {
-        font-size: 16px; /* Imposta la dimensione del font del bottone */
+        font-size: 16px; /* Dimensione del font standard desktop */
     }
 }
 

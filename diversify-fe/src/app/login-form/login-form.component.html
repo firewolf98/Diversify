@@ -1,65 +1,64 @@
 <div class="login-container">
-  <h2>Login</h2> <!-- Titolo della pagina di login -->
+	<h2>Login</h2> <!-- Titolo della pagina di login -->
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">  
-    <div class="form-group"> 
-      <label for="email">Email</label>  
-      <input type="email" id="email" class="form-control"
-             formControlName="email"
-             placeholder="Inserisci la tua email" /> 
+	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<div class="form-group">
+			<label for="email">Email</label>
+			<input type="email" id="email" class="form-control" formControlName="email"
+				placeholder="Inserisci la tua email" />
 
-      <!-- Messaggio di errore se il controllo 'email' non è stato compilato -->
-      <div *ngIf="hasError('email', 'required')" class="text-danger error-message">
-        L'email è obbligatoria.
-      </div>
-      
-      <!-- Messaggio di errore se l'email non è valida -->
-      <div *ngIf="hasError('email', 'email')" class="text-danger error-message">
-        Inserisci un'email valida.
-      </div>
-    </div>
+			<!-- Messaggio di errore se il controllo 'email' non è stato compilato -->
+			<div *ngIf="hasError('email', 'required')" class="text-danger error-message">
+				L'email è obbligatoria.
+			</div>
 
-    <div class="form-group"> <!-- Sezione del campo password -->
-      <label for="password">Password</label>
-      <div class="password-container">
-        <input id="password" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control" 
-               formControlName="password"
-               placeholder="Inserisci la tua password" required />  
-        <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" 
-                aria-label="Mostra/Nascondi password">
-          {{ isPasswordVisible ? '🙈' : '👁' }}
-        </button>
-      </div>  
-      
-      <!-- Messaggio di errore se la password non è stata compilata -->
-      <div *ngIf="hasError('password', 'required')" class="text-danger error-message">
-        La password è obbligatoria.
-      </div>
-      
-      <!-- Messaggio di errore se la password è troppo corta -->
-      <div *ngIf="hasError('password', 'minlength')" class="text-danger error-message">
-        La password deve essere lunga almeno 8 caratteri.
-      </div>
-      
-      <!-- Messaggio di errore se la password non rispetta il pattern (deve contenere una maiuscola, un numero e un carattere speciale) -->
-      <div *ngIf="hasError('password', 'pattern')" class="text-danger error-message">
-        La password deve contenere almeno una maiuscola, un numero e un carattere speciale.
-      </div>
-    </div>
+			<!-- Messaggio di errore se l'email non è valida -->
+			<div *ngIf="hasError('email', 'email')" class="text-danger error-message">
+				Inserisci un'email valida.
+			</div>
+		</div>
 
-    <!-- Bottone di invio del form, che sarà disabilitato se il form è invalido -->
-    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
-      Login
-    </button>
+		<div class="form-group"> <!-- Sezione del campo password -->
+			<label for="password">Password</label>
+			<div class="password-container">
+				<input id="password" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control"
+					placeholder="Inserisci la tua password" formControlName="password" />
+				<button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')"
+					aria-label="Mostra/Nascondi password">
+					<i class="fa" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+				</button>
+			</div>
 
-    <!-- Messaggio di errore che appare se ci sono problemi con il login -->
-    <div *ngIf="errorMessage" class="error-message text-danger">
-      {{ errorMessage }}
-    </div>
+			<!-- Messaggio di errore se la password non è stata compilata -->
+			<div *ngIf="hasError('password', 'required')" class="text-danger error-message">
+				La password è obbligatoria.
+			</div>
 
-    <!-- Link per il recupero password, che reindirizza alla pagina di recupero -->
-    <div class="forgot-password">
-      <a href="javascript:void(0);" (click)="recoverPassword()">Hai dimenticato la password? Clicca qui per recuperare.</a>
-    </div>
-  </form>
+			<!-- Messaggio di errore se la password è troppo corta -->
+			<div *ngIf="hasError('password', 'minlength')" class="text-danger error-message">
+				La password deve essere lunga almeno 8 caratteri.
+			</div>
+
+			<!-- Messaggio di errore se la password non rispetta il pattern (deve contenere una maiuscola, un numero e un carattere speciale) -->
+			<div *ngIf="hasError('password', 'pattern')" class="text-danger error-message">
+				La password deve contenere almeno una maiuscola, un numero e un carattere speciale.
+			</div>
+		</div>
+
+		<!-- Bottone di invio del form, che sarà disabilitato se il form è invalido -->
+		<button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+			Login
+		</button>
+
+		<!-- Messaggio di errore che appare se ci sono problemi con il login -->
+		<div *ngIf="errorMessage" class="error-message text-danger">
+			{{ errorMessage }}
+		</div>
+
+		<!-- Link per il recupero password, che reindirizza alla pagina di recupero -->
+		<div class="forgot-password">
+			<a href="javascript:void(0);" (click)="recoverPassword()">Hai dimenticato la password? Clicca qui per
+				recuperare.</a>
+		</div>
+	</form>
 </div>
