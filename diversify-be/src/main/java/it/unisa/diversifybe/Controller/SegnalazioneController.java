@@ -85,7 +85,7 @@ public class SegnalazioneController {
     public ResponseEntity<?> updateSegnalazione(@PathVariable("id") String id, @RequestBody Segnalazione segnalazione) {
         Optional<Segnalazione> existingSegnalazione = segnalazioneService.getSegnalazioneById(id);
         if (existingSegnalazione.isPresent()) {
-            segnalazione.setId_segnalazione(id); // Impostiamo l'ID per l'aggiornamento
+            segnalazione.setIdSegnalazione(id); // Impostiamo l'ID per l'aggiornamento
             Segnalazione updatedSegnalazione = segnalazioneService.updateSegnalazione(segnalazione);
             return ResponseEntity.ok(updatedSegnalazione);
         } else {
