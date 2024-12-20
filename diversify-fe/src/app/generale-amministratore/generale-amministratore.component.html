@@ -1,0 +1,17 @@
+<div class="generale-container">
+  <!-- Box a sinistra: Dinamico -->
+  <div class="box-sinistra">
+    <app-area-personale-amministratore *ngIf="activeComponent === 'areapersonale'"></app-area-personale-amministratore>
+    <app-segnalazione-paese *ngIf="activeComponent === 'segnalazionepaese'"></app-segnalazione-paese>
+    <app-gestione-campagne *ngIf="activeComponent === 'gestionecampagne'"></app-gestione-campagne>
+    <app-gestione-forum *ngIf="activeComponent === 'gestioneforum'"></app-gestione-forum>
+    <app-segnalazioni-utenti *ngIf="activeComponent === 'segnalazioniutenti'"></app-segnalazioni-utenti>
+  </div>
+
+  <!-- Box a destra: Statico -->
+  <div class="box-destra">
+    <app-pagina-profilo-amministratore
+      (setActiveComponent)="setActiveComponent($event)"
+    ></app-pagina-profilo-amministratore> 
+  </div>
+</div>

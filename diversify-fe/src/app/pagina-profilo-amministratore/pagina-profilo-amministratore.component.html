@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="logo-container">
+    <img src="Logodiversify.png" alt="Logo" class="logo" />
+    <span class="app-name">Diversify - Admin</span>
+  </div>
+</div>
+
+<nav class="sidebar">
+  <ul>
+    <li><a href="#" (click)="setActiveLink($event)" [class.active]="activeLink === 'areapersonale'">Area Personale</a></li>
+    <li><a href="#" (click)="setActiveLink($event)" [class.active]="activeLink === 'segnalazionepaese'">Segnalazione Paese</a></li>
+    <li><a href="#" (click)="setActiveLink($event)" [class.active]="activeLink === 'gestionecampagne'">Gestione Campagne</a></li>
+    <li><a href="#" (click)="setActiveLink($event)" [class.active]="activeLink === 'gestioneforum'">Gestione Forum</a></li>
+    <li><a href="#" (click)="setActiveLink($event)" [class.active]="activeLink === 'segnalazioniutenti'">Segnalazioni Utenti</a></li>
+  </ul>
+</nav>
