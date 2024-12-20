@@ -2,6 +2,7 @@ package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.Forum;
 import it.unisa.diversifybe.Repository.ForumRepository;
+import it.unisa.diversifybe.Repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -18,7 +19,8 @@ public class ForumService {
 
     @Autowired
     private ForumRepository forumRepository;
-
+    @Autowired
+    private UtenteRepository utenteRepository;
     /**
      * Recupera tutti i forum.
      *
@@ -44,13 +46,13 @@ public class ForumService {
      * Aggiunge un nuovo forum. Operazione riservata agli amministratori.
      *
      * @param forum l'oggetto Forum da aggiungere.
-     * @param isAdmin booleano che indica se l'utente è un amministratore.
+     * @param ruolo booleano che indica se l'utente è un amministratore.
      * @return il forum appena aggiunto.
      * @throws SecurityException se l'utente non è un amministratore.
      */
 
-    public Forum addForum(Forum forum, boolean isAdmin) {
-        if (!isAdmin) {
+    public Forum addForum(Forum forum, boolean ruolo) {
+        if (!ruolo) {
             throw new SecurityException("Solo gli amministratori possono aggiungere un forum.");
         }
         return forumRepository.save(forum);
@@ -61,14 +63,14 @@ public class ForumService {
      *
      * @param idForum l'ID del forum da modificare.
      * @param updatedForum l'oggetto Forum con i dati aggiornati.
-     * @param isAdmin booleano che indica se l'utente è un amministratore.
+     * @param ruolo booleano che indica se l'utente è un amministratore.
      * @return il forum aggiornato.
      * @throws SecurityException se l'utente non è un amministratore.
      * @throws IllegalArgumentException se il forum con l'ID specificato non esiste.
      */
 
-    public Forum updateForum(String idForum, Forum updatedForum, boolean isAdmin) {
-        if (!isAdmin) {
+    public Forum updateForum(String idForum, Forum updatedForum, boolean ruolo) {
+        if (!ruolo) {
             throw new SecurityException("Solo gli amministratori possono modificare un forum.");
         }
 
@@ -84,12 +86,12 @@ public class ForumService {
      * Elimina un forum. Operazione riservata agli amministratori.
      *
      * @param idForum l'ID del forum da eliminare.
-     * @param isAdmin booleano che indica se l'utente è un amministratore.
+     * @param ruolo booleano che indica se l'utente è un amministratore.
      * @throws SecurityException se l'utente non è un amministratore.
      */
 
-    public void deleteForum(String idForum, boolean isAdmin) {
-        if (!isAdmin) {
+    public void deleteForum(String idForum, boolean ruolo) {
+        if (!ruolo) {
             throw new SecurityException("Solo gli amministratori possono eliminare un forum.");
         }
         forumRepository.deleteById(idForum);

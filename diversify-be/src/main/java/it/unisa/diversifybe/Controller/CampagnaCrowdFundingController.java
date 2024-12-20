@@ -115,7 +115,7 @@ public class CampagnaCrowdFundingController {
      * @return la campagna creata.
      */
 
-    @PostMapping
+    @PostMapping("api/campagne")
     public ResponseEntity<CampagnaCrowdFunding> createCampagna(@RequestBody CampagnaCrowdFunding campagna) {
         return ResponseEntity.ok(service.createCampagna(campagna));
     }

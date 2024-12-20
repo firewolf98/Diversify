@@ -100,7 +100,7 @@ public class PaeseController {
      *         oppure uno stato 404 se il Paese non viene trovato.
      */
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<Void> deletePaese(@PathVariable String id) {
         if (paeseRepository.existsById(id)) {
             paeseRepository.deleteById(id);
