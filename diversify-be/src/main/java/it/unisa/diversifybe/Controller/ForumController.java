@@ -14,13 +14,13 @@ public class ForumController {
     private ForumService forumService;
 
     // Recupera tutti i forum
-    @GetMapping
+    @GetMapping("/api/forums")
     public ResponseEntity<List<Forum>> getAllForums() {
         return ResponseEntity.ok(forumService.getAllForums());
     }
 
     // Recupera un forum tramite ID
-    @GetMapping("/{idForum}")
+    @GetMapping("/api/forums/{idForum}")
     public ResponseEntity<Forum> getForumById(@PathVariable String idForum) {
         return forumService.getForumById(idForum)
                 .map(ResponseEntity::ok)
@@ -28,7 +28,7 @@ public class ForumController {
     }
 
     // Aggiunge un nuovo forum (solo amministratori)
-    @PostMapping
+    @PostMapping("/api/forums")
     public ResponseEntity<Forum> addForum(@RequestBody Forum forum, @RequestParam boolean isAdmin) {
         try {
             return ResponseEntity.ok(forumService.addForum(forum, isAdmin));
@@ -38,7 +38,7 @@ public class ForumController {
     }
 
     // Modifica un forum esistente (solo amministratori)
-    @PutMapping("/{idForum}")
+    @PutMapping("/api/forums/{idForum}")
     public ResponseEntity<Forum> updateForum(@PathVariable String idForum, @RequestBody Forum updatedForum, @RequestParam boolean isAdmin) {
         try {
             return ResponseEntity.ok(forumService.updateForum(idForum, updatedForum, isAdmin));
@@ -50,7 +50,7 @@ public class ForumController {
     }
 
     // Elimina un forum (solo amministratori)
-    @PostMapping("/delete/{idForum}")
+    @PostMapping("/api/forums/delete/{idForum}")
     public ResponseEntity<Void> deleteForumAlternative(@PathVariable String idForum, @RequestParam boolean isAdmin) {
         try {
             forumService.deleteForum(idForum, isAdmin);
