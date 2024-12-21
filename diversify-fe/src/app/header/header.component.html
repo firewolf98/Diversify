@@ -2,19 +2,42 @@
     <div class="logo-container">
         <img src="Logodiversify.png" alt="Logo Diversify" class="logo">
     </div>
-    <div>
-    <div class="search-bar-container">
-        <div class="icona">
-            <img src="CercaIcona.png" alt="Icona" class="icona">
-        </div>
-            <input type="text" placeholder="Cerca" class="search-input">
-        </div>
+
+    <!-- Barra di ricerca -->
+    <div class="search-container">
+        <input 
+            type="text" 
+            placeholder="Cerca un Paese" 
+            (input)="onSearchChange($event)" 
+            [(ngModel)]="searchTerm" 
+            (click)="toggleDropdown()"  
+        />
+        <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+            <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)" (keydown)="selectCountry(country)">
+                {{ country }}
+            </li>
+        </ul>
+    </div> 
+
+    <div class="menu-items">
+        <a href="#profile">Gestione Profilo</a>
     </div>
-        <div class="menu-icon-container">
-            <div class="menu-icon">
+
+    <!-- Menu icon per dispositivi mobili -->
+    <div class="menu-icon-container" (click)="toggleMenu()" (keydown)="toggleMenu()">
+        <div class="menu-icon">
             <span></span>
             <span></span>
             <span></span>
         </div>
     </div>
 </header>
+
+<!-- Menu Hamburger -->
+<div class="menu-container" [ngClass]="{'active': menuVisible}">
+    <div class="menu-items">
+        <a href="#profile">Gestione Profilo</a>
+    </div>
+</div>
+
+
