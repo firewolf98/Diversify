@@ -1,2 +1,43 @@
-<h2>Gestione Campagne</h2>
-<p>Contenuto della componente Gestione Campagne</p>
+<div class="campaign-list-container">
+    <h2>GESTIONE CAMPAGNE</h2>
+    <!-- Sezione Filtro -->
+    <div class="filters">
+        <label for="countryFilter">Paese:</label>
+        <select id="countryFilter" class="filter-select" [(ngModel)]="selectedCountry"
+            (change)="filterAndSortCampaigns()">
+            <option value="">Tutti</option>
+            <option *ngFor="let country of uniqueCountries" [value]="country">
+                {{ country }}
+            </option>
+        </select>
+
+        <label for="statusFilter">Status:</label>
+        <select id="statusFilter" class="filter-select" [(ngModel)]="selectedStatus"
+            (change)="filterAndSortCampaigns()">
+            <option value="">Tutti</option>
+            <option value="Pubblicata">Pubblicata</option>
+            <option value="Terminata">Terminata</option>
+        </select>
+    </div>
+
+    <!-- Lista di Campagne -->
+    <div class="campaigns">
+        <div *ngFor="let campaign of filteredCampaigns" class="campaign-card">
+            <div class="campaign-info">
+                <p class="campaign-details"> <strong>Titolo: </strong>{{ campaign.title }}</p>
+                <p class="campaign-details"> <strong>Paese: </strong>{{ campaign.country }}</p>
+                <p class="campaign-details"><strong>Status: </strong> {{ campaign.status }}</p>
+            </div>
+            <div class="campaign-actions">
+                <button class="btn edit-btn" (click)="editCampaign(campaign.title)">Modifica</button>
+                <button class="btn remove-btn" (click)="removeCampaign(campaign.title)">Rimuovi</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bottone Crea Campagna -->
+    <div class="create-campaign-container">
+        <button class="btn create-campaign-btn" (click)="createCampaign()">Crea Nuova Campagna</button>
+    </div>
+</div>

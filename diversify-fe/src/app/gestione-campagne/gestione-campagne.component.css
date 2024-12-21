@@ -1,0 +1,266 @@
+/* Contenitore delle campagne */
+.campaign-list-container {
+    width: 90%; /* Imposta la larghezza al 90% del contenitore */
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #ffe9d6; /* Colore pesca chiaro */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+}
+
+/* Titolo delle campagne */
+.campaign-list-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333; /* Testo scuro */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Contenitore per i filtri */
+.filters {
+    width:40%;
+    display: flex; /* Usa flexbox per allineare gli elementi orizzontalmente */
+    gap: 15px; /* Spaziatura uniforme tra le coppie di label e select */
+    flex-wrap: wrap; /* Consente la riga successiva in caso di mancanza di spazio */
+    justify-content: flex-start; /* Posiziona gli elementi all'inizio */
+    align-items: center; /* Allinea verticalmente il testo */
+}
+
+/* Etichette dei filtri */
+.filters label {
+    font-weight: bold;
+    color: #444444; /* Colore leggermente più scuro */
+    font-family: 'Arial', sans-serif;
+    flex: 1 0 auto; /* Permette alle etichette di occupare solo lo spazio necessario */
+    margin-bottom: 2px; /* Spazio ridotto tra la label e il select */
+    text-align: center; /* Allinea il testo orizzontalmente al centro */
+    display: flex; /* Per usare align-items */
+    justify-content: center; /* Allinea orizzontalmente il testo */
+    align-items: center; /* Allinea verticalmente il testo */
+    height: 100%; /* Assicura l'allineamento anche in contenitori alti */
+}
+
+/* Selezioni dei filtri */
+.filters select {
+    flex: 1 1 auto; /* Si adatta al contenitore */
+    min-width: 200px; /* Imposta una larghezza minima */
+    max-width: 45%; /* Imposta una larghezza massima per mantenere il layout */
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
+    font-size: 16px;
+    max-height: calc(1.5em * 4); /* Altezza massima per mostrare 4 opzioni */
+    overflow-y: auto; /* Aggiunge lo scorrimento verticale se ci sono più di 4 opzioni */
+}
+
+/* Miglioramenti al focus dei select */
+.filters select:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0px 0px 4px rgba(0, 86, 179, 0.6);
+    background-color: #f9f9f9;
+}
+/* Lista delle Campagne */
+.campaigns {
+    margin-top: 20px;
+}
+
+/* Contenitore della scheda della campagna */
+.campaign-card {
+    display: flex; /* Flexbox per allineare gli elementi orizzontalmente */
+    justify-content: space-between; /* Spazio tra i dati della campagna e i pulsanti */
+    align-items: center; /* Allinea verticalmente i dati e i pulsanti */
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box; /* Assicura che il padding non influisca sulle dimensioni totali */
+}
+
+/* Sezione dei dati della campagna (titolo e dettagli) */
+.campaign-info {
+    display: flex; /* Utilizza flexbox per allineare i dettagli orizzontalmente */
+    flex: 1; /* Si espande per occupare lo spazio disponibile */
+    justify-content: flex-start; /* Allinea gli elementi a sinistra */
+    align-items: center; /* Allinea verticalmente */
+    min-width: 60%; /* Impedisce che il contenitore dei dati diventi troppo stretto */
+}
+
+/* Dettagli della campagna (Paese e Stato) */
+.campaign-details {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+    padding: 0 10px;
+    display: flex;
+    gap: 20px; /* Aggiunge spazio tra le informazioni della campagna */
+}
+
+/* Sezione per le azioni (Modifica e Rimuovi) */
+.campaign-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+button {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Pulsante di eliminazione */
+button.remove-btn {
+    background-color: #fe3737;
+}
+
+button.remove-btn:hover {
+    background-color: #d72f2f;
+}
+
+/* Pulsante di creazione campagna */
+.create-campaign-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+button.create-campaign-btn {
+    background-color: #28a745;
+}
+
+button.create-campaign-btn:hover {
+    background-color: #218838;
+}
+
+/* MEDIA QUERIES */
+
+/* Per dispositivi piccoli (smartphone) */
+@media (max-width: 600px) {
+    .campaign-list-container {
+        width: 90%; /* Utilizza il 90% della larghezza disponibile */
+        padding: 15px; /* Riduce il padding */
+    }
+
+    h2 {
+        font-size: 18px; /* Riduce la dimensione del font per dispositivi più piccoli */
+    }
+
+    .filters {
+        flex-direction: column; /* Stile in colonna per schermi piccoli */
+    }
+
+    .filters label {
+        font-size: 14px; /* Riduce la dimensione del font delle etichette */
+    }
+
+    .filters select {
+        font-size: 14px; /* Riduce la dimensione del font del dropdown */
+        width: 100%; /* Allarga i select al 100% della larghezza */
+    }
+
+    .campaign-title {
+        font-size: 16px; /* Riduce la dimensione del titolo per dispositivi piccoli */
+    }
+
+    .campaign-details {
+        font-size: 14px; /* Riduce la dimensione del testo per i dettagli */
+    }
+
+    .campaign-actions {
+        flex-direction: column; /* Metti i pulsanti in colonna */
+    }
+
+    button {
+        font-size: 14px; /* Riduce la dimensione del font del bottone */
+    }
+
+    button.create-campaign-btn, button.remove-btn {
+        width: auto; /* Adatta la larghezza dei pulsanti */
+    }
+}
+
+/* Per tablet (dai 600px ai 900px) */
+@media (max-width: 900px) {
+    .campaign-list-container {
+        width: 90%; /* Utilizza il 90% della larghezza disponibile */
+    }
+
+    h2 {
+        font-size: 20px; /* Aumenta leggermente la dimensione del font per tablet */
+    }
+
+    .filters label {
+        font-size: 16px;
+    }
+
+    .filters select {
+        font-size: 16px;
+    }
+
+    .campaign-title {
+        font-size: 18px;
+    }
+
+    .campaign-details {
+        font-size: 16px;
+    }
+
+    .campaign-actions {
+        gap: 15px;
+    }
+
+    button {
+        font-size: 15px;
+    }
+}
+
+/* Per desktop (oltre i 900px) */
+@media (min-width: 901px) {
+    .campaign-list-container {
+        width: 90%; /* Utilizza il 90% della larghezza disponibile */
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .filters {
+        margin-bottom: 25px;
+    }
+
+    h2 {
+        font-size: 22px; /* Maggiore dimensione per desktop */
+    }
+
+    .campaign-title {
+        font-size: 20px;
+    }
+
+    .campaign-details {
+        font-size: 18px;
+    }
+
+    .campaign-actions {
+        gap: 20px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
