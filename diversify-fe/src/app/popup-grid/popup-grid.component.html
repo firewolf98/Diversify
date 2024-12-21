@@ -3,12 +3,10 @@
     <!-- Aggiungi questo link al tuo head -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   </head>
-  <div class="popup-container">
+  <div *ngIf="isVisible" class="popup-container">
     <!-- Tasto Torna alla mappa -->
-    <div class="back-button" (click)="goBack()">
-      ← Torna alla mappa
-    </div>
-  
+    <a href="#" (click)="goBack()" class="back-link">← Torna alla mappa</a>
+
     <!-- Titolo con bandiera -->
     <div class="title">
       <span>{{ flag }}</span>

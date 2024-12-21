@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 export class PopupGridComponent {
   constructor(private router: Router) {}
 
+  // Variabile di stato per gestire la visibilità del popup
+  isVisible: boolean = true;
+
   countryName: string = 'Malta';
   flag: string = '🇲🇹';
 
@@ -25,7 +28,9 @@ export class PopupGridComponent {
   ];
 
   goBack() {
-    // Naviga indietro di una pagina
-    this.router.navigate(['/']); // Puoi sostituire con il percorso della mappa
+    console.log('Back button clicked');
+    this.router.navigate(['/']);
+    this.isVisible = false; // Nasconde il popup
   }
+  
 }

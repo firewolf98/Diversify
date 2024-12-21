@@ -19,21 +19,19 @@
   box-sizing: border-box;
 }
 
-/* Tasto "Torna alla mappa" */
-.back-button {
-  font-size: 1.2rem;
-  color: #444;
-  cursor: pointer;
-  text-decoration: underline;
-  margin-bottom: 10px;
-  display: inline-block;
-}
+  /* Link "Torna alla mappa" */
+  .back-link {
+    color: #5a67d8; 
+    font-size: 18px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
 
-.back-button:hover {
-  color: #000;
-  transform: translateX(-3px);
-  transition: all 0.2s ease-in-out;
-}
 
 /* Titolo */
 .title {
