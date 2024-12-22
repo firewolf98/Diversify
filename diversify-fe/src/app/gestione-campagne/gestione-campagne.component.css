@@ -1,6 +1,9 @@
 /* Contenitore delle campagne */
 .campaign-list-container {
-    width: 90%; /* Imposta la larghezza al 90% del contenitore */
+    width: 70%; /* Riduce la larghezza rispetto al 90% */
+    min-height: 480px;
+    max-width: 800px; /* Imposta una larghezza massima inferiore */
+    max-height: 480px;
     margin: 50px auto;
     padding: 20px;
     border: 1px solid #d1d1d1;
@@ -9,6 +12,7 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column; /* Disposizione verticale */
+    align-items: center;
 }
 
 /* Titolo delle campagne */
@@ -19,14 +23,19 @@
     font-family: 'Arial', sans-serif;
 }
 
+.container {
+    height : 400px;
+}
+
 /* Contenitore per i filtri */
 .filters {
-    width:40%;
+    width: 100%;
     display: flex; /* Usa flexbox per allineare gli elementi orizzontalmente */
     gap: 15px; /* Spaziatura uniforme tra le coppie di label e select */
-    flex-wrap: wrap; /* Consente la riga successiva in caso di mancanza di spazio */
+    flex-wrap:nowrap; /* Consente la riga successiva in caso di mancanza di spazio */
     justify-content: flex-start; /* Posiziona gli elementi all'inizio */
     align-items: center; /* Allinea verticalmente il testo */
+    
 }
 
 /* Etichette dei filtri */
@@ -38,7 +47,7 @@
     margin-bottom: 2px; /* Spazio ridotto tra la label e il select */
     text-align: center; /* Allinea il testo orizzontalmente al centro */
     display: flex; /* Per usare align-items */
-    justify-content: center; /* Allinea orizzontalmente il testo */
+    justify-content: right; /* Allinea orizzontalmente il testo */
     align-items: center; /* Allinea verticalmente il testo */
     height: 100%; /* Assicura l'allineamento anche in contenitori alti */
 }
@@ -47,7 +56,7 @@
 .filters select {
     flex: 1 1 auto; /* Si adatta al contenitore */
     min-width: 200px; /* Imposta una larghezza minima */
-    max-width: 45%; /* Imposta una larghezza massima per mantenere il layout */
+    max-width: 30%; /* Imposta una larghezza massima per mantenere il layout */
     padding: 10px;
     border: 1px solid #cccccc;
     border-radius: 5px;
@@ -68,7 +77,10 @@
 }
 /* Lista delle Campagne */
 .campaigns {
+    width:90%;
     margin-top: 20px;
+    height: 80%;
+    overflow-y: scroll;
 }
 
 /* Contenitore della scheda della campagna */
@@ -112,6 +124,39 @@
     justify-content: flex-start;
 }
 
+.campaign-table {
+    width: 100%;
+    border: #ffe9d6;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background-color: #ffe9d6;
+}
+
+.campaign-table th,
+.campaign-table td {
+    padding: 10px;
+    text-align: center;
+}
+
+.campaign-table th {
+    background-color: #ffe9d6;
+    color: #333333;
+    font-weight: bold;
+    text-align: center;
+}
+
+.campaign-table td {
+    color: #555555;
+    vertical-align: middle;
+}
+
+.campaign-table td button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
 button {
     padding: 10px;
     border-radius: 5px;
@@ -138,8 +183,16 @@ button.remove-btn:hover {
 
 /* Pulsante di creazione campagna */
 .create-campaign-container {
-    margin-top: 20px;
-    text-align: center;
+    bottom: 20px; /* Distanza dal fondo del container */
+    width: 90%;
+    text-align: center; /* Centro il testo nel bottone */
+}
+
+/*container dei bottoni modifica e rimuovi*/
+.button-container {
+    display: flex;
+    gap: 10px; /* Spaziatura tra i pulsanti */
+    justify-content: center; /* Centrare i pulsanti */
 }
 
 button.create-campaign-btn {
@@ -148,6 +201,12 @@ button.create-campaign-btn {
 
 button.create-campaign-btn:hover {
     background-color: #218838;
+}
+
+.no-results {
+    padding : 80px;
+    text-align: center;
+    font-weight: bold;
 }
 
 /* MEDIA QUERIES */
@@ -236,7 +295,7 @@ button.create-campaign-btn:hover {
 @media (min-width: 901px) {
     .campaign-list-container {
         width: 90%; /* Utilizza il 90% della larghezza disponibile */
-        margin: 50px auto;
+        
         padding: 20px;
     }
 

@@ -1,43 +1,119 @@
 <div class="campaign-list-container">
     <h2>GESTIONE CAMPAGNE</h2>
-    <!-- Sezione Filtro -->
-    <div class="filters">
-        <label for="countryFilter">Paese:</label>
-        <select id="countryFilter" class="filter-select" [(ngModel)]="selectedCountry"
-            (change)="filterAndSortCampaigns()">
-            <option value="">Tutti</option>
-            <option *ngFor="let country of uniqueCountries" [value]="country">
-                {{ country }}
-            </option>
-        </select>
 
-        <label for="statusFilter">Status:</label>
-        <select id="statusFilter" class="filter-select" [(ngModel)]="selectedStatus"
-            (change)="filterAndSortCampaigns()">
-            <option value="">Tutti</option>
-            <option value="Pubblicata">Pubblicata</option>
-            <option value="Terminata">Terminata</option>
-        </select>
-    </div>
+    <!-- Sezione per visualizzare la lista delle campagne -->
+    <div class="container" *ngIf="activeComponent === ''">
+        <!-- Sezione Filtro -->
+        <div class="filters">
+            <label for="countryFilter">Paese:</label>
+            <select id="countryFilter" class="filter-select" [(ngModel)]="selectedCountry" (change)="filterAndSortCampaigns()">
+                <option value="">Tutti</option>
+                <option *ngFor="let country of uniqueCountries" [value]="country">
+                    {{ country }}
+                </option>
+            </select>
 
-    <!-- Lista di Campagne -->
-    <div class="campaigns">
-        <div *ngFor="let campaign of filteredCampaigns" class="campaign-card">
-            <div class="campaign-info">
-                <p class="campaign-details"> <strong>Titolo: </strong>{{ campaign.title }}</p>
-                <p class="campaign-details"> <strong>Paese: </strong>{{ campaign.country }}</p>
-                <p class="campaign-details"><strong>Status: </strong> {{ campaign.status }}</p>
-            </div>
-            <div class="campaign-actions">
-                <button class="btn edit-btn" (click)="editCampaign(campaign.title)">Modifica</button>
-                <button class="btn remove-btn" (click)="removeCampaign(campaign.title)">Rimuovi</button>
-            </div>
+            <label for="statusFilter">Status:</label>
+            <select id="statusFilter" class="filter-select" [(ngModel)]="selectedStatus" (change)="filterAndSortCampaigns()">
+                <option value="">Tutti</option>
+                <option value="Pubblicata">Pubblicata</option>
+                <option value="Terminata">Terminata</option>
+            </select>
+        </div>
+
+        <!-- Lista di Campagne -->
+        <div class="campaigns" *ngIf="filteredCampaigns.length > 0; else noCampaigns">
+            <table class="campaign-table">
+                <thead>
+                    <tr>
+                        <th>Titolo</th>
+                        <th>Paese</th>
+                        <th>Status</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let campaign of filteredCampaigns">
+                        <td>{{ campaign.title }}</td>
+                        <td>{{ campaign.country }}</td>
+                        <td>{{ campaign.status }}</td>
+                        <td>
+                            <div class="button-container">
+                                <button class="btn edit-btn" (click)="setActiveComponent('editCampagna', campaign)">Modifica</button>
+                                <button class="btn remove-btn" (click)="removeCampaign(campaign.title)">Rimuovi</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Messaggio nessuna campagna trovata -->
+        <ng-template #noCampaigns>
+            <p class="no-results">Nessuna campagna trovata</p>
+        </ng-template>
+
+        <!-- Bottone Crea Campagna -->
+        <div class="create-campaign-container">
+            <button class="btn create-campaign-btn" (click)="setActiveComponent('createCampagna')">Crea Nuova Campagna</button>
         </div>
     </div>
 
+    <!-- Sezione per creare una nuova campagna -->
+    <div *ngIf="activeComponent === 'createCampagna'" class="container">
+        <h3>Crea Nuova Campagna</h3>
+        <form (ngSubmit)="saveCampaign()">
+            <div class="campo-titolo">
+                <label for="title">Titolo della Campagna:</label>
+                <input id="title" type="text" [(ngModel)]="campaign.title" name="title" required />
+            </div>
 
-    <!-- Bottone Crea Campagna -->
-    <div class="create-campaign-container">
-        <button class="btn create-campaign-btn" (click)="createCampaign()">Crea Nuova Campagna</button>
+            <div class="campo-donazione">
+                <label for="donationLink">Link delle Donazioni:</label>
+                <input id="donationLink" type="text" [(ngModel)]="campaign.donationLink" name="donationLink" required />
+            </div>
+
+            <div class="campo-immagine">
+                <label for="backgroundImage">Carica Immagine di Sfondo:</label>
+                <input type="file" (change)="onImageSelected($event)" />
+            </div>
+
+            <div *ngIf="imagePreview" class="background-preview">
+                <h4>Anteprima immagine:</h4>
+                <img [src]="imagePreview" alt="Anteprima Immagine" />
+            </div>
+
+            <button type="submit" class="btn save-btn">Salva</button>
+        </form>
+        <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
+    </div>
+
+    <!-- Sezione per modificare una campagna esistente -->
+    <div *ngIf="activeComponent === 'editCampagna'" class="container">
+        <h3>Modifica Campagna</h3>
+        <form (ngSubmit)="saveCampaign()">
+            <div class="campo-titolo">
+                <label for="title">Titolo della Campagna:</label>
+                <input id="title" type="text" [(ngModel)]="campaign.title" name="title" required />
+            </div>
+
+            <div class="campo-donazione">
+                <label for="donationLink">Link delle Donazioni:</label>
+                <input id="donationLink" type="text" [(ngModel)]="campaign.donationLink" name="donationLink" required />
+            </div>
+
+            <div class="campo-immagine">
+                <label for="backgroundImage">Carica Immagine di Sfondo:</label>
+                <input type="file" (change)="onImageSelected($event)" />
+            </div>
+
+            <div *ngIf="imagePreview" class="background-preview">
+                <h4>Anteprima immagine:</h4>
+                <img [src]="imagePreview" alt="Anteprima Immagine" />
+            </div>
+
+            <button type="submit" class="btn save-btn">Salva Modifiche</button>
+        </form>
+        <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
     </div>
 </div>
