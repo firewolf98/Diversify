@@ -31,7 +31,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    private final Key key;
+    private final Key key ;
     private final long expirationTime;
 
     /**
