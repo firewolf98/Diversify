@@ -1,0 +1,78 @@
+.mi-piace-container {
+  font-family: 'Roboto', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.post-container {
+  margin-bottom: 20px;
+}
+
+.item-content p {
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+.item-author {
+  color: #777;
+  font-size: 14px;
+}
+
+.mi-piace-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-like {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-like.liked {
+  background-color: #ff69b4;
+  color: #fff;
+}
+
+.btn-like:not(.liked) {
+  background-color: #ddd;
+  color: #333;
+}
+
+.likes-count {
+  font-size: 14px;
+  color: #555;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}

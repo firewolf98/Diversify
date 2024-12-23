@@ -1,0 +1,38 @@
+<div class="mi-piace-container">
+  <!-- Titolo della sezione -->
+  <h2>Gestione Mi Piace</h2>
+
+  <div class="post-container" *ngFor="let item of items">
+    <!-- Visualizzazione del contenuto del post/commento/subcommento -->
+    <div class="item-content">
+      <p>{{ item.content }}</p>
+      <span class="item-author">Postato da: {{ item.author }}</span>
+    </div>
+
+    <!-- Pulsante Mi Piace -->
+    <div class="mi-piace-actions">
+      <button 
+        class="btn btn-like"
+        [class.liked]="item.liked" 
+        (click)="toggleLike(item.id)">
+        {{ item.liked ? '💖 Mi Piace' : '🤍 Mi Piace' }}
+      </button>
+      <span class="likes-count">Mi Piace: {{ item.likesCount }}</span>
+    </div>
+
+    <!-- Messaggio di errore per un eventuale problema con l'azione Mi Piace -->
+    <div *ngIf="errorMessage" class="error-message text-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Separatore tra post/commenti -->
+    <hr />
+  </div>
+
+  <!-- Sezione di paginazione -->
+  <div class="pagination">
+    <button class="btn" (click)="goToPrevious()" [disabled]="currentPage === 1">Precedente</button>
+    <span>Pagina {{ currentPage }}</span>
+    <button class="btn" (click)="goToNext()">Successiva</button>
+  </div>
+</div>
