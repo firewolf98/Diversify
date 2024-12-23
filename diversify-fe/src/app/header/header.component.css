@@ -1,213 +1,284 @@
+/* Stile generale per l'header */
 .header-container {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-	padding: 15px;
-	background-color: #fdece8;
-	/* Colore di sfondo rosa pesca */
-	height: 60px;
-	/* Altezza dell'header */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Assicura che ci sia spazio per i tasti */
+  padding: 20px;
+  background-color: #fdece8; /* Colore di sfondo rosa pesca */
+  height: 60px; /* Altezza dell'header */
 }
 
 .logo-container {
-	flex: 10 auto;
+  flex: 2; /* Riduci lo spazio per il logo */
+  margin-right: 20px; /* Distanza tra logo e barra di ricerca */
 }
 
 .logo {
-	height: 30px;
-	/* Altezza del logo */
-}
-
-/* Stile per il container della barra di ricerca */
-.search-bar-container {
-	flex: 4;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	/* Posizione relativa per l'icona */
-	border: 1px solid #ccc;
-	background-color: white;
-	/* Colore di sfondo bianco */
+  height: 50px; /* Altezza del logo */
+  width: auto; /* Mantieni le proporzioni */
 }
 
 /* Stile per la barra di ricerca */
+.search-bar-container {
+  flex: 5; /* Aumenta lo spazio per la barra di ricerca */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 1px solid #ccc;
+  background-color: white;
+
+}
+
 .search-bar {
-	display: flex;
-	align-items: center;
-	background-color: #f0f0f0;
-	/* Colore di sfondo */
-	border: 1px solid #ccc;
-	/* Bordo della barra */
-	border-radius: 8px;
-	/* Bordo arrotondato */
-	padding: 8px 12px;
-	width: 100%;
-	/* Larghezza */
-	max-width: 400px;
-	/* Massima larghezza */
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	/* Ombra */
+  display: flex;
+  align-items: center;
+  background-color: whitesmoke;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 300px; /* Riduci la larghezza massima */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Stile per l'input di testo */
 .search-input {
-	border: none;
-	background: transparent;
-	outline: none;
-	/* Rimuove il contorno */
-	font-size: 14px;
-	width: 100%;
-	/* Riempie lo spazio disponibile */
-	padding-left: 30px;
-	/* Distanza per lasciare spazio all'icona */
-	padding-right: 50px;
-	/* Aggiungi spazio a destra per la separazione */
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 50px;
+
 }
 
-/* Stile per l'icona di ricerca (CercaIcona.png) */
 .icona {
-	position: absolute;
-	/* Posizione assoluta per posizionarla sopra l'input */
-	left: 5px;
-	/* Distanza dal bordo destro dell'input */
-	top: 53%;
-	/* Posiziona verticalmente al centro dell'input */
-	transform: translateY(-50%);
-	/* Corregge il posizionamento per centrarla perfettamente */
-	height: 11px;
-	/* Imposta l'altezza dell'icona */
-	width: auto;
-	/* Mantiene le proporzioni dell'icona */
-	cursor: pointer;
-	/* Imposta il puntatore a mano */
+  position: absolute;
+  left: 5px;
+  top: 50%; /* Centra verticalmente */
+  transform: translateY(-50%);
+  height: 11px;
+  width: auto;
+  cursor: pointer;
+
 }
 
-/* Stile per l'icona del menù (fuori dalla barra di ricerca) */
+/* Stile per l'icona del menu (hamburger) */
 .menu-icon-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-left: 10px;
-	/* Aggiungi spazio a sinistra dell'icona del menu */
-	border: 1px solid #ccc;
-	/* Aggiungi bordo a sinistra dell'icona */
-	padding-left: 3px;
-	/* Aggiungi padding per distanziare l'icona dal bordo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  padding: 10px;
+  background-color: #fdece8;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 2;
 }
 
-.main-container {
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
+/* Effetto hover per l'icona del menu */
+.menu-icon-container:hover {
+  background-color: #e0c8b0; /* Colore leggermente più scuro per l'effetto hover */
+
 }
 
-/* Stile per l'icona del menù (3 linee) */
 .menu-icon {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	justify-content: space-around;
-	width: 24px;
-	height: 18px;
-	cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 25px;
 }
 
 .menu-icon span {
-	display: block;
-	height: 1px;
-	width: 60%;
-	background-color: #000000c1;
-	border-radius: 2px;
+  display: block;
+  height: 4px;
+  width: 100%;
+  background-color: #333; /* Colore scuro per le linee dell'hamburger */
+  border-radius: 2px;
+  transition: transform 0.3s ease;
 }
 
-/* Media query per dispositivi con larghezza massima di 1024px (Tablet) */
+.menu-container {
+  position: fixed; /* Fisso sul lato dello schermo */
+  top: 0;
+  right: -100%; /* Nascondilo inizialmente fuori dallo schermo */
+  height: 100%;
+  width: 300px;
+  background-color: #fdece8;
+  border-left: 1px solid #ccc;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease; /* Animazione dello scorrimento */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Menu visibile */
+.menu-container.active {
+  right: 0; /* Spostalo dentro lo schermo */
+}
+
+/* Stile per i tasti nel menu */
+.menu-items {
+  display: flex;
+  flex-direction: column; /* Disposizione verticale */
+  align-items: center; /* Centra il contenuto orizzontalmente */
+  gap: 10px; /* Riduci la spaziatura tra i tasti */
+  padding: 10px; /* Spaziatura attorno ai tasti */
+  width: 100%; /* Assicura che il menu occupi tutta la larghezza */
+  box-sizing: border-box; /* Include padding nelle dimensioni */
+  flex: 2;
+}
+
+.menu-items a {
+  font-size: 16px; /* Dimensione del font */
+  text-align: center; /* Centra il testo */
+  padding: 8px 12px; /* Riduci la spaziatura interna */
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  width: 80%; /* Fai in modo che i tasti non siano troppo larghi */
+  border-radius: 6px; /* Arrotondamento leggero */
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.menu-items a:hover {
+  color: #007bff;
+  background-color: #ffebe2;
+}
+
+.menu-icon span:nth-child(1),
+.menu-icon span:nth-child(2) {
+  margin-bottom: 6px;
+}
+
+.menu-icon-container:hover .menu-icon span {
+  background-color: #555; /* Colore più chiaro al passaggio del mouse */
+}
+
+/* Stile per la barra di ricerca */
+input[type="text"] {
+    width: 100%;
+    max-width: 300px; /* Riduci la larghezza della barra */
+    padding: 12px 15px; /* Riduci il padding */
+    font-size: 16px; /* Riduci la dimensione del font */
+    font-family: Helvetica, Arial, sans-serif;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: whitesmoke;
+}
+
+input[type="text"]:focus {
+    border-color: #ffeba7;
+    box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2);
+}
+
+/* Stile per la lista dei risultati */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 330px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    background-color: #ffebe2;
+}
+
+ul.active {
+    border-color: #ffeba7;
+}
+
+li {
+    padding: 15px;
+    font-size: 16px;
+    font-family: Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+
+li:hover {
+    background-color: #fff5f1;
+    color: #642102;
+    transform: scale(1.001);
+}
+
+/* Posizionamento del contenitore della barra di ricerca */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Media query per schermi più piccoli (max-width 1024px) */
 @media screen and (max-width: 1024px) {
-	.header-container {
-		justify-content: space-between;
-		/* Adattare la spaziatura */
-		padding: 0 12px;
-		/* Ridurre il padding laterale */
-	}
+  .header-container {
+    justify-content: space-between;
+    padding: 0 12px;
+  }
 
-	.search-bar-container {
-		flex: 3;
-		/* Ridurre la larghezza relativa */
-	}
+  .menu-items {
+    display: none; /* Nascondi il menu sui dispositivi mobili */
+  }
 
-	.search-bar {
-		max-width: 300px;
-		/* Ridurre la larghezza massima */
-	}
+  .menu-icon-container {
+    display: flex; /* Mostra l'icona del menu hamburger */
+  }
 
-	.menu-icon-container {
-		margin-left: 5px;
-		/* Ridurre il margine a sinistra */
-		padding-left: 2px;
-		/* Ridurre il padding */
-	}
+  .menu-container.active {
+    display: flex;
+  }
+  
+  .menu-items a {
+    font-size: 16px;
+    padding: 12px 0;
+  }
+
+  /* Quando il menu è attivato */
+  .menu-container.active .menu-items {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fdece8;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
 }
 
-/* Media query per dispositivi con larghezza massima di 600px (Telefono) */
+@media screen and (min-width: 1025px) {
+  .menu-items {
+    display: flex; /* Mostra i tasti */
+    flex-direction: row; /* Allinea i tasti orizzontalmente */
+    gap: 20px; /* Aggiungi spazio tra i tasti */
+    justify-content: center; /* Centra i tasti */
+    align-items: center; /* Centra verticalmente i tasti */
+  }
+
+  .menu-icon-container {
+    display: none; /* Nascondi l'icona hamburger */
+  }
+}
+
+/* Media query per schermi ancora più piccoli (max-width 600px) */
 @media screen and (max-width: 600px) {
-	.header-container {
-		justify-content: space-between;
-		/* Mantieni la spaziatura in orizzontale */
-		padding: 0 8px;
-		/* Riduci ulteriormente il padding laterale */
-	}
-
-	.logo-container {
-		flex: none;
-		margin-right: 8px;
-		/* Aggiungi spazio a destra del logo */
-	}
-
-	.search-bar-container {
-		flex: 2;
-		/* Riduci ulteriormente la larghezza relativa */
-		margin: 0;
-		/* Elimina margini */
-	}
-
-	.search-bar {
-		max-width: 200px;
-		/* Riduci ulteriormente la larghezza massima */
-		padding: 6px 10px;
-		/* Riduci padding interno */
-	}
-
-	.search-input {
-		font-size: 12px;
-		/* Riduci dimensione del testo */
-		padding-left: 20px;
-		/* Riduci spazio a sinistra */
-		padding-right: 40px;
-		/* Riduci spazio a destra */
-	}
-
-	.icona {
-		height: 9px;
-		/* Riduci dimensione dell'icona */
-	}
-
-	.menu-icon-container {
-		margin-left: 0;
-		/* Elimina margine sinistro */
-		padding: 0 3px;
-		/* Riduci padding */
-	}
-
-	.menu-icon {
-		width: 18px;
-		/* Riduci dimensioni del menu */
-		height: 14px;
-		/* Riduci altezza */
-	}
-
-	.menu-icon span {
-		width: 50%;
-		/* Riduci larghezza delle linee */
-	}
+  .menu-items a {
+    font-size: 12px;
+  }
 }
