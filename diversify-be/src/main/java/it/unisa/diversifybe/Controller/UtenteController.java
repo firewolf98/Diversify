@@ -48,9 +48,18 @@ public class UtenteController {
             // Prova ad autenticare l'utente utilizzando il servizio
             JwtResponse jwtResponse = utenteService.authenticateUser(loginRequest);
             if (jwtResponse != null) {
+                // Verifica se l'utente è bannato
+                String username = jwtUtils.validateToken(jwtResponse.getToken()); // Usa validateToken per estrarre l'username
+
+                Optional<Utente> utenteOptional = utenteService.findByUsername(username);
+                if (utenteOptional.isPresent() && utenteOptional.get().isBanned()) {
+                    return ResponseEntity.status(403).body("Accesso vietato. Utente bannato.");
+                }
+
                 // Se l'autenticazione è riuscita, restituisci il JWT token
                 return ResponseEntity.ok(jwtResponse);
             }
+
             // Se username o password sono errati, restituisci un errore
             return ResponseEntity.status(401).body("Username o password errati");
         } catch (NoSuchAlgorithmException e) {
