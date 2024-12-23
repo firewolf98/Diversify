@@ -6,7 +6,13 @@ interface Campaign {
   title: string;
   country: string;
   status: 'Pubblicata' | 'Terminata';
-  donationLink?: string;  // Add this line to include the donationLink property
+  category?: string;
+  description?: string;
+  targetFunds?: number;
+  currentFunds?: number;
+  deadline?: string;
+  donationLink?: string;
+  backgroundImage?: string; // Percorso immagine (opzionale)
 }
 
 @Component({
@@ -23,7 +29,7 @@ export class GestioneCampagneComponent {
   selectedStatus: string = '';
   filteredCampaigns: Campaign[] = [];
   activeComponent: string = ''; // Variabile per gestire il componente attivo
-  campaign: Campaign = { title: '', country: '', status: 'Pubblicata' };
+  campaign: Campaign = this.initializeCampaign();
   imagePreview: string | undefined;
 
   ngOnInit(): void {
@@ -32,19 +38,96 @@ export class GestioneCampagneComponent {
     this.filterAndSortCampaigns();
   }
 
+  // Inizializza una campagna vuota
+  initializeCampaign(): Campaign {
+    return {
+      title: '',
+      country: '',
+      status: 'Pubblicata',
+      category: '',
+      description: '',
+      targetFunds: undefined,
+      currentFunds: 0,
+      deadline: '',
+      donationLink: '',
+      backgroundImage: '',
+    };
+  }
+
   // Funzione per caricare le campagne
   loadCampaigns(): void {
     this.campaigns = [
-      { title: 'Progetto Eco', country: 'Italia', status: 'Pubblicata' },
-      { title: 'Sostenibilità Ambientale', country: 'Francia', status: 'Terminata' },
-      { title: 'Innovazione Verde', country: 'Germania', status: 'Pubblicata' },
-      { title: 'Campagna Solidale', country: 'Spagna', status: 'Terminata' },
-      { title: 'Energie Rinnovabili', country: 'Italia', status: 'Pubblicata' },
-      { title: 'Riciclo e Recupero', country: 'Portogallo', status: 'Pubblicata' },
-      { title: 'Tutela del Territorio', country: 'Svezia', status: 'Terminata' },
-      { title: 'Zero Emissioni', country: 'Danemarca', status: 'Pubblicata' },
-      { title: 'Educazione Ambientale', country: 'Norvegia', status: 'Terminata' },
-      { title: 'Raccolta Differenziata', country: 'Finlandia', status: 'Pubblicata' },
+      {
+        title: 'Progetto 0',
+        country: 'Italia',
+        status: 'Pubblicata',
+        category: 'Sostenibilità',
+        description: 'Promuoviamo la sostenibilità ambientale.',
+        targetFunds: 10000,
+        currentFunds: 4000,
+        deadline: '2024-12-31',
+      },
+      {
+        title: 'Progetto 1',
+        country: 'Francia',
+        status: 'Pubblicata',
+        category: 'Sostenibilità',
+        description: 'Promuoviamo la sostenibilità ambientale.',
+        targetFunds: 10000,
+        currentFunds: 4000,
+        deadline: '2024-12-31',
+      },
+      {
+        title: 'Progetto 2',
+        country: 'Italia',
+        status: 'Pubblicata',
+        category: 'Sostenibilità',
+        description: 'Promuoviamo la sostenibilità ambientale.',
+        targetFunds: 10000,
+        currentFunds: 4000,
+        deadline: '2024-12-31',
+      },
+      {
+        title: 'Progetto 3',
+        country: 'Spagna',
+        status: 'Pubblicata',
+        category: 'Sostenibilità',
+        description: 'Promuoviamo la sostenibilità ambientale.',
+        targetFunds: 10000,
+        currentFunds: 4000,
+        deadline: '2024-12-31',
+      },
+      {
+        title: 'Progetto 4',
+        country: 'Germania',
+        status: 'Pubblicata',
+        category: 'Sostenibilità',
+        description: 'Promuoviamo la sostenibilità ambientale.',
+        targetFunds: 10000,
+        currentFunds: 4000,
+        deadline: '2024-12-31',
+      },
+      {
+        title: 'Progetto 5',
+        country: 'Polonia',
+        status: 'Pubblicata',
+        category: 'Sostenibilità',
+        description: 'Promuoviamo la sostenibilità ambientale.',
+        targetFunds: 10000,
+        currentFunds: 4000,
+        deadline: '2024-12-31',
+      },
+      {
+        title: 'Progetto 6',
+        country: 'Italia',
+        status: 'Pubblicata',
+        category: 'Sostenibilità',
+        description: 'Promuoviamo la sostenibilità ambientale.',
+        targetFunds: 10000,
+        currentFunds: 4000,
+        deadline: '2024-12-31',
+      }
+      
     ];
   }
 
@@ -55,7 +138,7 @@ export class GestioneCampagneComponent {
       'Danimarca', 'Estonia', 'Finlandia', 'Francia', 'Germania', 'Grecia',
       'Ungheria', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo',
       'Malta', 'Paesi Bassi', 'Polonia', 'Portogallo', 'Romania', 'Slovacchia',
-      'Slovenia', 'Spagna', 'Svezia'
+      'Slovenia', 'Spagna', 'Svezia',
     ];
   }
 
@@ -65,7 +148,7 @@ export class GestioneCampagneComponent {
       .filter(
         campaign =>
           (!this.selectedCountry || campaign.country === this.selectedCountry) &&
-          (!this.selectedStatus || campaign.status === this.selectedStatus)
+          (!this.selectedStatus || campaign.status === this.selectedStatus),
       )
       .sort((a, b) => a.title.localeCompare(b.title)); // Ordina le campagne alfabeticamente per titolo
   }
@@ -83,21 +166,17 @@ export class GestioneCampagneComponent {
   }
 
   // Funzione per modificare una campagna
-  editCampaign(campaignTitle: string): void {
-    const campaignToEdit = this.campaigns.find(campaign => campaign.title === campaignTitle);
-    if (campaignToEdit) {
-      this.campaign = { ...campaignToEdit }; // Popola i dati della campagna da modificare
-    }
-    this.setActiveComponent('editCampagna');
+  editCampaign(campaign: Campaign): void {
+    this.setActiveComponent('editCampagna', campaign);
   }
 
   // Funzione per attivare un componente specifico (creazione o modifica)
-  setActiveComponent(component: string, campaign?: Campaign): void {
+  setActiveComponent(component: string, selectedCampaign?: Campaign): void {
     this.activeComponent = component;
 
     // Se la campagna è passata per la modifica, la imposta come campagna da modificare
-    if (campaign) {
-      this.campaign = { ...campaign };
+    if (component === 'editCampagna' && selectedCampaign) {
+      this.campaign = { ...selectedCampaign }; // Clona i dati della campagna selezionata
     } else {
       this.resetCampaign(); // Azzera il modulo se si sta creando una nuova campagna
     }
@@ -105,20 +184,25 @@ export class GestioneCampagneComponent {
 
   // Funzione per azzerare i dati della campagna
   resetCampaign(): void {
-    this.campaign = { title: '', country: '', status: 'Pubblicata' };
+    this.campaign = this.initializeCampaign();
+    this.imagePreview = undefined;
   }
 
   // Funzione per salvare una campagna
   saveCampaign(): void {
-    if (!this.campaign.title || !this.campaign.country || !this.campaign.status) {
-      return; // Verifica che tutti i campi siano compilati
+    if (
+      !this.campaign.title ||
+      !this.campaign.country ||
+      !this.campaign.category ||
+      !this.campaign.targetFunds ||
+      !this.campaign.deadline
+    ) {
+      return; // Verifica che i campi obbligatori siano compilati
     }
 
     if (this.activeComponent === 'createCampagna') {
-      // Aggiungi una nuova campagna
-      this.campaigns.push(this.campaign);
+      this.campaigns.push({ ...this.campaign });
     } else if (this.activeComponent === 'editCampagna') {
-      // Modifica una campagna esistente
       const index = this.campaigns.findIndex(c => c.title === this.campaign.title);
       if (index !== -1) {
         this.campaigns[index] = { ...this.campaign };
@@ -129,11 +213,16 @@ export class GestioneCampagneComponent {
     this.setActiveComponent('');
   }
 
+  // Gestione immagine selezionata
   onImageSelected(event: any): void {
-    const file = event.target.files[0];  // Get the selected file
+    const file = event.target.files[0];
     if (file) {
-      console.log('Selected Image:', file);
-      // Add logic to process the selected image (e.g., store it in a variable, upload it, etc.)
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string; // Anteprima dell'immagine
+        this.campaign.backgroundImage = this.imagePreview;
+      };
+      reader.readAsDataURL(file);
     }
   }
 }

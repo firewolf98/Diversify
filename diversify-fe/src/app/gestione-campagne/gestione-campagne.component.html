@@ -60,60 +60,139 @@
     </div>
 
     <!-- Sezione per creare una nuova campagna -->
-    <div *ngIf="activeComponent === 'createCampagna'" class="container">
-        <h3>Crea Nuova Campagna</h3>
-        <form (ngSubmit)="saveCampaign()">
-            <div class="campo-titolo">
-                <label for="title">Titolo della Campagna:</label>
-                <input id="title" type="text" [(ngModel)]="campaign.title" name="title" required />
-            </div>
+ <!-- Sezione per creare una nuova campagna -->
+<div *ngIf="activeComponent === 'createCampagna'" class="container-modifica">
+    <h3>Crea Nuova Campagna</h3>
+    <form (ngSubmit)="saveCampaign()">
+        <!-- Titolo -->
+        <div class="campo-titolo">
+            <label for="title">Titolo della Campagna:</label>
+            <input id="title" type="text" [(ngModel)]="campaign.title" name="title" required />
+        </div>
 
-            <div class="campo-donazione">
-                <label for="donationLink">Link delle Donazioni:</label>
-                <input id="donationLink" type="text" [(ngModel)]="campaign.donationLink" name="donationLink" required />
-            </div>
+        <!-- Categoria -->
+        <div class="campo-categoria">
+            <label for="category">Categoria della Campagna:</label>
+            <select id="category" [(ngModel)]="campaign.category" name="category" required>
+                <option value="">Seleziona una categoria</option>
+                <option value="Educazione">Educazione</option>
+                <option value="Inclusione">Inclusione</option>
+                <option value="Sostenibilità">Sostenibilità</option>
+            </select>
+        </div>
 
-            <div class="campo-immagine">
-                <label for="backgroundImage">Carica Immagine di Sfondo:</label>
-                <input type="file" (change)="onImageSelected($event)" />
-            </div>
+        <!-- Descrizione -->
+        <div class="campo-descrizione">
+            <label for="description">Descrizione della Campagna:</label>
+            <textarea id="description" [(ngModel)]="campaign.description" name="description" required></textarea>
+        </div>
 
-            <div *ngIf="imagePreview" class="background-preview">
-                <h4>Anteprima immagine:</h4>
-                <img [src]="imagePreview" alt="Anteprima Immagine" />
-            </div>
+        <!-- Target dei Fondi -->
+        <div class="campo-target-fondi">
+            <label for="targetFunds">Target Fondi (€):</label>
+            <input id="targetFunds" type="number" [(ngModel)]="campaign.targetFunds" name="targetFunds" required />
+        </div>
 
-            <button type="submit" class="btn save-btn">Salva</button>
-        </form>
-        <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
-    </div>
+        <!-- Fondi Attualmente Raggiunti -->
+        <div class="campo-fondi-attuali">
+            <label for="currentFunds">Fondi Raggiunti (€):</label>
+            <input id="currentFunds" type="number" [(ngModel)]="campaign.currentFunds" name="currentFunds" required />
+        </div>
 
-    <!-- Sezione per modificare una campagna esistente -->
-    <div *ngIf="activeComponent === 'editCampagna'" class="container">
-        <h3>Modifica Campagna</h3>
-        <form (ngSubmit)="saveCampaign()">
-            <div class="campo-titolo">
-                <label for="title">Titolo della Campagna:</label>
-                <input id="title" type="text" [(ngModel)]="campaign.title" name="title" required />
-            </div>
+        <!-- Link alle Donazioni -->
+        <div class="campo-donazione">
+            <label for="donationLink">Link delle Donazioni:</label>
+            <input id="donationLink" type="text" [(ngModel)]="campaign.donationLink" name="donationLink" required />
+        </div>
 
-            <div class="campo-donazione">
-                <label for="donationLink">Link delle Donazioni:</label>
-                <input id="donationLink" type="text" [(ngModel)]="campaign.donationLink" name="donationLink" required />
-            </div>
+        <!-- Data di Scadenza -->
+        <div class="campo-scadenza">
+            <label for="expiryDate">Data di Scadenza:</label>
+            <input id="expiryDate" type="date" [(ngModel)]="campaign.deadline" name="expiryDate" required />
+        </div>
 
-            <div class="campo-immagine">
-                <label for="backgroundImage">Carica Immagine di Sfondo:</label>
-                <input type="file" (change)="onImageSelected($event)" />
-            </div>
+        <!-- Carica Immagine di Sfondo -->
+        <div class="campo-immagine">
+            <label for="backgroundImage">Carica Immagine di Sfondo:</label>
+            <input type="file" (change)="onImageSelected($event)" />
+        </div>
 
-            <div *ngIf="imagePreview" class="background-preview">
-                <h4>Anteprima immagine:</h4>
-                <img [src]="imagePreview" alt="Anteprima Immagine" />
-            </div>
+        <!-- Anteprima Immagine -->
+        <div *ngIf="imagePreview" class="background-preview">
+            <h4>Anteprima Immagine:</h4>
+            <img [src]="imagePreview" alt="Anteprima Immagine" />
+        </div>
 
-            <button type="submit" class="btn save-btn">Salva Modifiche</button>
-        </form>
-        <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
-    </div>
+        <button type="submit" class="btn save-btn">Salva</button>
+    </form>
+    <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
+</div>
+
+
+<!-- Sezione per modificare una campagna esistente -->
+<div *ngIf="activeComponent === 'editCampagna'" class="container-modifica">
+    <h3>Modifica Campagna</h3>
+    <form (ngSubmit)="saveCampaign()">
+        <!-- Titolo -->
+        <div class="campo-titolo">
+            <label for="title">Titolo della Campagna:</label>
+            <input id="title" type="text" [(ngModel)]="campaign.title" name="title" required />
+        </div>
+
+        <!-- Categoria -->
+        <div class="campo-categoria">
+            <label for="category">Categoria della Campagna:</label>
+            <select id="category" [(ngModel)]="campaign.category" name="category" required>
+                <option value="">Seleziona una categoria</option>
+                <option value="Educazione">Educazione</option>
+                <option value="Inclusione">Inclusione</option>
+                <option value="Sostenibilità">Sostenibilità</option>
+            </select>
+        </div>
+
+        <!-- Descrizione -->
+        <div class="campo-descrizione">
+            <label for="description">Descrizione della Campagna:</label>
+            <textarea id="description" [(ngModel)]="campaign.description" name="description" required></textarea>
+        </div>
+
+        <!-- Target dei Fondi -->
+        <div class="campo-target-fondi">
+            <label for="targetFunds">Target Fondi (€):</label>
+            <input id="targetFunds" type="number" [(ngModel)]="campaign.targetFunds" name="targetFunds" required />
+        </div>
+
+        <!-- Fondi Attualmente Raggiunti -->
+        <div class="campo-fondi-attuali">
+            <label for="currentFunds">Fondi Raggiunti (€):</label>
+            <input id="currentFunds" type="number" [(ngModel)]="campaign.currentFunds" name="currentFunds" required />
+        </div>
+
+        <!-- Link alle Donazioni -->
+        <div class="campo-donazione">
+            <label for="donationLink">Link delle Donazioni:</label>
+            <input id="donationLink" type="text" [(ngModel)]="campaign.donationLink" name="donationLink" required />
+        </div>
+
+        <!-- Data di Scadenza -->
+        <div class="campo-scadenza">
+            <label for="expiryDate">Data di Scadenza:</label>
+            <input id="expiryDate" type="date" [(ngModel)]="campaign.deadline" name="expiryDate" required />
+        </div>
+
+        <!-- Carica Immagine di Sfondo -->
+        <div class="campo-immagine">
+            <label for="backgroundImage">Carica Immagine di Sfondo:</label>
+            <input type="file" (change)="onImageSelected($event)" />
+        </div>
+
+        <!-- Anteprima Immagine -->
+        <div *ngIf="imagePreview" class="background-preview">
+            <h4>Anteprima Immagine:</h4>
+            <img [src]="imagePreview" alt="Anteprima Immagine" />
+        </div>
+
+        <button type="submit" class="btn save-btn">Salva Modifiche</button>
+    </form>
+    <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
 </div>
