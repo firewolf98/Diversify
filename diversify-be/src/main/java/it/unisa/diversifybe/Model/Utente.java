@@ -38,7 +38,7 @@ public class Utente {
      * Il codice fiscale dell'utente.
      */
 
-    private String cf;
+    private String codiceFiscale;
 
     /**
      * L'indirizzo email dell'utente.
@@ -81,16 +81,7 @@ public class Utente {
      * Il ruolo dell'utente (ad esempio, "ADMIN", "USER").
      */
 
-    private String ruolo;
-
-    /**
-     * Verifica se un ID forum è nella blacklist.
-     *
-     * @param forumId l'ID del forum da verificare (String)
-     * @return true se il forum è nella blacklist, false altrimenti
-     */
-    public boolean isForumInBlacklist(String forumId) {
-        return blacklistForum != null && blacklistForum.contains(forumId);
-    }
+    private boolean ruolo;
+    private boolean banned;
 }
 

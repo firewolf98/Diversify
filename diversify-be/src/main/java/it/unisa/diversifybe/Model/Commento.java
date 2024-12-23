@@ -1,7 +1,6 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 
@@ -15,6 +14,7 @@ import java.util.*;
 @Document(collection = "Commenti")
 public class Commento {
 
+    private String idAutore;
     /**
      * L'identificativo dell'autore del commento.
      * Questo rappresenta l'ID dell'utente che ha scritto il commento.
@@ -48,5 +48,9 @@ public class Commento {
      * Ogni subcommento è una risposta a un commento principale.
      */
 
+
     private List<Subcommento> subcommenti;
+
+
+    private String idPost;
 }

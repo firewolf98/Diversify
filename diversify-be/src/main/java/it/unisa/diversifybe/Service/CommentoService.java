@@ -35,7 +35,7 @@ public class CommentoService {
             Post post = optionalPost.get();
 
             // Imposta i dati del commento
-            commento.setData_creazione(new Date());
+            commento.setDataCreazione(new Date());
             commentoRepository.save(commento);
 
             // Aggiunge il commento alla lista dei commenti del post
@@ -67,7 +67,7 @@ public class CommentoService {
             Commento commento = optionalCommento.get();
 
             // Imposta i dati del subcommento
-            subcommento.setData_creazione(new Date());
+            subcommento.setDataCreazione(new Date());
             subcommentoRepository.save(subcommento);
 
             // Aggiunge il subcommento alla lista dei subcommenti
@@ -92,7 +92,7 @@ public class CommentoService {
      * @return La lista dei commenti.
      */
     public List<Commento> trovaCommentiPerPost(String idPost) {
-        return commentoRepository.findById_autore(idPost);
+        return commentoRepository.findByIdPost(idPost);
     }
 
     /**
