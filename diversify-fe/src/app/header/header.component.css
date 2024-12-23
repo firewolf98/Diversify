@@ -27,6 +27,7 @@
   position: relative;
   border: 1px solid #ccc;
   background-color: white;
+
 }
 
 .search-bar {
@@ -49,6 +50,7 @@
   width: 100%;
   padding-left: 30px;
   padding-right: 50px;
+
 }
 
 .icona {
@@ -59,6 +61,7 @@
   height: 11px;
   width: auto;
   cursor: pointer;
+
 }
 
 /* Stile per l'icona del menu (hamburger) */
@@ -77,6 +80,7 @@
 /* Effetto hover per l'icona del menu */
 .menu-icon-container:hover {
   background-color: #e0c8b0; /* Colore leggermente più scuro per l'effetto hover */
+
 }
 
 .menu-icon {
