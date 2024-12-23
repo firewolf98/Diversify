@@ -82,5 +82,6 @@ public class Utente {
      */
 
     private boolean ruolo;
+    private boolean banned;
 }
 
