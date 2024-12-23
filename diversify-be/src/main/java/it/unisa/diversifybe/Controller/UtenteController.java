@@ -7,10 +7,11 @@ import it.unisa.diversifybe.DTO.LoginRequest;
 import it.unisa.diversifybe.DTO.RegisterRequest;
 import it.unisa.diversifybe.Model.Utente;
 import it.unisa.diversifybe.Service.UtenteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import it.unisa.diversifybe.Utilities.JwtUtils;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
@@ -20,15 +21,17 @@ import java.util.Optional;
 public class UtenteController {
 
     private final UtenteService utenteService;
+    private final JwtUtils jwtUtils;
 
     /**
      * Costruttore del controller. Viene iniettata la dipendenza del servizio UtenteService.
      *
      * @param utenteService il servizio che gestisce la logica di autenticazione e registrazione.
      */
-
-    public UtenteController(UtenteService utenteService) {
+@Autowired
+    public UtenteController(UtenteService utenteService, JwtUtils jwtUtils) {
         this.utenteService = utenteService;
+        this.jwtUtils = jwtUtils;
     }
 
     /**
@@ -106,26 +109,34 @@ public class UtenteController {
      */
 
     @PostMapping("/cambia_password")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, @RequestHeader("Authorization") String authorizationHeader) {
         try {
-            // Verifica se l'utente esiste
-            Optional<Utente> utente = utenteService.findByUsername(changePasswordRequest.getUsername());
-            if (utente.isEmpty()) {
+            String token = authorizationHeader.substring(7); // Rimuovi "Bearer " dall'intestazione del token
+            String username = jwtUtils.validateToken(token); // Utilizza l'oggetto jwtUtils per validare il token
+
+            if (username == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido");
+            }
+
+            Optional<Utente> utenteOptional = utenteService.findByUsername(username);
+            if (utenteOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato");
             }
 
+            Utente utente = utenteOptional.get();
+
             // Verifica se la password corrente è corretta
             String hashedCurrentPassword = utenteService.hashPassword(changePasswordRequest.getCurrentPassword());
-            if (!hashedCurrentPassword.equals(utente.get().getPasswordHash())) {
+            if (!hashedCurrentPassword.equals(utente.getPasswordHash())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password corrente errata");
             }
 
             // Aggiorna la password con quella nuova criptata
             String hashedNewPassword = utenteService.hashPassword(changePasswordRequest.getNewPassword());
-            utente.get().setPasswordHash(hashedNewPassword);
+            utente.setPasswordHash(hashedNewPassword);
 
             // Salva l'utente con la nuova password tramite il repository del service
-            utenteService.save(utente.get());
+            utenteService.save(utente);
 
             return ResponseEntity.ok("Password aggiornata con successo");
 

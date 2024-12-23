@@ -4,7 +4,6 @@ import lombok.*;
 
 /**
  * Classe di trasferimento dati (DTO) per la richiesta di registrazione.
- *
  * Questa classe viene utilizzata per ricevere i dati necessari alla registrazione
  * di un nuovo utente, inclusi il nome utente, la password hashata e l'email.
  */
@@ -35,4 +34,8 @@ public class RegisterRequest {
      */
 
     private String email;
+
+
+    private String codiceFiscale;
+
 }
