@@ -15,7 +15,9 @@
         class="btn btn-like"
         [class.liked]="item.liked" 
         (click)="toggleLike(item.id)">
-        {{ item.liked ? '💖 Mi Piace' : '🤍 Mi Piace' }}
+        <span *ngIf="item.liked" class="icon">💖</span>
+        <span *ngIf="!item.liked" class="icon">🤍</span>
+        {{ item.liked ? 'Mi Piace' : 'Mi Piace' }}
       </button>
       <span class="likes-count">Mi Piace: {{ item.likesCount }}</span>
     </div>

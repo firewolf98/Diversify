@@ -1,78 +1,35 @@
-.mi-piace-container {
-  font-family: 'Roboto', sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.post-container {
-  margin-bottom: 20px;
-}
-
-.item-content p {
-  font-size: 16px;
-  margin: 0 0 10px;
-}
-
-.item-author {
-  color: #777;
-  font-size: 14px;
-}
-
-.mi-piace-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .btn-like {
-  padding: 8px 16px;
-  font-size: 14px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #ff6b6b;  /* Colore di sfondo */
+  color: white;  /* Colore del testo */
+  font-size: 18px;  /* Dimensione del font */
+  padding: 10px 20px;  /* Spaziatura interna */
+  border: none;  /* Rimuove il bordo */
+  border-radius: 25px;  /* Bordo arrotondato */
+  cursor: pointer;  /* Cursore a mano */
+  transition: all 0.3s ease;  /* Transizione fluida per cambiamenti */
+  display: flex;  /* Rende il contenuto del bottone in linea */
+  align-items: center;  /* Centra il contenuto verticalmente */
+  justify-content: center;  /* Centra il contenuto orizzontalmente */
 }
 
-.btn-like.liked {
-  background-color: #ff69b4;
-  color: #fff;
+.btn-like:hover {
+  background-color: #ff4d4d;  /* Colore di sfondo al passaggio del mouse */
+  transform: scale(1.1);  /* Aumenta leggermente la dimensione del bottone */
 }
 
-.btn-like:not(.liked) {
-  background-color: #ddd;
-  color: #333;
+.btn-like:focus {
+  outline: none;  /* Rimuove il bordo di focus */
 }
 
-.likes-count {
-  font-size: 14px;
-  color: #555;
+.btn-like .icon {
+  margin-right: 8px;  /* Distanza tra l'icona e il testo */
 }
 
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
+.liked {
+  background-color: #4CAF50;  /* Colore di sfondo verde per il "Mi Piace" */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Ombra quando è attivo */
 }
 
-.btn {
-  padding: 8px 16px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.btn:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: not-allowed;
-}
-
-.error-message {
-  color: red;
-  font-size: 14px;
+.liked:hover {
+  background-color: #45a049;  /* Colore di sfondo al passaggio del mouse */
 }
