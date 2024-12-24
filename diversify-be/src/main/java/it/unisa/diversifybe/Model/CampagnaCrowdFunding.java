@@ -71,4 +71,5 @@ public class CampagnaCrowdFunding {
      */
 
     private String stato;
+    private String Paese;
 }

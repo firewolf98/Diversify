@@ -10,12 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChangePasswordRequest {
-
-    /**
-     * Il nome utente dell'utente che richiede il cambio password.
-     */
-    private String username;
-
+    
     /**
      * La password corrente dell'utente per la verifica.
      */
