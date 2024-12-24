@@ -4,6 +4,7 @@ import it.unisa.diversifybe.Model.Post;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository per la gestione delle entità {@link Post} nel database MongoDB.
@@ -67,4 +68,5 @@ public interface PostRepository extends MongoRepository<Post, String> {
      */
 
     List<Post> findByLikeGreaterThanEqual(int like);
+    List<Post> findByIdForum(String Forum);
 }
