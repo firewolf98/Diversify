@@ -8,6 +8,7 @@ import it.unisa.diversifybe.Repository.UtenteRepository;
 import it.unisa.diversifybe.Utilities.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -51,24 +52,17 @@ public class UtenteService {
             return "Email già in uso!";
         }
 
-        Optional<Utente> existingUserByEmailAndCodiceFiscale = utenteRepository.findByEmailAndCodiceFiscale(registerRequest.getEmail(), registerRequest.getCodiceFiscale());
-        if (existingUserByEmailAndCodiceFiscale.isPresent()) {
-            return "Email e codice fiscale già in uso!";
-        }
-
         String hashedPassword = hashPassword(registerRequest.getPasswordHash());
 
         Utente utente = new Utente();
         utente.setUsername(registerRequest.getUsername());
         utente.setEmail(registerRequest.getEmail());
         utente.setPasswordHash(hashedPassword);
-        utente.setCodiceFiscale(registerRequest.getCodiceFiscale());
 
         utenteRepository.save(utente);
 
         return "Utente registrato con successo!";
     }
-
 
     /**
      * Autentica un utente nel sistema.

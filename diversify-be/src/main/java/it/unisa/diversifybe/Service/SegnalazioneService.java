@@ -50,7 +50,6 @@ public class SegnalazioneService {
      * @return la segnalazione aggiornata.
      */
     public Segnalazione updateSegnalazione(Segnalazione segnalazione) {
-        // Puoi aggiungere qui eventuali logiche di validazione o modifica prima dell'aggiornamento
         return segnalazioneRepository.save(segnalazione);
     }
 

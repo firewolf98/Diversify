@@ -7,11 +7,11 @@ import it.unisa.diversifybe.DTO.LoginRequest;
 import it.unisa.diversifybe.DTO.RegisterRequest;
 import it.unisa.diversifybe.Model.Utente;
 import it.unisa.diversifybe.Service.UtenteService;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.unisa.diversifybe.Utilities.JwtUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import it.unisa.diversifybe.Utilities.JwtUtils;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
@@ -28,7 +28,7 @@ public class UtenteController {
      *
      * @param utenteService il servizio che gestisce la logica di autenticazione e registrazione.
      */
-@Autowired
+
     public UtenteController(UtenteService utenteService, JwtUtils jwtUtils) {
         this.utenteService = utenteService;
         this.jwtUtils = jwtUtils;
@@ -48,18 +48,9 @@ public class UtenteController {
             // Prova ad autenticare l'utente utilizzando il servizio
             JwtResponse jwtResponse = utenteService.authenticateUser(loginRequest);
             if (jwtResponse != null) {
-                // Verifica se l'utente è bannato
-                String username = jwtUtils.validateToken(jwtResponse.getToken()); // Usa validateToken per estrarre l'username
-
-                Optional<Utente> utenteOptional = utenteService.findByUsername(username);
-                if (utenteOptional.isPresent() && utenteOptional.get().isBanned()) {
-                    return ResponseEntity.status(403).body("Accesso vietato. Utente bannato.");
-                }
-
                 // Se l'autenticazione è riuscita, restituisci il JWT token
                 return ResponseEntity.ok(jwtResponse);
             }
-
             // Se username o password sono errati, restituisci un errore
             return ResponseEntity.status(401).body("Username o password errati");
         } catch (NoSuchAlgorithmException e) {
