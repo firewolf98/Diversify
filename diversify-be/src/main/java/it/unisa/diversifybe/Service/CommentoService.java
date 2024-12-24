@@ -24,8 +24,8 @@ public class CommentoService {
     /**
      * Aggiunge un commento a un post specifico.
      *
-     * @param idPost     L'ID del post a cui aggiungere il commento.
-     * @param commento   Il commento da aggiungere.
+     * @param idPost   L'ID del post a cui aggiungere il commento.
+     * @param commento Il commento da aggiungere.
      * @return Il commento salvato.
      */
     public Commento aggiungiCommentoAPost(String idPost, Commento commento) {
@@ -56,7 +56,7 @@ public class CommentoService {
     /**
      * Aggiunge un subcommento a un commento principale.
      *
-     * @param idCommento L'ID del commento principale.
+     * @param idCommento  L'ID del commento principale.
      * @param subcommento Il subcommento da aggiungere.
      * @return Il subcommento salvato.
      */
@@ -94,4 +94,27 @@ public class CommentoService {
     public List<Commento> trovaCommentiPerPost(String idPost) {
         return commentoRepository.findByIdPost(idPost);
     }
+
+    /**
+     * Trova un commento in base al suo ID.
+     *
+     * @param commentoId L'ID del commento da trovare.
+     * @return Un {@link Optional} contenente il commento se trovato,
+     * altrimenti un {@link Optional#empty()} se non esiste un commento con l'ID specificato.
+     */
+
+    public Optional<Commento> findById(String commentoId) {
+        return commentoRepository.findById(commentoId);
+    }
+
+    /**
+     * Salva o aggiorna un commento nel database.
+     *
+     * @param commento L'oggetto {@link Commento} da salvare o aggiornare.
+     *                 Se il commento esiste già, verrà aggiornato; altrimenti, verrà creato un nuovo record.
+     */
+    public void save(Commento commento) {
+        commentoRepository.save(commento);
+    }
+
 }

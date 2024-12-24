@@ -1,0 +1,55 @@
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .app-name {
+    font-size: 24px;
+    color: #003366; /* Dark blue for Diversify - Admin */
+  }
+  
+  /* Sidebar Navigation */
+  .sidebar {
+    padding: 20px;
+    width: 200px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 15px 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #3399ff; /* Light blue by default */
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #1e7bb8; /* Slightly darker blue when hovering */
+  }
+  
+  /* Active link color change */
+  a.active {
+    color: #ff0000; /* Red when clicked */
+  }
+  

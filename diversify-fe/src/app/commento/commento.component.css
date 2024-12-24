@@ -1,0 +1,30 @@
+.comment-container {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuisce il nome e la data */
+    margin-bottom: 10px;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-date {
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+.comment-text {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #555;
+}

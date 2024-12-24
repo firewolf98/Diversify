@@ -1,21 +1,24 @@
 .homepage-container {
-    display: flex;
-    flex-direction: column; /* Per un layout verticale */
-    align-items: center; /* Allinea al centro orizzontalmente */
-    justify-content: center; /* Centra i contenuti verticalmente */
-    height: 100vh; /* Occupa tutta l'altezza della viewport */
-  }
-  
-  app-map {
-    width: 100%; /* Adatta la mappa alla larghezza del contenitore */
-    height: 70vh; /* Imposta l'altezza della mappa, aggiustabile */
-    margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	/* Allunga gli elementi per riempire lo spazio */
+	justify-content: flex-start;
+	/* Allinea il contenuto in alto */
+	height: 100vh;
+	/* Occupare tutta l'altezza della viewport */
+	padding-left: 30px;
+	padding-right: 30px;
 }
-  
-  app-icona-brigid {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    margin: 0;
+
+
+app-map {
+	position: relative;
+	/* Posizionamento predefinito*/
+	flex: 1;
+	/* Occupa lo spazio rimanente */
+	width: 100%;
+	padding: 30px 0;
+	/* 30px di padding sopra e sotto */
+	margin: 0;
 }
-  

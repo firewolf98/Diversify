@@ -1,0 +1,177 @@
+.scheda-container {
+    width: 350px;
+    max-width: 350px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #ffe9d6;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .scheda h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .scheda p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .form-actions button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .form-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  .password-container {
+    position: relative;
+  }
+  
+  button.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: black;
+    padding: 0;
+  }
+  
+  button.toggle-password:hover {
+    background-color: #a7a7a7;
+  }
+  
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color: #ffffff;
+  }
+  
+  input:focus {
+    border-color: #007bff;
+  }
+  
+  button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+
+  /* Sezione Modifica Password */
+.modifica-password {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modifica-password h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+}
+
+/* Gruppi di input */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%; /* Assicura che gli input non escano dal contenitore */
+}
+
+/* Etichette dei campi */
+label {
+    font-weight: bold;
+    display: block;
+    color: #555555;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Input degli utenti */
+input {
+    width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
+    padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
+    margin-top: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
+}
+
+/* Cambia il colore del bordo quando un input è in focus */
+input:focus {
+    border-color: #007bff !important; /* Colore blu quando l'input è in focus */
+    outline: none !important;
+}
+
+/* Cambia il colore del bordo mentre l'utente sta scrivendo (ng-dirty) */
+input.ng-dirty {
+    border-color: #007bff !important; /* Bordo blu mentre si scrive */
+}
+
+/* Cambia il colore del bordo quando il campo è valido e ha ricevuto un input */
+input.ng-dirty.ng-valid {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido e modificato */
+}
+
+/* Cambia il colore del bordo quando il campo è valido */
+input.ng-valid.ng-touched {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido */
+}
+
+/* Validazione dei campi: quando il campo è invalido */
+input.ng-invalid.ng-touched {
+    border-color: red !important; /* Bordo rosso quando il campo è invalido */
+}
+
+/* Messaggi di errore */
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* Pulsante di Salvataggio */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}

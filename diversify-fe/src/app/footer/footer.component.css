@@ -1,12 +1,11 @@
 .footer-container {
+    position: relative; /* Posizionamento predefinito sotto la mappa */
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 0 16px;
+    padding: 15px;
     background-color: #fdece8 ; /* Colore di sfondo rosa pesca */
     height: 60px; /* Altezza del footer */
-    margin-top: 50px;           /* Spazio sopra il footer per separarlo dalla mappa */
-    width: 100%;
 }
 
 .footer-links {
