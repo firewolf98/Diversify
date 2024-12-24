@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CampagnaCrowdFundingService {
 
     private final CampagnaCrowdFundingRepository repository;
+    private final CampagnaCrowdFundingRepository campagnaCrowdFundingRepository;
 
     /**
      * Restituisce tutte le campagne di crowdfunding.
@@ -83,7 +84,9 @@ public class CampagnaCrowdFundingService {
     public List<CampagnaCrowdFunding> getCampagneByDataInizio(LocalDate dataInizio) {
         return repository.findByDataInizio(dataInizio);
     }
-
+    public List<CampagnaCrowdFunding> findCampagneByPaese(String paese) {
+        return campagnaCrowdFundingRepository.findByPaese(paese);
+    }
     /**
      * Cerca le campagne in base alla data prevista di fine.
      *

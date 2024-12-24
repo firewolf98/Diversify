@@ -59,4 +59,12 @@ public class ForumController {
             return ResponseEntity.status(403).build();
         }
     }
+    @GetMapping("/api/forums/by-paese/{paese}")
+    public ResponseEntity<List<Forum>> getForumsByPaese(@PathVariable String paese) {
+        List<Forum> forums = forumService.findForumsByPaese(paese);
+        if (forums.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(forums);
+    }
 }
