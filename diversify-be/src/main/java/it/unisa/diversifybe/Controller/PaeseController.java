@@ -1,7 +1,7 @@
 package it.unisa.diversifybe.Controller;
 
 import it.unisa.diversifybe.Model.Paese;
-import it.unisa.diversifybe.Repository.PaeseRepository;
+import it.unisa.diversifybe.Service.PaeseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +20,12 @@ import java.util.Optional;
 @RequestMapping("/api/paesi")
 public class PaeseController {
 
-    /**
-     * DAO per accedere ai dati dei Paesi.
-     */
+    private final PaeseService paeseService;
 
-    private PaeseRepository paeseRepository;
+    @Autowired
+    public PaeseController(PaeseService paeseService) {
+        this.paeseService = paeseService;
+    }
 
     /**
      * Restituisce una lista di tutti i Paesi disponibili.
@@ -33,7 +34,7 @@ public class PaeseController {
      */
     @GetMapping
     public List<Paese> getAllPaesi() {
-        return paeseRepository.findAll();
+        return paeseService.getAllPaesi();
     }
 
     /**
@@ -45,7 +46,7 @@ public class PaeseController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Paese> getPaeseById(@PathVariable String id) {
-        Optional<Paese> paese = paeseRepository.findById(id);
+        Optional<Paese> paese = paeseService.getPaeseById(id);
         return paese.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -57,56 +58,71 @@ public class PaeseController {
      * @param paese l'oggetto {@link Paese} da creare.
      * @return il Paese creato.
      */
-
     @PostMapping
     public Paese createPaese(@RequestBody Paese paese) {
-        return paeseRepository.save(paese);
+        return paeseService.createPaese(paese);
     }
 
     /**
      * Aggiorna un Paese esistente dato il suo ID.
      * Richiede il ruolo di amministratore (`ADMIN`).
      *
-     * @param id l'ID del Paese da aggiornare.
+     * @param id           l'ID del Paese da aggiornare.
      * @param updatedPaese i dati aggiornati del Paese.
      * @return un'entità {@link ResponseEntity} contenente il Paese aggiornato,
      *         oppure uno stato 404 se il Paese non viene trovato.
      */
-
     @PutMapping("/{id}")
     public ResponseEntity<Paese> updatePaese(@PathVariable String id, @RequestBody Paese updatedPaese) {
-        Optional<Paese> existingPaese = paeseRepository.findById(id);
-        if (existingPaese.isPresent()) {
-            Paese paese = existingPaese.get();
-            paese.setNome(updatedPaese.getNome());
-            paese.setForum(updatedPaese.getForum());
-            paese.setCampagneCrowdfunding(updatedPaese.getCampagneCrowdfunding());
-            paese.setBenchmark(updatedPaese.getBenchmark());
-            paese.setLinkImmagineBandiera(updatedPaese.getLinkImmagineBandiera());
-            paese.setDocumentiInformativi(updatedPaese.getDocumentiInformativi());
-            return ResponseEntity.ok(paeseRepository.save(paese));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        Optional<Paese> paese = paeseService.updatePaese(id, updatedPaese);
+        return paese.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-
     /**
-     * Cancella un Paese esistente dato il suo ID.
+     * Elimina un Paese esistente dato il suo ID.
      * Richiede il ruolo di amministratore (`ADMIN`).
      *
      * @param id l'ID del Paese da cancellare.
      * @return una risposta senza contenuto (`204`) se la cancellazione ha successo,
      *         oppure uno stato 404 se il Paese non viene trovato.
      */
-
     @PostMapping("/delete/{id}")
     public ResponseEntity<Void> deletePaese(@PathVariable String id) {
-        if (paeseRepository.existsById(id)) {
-            paeseRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        paeseService.deletePaese(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Restituisce i paesi associati a un forum specifico.
+     *
+     * @param idForum l'ID del forum.
+     * @return una lista di {@link Paese} associati.
+     */
+    @GetMapping("/forum/{idForum}")
+    public List<Paese> findPaesiByForum(@PathVariable String idForum) {
+        return paeseService.findPaesiByForum(idForum);
+    }
+
+    /**
+     * Restituisce i paesi associati a una campagna di crowdfunding specifica.
+     *
+     * @param idCampagna l'ID della campagna di crowdfunding.
+     * @return una lista di {@link Paese} associati.
+     */
+    @GetMapping("/campagna/{idCampagna}")
+    public List<Paese> findPaesiByCampagna(@PathVariable String idCampagna) {
+        return paeseService.findPaesiByCampagna(idCampagna);
+    }
+
+    /**
+     * Restituisce i paesi basati su un determinato benchmark.
+     *
+     * @param benchmark il valore del benchmark da cercare.
+     * @return una lista di {@link Paese} associati al benchmark specificato.
+     */
+    @GetMapping("/benchmark/{benchmark}")
+    public List<Paese> findPaesiByBenchmark(@PathVariable String benchmark) {
+        return paeseService.findPaesiByBenchmark(benchmark);
     }
 }

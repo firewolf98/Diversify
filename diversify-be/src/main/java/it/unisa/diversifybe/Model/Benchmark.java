@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Benchmark")
 public class Benchmark {
 
+    private String idBenchmark;
     /**
      * Il tipo di benchmark.
      * Questo campo rappresenta la categoria o il tipo del benchmark, come ad esempio
