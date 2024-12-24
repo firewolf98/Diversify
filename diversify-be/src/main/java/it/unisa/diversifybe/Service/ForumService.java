@@ -96,4 +96,7 @@ public class ForumService {
         }
         forumRepository.deleteById(idForum);
     }
+    public List<Forum> findForumsByPaese(String paese) {
+        return forumRepository.findByPaese(paese);
+    }
 }

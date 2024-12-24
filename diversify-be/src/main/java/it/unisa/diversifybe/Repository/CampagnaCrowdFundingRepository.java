@@ -86,4 +86,6 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
      */
 
     List<CampagnaCrowdFunding> findByStato(String stato);
+
+    List<CampagnaCrowdFunding> findByPaese(String paese);
 }
