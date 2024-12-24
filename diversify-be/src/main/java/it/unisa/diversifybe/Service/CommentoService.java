@@ -117,4 +117,10 @@ public class CommentoService {
         commentoRepository.save(commento);
     }
 
+    public List<Subcommento> trovaSubcommentiPerCommento(String idCommento) {
+        return commentoRepository.findById(idCommento)
+                .map(Commento::getSubcommenti)
+                .orElse(List.of());
+    }
+
 }
