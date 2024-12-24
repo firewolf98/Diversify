@@ -200,4 +200,26 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
         }
     }
+    /**
+     * Endpoint per recuperare un utente a partire dal token JWT.
+     *
+     * @param token il token JWT passato come parametro di query o nell'header della richiesta.
+     * @return l'utente corrispondente se il token è valido, altrimenti un messaggio di errore.
+     */
+    @GetMapping("/recupera_utente")
+    public ResponseEntity<?> getUserFromToken(@RequestHeader("Authorization") String token) {
+        // Rimuove il prefisso "Bearer " dal token, se presente
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
+        // Recupera l'utente dal servizio
+        Optional<Utente> utente = utenteService.getUserFromToken(token);
+
+        if (utente.isPresent()) {
+            return ResponseEntity.ok(utente.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o utente non trovato.");
+        }
+    }
 }
