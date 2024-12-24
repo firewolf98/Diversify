@@ -61,4 +61,5 @@ public class Post {
      */
 
     private List<Commento> commenti;
+    private String idForum;
 }
