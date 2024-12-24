@@ -1,8 +1,9 @@
 package it.unisa.diversifybe.Controller;
 
+import it.unisa.diversifybe.Model.DocumentoInformativo;
 import it.unisa.diversifybe.Model.Paese;
+import it.unisa.diversifybe.Service.DocumentoInformativoService;
 import it.unisa.diversifybe.Service.PaeseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +22,11 @@ import java.util.Optional;
 public class PaeseController {
 
     private final PaeseService paeseService;
+    private final DocumentoInformativoService documentoInformativoService;
 
-    @Autowired
-    public PaeseController(PaeseService paeseService) {
+    public PaeseController(PaeseService paeseService, DocumentoInformativoService documentoInformativoService) {
         this.paeseService = paeseService;
+        this.documentoInformativoService = documentoInformativoService;
     }
 
     /**
@@ -124,5 +126,20 @@ public class PaeseController {
     @GetMapping("/benchmark/{benchmark}")
     public List<Paese> findPaesiByBenchmark(@PathVariable String benchmark) {
         return paeseService.findPaesiByBenchmark(benchmark);
+    }
+
+    /**
+     * Restituisce i documenti informativi associati a un Paese.
+     *
+     * @param idPaese L'ID del Paese.
+     * @return una lista di documenti informativi.
+     */
+    @GetMapping("/{idPaese}/documenti-informativi")
+    public ResponseEntity<List<DocumentoInformativo>> getDocumentiInformativiByPaese(@PathVariable String idPaese) {
+        List<DocumentoInformativo> documentiInformativi = documentoInformativoService.findByIdPaese(idPaese);
+        if (documentiInformativi.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(documentiInformativi);
     }
 }
