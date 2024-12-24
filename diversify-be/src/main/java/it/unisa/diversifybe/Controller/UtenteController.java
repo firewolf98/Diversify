@@ -222,4 +222,9 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o utente non trovato.");
         }
     }
+    @PostMapping("/delete-account")
+    public ResponseEntity<?> deleteAccount(@RequestHeader("Authorization") String authorizationHeader) {
+        String response = utenteService.deleteUser(authorizationHeader);
+        return ResponseEntity.ok(response);
+    }
 }

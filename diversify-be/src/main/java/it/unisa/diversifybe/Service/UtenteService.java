@@ -236,5 +236,25 @@ public class UtenteService {
         // Cerca l'utente nel database usando il nome utente estratto
         return utenteRepository.findByUsername(username);
     }
+    public String deleteUser(String token) {
+        try {
+            String username = jwtUtils.validateToken(token); // Ottieni il nome utente dal token
+            if (username == null) {
+                return "Token non valido.";
+            }
+
+            Optional<Utente> utenteOptional = utenteRepository.findByUsername(username);
+            if (utenteOptional.isEmpty()) {
+                return "Utente non trovato.";
+            }
+
+            Utente utente = utenteOptional.get();
+            utenteRepository.delete(utente); // Elimina l'utente
+            return "Account eliminato con successo.";
+
+        } catch (Exception e) {
+            return "Errore durante l'eliminazione dell'account.";
+        }
+    }
 
 }
