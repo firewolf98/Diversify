@@ -29,9 +29,9 @@ public class ForumController {
 
     // Aggiunge un nuovo forum (solo amministratori)
     @PostMapping("/api/forums")
-    public ResponseEntity<Forum> addForum(@RequestBody Forum forum, @RequestParam boolean isAdmin) {
+    public ResponseEntity<Forum> addForum(@RequestBody Forum forum, @RequestParam boolean ruolo) {
         try {
-            return ResponseEntity.ok(forumService.addForum(forum, isAdmin));
+            return ResponseEntity.ok(forumService.addForum(forum, ruolo));
         } catch (SecurityException e) {
             return ResponseEntity.status(403).body(null);
         }
@@ -39,9 +39,9 @@ public class ForumController {
 
     // Modifica un forum esistente (solo amministratori)
     @PutMapping("/api/forums/{idForum}")
-    public ResponseEntity<Forum> updateForum(@PathVariable String idForum, @RequestBody Forum updatedForum, @RequestParam boolean isAdmin) {
+    public ResponseEntity<Forum> updateForum(@PathVariable String idForum, @RequestBody Forum updatedForum, @RequestParam boolean ruolo) {
         try {
-            return ResponseEntity.ok(forumService.updateForum(idForum, updatedForum, isAdmin));
+            return ResponseEntity.ok(forumService.updateForum(idForum, updatedForum, ruolo));
         } catch (SecurityException e) {
             return ResponseEntity.status(403).body(null);
         } catch (IllegalArgumentException e) {
@@ -51,9 +51,9 @@ public class ForumController {
 
     // Elimina un forum (solo amministratori)
     @PostMapping("/api/forums/delete/{idForum}")
-    public ResponseEntity<Void> deleteForumAlternative(@PathVariable String idForum, @RequestParam boolean isAdmin) {
+    public ResponseEntity<Void> deleteForumAlternative(@PathVariable String idForum, @RequestParam boolean ruolo) {
         try {
-            forumService.deleteForum(idForum, isAdmin);
+            forumService.deleteForum(idForum, ruolo);
             return ResponseEntity.noContent().build();
         } catch (SecurityException e) {
             return ResponseEntity.status(403).build();
