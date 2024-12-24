@@ -9,20 +9,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 
 @Data
-@Document(collection = "Documenti informativi")
+@Document(collection = "DocumentiInformativi")
 public class DocumentoInformativo {
 
-    /**
-     * Il titolo del documento informativo.
-     * Rappresenta il nome o l'intestazione del documento.
-     */
+   private String idDocumentoInformativo;
 
     private String titolo;
 
-    /**
-     * Il link al documento informativo.
-     * Questo campo contiene l'URL che porta al contenuto del documento.
-     */
+    private String descrizione;
 
-    private String link;
+    private String contenuto;
+
+    private String idPaese;
+
+    private String linkImmagine;
+
+    private String linkVideo;
+
 }
