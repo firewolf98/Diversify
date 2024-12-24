@@ -8,7 +8,6 @@ import it.unisa.diversifybe.Repository.UtenteRepository;
 import it.unisa.diversifybe.Utilities.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -41,27 +40,88 @@ public class UtenteService {
      */
 
     public String registerUser(RegisterRequest registerRequest) throws NoSuchAlgorithmException {
+        // Controllo che i campi obbligatori non siano nulli o vuoti
+        if (registerRequest.getUsername() == null || registerRequest.getUsername().trim().isEmpty()) {
+            return "Il campo username è obbligatorio.";
+        }
 
+        if (registerRequest.getEmail() == null || registerRequest.getEmail().trim().isEmpty()) {
+            return "Il campo email è obbligatorio.";
+        }
+
+        if (registerRequest.getPasswordHash() == null || registerRequest.getPasswordHash().trim().isEmpty()) {
+            return "Il campo password è obbligatorio.";
+        }
+
+        if (registerRequest.getCodiceFiscale() == null || !isValidCodiceFiscale(registerRequest.getCodiceFiscale())) {
+            return "Codice fiscale non valido.";
+        }
+
+        // Validazione email
+        if (!isValidEmail(registerRequest.getEmail())) {
+            return "Email non valida.";
+        }
+
+        // Validazione password
+        if (!isValidPassword(registerRequest.getPasswordHash())) {
+            return "Password non valida. Deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.";
+        }
+
+        // Verifica che l'username non sia già in uso
         Optional<Utente> existingUserByUsername = utenteRepository.findByUsername(registerRequest.getUsername());
         if (existingUserByUsername.isPresent()) {
             return "Username già in uso!";
         }
 
+        // Verifica che l'email non sia già in uso
         Optional<Utente> existingUserByEmail = utenteRepository.findByEmail(registerRequest.getEmail());
         if (existingUserByEmail.isPresent()) {
             return "Email già in uso!";
         }
 
+        // Hash della password utilizzando il metodo esistente
         String hashedPassword = hashPassword(registerRequest.getPasswordHash());
 
+        // Creazione del nuovo utente
         Utente utente = new Utente();
-        utente.setUsername(registerRequest.getUsername());
-        utente.setEmail(registerRequest.getEmail());
+        utente.setUsername(registerRequest.getUsername().trim());
+        utente.setEmail(registerRequest.getEmail().trim());
         utente.setPasswordHash(hashedPassword);
 
+        // Salvataggio dell'utente nel database
         utenteRepository.save(utente);
 
         return "Utente registrato con successo!";
+    }
+
+    // Metodo per validare il codice fiscale
+    private boolean isValidCodiceFiscale(String codiceFiscale) {
+        String codiceFiscaleRegex = "^[A-Z0-9]{16}$";
+        return codiceFiscale != null && codiceFiscale.matches(codiceFiscaleRegex);
+    }
+
+    // Metodo per validare l'email
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email != null && email.matches(emailRegex);
+    }
+
+    // Metodo per validare la password
+    private boolean isValidPassword(String password) {
+        if (password == null || password.length() < 8) {
+            return false;
+        }
+        boolean hasUppercase = false;
+        boolean hasLowercase = false;
+        boolean hasDigit = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) hasUppercase = true;
+            if (Character.isLowerCase(c)) hasLowercase = true;
+            if (Character.isDigit(c)) hasDigit = true;
+        }
+
+        return hasUppercase && hasLowercase && hasDigit;
     }
 
     /**
@@ -77,19 +137,27 @@ public class UtenteService {
      */
 
     public JwtResponse authenticateUser(LoginRequest loginRequest) throws NoSuchAlgorithmException {
+        // Controlla che username e password non siano nulli o vuoti
+        if (loginRequest.getUsername() == null || loginRequest.getUsername().isEmpty() ||
+                loginRequest.getPasswordHash() == null || loginRequest.getPasswordHash().isEmpty()) {
+            return null; // Manca username o password
+        }
+
         Optional<Utente> utenteOptional = utenteRepository.findByUsername(loginRequest.getUsername());
 
         if (utenteOptional.isEmpty()) {
-            return null;
+            return null; // L'utente non esiste
         }
 
         Utente utente = utenteOptional.get();
 
-        if (utente.getPasswordHash().equals(hashPassword(loginRequest.getPasswordHash()))) {
-            String jwt = jwtUtils.generateToken(utente.getUsername());
-            return new JwtResponse(jwt);
+        // Controlla se la password hashata corrisponde
+        if (!utente.getPasswordHash().equals(hashPassword(loginRequest.getPasswordHash()))) {
+            return null; // Credenziali non valide
         }
-        return null;
+
+        String jwt = jwtUtils.generateToken(utente.getUsername());
+        return new JwtResponse(jwt);
     }
 
     /**
@@ -148,6 +216,45 @@ public class UtenteService {
      */
     public void save(Utente utente) {
         utenteRepository.save(utente);
+    }
+    /**
+     * Recupera un utente dal database utilizzando un token JWT.
+     *
+     * @param token il token JWT da cui estrarre il nome utente.
+     * @return un oggetto {@link Optional} contenente l'utente corrispondente,
+     * oppure {@code Optional.empty()} se il token non è valido o l'utente non è trovato.
+     */
+    public Optional<Utente> getUserFromToken(String token) {
+        // Decodifica e valida il token per ottenere il nome utente
+        String username = jwtUtils.validateToken(token);
+
+        if (username == null) {
+            // Il token non è valido
+            return Optional.empty();
+        }
+
+        // Cerca l'utente nel database usando il nome utente estratto
+        return utenteRepository.findByUsername(username);
+    }
+    public String deleteUser(String token) {
+        try {
+            String username = jwtUtils.validateToken(token); // Ottieni il nome utente dal token
+            if (username == null) {
+                return "Token non valido.";
+            }
+
+            Optional<Utente> utenteOptional = utenteRepository.findByUsername(username);
+            if (utenteOptional.isEmpty()) {
+                return "Utente non trovato.";
+            }
+
+            Utente utente = utenteOptional.get();
+            utenteRepository.delete(utente); // Elimina l'utente
+            return "Account eliminato con successo.";
+
+        } catch (Exception e) {
+            return "Errore durante l'eliminazione dell'account.";
+        }
     }
 
 }
