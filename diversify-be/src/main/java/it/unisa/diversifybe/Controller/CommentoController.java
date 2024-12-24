@@ -57,4 +57,12 @@ public class CommentoController {
         List<Commento> commenti = commentoService.trovaCommentiPerPost(idPost);
         return ResponseEntity.ok(commenti);
     }
+    @GetMapping("/subcommento/{idCommento}")
+    public ResponseEntity<List<Subcommento>> trovaSubcommentiPerCommento(@PathVariable String idCommento) {
+        List<Subcommento> subcommenti = commentoService.trovaSubcommentiPerCommento(idCommento);
+        if (subcommenti.isEmpty()) {
+            return ResponseEntity.notFound().build(); // Se nessun subcommento trovato
+        }
+        return ResponseEntity.ok(subcommenti);
+    }
 }
