@@ -31,4 +31,6 @@ public interface ForumRepository extends MongoRepository<Forum, String>{
 
     List<Forum> findByPostContaining(Forum post);
 
+    List<Forum> findByPaese(String paese);
 }
+

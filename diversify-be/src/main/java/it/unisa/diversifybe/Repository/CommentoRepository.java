@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 
 public interface CommentoRepository extends MongoRepository<Commento,String> {
-
+    Optional<Commento> findByIdAutore(String idAutore);
     /**
      * Trova una lista di commenti creati da un autore specifico.
      *
@@ -59,4 +59,13 @@ public interface CommentoRepository extends MongoRepository<Commento,String> {
      */
 
     List<Commento> findByDataCreazioneLessThanEqual(Date dataCreazione);
+
+    /**
+     * Trova una lista di commenti associati a un determinato post.
+     *
+     * @param idPost l'ID del post.
+     * @return una lista di commenti associati al post specificato.
+     */
+
+    List<Commento> findByIdPost(String idPost);
 }

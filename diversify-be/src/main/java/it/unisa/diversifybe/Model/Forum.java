@@ -19,7 +19,6 @@ public class Forum {
      */
 
     private String idForum;
-
     /**
      * Il titolo del forum.
      * Rappresenta il nome o la tematica principale del forum.
@@ -40,4 +39,5 @@ public class Forum {
      */
 
     private List<Post> post;
+    private String Paese;
 }

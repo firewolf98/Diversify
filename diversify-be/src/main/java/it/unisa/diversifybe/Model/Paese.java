@@ -18,7 +18,7 @@ public class Paese {
      * Questo campo viene utilizzato per identificare in modo univoco un paese nella piattaforma.
      */
 
-    private String id_paese;
+    private String idPaese;
 
     /**
      * Il nome del paese.
@@ -32,7 +32,7 @@ public class Paese {
      * Questo campo rappresenta la discussione principale e i forum legati a quel paese.
      */
 
-    private String forum;
+    private List<String> forum;
 
     /**
      * Una lista di campagne di crowdfunding associate al paese.

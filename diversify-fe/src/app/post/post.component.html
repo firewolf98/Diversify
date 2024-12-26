@@ -1,24 +1,48 @@
 <div class="background-container">
-    <div class="post-container">
-      <a href="#" class="back-link">← Torna alla mappa</a>
-      <h1 class="post-title">La Diversità di Genere</h1>
-      <div class="post-content">
-        <div class="post-header">
-            <img src="Discussione.png" alt="Discussione" class="post-icon" />
-            <span class="post-title-text">Risorse Utili per Comprendere la Diversità di Genere</span>
-            <span class="badge">Discussione</span>
+  <div class="post-container">
+    <a href="#" class="back-link">← Torna alla mappa</a>
+    <h1 class="post-title">La Diversità di Genere</h1>
+    <div class="post-content">
+      <div class="post-header">
+        <img src="Discussione.png" alt="Discussione" class="post-icon" />
+        <span class="post-title-text">Risorse Utili per Comprendere la Diversità di Genere</span>
+        <span class="badge">Discussione</span>
+      </div>
+      <p class="post-description">
+        Benvenuti nel nostro post dedicato alla diversità di genere e ai diritti umani. Questo spazio è stato creato
+        per promuovere il dialogo, l'informazione e la condivisione di esperienze su temi legati all'identità di
+        genere, all'uguaglianza e al rispetto delle differenze.
+      </p>
+
+      <!-- Sezione per i commenti -->
+      <div class="comments-section">
+        <h2>Commenti</h2>
+
+        <!-- Sezione per scrivere un nuovo commento -->
+        <div class="new-comment">
+          <textarea 
+            [(ngModel)]="newComment.text" 
+            placeholder="💬 Scrivi un commento..." 
+            rows="3" 
+            style="font-style: italic; color: #555; border: 1px solid #ccc; border-radius: 5px; padding: 10px; width: 100%;">
+          </textarea>
+          <br />
+          <button 
+            (click)="addComment()" 
+            style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
+            Aggiungi Commento
+          </button>
         </div>
-        <p class="post-description">
-          Benvenuti nel nostro post dedicato alla diversità di genere e ai diritti umani. Questo spazio è stato creato
-          per promuovere il dialogo, l'informazione e la condivisione di esperienze su temi legati all'identità di
-          genere, all'uguaglianza e al rispetto delle differenze.
-        </p>
-        <div class="post-footer">
-          <span class="post-author">Postato da <a href="#">Lucia</a></span>
-          <a href="#" class="post-action">Rispondi</a>
-          <a href="#" class="post-action">Condividi</a>
-        </div>
+
+        <!-- Lista dei commenti -->
+        <app-commento *ngFor="let comment of comments" [comment]="comment"></app-commento>
+      </div>
+
+      <div class="post-footer">
+        <span class="post-author">Postato da <a href="#">Lucia</a></span>
+        <a href="#" class="post-action">Rispondi</a>
+        <a href="#" class="post-action">Condividi</a>
       </div>
     </div>
   </div>
-  
+</div>

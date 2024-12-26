@@ -85,7 +85,7 @@ public class SegnalazioneController {
     public ResponseEntity<?> updateSegnalazione(@PathVariable("id") String id, @RequestBody Segnalazione segnalazione) {
         Optional<Segnalazione> existingSegnalazione = segnalazioneService.getSegnalazioneById(id);
         if (existingSegnalazione.isPresent()) {
-            segnalazione.setId_segnalazione(id); // Impostiamo l'ID per l'aggiornamento
+            segnalazione.setIdSegnalazione(id); // Impostiamo l'ID per l'aggiornamento
             Segnalazione updatedSegnalazione = segnalazioneService.updateSegnalazione(segnalazione);
             return ResponseEntity.ok(updatedSegnalazione);
         } else {
@@ -100,7 +100,7 @@ public class SegnalazioneController {
      * @return una risposta HTTP 204 (NO CONTENT) se la segnalazione è stata eliminata,
      *         oppure una risposta HTTP 404 (NOT FOUND) se la segnalazione non esiste.
      */
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<?> deleteSegnalazione(@PathVariable("id") String id) {
         Optional<Segnalazione> existingSegnalazione = segnalazioneService.getSegnalazioneById(id);
         if (existingSegnalazione.isPresent()) {

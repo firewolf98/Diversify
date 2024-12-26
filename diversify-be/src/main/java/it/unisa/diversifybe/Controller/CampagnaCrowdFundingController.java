@@ -31,7 +31,14 @@ public class CampagnaCrowdFundingController {
     public ResponseEntity<List<CampagnaCrowdFunding>> getAllCampagne() {
         return ResponseEntity.ok(service.getAllCampagne());
     }
-
+    @GetMapping("/api/campagne/by-paese/{paese}")
+    public ResponseEntity<List<CampagnaCrowdFunding>> getCampagneByPaese(@PathVariable String paese) {
+        List<CampagnaCrowdFunding> campagne = service.findCampagneByPaese(paese);
+        if (campagne.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(campagne);
+    }
     /**
      * Restituisce una campagna specifica in base al suo ID.
      *
@@ -115,35 +122,54 @@ public class CampagnaCrowdFundingController {
      * @return la campagna creata.
      */
 
-    @PostMapping
-    public ResponseEntity<CampagnaCrowdFunding> createCampagna(@RequestBody CampagnaCrowdFunding campagna) {
-        return ResponseEntity.ok(service.createCampagna(campagna));
+    @PostMapping("/api/campagne")
+    public ResponseEntity<CampagnaCrowdFunding> createCampagna(@RequestBody CampagnaCrowdFunding campagna, @RequestParam boolean ruolo) {
+        try {
+            // Controlla il ruolo dell'utente
+            if (!ruolo) {
+                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
+            }
+
+            CampagnaCrowdFunding createdCampagna = service.createCampagna(campagna);
+            return ResponseEntity.ok(createdCampagna);
+        } catch (SecurityException e) {
+            return ResponseEntity.status(403).build(); // Gestisce l'eccezione di sicurezza
+        }
     }
 
     /**
      * Aggiorna una campagna esistente.
      *
-     * @param idCampagna l'ID della campagna da aggiornare.
-     * @param campagna i dati aggiornati della campagna.
      * @return la campagna aggiornata.
      */
 
     @PutMapping("/{idCampagna}")
-    public ResponseEntity<CampagnaCrowdFunding> updateCampagna(
-            @PathVariable String idCampagna, @RequestBody CampagnaCrowdFunding campagna) {
-        return ResponseEntity.ok(service.updateCampagna(idCampagna, campagna));
+    public ResponseEntity<CampagnaCrowdFunding> updateCampagna(@PathVariable String idCampagna, @RequestBody CampagnaCrowdFunding campagna, @RequestParam boolean ruolo) {
+        try {
+            // Controlla il ruolo dell'utente
+            if (!ruolo) {
+                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
+            }
+
+            CampagnaCrowdFunding updatedCampagna = service.updateCampagna(idCampagna, campagna);
+            return ResponseEntity.ok(updatedCampagna);
+        } catch (SecurityException e) {
+            return ResponseEntity.status(403).build(); // Gestisce l'eccezione di sicurezza
+        }
     }
 
-    /**
-     * Elimina una campagna specifica in base al suo ID.
-     *
-     * @param idCampagna l'ID della campagna da eliminare.
-     * @return una risposta vuota con codice 204 se l'eliminazione ha avuto successo.
-     */
+    @PostMapping("/{idCampagna}")
+    public ResponseEntity<Void> deleteCampagna(@PathVariable String idCampagna, @RequestParam boolean ruolo) {
+        try {
+            // Controlla il ruolo dell'utente
+            if (!ruolo) {
+                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
+            }
 
-    @DeleteMapping("/{idCampagna}")
-    public ResponseEntity<Void> deleteCampagna(@PathVariable String idCampagna) {
-        service.deleteCampagna(idCampagna);
-        return ResponseEntity.noContent().build();
+            service.deleteCampagna(idCampagna);
+            return ResponseEntity.noContent().build();
+        } catch (SecurityException e) {
+            return ResponseEntity.status(403).build(); // Gestisce l'eccezione di sicurezza
+        }
     }
 }
