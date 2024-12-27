@@ -7,6 +7,7 @@ import { SchedaAreaPersonaleComponent } from "./scheda-area-personale/scheda-are
 import { LoginFormComponent } from "./login-form/login-form.component";
 import { RegistrazioneFormComponent } from "./registrazione-form/registrazione-form.component";
 import { MapComponent } from "./mappa/mappa.component";
+import { CommentoComponent } from './commento/commento.component';
 
 @Component({
 	selector: 'app-root',
