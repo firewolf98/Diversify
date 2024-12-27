@@ -36,11 +36,15 @@
         <p>Postato da Alessandro</p>
       </div>
   
+      <!-- Bottone per creare un nuovo post -->
+      <button class="new-post-button" (click)="createNewPost()">New Post</button>
+    
       <div class="pagination">
         <button (click)="goToPrevious()">Precedente</button> <!-- Associa il metodo goToPrevious -->
         <span>{{ currentPage }}</span> <!-- Visualizza il numero della pagina corrente -->
         <button (click)="goToNext()">Successiva</button> <!-- Associa il metodo goToNext -->
       </div>
+
     </div>
   </div>
   
