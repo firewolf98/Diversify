@@ -13,8 +13,12 @@ public class ChatbotMessage {
     private String userId;        // ID dell'utente che ha inviato il messaggio
     private String question;      // Domanda o messaggio inviato dall'utente
     private String answer;        // Risposta fornita dalla chatbot
-    private String timestamp;     // Data e ora in cui il messaggio è stato inviato (opzionale)
+    private LocalDateTime timestamp;     // Data e ora in cui il messaggio è stato inviato (opzionale)
 
-    public ChatbotMessage(String userId, String domandaUtente, String rispostaChatbot, LocalDateTime timestamp) {
+    public ChatbotMessage(String userId, String question, String answer, LocalDateTime timestamp) {
+        this.userId = userId;
+        this.question = question;
+        this.answer = answer;
+        this.timestamp = timestamp;
     }
 }

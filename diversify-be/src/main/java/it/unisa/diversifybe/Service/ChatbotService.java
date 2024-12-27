@@ -61,8 +61,16 @@ public class ChatbotService {
      * Se l'utente non ha una conversazione esistente, ne crea una nuova.
      *
      * @param chatbotMessage il messaggio da salvare.
+     * @throws RuntimeException se i dati del messaggio sono incompleti o invalidi.
      */
     public void saveMessage(ChatbotMessage chatbotMessage) {
+        // Verifica che il messaggio abbia dati validi
+        if (chatbotMessage == null ||
+                chatbotMessage.getQuestion() == null || chatbotMessage.getQuestion().trim().isEmpty() ||
+                chatbotMessage.getAnswer() == null || chatbotMessage.getAnswer().trim().isEmpty()) {
+            throw new RuntimeException("Invalid message data: question and answer must not be null or empty");
+        }
+
         // Cerca la conversazione esistente per l'utente
         Optional<ConversazioneChatbot> conversazioneOpt = conversazioneRepository.findByIdUtente(chatbotMessage.getUserId());
 
@@ -88,5 +96,6 @@ public class ChatbotService {
         // Salva la conversazione aggiornata
         conversazioneRepository.save(conversazione);
     }
+
 
 }
