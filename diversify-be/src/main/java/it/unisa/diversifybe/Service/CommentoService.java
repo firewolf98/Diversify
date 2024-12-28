@@ -8,6 +8,7 @@ import it.unisa.diversifybe.Repository.PostRepository;
 import it.unisa.diversifybe.Repository.SubcommentoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -27,8 +28,20 @@ public class CommentoService {
      * @param idPost   L'ID del post a cui aggiungere il commento.
      * @param commento Il commento da aggiungere.
      * @return Il commento salvato.
+     * @throws IllegalArgumentException se l'ID del post o il commento non sono validi.
      */
     public Commento aggiungiCommentoAPost(String idPost, Commento commento) {
+        if (idPost == null || idPost.isBlank()) {
+            throw new IllegalArgumentException("L'ID del post non può essere nullo o vuoto.");
+        }
+        if (commento == null) {
+            throw new IllegalArgumentException("Il commento non può essere nullo.");
+        }
+        if (commento.getIdAutore() == null || commento.getIdAutore().isBlank() ||
+                commento.getContenuto() == null || commento.getContenuto().isBlank()) {
+            throw new IllegalArgumentException("Il commento deve avere un autore e un contenuto valido.");
+        }
+
         Optional<Post> optionalPost = postRepository.findById(idPost);
 
         if (optionalPost.isPresent()) {
@@ -36,14 +49,14 @@ public class CommentoService {
 
             // Imposta i dati del commento
             commento.setDataCreazione(new Date());
+            commento.setIdPost(idPost);
             commentoRepository.save(commento);
 
             // Aggiunge il commento alla lista dei commenti del post
             if (post.getCommenti() == null) {
-                post.setCommenti(List.of(commento));
-            } else {
-                post.getCommenti().add(commento);
+                post.setCommenti(new ArrayList<>());
             }
+            post.getCommenti().add(commento);
 
             // Salva il post aggiornato
             postRepository.save(post);
@@ -59,8 +72,20 @@ public class CommentoService {
      * @param idCommento  L'ID del commento principale.
      * @param subcommento Il subcommento da aggiungere.
      * @return Il subcommento salvato.
+     * @throws IllegalArgumentException se il subcommento è nullo o contiene campi mancanti/non validi.
      */
     public Subcommento aggiungiSubcommentoACommento(String idCommento, Subcommento subcommento) {
+        if (idCommento == null || idCommento.isBlank()) {
+            throw new IllegalArgumentException("L'ID del commento non può essere nullo o vuoto.");
+        }
+        if (subcommento == null) {
+            throw new IllegalArgumentException("Il subcommento non può essere nullo.");
+        }
+        if (subcommento.getIdAutore() == null || subcommento.getIdAutore().isBlank() ||
+                subcommento.getContenuto() == null || subcommento.getContenuto().isBlank()) {
+            throw new IllegalArgumentException("Il subcommento deve avere un autore e un contenuto valido.");
+        }
+
         Optional<Commento> optionalCommento = commentoRepository.findById(idCommento);
 
         if (optionalCommento.isPresent()) {
@@ -72,10 +97,9 @@ public class CommentoService {
 
             // Aggiunge il subcommento alla lista dei subcommenti
             if (commento.getSubcommenti() == null) {
-                commento.setSubcommenti(List.of(subcommento));
-            } else {
-                commento.getSubcommenti().add(subcommento);
+                commento.setSubcommenti(new ArrayList<>());
             }
+            commento.getSubcommenti().add(subcommento);
 
             // Salva il commento aggiornato
             commentoRepository.save(commento);

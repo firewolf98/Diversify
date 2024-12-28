@@ -11,6 +11,8 @@ import java.util.*;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "Commenti")
 public class Commento {
 

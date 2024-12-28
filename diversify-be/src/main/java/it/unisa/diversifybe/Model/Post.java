@@ -10,6 +10,8 @@ import java.util.*;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "Post")
 public class Post {
 

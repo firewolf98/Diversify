@@ -11,6 +11,8 @@ import java.util.Date;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection="Subcommenti")
 public class Subcommento {
 
