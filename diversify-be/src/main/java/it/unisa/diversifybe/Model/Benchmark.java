@@ -5,12 +5,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Classe che rappresenta un Benchmark.
- *
  * Questa classe viene utilizzata per definire un benchmark utilizzato
  * per valutare determinati criteri o parametri relativi al Paese.
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "Benchmark")
 public class Benchmark {
 
