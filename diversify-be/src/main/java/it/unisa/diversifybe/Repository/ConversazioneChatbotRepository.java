@@ -2,19 +2,19 @@ package it.unisa.diversifybe.Repository;
 
 import it.unisa.diversifybe.Model.ConversazioneChatbot;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
- * Il repository per gestire le operazioni di persistenza su {@link ConversazioneChatbot}.
+ * Repository per gestire le operazioni nel database delle conversazioni della chatbot.
  */
-@Repository
 public interface ConversazioneChatbotRepository extends MongoRepository<ConversazioneChatbot, String> {
 
     /**
-     * Trova l'ultima conversazione di un dato utente, ordinata per data dell'ultima interazione (decrescente).
+     * Trova una conversazione associata all'utente con l'ID specificato.
      *
      * @param idUtente l'ID dell'utente.
-     * @return l'ultima conversazione per l'utente.
+     * @return un'opzionale contenente la conversazione, se trovata.
      */
-    ConversazioneChatbot findTopByIdUtenteOrderByDataUltimaInterazioneDesc(String idUtente);
+    Optional<ConversazioneChatbot> findByIdUtente(String idUtente);
 }

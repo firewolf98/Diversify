@@ -1,7 +1,6 @@
 package it.unisa.diversifybe.Service;
 
-import it.unisa.diversifybe.DTO.ChatbotRequest;
-import it.unisa.diversifybe.DTO.ChatbotResponse;
+import it.unisa.diversifybe.DTO.ChatbotMessage;
 import it.unisa.diversifybe.Model.ConversazioneChatbot;
 import it.unisa.diversifybe.Repository.ConversazioneChatbotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,89 +8,94 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
+import java.util.Optional;
 
 /**
- * La classe {@code ChatbotService} gestisce la logica di business relativa alla chatbot.
- * Riceve messaggi degli utenti, genera risposte e salva le conversazioni nel database.
+ * Service per gestire la logica delle operazioni sulle conversazioni della chatbot.
  */
 @Service
 public class ChatbotService {
 
+    private final ConversazioneChatbotRepository conversazioneRepository;
+
     @Autowired
-    private ConversazioneChatbotRepository conversazioneChatbotRepository;
+    public ChatbotService(ConversazioneChatbotRepository conversazioneRepository) {
+        this.conversazioneRepository = conversazioneRepository;
+    }
 
     /**
-     * Elabora un messaggio dell'utente, genera una risposta e salva la conversazione.
+     * Recupera tutte le conversazioni di un utente specificato dall'ID.
      *
-     * @param userId        l'identificativo dell'utente.
-     * @param userMessage   il messaggio ricevuto dall'utente.
-     * @return il messaggio di risposta generato dalla chatbot.
+     * @param userId l'ID dell'utente di cui si vogliono recuperare le conversazioni.
+     * @return una lista di {@link ChatbotMessage} rappresentanti la conversazione.
      */
-    public String processMessage(String userId, String userMessage) {
-        // Genera una risposta basata sul messaggio dell'utente
-        String chatbotResponseMessage = generateChatbotResponse(userMessage);
+    public List<ChatbotMessage> getUserConversations(String userId) {
+        // Recupera la conversazione dall'utente
+        Optional<ConversazioneChatbot> conversazioneOpt = conversazioneRepository.findByIdUtente(userId);
 
-        // Recupera o crea una nuova conversazione
-        ConversazioneChatbot conversazione = findOrCreateConversation(userId);
+        if (conversazioneOpt.isPresent()) {
+            ConversazioneChatbot conversazione = conversazioneOpt.get();
+            List<ChatbotMessage> messages = new ArrayList<>();
 
-        // Crea un nuovo messaggio
-        ConversazioneChatbot.Messaggio messaggio = new ConversazioneChatbot.Messaggio();
-        messaggio.setDomandaUtente(userMessage);
-        messaggio.setRispostaChatbot(chatbotResponseMessage);
-        messaggio.setTimestamp(LocalDateTime.now());
+            // Converte i messaggi della conversazione in ChatMessage
+            for (ConversazioneChatbot.Messaggio messaggio : conversazione.getMessaggi()) {
+                ChatbotMessage chatMessage = new ChatbotMessage(
+                        userId,
+                        messaggio.getDomandaUtente(),
+                        messaggio.getRispostaChatbot(),
+                        messaggio.getTimestamp()
+                );
+                messages.add(chatMessage);
+            }
 
-        // Aggiunge il messaggio alla conversazione
-        conversazione.getMessaggi().add(messaggio);
+            return messages;
+        }
 
-        // Aggiorna la data dell'ultima interazione
+        // Se nessuna conversazione trovata, restituisce una lista vuota
+        return new ArrayList<>();
+    }
+
+    /**
+     * Salva un messaggio nella conversazione della chatbot per un utente.
+     * Se l'utente non ha una conversazione esistente, ne crea una nuova.
+     *
+     * @param chatbotMessage il messaggio da salvare.
+     * @throws RuntimeException se i dati del messaggio sono incompleti o invalidi.
+     */
+    public void saveMessage(ChatbotMessage chatbotMessage) {
+        // Verifica che il messaggio abbia dati validi
+        if (chatbotMessage == null ||
+                chatbotMessage.getQuestion() == null || chatbotMessage.getQuestion().trim().isEmpty() ||
+                chatbotMessage.getAnswer() == null || chatbotMessage.getAnswer().trim().isEmpty()) {
+            throw new RuntimeException("Invalid message data: question and answer must not be null or empty");
+        }
+
+        // Cerca la conversazione esistente per l'utente
+        Optional<ConversazioneChatbot> conversazioneOpt = conversazioneRepository.findByIdUtente(chatbotMessage.getUserId());
+
+        ConversazioneChatbot conversazione;
+        if (conversazioneOpt.isPresent()) {
+            conversazione = conversazioneOpt.get();
+        } else {
+            // Se non esiste, crea una nuova conversazione
+            conversazione = new ConversazioneChatbot();
+            conversazione.setIdUtente(chatbotMessage.getUserId());
+            conversazione.setMessaggi(new ArrayList<>());
+        }
+
+        // Aggiunge il nuovo messaggio
+        ConversazioneChatbot.Messaggio nuovoMessaggio = new ConversazioneChatbot.Messaggio();
+        nuovoMessaggio.setDomandaUtente(chatbotMessage.getQuestion());
+        nuovoMessaggio.setRispostaChatbot(chatbotMessage.getAnswer());
+        nuovoMessaggio.setTimestamp(LocalDateTime.now());
+
+        conversazione.getMessaggi().add(nuovoMessaggio);
         conversazione.setDataUltimaInterazione(LocalDateTime.now());
 
         // Salva la conversazione aggiornata
-        conversazioneChatbotRepository.save(conversazione);
-
-        // Restituisce il messaggio generato
-        return chatbotResponseMessage;
+        conversazioneRepository.save(conversazione);
     }
 
-    /**
-     * Genera una risposta simulata per un dato messaggio dell'utente.
-     * Questo metodo può essere espanso per integrare modelli di NLP o altre logiche avanzate.
-     *
-     * @param userMessage il messaggio ricevuto dall'utente.
-     * @return la risposta generata.
-     */
-    private String generateChatbotResponse(String userMessage) {
-        // Implementazione base di simulazione della risposta
-        return "Risposta generica per: " + userMessage;
-    }
 
-    /**
-     * Recupera una conversazione esistente o ne crea una nuova per un dato utente.
-     * Se l'ultima interazione supera le 6 ore, crea una nuova conversazione.
-     *
-     * @param userId l'identificativo dell'utente.
-     * @return un oggetto {@link ConversazioneChatbot} esistente o nuovo.
-     */
-    private ConversazioneChatbot findOrCreateConversation(String userId) {
-        // Recupera una conversazione esistente
-        ConversazioneChatbot conversazione = conversazioneChatbotRepository.findTopByIdUtenteOrderByDataUltimaInterazioneDesc(userId);
-
-        // Verifica la data dell'ultima interazione
-        if (conversazione != null && conversazione.getDataUltimaInterazione() != null) {
-            LocalDateTime ultimaInterazione = conversazione.getDataUltimaInterazione();
-            if (ultimaInterazione.plusHours(6).isAfter(LocalDateTime.now())) {
-                return conversazione;
-            }
-        }
-
-        // Crea una nuova conversazione
-        conversazione = new ConversazioneChatbot();
-        conversazione.setIdUtente(userId);
-        conversazione.setIdConversazione(UUID.randomUUID().toString());
-        conversazione.setMessaggi(new ArrayList<>());
-        conversazione.setDataUltimaInterazione(LocalDateTime.now());
-
-        return conversazione;
-    }
 }
