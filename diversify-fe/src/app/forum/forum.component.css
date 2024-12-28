@@ -107,6 +107,17 @@ body {
     color: #003366; /* Blu più scuro al passaggio del mouse */
 }
 
+
+/* Footer del forum */
+.footer-container {
+    text-align: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    position: relative;
+    margin-top: auto; /* Posiziona in basso */
+}
+
 /* Paginazione */
 .pagination {
     display: flex;
@@ -132,12 +143,23 @@ body {
     cursor: not-allowed;
 }
 
-/* Footer del forum */
-.footer-container {
-    text-align: center;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-top: 1px solid #ddd;
-    position: relative;
-    margin-top: auto; /* Posiziona in basso */
+/* Stile per il bottone "New Post" */
+.new-post-button {
+    display: block;
+    margin: 0 0 15px auto; /* Aggiunge margine solo a sinistra per spingerlo verso destra */
+    padding: 10px 30px; /* Aumenta il padding per renderlo più lungo */
+    background-color: #004b8f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /*cursore puntatore */
+}
+
+.new-post-button:hover {
+    background-color: #003366; /* Blu più scuro al passaggio del mouse */
+}
+
+.new-post-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
