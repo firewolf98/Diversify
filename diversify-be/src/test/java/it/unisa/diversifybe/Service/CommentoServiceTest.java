@@ -126,7 +126,7 @@ class CommentoServiceTest {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> service.aggiungiCommentoAPost(invalidIdPost, commento));
 
-        assertEquals("Post con ID null non trovato.", exception.getMessage());
+        assertEquals("L'ID del post non può essere nullo o vuoto.", exception.getMessage());
         verify(postRepository, never()).save(any(Post.class));
     }
 
@@ -183,7 +183,7 @@ class CommentoServiceTest {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> service.aggiungiSubcommentoACommento(invalidIdCommento, subcommento));
 
-        assertEquals("Commento con ID null non trovato.", exception.getMessage());
+        assertEquals("L'ID del commento non può essere nullo o vuoto.", exception.getMessage());
         verify(subcommentoRepository, never()).save(any(Subcommento.class));
     }
 
