@@ -10,6 +10,8 @@ import java.util.*;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "Forum")
 public class Forum {
 
@@ -40,4 +42,6 @@ public class Forum {
 
     private List<Post> post;
     private String Paese;
+
+
 }
