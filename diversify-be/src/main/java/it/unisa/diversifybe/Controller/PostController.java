@@ -39,6 +39,9 @@ public class PostController {
      */
     @PostMapping
     public Post createPost(@RequestBody Post post) {
+        if (post == null) {
+            throw new NullPointerException("Il post fornito è nullo.");
+        }
         postService.save(post);
         return post;
     }
@@ -52,6 +55,9 @@ public class PostController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable String id, @RequestBody Post post) {
+        if (post == null) {
+            throw new IllegalArgumentException("Il post non può essere nullo");
+        }
         Optional<Post> updatedPost = postService.updatePost(id, post);
         return updatedPost.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
