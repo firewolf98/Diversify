@@ -22,6 +22,12 @@ public class PostService {
      * @return Un Optional contenente il post se trovato, altrimenti vuoto.
      */
     public Optional<Post> findById(String idPost) {
+        if (idPost == null) {
+            throw new IllegalArgumentException("idPost non può essere null");
+        }
+        if (idPost.isEmpty()) {
+            throw new IllegalArgumentException("idPost non può essere vuoto");
+        }
         return postRepository.findById(idPost);
     }
 
@@ -31,6 +37,18 @@ public class PostService {
      * @param post L'oggetto Post da salvare.
      */
     public void save(Post post) {
+        if (post.getTitolo() == null || post.getTitolo().isEmpty()) {
+            throw new IllegalArgumentException("Il titolo del post non può essere nullo o vuoto.");
+        }
+        if (post.getContenuto() == null || post.getContenuto().isEmpty()) {
+            throw new IllegalArgumentException("Il contenuto del post non può essere nullo o vuoto.");
+        }
+        if (post.getIdForum() == null || post.getIdForum().isEmpty()) {
+            throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
+        }
+        if (post.getIdAutore() == null || post.getIdAutore().isEmpty()) {
+            throw new IllegalArgumentException("L'ID dell'autore non può essere nullo o vuoto.");
+        }
         postRepository.save(post);
     }
 
@@ -48,6 +66,18 @@ public class PostService {
             post.setTitolo(updatedPost.getTitolo());
             post.setContenuto(updatedPost.getContenuto());
             post.setIdForum(updatedPost.getIdForum()); // Aggiorna il forum se necessario
+            if (post.getTitolo() == null || post.getTitolo().isEmpty()) {
+                throw new IllegalArgumentException("Il titolo del post non può essere nullo o vuoto.");
+            }
+            if (post.getContenuto() == null || post.getContenuto().isEmpty()) {
+                throw new IllegalArgumentException("Il contenuto del post non può essere nullo o vuoto.");
+            }
+            if (post.getIdForum() == null || post.getIdForum().isEmpty()) {
+                throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
+            }
+            if (post.getIdAutore() == null || post.getIdAutore().isEmpty()) {
+                throw new IllegalArgumentException("L'ID dell'autore non può essere nullo o vuoto.");
+            }
             postRepository.save(post);
             return Optional.of(post);
         } else {
