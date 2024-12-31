@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UtenteControllerTest {
-
     /**
      * **Partizioni dei metodi del controller per il testing (Category Partition):**
      * **Metodo `authenticateUser`**:

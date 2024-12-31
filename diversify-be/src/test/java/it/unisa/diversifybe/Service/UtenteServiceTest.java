@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UtenteServiceTest {
-
     /**
      * **Partizioni individuate per i metodi di `UtenteService`**:
      * **Metodo `registerUser`**:
