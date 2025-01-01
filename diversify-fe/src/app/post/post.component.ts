@@ -6,7 +6,7 @@ import { CommentoComponent } from '../commento/commento.component';
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, FormsModule, CommentoComponent], // Importa CommentoComponent
+  imports: [CommonModule, FormsModule, CommentoComponent],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
 })
@@ -14,13 +14,13 @@ export class PostComponent {
   comments = [
     {
       authorName: 'Mario Rossi',
-      authorAvatar: 'https://example.com/avatar1.png',
+      authorAvatar: 'Avatar.png', // URL dell'immagine
       text: 'Ottimo post! Molto interessante.',
       date: '2024-12-18T10:00:00Z',
     },
     {
       authorName: 'Giulia Verdi',
-      authorAvatar: 'https://example.com/avatar2.png',
+      authorAvatar: 'Avatar.png',
       text: 'Sono d’accordo! Grazie per aver condiviso.',
       date: '2024-12-18T12:00:00Z',
     },
@@ -32,7 +32,7 @@ export class PostComponent {
     if (this.newComment.text.trim()) {
       const newComment = {
         authorName: 'Nuovo Utente',
-        authorAvatar: 'https://example.com/default-avatar.png',
+        authorAvatar: 'Avatar.png', // Avatar predefinito
         text: this.newComment.text,
         date: new Date().toISOString(),
       };
@@ -41,3 +41,4 @@ export class PostComponent {
     }
   }
 }
+

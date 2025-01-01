@@ -13,6 +13,8 @@ import java.util.List;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "Campagne")
 public class CampagnaCrowdFunding {
 
@@ -71,5 +73,10 @@ public class CampagnaCrowdFunding {
      */
 
     private String stato;
+
+    /**
+     * Paese della campagna di crowdfunding
+     */
     private String Paese;
+
 }

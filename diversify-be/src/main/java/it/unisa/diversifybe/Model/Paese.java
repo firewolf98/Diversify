@@ -10,6 +10,8 @@ import java.util.List;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "Paesi")
 public class Paese {
 
@@ -62,4 +64,5 @@ public class Paese {
      */
 
     private List<DocumentoInformativo> documentiInformativi;
+
 }

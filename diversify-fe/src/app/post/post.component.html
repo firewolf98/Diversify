@@ -13,6 +13,11 @@
         per promuovere il dialogo, l'informazione e la condivisione di esperienze su temi legati all'identità di
         genere, all'uguaglianza e al rispetto delle differenze.
       </p>
+      <div class="post-footer">
+        <span class="post-author">Postato da <a href="#">Lucia</a></span>
+        <a href="#" class="post-action">Rispondi</a>
+        <a href="#" class="post-action">Condividi</a>
+      </div>
 
       <!-- Sezione per i commenti -->
       <div class="comments-section">
@@ -20,16 +25,14 @@
 
         <!-- Sezione per scrivere un nuovo commento -->
         <div class="new-comment">
-          <textarea 
-            [(ngModel)]="newComment.text" 
-            placeholder="💬 Scrivi un commento..." 
-            rows="3" 
-            style="font-style: italic; color: #555; border: 1px solid #ccc; border-radius: 5px; padding: 10px; width: 100%;">
-          </textarea>
+          <textarea
+            [(ngModel)]="newComment.text"
+            placeholder="💬 Scrivi un commento..."
+            rows="2"
+            class="comment-textarea"
+          ></textarea>
           <br />
-          <button 
-            (click)="addComment()" 
-            style="background-color: #007BFF; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
+          <button (click)="addComment()" class="comment-button">
             Aggiungi Commento
           </button>
         </div>

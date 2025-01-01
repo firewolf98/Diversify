@@ -38,6 +38,9 @@ public class CampagnaCrowdFundingService {
 
 
     public Optional<CampagnaCrowdFunding> getCampagnaByIdCampagna(String idCampagna) {
+        if (idCampagna == null || idCampagna.isBlank()) {
+            throw new IllegalArgumentException("L'ID della campagna non può essere nullo o vuoto.");
+        }
         return repository.findByIdCampagna(idCampagna).stream().findFirst();
     }
 
@@ -49,8 +52,12 @@ public class CampagnaCrowdFundingService {
      */
 
     public List<CampagnaCrowdFunding> getCampagneByTitolo(String titolo) {
+        if (titolo == null || titolo.isBlank()) {
+            throw new IllegalArgumentException("Il titolo non può essere nullo o vuoto.");
+        }
         return repository.findByTitolo(titolo);
     }
+
 
     /**
      * Cerca le campagne che contengono una parola chiave nel titolo.
@@ -71,8 +78,12 @@ public class CampagnaCrowdFundingService {
      */
 
     public List<CampagnaCrowdFunding> getCampagneByStato(String stato) {
+        if (stato == null || stato.isBlank()) {
+            throw new IllegalArgumentException("Lo stato non può essere nullo o vuoto.");
+        }
         return repository.findByStato(stato);
     }
+
 
     /**
      * Cerca le campagne in base alla data di inizio.
@@ -82,8 +93,12 @@ public class CampagnaCrowdFundingService {
      */
 
     public List<CampagnaCrowdFunding> getCampagneByDataInizio(LocalDate dataInizio) {
+        if (dataInizio == null) {
+            throw new IllegalArgumentException("La data di inizio non può essere nulla.");
+        }
         return repository.findByDataInizio(dataInizio);
     }
+
     public List<CampagnaCrowdFunding> findCampagneByPaese(String paese) {
         return campagnaCrowdFundingRepository.findByPaese(paese);
     }
@@ -95,8 +110,12 @@ public class CampagnaCrowdFundingService {
      */
 
     public List<CampagnaCrowdFunding> getCampagneByDataPrevistaFine(LocalDate dataPrevistaFine) {
+        if (dataPrevistaFine == null) {
+            throw new IllegalArgumentException("La data prevista di fine non può essere nulla.");
+        }
         return repository.findByDataPrevistaFine(dataPrevistaFine);
     }
+
 
     /**
      * Crea una nuova campagna di crowdfunding.
@@ -106,8 +125,12 @@ public class CampagnaCrowdFundingService {
      */
 
     public CampagnaCrowdFunding createCampagna(CampagnaCrowdFunding campagna) {
+        if (campagna == null || campagna.getTitolo() == null || campagna.getTitolo().isBlank()) {
+            throw new IllegalArgumentException("I dati della campagna non possono essere nulli o incompleti.");
+        }
         return repository.save(campagna);
     }
+
 
     /**
      * Aggiorna una campagna esistente.
@@ -141,6 +164,10 @@ public class CampagnaCrowdFundingService {
      */
 
     public void deleteCampagna(String idCampagna) {
+        if (idCampagna == null || idCampagna.isBlank()) {
+            throw new IllegalArgumentException("L'ID della campagna non può essere nullo o vuoto.");
+        }
+
         Optional<CampagnaCrowdFunding> campagna = repository.findByIdCampagna(idCampagna).stream().findFirst();
         if (campagna.isPresent()) {
             repository.delete(campagna.get());
@@ -148,4 +175,5 @@ public class CampagnaCrowdFundingService {
             throw new RuntimeException("Campagna non trovata con ID: " + idCampagna);
         }
     }
+
 }
