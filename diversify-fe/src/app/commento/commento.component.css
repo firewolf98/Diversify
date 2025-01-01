@@ -28,3 +28,65 @@
     line-height: 1.5;
     color: #555;
 }
+
+/* Commento-footer */
+.comment-footer {
+    display: flex; /* Dispone gli elementi in fila */
+    justify-content: space-between; /* Spaziatura tra i pulsanti */
+    align-items: center; /* Allinea verticalmente gli elementi */
+    margin-top: 10px; /* Spaziatura superiore rispetto al contenuto del commento */
+    padding-top: 10px; /* Spaziatura interna superiore */
+    border-top: 1px solid #ddd; /* Linea di separazione */
+    font-size: 14px; /* Dimensione del testo */
+    color: #555; /* Colore del testo */
+  }
+  
+  .comment-footer span {
+    font-weight: bold; /* Testo in grassetto per il "Postato da" */
+    color: #333; /* Colore leggermente più scuro */
+  }
+  
+  .reply-button {
+    background-color: #007BFF; /* Colore di sfondo blu */
+    color: white; /* Colore del testo bianco */
+    border: none; /* Nessun bordo */
+    border-radius: 5px; /* Angoli arrotondati */
+    padding: 5px 10px; /* Spaziatura interna */
+    font-size: 14px; /* Dimensione del testo */
+    cursor: pointer; /* Cambia il cursore al passaggio */
+    transition: background-color 0.3s; /* Animazione per il cambio colore */
+  }
+  
+  .reply-button:hover {
+    background-color: #0056b3; /* Colore più scuro al passaggio */
+  }
+  
+  .reply-button:active {
+    background-color: #003f7f; /* Colore ancora più scuro al clic */
+  }
+  
+  /* Modulo per rispondere */
+.reply-form {
+    margin-top: 10px;
+  }
+  
+  .reply-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .submit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
