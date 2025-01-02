@@ -10,6 +10,8 @@ import lombok.*;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequest {
 
     /**
@@ -26,4 +28,5 @@ public class LoginRequest {
      */
 
     private String passwordHash;
+
 }

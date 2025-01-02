@@ -10,6 +10,8 @@ import lombok.*;
  * La gestione dei getter e setter è automatizzata grazie all'annotazione {@code @Data} di Lombok.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RecuperaPasswordRequest {
 
     /**
@@ -31,4 +33,6 @@ public class RecuperaPasswordRequest {
      * La nuova password che l'utente desidera impostare.
      */
     private String newPassword;
+
+
 }

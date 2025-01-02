@@ -255,6 +255,7 @@ gap: 8px; /* Riduci lo spazio tra le azioni */
     font-size: 14px; /* Ridurre la dimensione del testo per le azioni */
     margin-left: 10px; /* Ridurre il margine tra le azioni */
   }
+  
 /* Media query per dispositivi con larghezza massima di 600px (Telefono) */
 @media screen and (max-width: 600px) {
   .background-container {

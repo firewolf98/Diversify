@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
+import { PopupGridComponent } from './popup-grid/popup-grid.component'; // Percorso corretto
+import { PostComponent } from './post/post.component';
 
 import { SchedaAreaPersonaleComponent } from "./scheda-area-personale/scheda-area-personale.component";
 import { LoginFormComponent } from "./login-form/login-form.component";
@@ -11,7 +13,7 @@ import { CommentoComponent } from './commento/commento.component';
 import { ForumComponent } from "./forum/forum.component";
 import { GeneraleAmministratoreComponent } from './generale-amministratore/generale-amministratore.component';
 import { GestioneForumComponent } from './gestione-forum/gestione-forum.component';
-import { PostComponent } from './post/post.component';
+
 @Component({
 	selector: 'app-root',
 	standalone: true,
