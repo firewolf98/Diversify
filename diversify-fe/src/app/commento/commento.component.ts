@@ -15,4 +15,18 @@ export class CommentoComponent {
     text: string;
     date: string;
   };
+
+  isReplying: boolean = false; // Gestisce la visualizzazione del form di risposta
+
+  onReply(): void {
+    this.isReplying = !this.isReplying; // Mostra/nasconde il modulo di risposta
+  }
+
+  submitReply(replyText: string): void {
+    if (replyText.trim()) {
+      console.log('Nuova risposta:', replyText);
+      // Puoi inviare questa risposta al backend o aggiungerla localmente
+      this.isReplying = false; // Nascondi il modulo dopo l'invio
+    }
+  }
 }

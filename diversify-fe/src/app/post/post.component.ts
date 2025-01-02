@@ -6,7 +6,7 @@ import { CommentoComponent } from '../commento/commento.component';
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CommentoComponent],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
 })
