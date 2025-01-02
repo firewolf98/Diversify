@@ -1,5 +1,5 @@
-/* Stile generale per l'header */
-.header-container {
+ /* Stile generale per l'header */
+ .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between; /* Assicura che ci sia spazio per i tasti */
@@ -27,7 +27,6 @@
   position: relative;
   border: 1px solid #ccc;
   background-color: white;
-
 }
 
 .search-bar {
@@ -50,7 +49,6 @@
   width: 100%;
   padding-left: 30px;
   padding-right: 50px;
-
 }
 
 .icona {
@@ -61,7 +59,6 @@
   height: 11px;
   width: auto;
   cursor: pointer;
-
 }
 
 /* Stile per l'icona del menu (hamburger) */
@@ -80,7 +77,6 @@
 /* Effetto hover per l'icona del menu */
 .menu-icon-container:hover {
   background-color: #e0c8b0; /* Colore leggermente più scuro per l'effetto hover */
-
 }
 
 .menu-icon {
@@ -161,67 +157,67 @@
 
 /* Stile per la barra di ricerca */
 input[type="text"] {
-    width: 100%;
-    max-width: 300px; /* Riduci la larghezza della barra */
-    padding: 12px 15px; /* Riduci il padding */
-    font-size: 16px; /* Riduci la dimensione del font */
-    font-family: Helvetica, Arial, sans-serif;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: whitesmoke;
+  width: 100%;
+  max-width: 300px; /* Riduci la larghezza della barra */
+  padding: 12px 15px; /* Riduci il padding */
+  font-size: 16px; /* Riduci la dimensione del font */
+  font-family: Helvetica, Arial, sans-serif;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: whitesmoke;
 }
 
 input[type="text"]:focus {
-    border-color: #ffeba7;
-    box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2);
+  border-color: #ffeba7;
+  box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2);
 }
 
 /* Stile per la lista dei risultati */
 ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 110%;
-    left: 0;
-    right: 0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 100%;
-    max-width: 330px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    background-color: #ffebe2;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 330px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  background-color: #ffebe2;
 }
 
 ul.active {
-    border-color: #ffeba7;
+  border-color: #ffeba7;
 }
 
 li {
-    padding: 15px;
-    font-size: 16px;
-    font-family: Helvetica, Arial, sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+  padding: 15px;
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
 }
 
 li:hover {
-    background-color: #fff5f1;
-    color: #642102;
-    transform: scale(1.001);
+  background-color: #fff5f1;
+  color: #642102;
+  transform: scale(1.001);
 }
 
 /* Posizionamento del contenitore della barra di ricerca */
 .search-container {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 /* Media query per schermi più piccoli (max-width 1024px) */
@@ -242,7 +238,7 @@ li:hover {
   .menu-container.active {
     display: flex;
   }
-  
+
   .menu-items a {
     font-size: 16px;
     padding: 12px 0;
@@ -277,19 +273,10 @@ li:hover {
   }
 
   .menu-icon-container {
-    display: none; /* Nascondi l'icona hamburger */
+    display: none; /* Nascondi l'icona del menu hamburger */
   }
 
-}
-
-/* Media query per schermi ancora più piccoli (max-width 600px) */
-@media screen and (max-width: 600px) {
-  .menu-items a {
-    font-size: 12px;
+  .menu-container {
+    display: none; /* Nascondi il menu su schermi più grandi */
   }
-
-  .logo {
-    height: 50px; /* Riduci ulteriormente il logo per schermi piccoli */
-    width: auto;
-  }
-}
+} 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs'; // Aggiunto per mockare la verifica del database
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-registrazione-form',
@@ -16,7 +17,7 @@ export class RegistrazioneFormComponent {
   isPasswordVisible: boolean = false;
   isConfermaPasswordVisible: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.moduloRegistrazione = this.fb.group({
       nome: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]], // Nome con prima lettera maiuscola
       cognome: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]], // Cognome con prima lettera maiuscola
@@ -42,12 +43,26 @@ export class RegistrazioneFormComponent {
 
   // Funzione per inviare i dati
   inviaDati(): void {
-    if (this.moduloRegistrazione.valid) {
-      // Esegui l'invio dei dati
-      console.log('Dati inviati:', this.moduloRegistrazione.value);
-    } else {
-      console.log('Modulo non valido');
-    }
+    //if (this.moduloRegistrazione.valid) {
+      const formData = this.moduloRegistrazione.value;
+      const user = {
+        username: formData.username,
+        password: formData.password,
+        email: formData.email,
+        codiceFiscale: formData.cf
+      };
+
+      this.authService.register(user).subscribe(
+        response => {
+          console.log('Registrazione riuscita', response);
+        },
+        error => {
+          console.log('Errore nella registrazione', error);
+        }
+      );
+    //} else {
+      //console.log('Modulo non valido');
+    //}
   }
 
   // Validatore per verificare se le password corrispondono

@@ -40,7 +40,7 @@ export class LoginFormComponent {
       const password = this.loginForm.get('password')?.value;  // Ottieni il valore della password
 
       // Usa il servizio AuthService per eseguire il login
-      this.authService.login(email, password).subscribe({
+      this.authService.login({email, password}).subscribe({
         next: (response) => {
           // Se il login è riuscito, reindirizza alla home
           console.log('Login successful:', response);

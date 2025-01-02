@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/utenti")
 
 public class UtenteController {

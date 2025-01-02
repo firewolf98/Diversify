@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 const countriesDB = [
   'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia',
@@ -12,16 +14,23 @@ const countriesDB = [
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
+  standalone: true
 })
 export class HeaderComponent implements OnInit {
   searchTerm: string = '';
   filteredCountries: string[] = [];
   isDropdownVisible: boolean = false;
-  menuVisible: boolean = false;  // Nuova variabile per gestire la visibilità del menu
+  menuVisible: boolean = false;  // variabile per gestire la visibilità del menu
+  isLogged: boolean = false; // Variabile locale per il login stato
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.filteredCountries = countriesDB;
+    this.authService.isLoggedIn().subscribe((status: boolean) => {
+      this.isLogged = status; // Aggiorna la variabile locale
+    });
   }
 
   onSearchChange(event: Event): void {
@@ -63,4 +72,23 @@ export class HeaderComponent implements OnInit {
     }
 }
 
+isLoggedIn(): boolean {
+  return this.isLogged;
+}
+
+isHomePage(): boolean {
+  return this.router.url === '/';
+}
+
+navigateTo(route: string): void {
+  this.router.navigate([route]);
+}
+
+navigateToProfile(): void {
+  if (this.authService.isAdmin()) {
+    this.router.navigate(['/pagina-profilo-amministratore']);
+  } else {
+    this.router.navigate(['/scheda-area-personale']);
+  }
+}
 }

@@ -3,10 +3,10 @@
         <a href="">
             <img src="Logodiversify.png" alt="Logo Diversify" class="logo">
         </a>
-    </div>       
+    </div>
 
-    <!-- Barra di ricerca -->
-    <div class="search-container">
+    <!-- Sezione condizionale per la Barra di ricerca -->
+    <div *ngIf="!isLoggedIn(); else loggedInTemplate" class="search-container">
         <input 
             type="text" 
             placeholder="Cerca un Paese" 
@@ -19,11 +19,37 @@
                 {{ country }}
             </li>
         </ul>
-    </div> 
-
-    <div class="menu-items">
-        <a href="#profile">Gestione Profilo</a>
     </div>
+
+    <!-- Bottoni per Accedi e Registrati se non loggato -->
+    <div *ngIf="!isLoggedIn()" class="auth-buttons">
+        <button (click)="navigateTo('loggato')">Accedi</button>
+        <button (click)="navigateTo('registrato')">Registrati</button>
+    </div>
+
+    <!-- Sezione condizionale se l'utente è loggato -->
+    <ng-template #loggedInTemplate>
+        <div *ngIf="isHomePage(); else notHomePage" class="search-container">
+            <input 
+                type="text" 
+                placeholder="Cerca un Paese" 
+                (input)="onSearchChange($event)" 
+                [(ngModel)]="searchTerm" 
+                (click)="toggleDropdown()"  
+            />
+            <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+                <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)" (keydown)="selectCountry(country)">
+                    {{ country }}
+                </li>
+            </ul>
+        </div>
+        <ng-template #notHomePage>
+            <button (click)="navigateTo('')">Home</button>
+        </ng-template>
+        <div class="menu-items">
+            <img src="assets/icona-profilo.png" alt="Profilo" (click)="navigateToProfile()">
+        </div>
+    </ng-template>
 
     <!-- Menu icon per dispositivi mobili -->
     <div class="menu-icon-container" (click)="toggleMenu()" (keydown)="toggleMenu()">
@@ -41,5 +67,3 @@
         <a href="#profile">Gestione Profilo</a>
     </div>
 </div>
-
-
