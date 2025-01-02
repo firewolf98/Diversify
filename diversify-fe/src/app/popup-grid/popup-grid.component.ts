@@ -28,7 +28,6 @@ export class PopupGridComponent {
   ];
 
   goBack() {
-    console.log('Back button clicked');
     this.router.navigate(['/']);
     this.isVisible = false; // Nasconde il popup
   }
