@@ -3,17 +3,3 @@
   width: 100%;
   margin: 0;
 }
-
-.popup {
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;   /* Imposta una larghezza fissa per il pop-up */
-  height: auto;   /* L'altezza si adatta al contenuto */
-  display: block;
-  z-index: 1000;
-  position: fixed;   /* Usa position: fixed per posizionarlo in modo stabile sulla pagina */
-  top: 20px;
-  left: 20px;
-}
