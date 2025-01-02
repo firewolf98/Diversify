@@ -188,8 +188,12 @@ public class UtenteService {
      * @return un {@link Optional} contenente l'utente se trovato, altrimenti un {@link Optional#empty()}
      */
     public Optional<Utente> findByUsername(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
         return utenteRepository.findByUsername(username);
     }
+
 
     /**
      * Recupera un utente dal database utilizzando l'email e il codice fiscale forniti.
@@ -206,8 +210,12 @@ public class UtenteService {
      */
 
     public Optional<Utente> findByEmailAndCodiceFiscale(String email, String codiceFiscale) {
+        if (email == null || email.trim().isEmpty() || codiceFiscale == null || codiceFiscale.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email and codice fiscale cannot be null or empty");
+        }
         return utenteRepository.findByEmailAndCodiceFiscale(email, codiceFiscale);
     }
+
 
     /**
      * Salva un utente nel database.
@@ -217,6 +225,7 @@ public class UtenteService {
     public void save(Utente utente) {
         utenteRepository.save(utente);
     }
+
     /**
      * Recupera un utente dal database utilizzando un token JWT.
      *
@@ -236,6 +245,24 @@ public class UtenteService {
         // Cerca l'utente nel database usando il nome utente estratto
         return utenteRepository.findByUsername(username);
     }
+
+    /**
+     * Elimina un utente dal sistema utilizzando un token JWT per identificarlo.
+     * <p>
+     * Questo metodo verifica la validità del token JWT fornito, estrae il nome utente dal token,
+     * cerca l'utente corrispondente nel database e lo elimina. Restituisce un messaggio
+     * che indica l'esito dell'operazione.
+     * </p>
+     *
+     * @param token il token JWT utilizzato per autenticare l'utente e ottenere il suo nome utente.
+     * @return una stringa che rappresenta l'esito dell'operazione:
+     * <ul>
+     *     <li>"Account eliminato con successo." se l'utente è stato eliminato correttamente.</li>
+     *     <li>"Token non valido." se il token fornito è null, vuoto, malformato o non valido.</li>
+     *     <li>"Utente non trovato." se non esiste alcun utente corrispondente al nome utente estratto dal token.</li>
+     *     <li>"Errore durante l'eliminazione dell'account." in caso di errore generico durante l'operazione.</li>
+     * </ul>
+     */
     public String deleteUser(String token) {
         try {
             String username = jwtUtils.validateToken(token); // Ottieni il nome utente dal token
