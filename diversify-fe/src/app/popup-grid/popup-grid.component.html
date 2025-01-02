@@ -5,7 +5,7 @@
   </head>
   <div *ngIf="isVisible" class="popup-container">
     <!-- Tasto Torna alla mappa -->
-    <a href="#" class="back-link">← Torna alla mappa</a>
+    <a href="#" class="back-link" (click)="goBack()">← Torna alla mappa</a>
     <!-- Titolo con bandiera -->
     <div class="title">
       <span>{{ flag }}</span>
