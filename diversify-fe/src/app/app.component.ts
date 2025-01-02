@@ -9,11 +9,13 @@ import { RegistrazioneFormComponent } from "./registrazione-form/registrazione-f
 import { MapComponent } from "./mappa/mappa.component";
 import { CommentoComponent } from './commento/commento.component';
 import { ForumComponent } from "./forum/forum.component";
-
+import { GeneraleAmministratoreComponent } from './generale-amministratore/generale-amministratore.component';
+import { GestioneForumComponent } from './gestione-forum/gestione-forum.component';
+import { PostComponent } from './post/post.component';
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, HeaderComponent, FooterComponent],
+	imports: [RouterOutlet, HeaderComponent, FooterComponent ],
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
 
