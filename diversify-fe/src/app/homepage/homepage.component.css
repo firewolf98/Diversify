@@ -22,3 +22,14 @@ app-map {
 	/* 30px di padding sopra e sotto */
 	margin: 0;
 }
+
+app-chi-siamo{
+	position: relative;
+	/* Posizionamento predefinito*/
+	flex: 1;
+	/* Occupa lo spazio rimanente */
+	width: 100%;
+	padding: 30px 0;
+	/* 30px di padding sopra e sotto */
+	margin: 0;
+}
