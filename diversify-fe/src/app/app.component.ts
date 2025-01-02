@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { PopupGridComponent } from './popup-grid/popup-grid.component'; // Percorso corretto
+import { PopupGridComponent } from './popup-grid/popup-grid.component';
 import { PostComponent } from './post/post.component';
 
 import { SchedaAreaPersonaleComponent } from "./scheda-area-personale/scheda-area-personale.component";
