@@ -3,15 +3,3 @@
   width: 100%;
   margin: 0;
 }
-
-.popup {
-  background-color: white;
-  border: 1px solid black;
-  padding: 10px;
-  border-radius: 5px;
-  max-width: 300px;   /* Imposta una larghezza massima */
-  min-width: 150px;   /* Imposta una larghezza minima per evitare che diventi troppo piccolo */
-  word-wrap: break-word;  /* Per far sì che il testo si adatti correttamente */
-  font-size: 14px;   /* Regola la dimensione del testo */
-}
-
