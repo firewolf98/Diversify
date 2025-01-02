@@ -11,7 +11,6 @@ import { RegistrazioneFormComponent } from "./registrazione-form/registrazione-f
 import { MapComponent } from "./mappa/mappa.component";
 import { CommentoComponent } from './commento/commento.component';
 import { ForumComponent } from "./forum/forum.component";
-import { GeneraleAmministratoreComponent } from './generale-amministratore/generale-amministratore.component';
 
 @Component({
 	selector: 'app-root',
