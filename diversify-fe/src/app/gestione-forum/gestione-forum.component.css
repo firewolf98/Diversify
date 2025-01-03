@@ -6,12 +6,35 @@
     margin: 0 auto;
     font-family: Arial, sans-serif;
   }
-  
+
+  .popup {
+    position: relative;
+    background-color: #fdece8; /* Colore di sfondo caldo per il contenitore */
+    border-radius: 20px; /* Angoli arrotondati */
+    padding: 30px;
+    width: 100%;
+    max-width: 800px; /* Imposta una larghezza massima per la sezione */
+    margin: 50px auto; /* Centra la sezione orizzontalmente con un margine sopra e sotto */
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombra morbida per creare un effetto di profondità */
+}
+
+
+
+
   .header h1 {
     text-align: center;
     color: #333;
   }
   
+/* Imposta il font di tutta la pagina su Roboto */
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
   .form-container {
     margin-bottom: 15px;
   }
