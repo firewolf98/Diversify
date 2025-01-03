@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class PopupGridComponent {
   constructor(private router: Router) {}
-
+  @Input() tipoCriticita: string = '';
+  
   // Variabile di stato per gestire la visibilità del popup
   isVisible: boolean = true;
 
