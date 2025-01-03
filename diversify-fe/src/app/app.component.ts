@@ -4,7 +4,6 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 
 import { SchedaAreaPersonaleComponent } from "./scheda-area-personale/scheda-area-personale.component";
-import { LoginFormComponent } from "./login-form/login-form.component";
 import { RegistrazioneFormComponent } from "./registrazione-form/registrazione-form.component";
 import { MapComponent } from "./mappa/mappa.component";
 import { CommentoComponent } from './commento/commento.component';

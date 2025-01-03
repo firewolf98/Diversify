@@ -45,6 +45,14 @@
 			</div>
 		</div>
 
+		<!-- Link se non sei registrato per condurti alla componente registrazione-->
+		<div class="register-link">
+			<small>
+			  Non sei registrato? 
+			  <a href="javascript:void(0);" (click)="navigateToRegistration()">Registrati</a>
+			</small>
+		  </div>
+		
 		<!-- Bottone di invio del form, che sarà disabilitato se il form è invalido -->
 		<button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
 			Login

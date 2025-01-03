@@ -77,4 +77,10 @@ export class LoginFormComponent {
       this.isPasswordVisible = !this.isPasswordVisible;
     }
   }
+
+  // Funzione per navigare alla pagina di registrazione
+  navigateToRegistration(): void {
+    this.router.navigate(['/registrato']);
+  }
+  
 }

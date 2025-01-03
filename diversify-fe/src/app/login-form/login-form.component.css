@@ -206,6 +206,25 @@ input[type="text"] {
 	/* Aggiungi spazio per il pulsante di visibilità */
 }
 
+.register-link {
+	text-align: center;
+	margin-top: 20px;
+  }
+  
+  .register-link small {
+	font-size: 14px;
+	color: #555;
+  }
+  
+  .register-link a {
+	color: #007bff;
+	font-weight: bold;
+	text-decoration: none;
+  }
+  
+  .register-link a:hover {
+	text-decoration: underline;
+  }
 
 /* Media Query per dispositivi mobili (smartphone) - Login */
 @media (max-width: 600px) {

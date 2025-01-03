@@ -320,6 +320,13 @@ li:hover {
     padding: 12px 0;
   }
 
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* o specifica un'altezza */
+  }
+
   .logo {
     height: 50px; /* Riduci ulteriormente il logo per schermi piccoli */
     width: auto;
@@ -345,6 +352,13 @@ li:hover {
 
 
 @media screen and (min-width: 1025px) {
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* o specifica un'altezza */
+  }
+  
   .menu-items {
     display: flex; /* Mostra i tasti */
     flex-direction: row; /* Allinea i tasti orizzontalmente */
