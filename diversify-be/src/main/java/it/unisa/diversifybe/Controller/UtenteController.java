@@ -17,8 +17,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/utenti")
-
+@CrossOrigin(origins = "http://localhost:4200")  // Permette richieste solo da localhost:4200
 public class UtenteController {
+
 
     private final UtenteService utenteService;
     private final JwtUtils jwtUtils;
@@ -285,5 +286,9 @@ public class UtenteController {
 
         return ResponseEntity.ok(response);
     }
+<<<<<<< HEAD
+}
+=======
 
 }
+>>>>>>> origin/develop

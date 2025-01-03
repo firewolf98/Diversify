@@ -6,7 +6,7 @@
     padding: 20px;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
-    background-color: #ffe9d6; /* Colore pesca chiaro */
+    background-color: #fdece8; /* Colore pesca chiaro */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column; /* Disposizione verticale */
@@ -175,6 +175,26 @@ select.ng-valid.ng-touched {
 /* Cambia il colore del bordo quando il campo è invalido */
 select.ng-invalid.ng-touched {
     border-color: red !important; /* Bordo rosso quando il campo è invalido */
+}
+
+.login-link {
+	text-align: center;
+	margin-top: 20px;
+}
+  
+.login-link small {
+	font-size: 14px;
+	color: #555;
+}
+  
+.login-link a {
+	color: #007bff;
+	font-weight: bold;
+	text-decoration: none;
+}
+  
+.login-link a:hover {
+	text-decoration: underline;
 }
 
 /* Media Query per dispositivi mobili (smartphone) - Registrazione */
