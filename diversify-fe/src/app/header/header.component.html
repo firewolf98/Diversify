@@ -4,41 +4,16 @@
             <img src="Logodiversify.png" alt="Logo Diversify" class="logo">
         </a>
     </div>
-
+ 
     <!-- Sezione condizionale per la Barra di ricerca -->
-    <div *ngIf="isHomePage(); else notHomePage" class="search-container">
-        <input 
-            type="text" 
-            placeholder="Cerca un Paese" 
-            (input)="onSearchChange($event)" 
-            [(ngModel)]="searchTerm" 
-            (click)="toggleDropdown()"  
-        />
-        <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
-            <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)" (keydown)="selectCountry(country)">
-                {{ country }}
-            </li>
-        </ul>
-    </div>
-
-    <ng-template #notHomePage>
-        <a href="" class="home-link">Home</a>
-    </ng-template>
-
-    <!-- Bottoni per Accedi e Registrati se non loggato -->
-    <div *ngIf="!isLoggedIn()" class="auth-buttons">
-        <button class="auth-button" (click)="navigateTo('loggato')">Accedi</button>
-        <button class="auth-button" (click)="navigateTo('registrato')">Registrati</button>
-    </div>
-
-    <!-- Sezione condizionale se l'utente è loggato -->
-    <ng-template #loggedInTemplate>
-        <div *ngIf="isHomePage(); else notHomePage" class="search-container">
-            <input 
-                type="text" 
-                placeholder="Cerca un Paese" 
-                (input)="onSearchChange($event)" 
-                [(ngModel)]="searchTerm" 
+    <div *ngIf="isHomePage(); else nothomePage" class="search-container">
+        <div *ngIf="isLoggedIn(); else notLoggedInHomePage">
+            <div class="search-wrapper">
+            <input
+                type="text"
+                placeholder="Cerca un Paese"
+                (input)="onSearchChange($event)"
+                [(ngModel)]="searchTerm"
                 (click)="toggleDropdown()"  
             />
             <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
@@ -47,23 +22,61 @@
                 </li>
             </ul>
         </div>
-        <ng-template #notHomePage>
-            <a href="" class="home-link">Home</a>
-    </ng-template>
-
-    <!-- Creazione di un contenitore a destra per il bottone e l'icona profilo -->
-    <div class="right-container">
-        <!-- Sezione condizionale se l'utente è loggato -->
-        <div *ngIf="isLoggedIn" class="auth-buttons">
-            <button class="auth-button" (click)="logout()">Logout</button>
-        </div>     
-        <div class="menu-items">
-            <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()">
+            <div class="right-container">
+                <!-- Sezione condizionale se l'utente è loggato -->
+                <div  class="auth-buttons">
+                    <button class="auth-button" (click)="logout()">Logout</button>
+                </div>    
+                <div class="menu-items">
+                    <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()">
+                </div>
+            </div>
         </div>
+        <ng-template #notLoggedInHomePage>
+            <input
+                type="text"
+                placeholder="Cerca un Paese"
+                (input)="onSearchChange($event)"
+                [(ngModel)]="searchTerm"
+                (click)="toggleDropdown()"  
+            />
+            <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+                <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)" (keydown)="selectCountry(country)">
+                    {{ country }}
+                </li>
+            </ul>
+            <!-- Bottoni per Accedi e Registrati se non loggato -->
+            <div class="auth-buttons">
+                <button class="auth-button" (click)="navigateTo('loggato')">Accedi</button>
+                <button class="auth-button" (click)="navigateTo('registrato')">Registrati</button>
+            </div>
+        </ng-template>
     </div>
-
+ 
+    <ng-template #nothomePage>
+        <div *ngIf="isLoggedIn(); else notLoggedIn">
+            <a href="" class="home-link">Home</a>
+            <div class="right-container">
+                <!-- Sezione condizionale se l'utente è loggato -->
+                <div  class="auth-buttons">
+                    <button class="auth-button" (click)="logout()">Logout</button>
+                </div>    
+                <div class="menu-items">
+                    <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()">
+                </div>
+            </div>
+        </div>
+        <ng-template #notLoggedIn>
+            <a href="" class="home-link">Home</a>
+            <!-- Bottoni per Accedi e Registrati se non loggato -->
+            <div class="auth-buttons">
+                <button class="auth-button" (click)="navigateTo('loggato')">Accedi</button>
+                <button class="auth-button" (click)="navigateTo('registrato')">Registrati</button>
+            </div>
+        </ng-template>
     </ng-template>
-
+ 
+ 
     <!-- Menu icon per dispositivi mobili -->
     <div class="menu-icon-container" (click)="toggleMenu()" (keydown)="toggleMenu()">
         <div class="menu-icon">
@@ -73,7 +86,7 @@
         </div>
     </div>
 </header>
-
+ 
 <!-- Menu Hamburger -->
 <div class="menu-container" [ngClass]="{'active': menuVisible}">
     <div *ngIf="isLoggedIn()" class="menu-items">
