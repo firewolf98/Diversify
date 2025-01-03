@@ -16,10 +16,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/utenti")
-
+@CrossOrigin(origins = "http://localhost:4200")  // Permette richieste solo da localhost:4200
 public class UtenteController {
+
 
     private final UtenteService utenteService;
     private final JwtUtils jwtUtils;

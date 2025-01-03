@@ -12,7 +12,7 @@
 	/* Bordo grigio chiaro */
 	border-radius: 10px;
 	/* Angoli arrotondati */
-	background-color: #ffe9d6;
+	background-color: #fdece8;
 	/* Colore pesca chiaro per lo sfondo */
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 	/* Aggiunge una leggera ombra al contenitore */
@@ -134,7 +134,7 @@ button {
 
 /*  Effetto hover per il bottone */
 button:hover {
-	background-color: #0056b3;
+	background-color: #007bff;
 	/* Colore blu scuro quando il mouse è sopra */
 }
 

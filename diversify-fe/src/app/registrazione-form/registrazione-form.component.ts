@@ -128,4 +128,4 @@ export class RegistrazioneFormComponent {
       this.isConfermaPasswordVisible = !this.isConfermaPasswordVisible;
     }
   }
-}
+} 
