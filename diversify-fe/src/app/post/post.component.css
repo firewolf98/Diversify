@@ -73,14 +73,15 @@ margin: 20px 5%; /* Riduce il margine */
 
 /* Contenitore del post */
 .post-container {
-background-color: #fff;
-border-radius: 12px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-padding: 30px 50px;
-width: calc(100% - 40px); /* Riduce la larghezza totale considerando il padding */
-max-width: 800px;
-margin: 0 auto; /* Centra il contenitore */
-font-family: 'Arial', sans-serif;
+  position: relative; /* Necessario per il posizionamento assoluto dell'icona di segnalazione */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px 50px;
+  width: calc(100% - 40px);
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
 }
 
 /* "Torna alla mappa" */
@@ -99,15 +100,17 @@ text-decoration: underline;
 }
 
 /* Stile per il contenitore del commento */
+/* Stile per il contenitore del commento */
 .comment-container {
-display: flex; /* Disposizione in linea */
-align-items: center; /* Centrare verticalmente l'immagine e il nome */
-margin-bottom: 15px;
-padding: 15px;
-background-color: #fff;
-border: 1px solid #ccc;
-border-radius: 8px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+  display: flex; /* Disposizione in linea */
+  flex-direction: column; /* Allinea gli elementi in verticale */
+  align-items: flex-start; /* Allinea gli elementi a sinistra */
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Bottone "Aggiungi Commento" */
@@ -121,6 +124,27 @@ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: auto; /* Sposta il bottone completamente a destra */
+}
+
+/* Stile per il tasto segnala con bandiera */
+.flag-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%; /* Rende il bottone rotondo */
+  transition: background-color 0.3s;
+  margin-left: auto; /* Sposta l'icona di segnalazione a destra */
+}
+
+.flag-button:hover {
+  background-color: #e2e8f0; /* Cambia colore al passaggio del mouse */
+}
+
+.flag-icon {
+  width: 25px; /* Dimensione dell'icona */
+  height: 25px;
+  vertical-align: middle;
 }
 
 /* Effetto hover per il bottone */
@@ -217,8 +241,8 @@ color: #555;
 
 /* Header del post */
 .post-header {
-  display: flex;
-  align-items: center;
+  display: flex; /* Allinea gli elementi in orizzontale */
+  align-items: center; /* Centra verticalmente gli elementi */
   margin-bottom: 15px;
 }
 
@@ -395,4 +419,89 @@ gap: 8px; /* Riduci lo spazio tra le azioni */
     width: 40%; /* Ridurre la larghezza delle linee */
   }
 }
+}
+
+/* Stile per il modale di segnalazione */
+.report-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Sfondo semi-trasparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Assicura che il modale sia sopra tutto */
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px; /* Angoli più arrotondati */
+  width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centra il testo */
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+  font-weight: 500; /* Peso del font Roboto */
+}
+
+.report-textarea {
+  width: calc(100% - 24px); /* Larghezza calcolata considerando il padding */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Angoli più arrotondati */
+  font-size: 14px;
+  margin-bottom: 15px;
+  resize: vertical; /* Permette all'utente di ridimensionare verticalmente */
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Aggiunge transizioni */
+  box-sizing: border-box; /* Include padding e bordi nella larghezza totale */
+}
+
+.report-textarea:focus {
+  border-color: #3182ce; /* Cambia colore del bordo quando in focus */
+  box-shadow: 0 0 5px rgba(49, 130, 206, 0.5); /* Aggiunge un'ombra al focus */
+  outline: none; /* Rimuove l'outline di default */
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center; /* Centra i pulsanti */
+  gap: 10px;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px; /* Angoli più arrotondati */
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+  transition: background-color 0.3s; /* Aggiunge transizioni */
+}
+
+.confirm-button {
+  background-color: #3182ce;
+  color: #fff;
+}
+
+.confirm-button:hover {
+  background-color: #2b6cb0;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #cbd5e0;
 }

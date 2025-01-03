@@ -10,7 +10,6 @@ import { CommentoComponent } from '../commento/commento.component';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
 })
-
 export class PostComponent {
   comments = [
     {
@@ -30,15 +29,61 @@ export class PostComponent {
       text: 'Sono d’accordo! Grazie per aver condiviso.',
       date: '2024-12-18T12:00:00Z',
       likes: 0,
-      replies: [] // Aggiungi questa proprietà anche ai commenti senza risposte
+      replies: []
     },
   ];
 
-  postLikes = 0; // Conteggio dei "Mi Piace" per il post principale
-  hasLikedPost = false; // Stato iniziale: l'utente non ha messo "Mi Piace"
-
+  postLikes = 0;
+  hasLikedPost = false;
   newComment = { text: '' };
 
+  // Variabili per il modale di segnalazione
+  showReportModal = false;
+  reportReason = '';
+
+  // Dati della segnalazione
+  reportedUser = 'Lucia'; // Username segnalato (esempio: autore del post)
+  reportingUser = 'UtenteCorrente'; // Username segnalante (esempio: utente loggato)
+  reportType = 'post'; // Tipo di segnalazione (in questo caso, "post")
+
+  // Apre il modale di segnalazione
+  openReportModal() {
+    this.showReportModal = true;
+  }
+
+  // Chiude il modale di segnalazione
+  closeReportModal() {
+    this.showReportModal = false;
+    this.reportReason = ''; // Resetta il campo di testo
+  }
+
+  // Conferma la segnalazione
+  confirmReport() {
+    if (this.reportReason.trim()) {
+      this.submitReport(this.reportedUser, this.reportingUser, this.reportReason, this.reportType);
+      this.closeReportModal();
+    } else {
+      alert('Per favore, inserisci una motivazione.');
+    }
+  }
+
+  // Funzione per inviare la segnalazione
+  submitReport(reportedUser: string, reportingUser: string, reason: string, type: string) {
+    const reportData = {
+      reportedUser: reportedUser, // Username segnalato
+      reportingUser: reportingUser, // Username segnalante
+      reason: reason, // Motivazione della segnalazione
+      type: type // Tipo di segnalazione (es. "post")
+    };
+
+    // Stampa i dati della segnalazione in console
+    console.log('Segnalazione inviata:', reportData);
+
+    // Qui puoi aggiungere la logica per inviare i dati a un servizio backend
+    // Esempio: this.reportService.submitReport(reportData).subscribe(...);
+  }
+
+  // Aggiungi un commento
   addComment() {
     if (this.newComment.text.trim()) {
       const newComment = {
@@ -46,20 +91,22 @@ export class PostComponent {
         authorAvatar: 'Avatar.png',
         text: this.newComment.text,
         date: new Date().toISOString(),
-        likes: 0, // Inizializza i "Mi Piace" a 0
-        replies: [] // Assicurati che i nuovi commenti abbiano sempre l'array replies
+        likes: 0,
+        replies: []
       };
       this.comments.push(newComment);
       this.newComment.text = '';
     }
   }
 
+  // Mi Piace per il post
   toggleLikePost() {
-    this.hasLikedPost = !this.hasLikedPost; // Alterna lo stato
-    this.postLikes += this.hasLikedPost ? 1 : -1; // Incrementa o decrementa i "Mi Piace"
+    this.hasLikedPost = !this.hasLikedPost;
+    this.postLikes += this.hasLikedPost ? 1 : -1;
   }
 
+  // Mi Piace per i commenti
   likeComment(comment: any) {
-    comment.likes++; // Incrementa i "Mi Piace" del commento specifico
+    comment.likes++;
   }
 }

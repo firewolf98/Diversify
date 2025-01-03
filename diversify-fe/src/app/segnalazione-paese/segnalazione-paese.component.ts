@@ -54,8 +54,6 @@ export class SegnalazionePaeseComponent implements OnInit {
     this.isDropdownVisible = !this.isDropdownVisible;
   }
 
-  
-
   selectCountry(country: string): void {
     this.selectedCountry = country;
     this.searchTerm = country;
