@@ -65,6 +65,10 @@ export class HeaderComponent implements OnInit {
     this.menuVisible = !this.menuVisible;
   }
 
+  closeMenu(): void {
+    this.menuVisible = false; // Chiude il menu
+  }
+
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent): void {
     const clickedInside = event.target instanceof HTMLElement && event.target.closest('.menu-container');
@@ -87,18 +91,22 @@ export class HeaderComponent implements OnInit {
 
   navigateTo(route: string): void {
     this.router.navigate([route]);
+    this.closeMenu();
   }
 
   navigateToProfile(): void {
     if (this.authService.isAdmin()) {
-      this.router.navigate(['/pagina-profilo-amministratore']);
+      this.router.navigate(['/pagina-profilo-amministratore'] );
+      this.closeMenu();
     } else {
       this.router.navigate(['/scheda-area-personale']);
+      this.closeMenu();
     }
   }
 
   logout(): void {
     // Chiama il metodo logout del servizio AuthService
     this.authService.logout();
+    this.closeMenu();
   }
 }

@@ -52,9 +52,7 @@
         <div *ngIf="isLoggedIn(); else notLoggedIn">
             <div class="auth-buttons">
                 <button class="auth-button" (click)="logout()">Logout</button>
-            </div>    
-            <div class="menu-items">
-                <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()">
+                <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()" class="profile-icon">
             </div>
         </div>
         <ng-template #notLoggedIn>
@@ -78,7 +76,7 @@
 <!-- Menu Hamburger -->
 <div class="menu-container" [ngClass]="{'active': menuVisible}">
     <div *ngIf="isLoggedIn()" class="menu-items">
-        <a (click)="navigateToProfile()">Gestione Profilo</a>
+        <a (click)="navigateToProfile()" >Gestione Profilo</a>
         <div class="auth-buttons">
             <button class="auth-button" (click)="logout()">Logout</button>
         </div>

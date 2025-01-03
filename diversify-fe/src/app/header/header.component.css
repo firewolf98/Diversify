@@ -21,9 +21,11 @@
   display: flex;
   align-items: center; /* Allinea gli elementi verticalmente al centro */
   gap: 10px; /* Spazio tra il bottone "Logout" e l'icona del profilo */
+  margin-right: 10px;
 }
 
 .logo-container {
+  margin-left: 10px;
   flex-shrink: 0; /* Evita che il contenitore si riduca */
   margin-right: 20px; /* Distanza tra logo e barra di ricerca */
 }
@@ -76,6 +78,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center; /* Allinea le linee al centro */
+  margin-right: 20px;
 }
 
 .menu-icon span {
@@ -165,7 +168,6 @@
 
 /* Stile per la barra di ricerca */
 input[type="text"] {
-  max-width: 300px; /* Riduci la larghezza della barra */
   padding: 12px 15px; /* Riduci il padding */
   font-size: 16px; /* Riduci la dimensione del font */
   font-family: Helvetica, Arial, sans-serif;
@@ -224,9 +226,10 @@ li:hover {
 /* Stile per il contenitore dei bottoni Accedi e Registrati */
 .auth-buttons {
   display: flex; /* Disporre i bottoni in orizzontale */
-  flex-direction: row; /* Allinea i bottoni in orizzontale */
+  align-items: center; /* Allinea gli elementi verticalmente al centro */
   gap: 10px; /* Spazio tra i pulsanti */
   padding: 10px;
+  flex-direction: column;
 }
 
 /* Stile per i bottoni Accedi e Registrati */
@@ -287,6 +290,18 @@ li:hover {
   transform: translateY(1px); /* Spostamento verso il basso durante il click */
 }
 
+/* Stile per l'icona del profilo */
+.profile-icon {
+  width: 30px; /* Imposta la larghezza dell'icona del profilo */
+  height: auto; /* Mantieni le proporzioni */
+  cursor: pointer; /* Cambia il cursore al passaggio sopra */
+  transition: transform 0.2s ease; /* Aggiungi una transizione per l'effetto hover */
+}
+
+.profile-icon:hover {
+  transform: scale(1.1); /* Leggero ingrandimento al passaggio sopra */
+}
+
 /* Media query per schermi più piccoli (max-width 1024px) */
 @media screen and (max-width: 1024px) {
   .header-container {
@@ -294,24 +309,53 @@ li:hover {
     padding: 0 12px;
   }
 
-  .center-container {
-    justify-content: flex-start;
-  }
-
-  .right-container {
-    display: none;
-  }
-
   .menu-icon-container {
-    display: flex;
+    display: flex; /* Mostra l'icona del menu hamburger */
+  }
+
+  .right-container .auth-buttons {
+    display: none; /* Nascondi i bottoni "Accedi" e "Registrati" nel contenitore destro */
+  }
+
+  .menu-container {
+    display: none; /* Nascondi il menu hamburger di default */
   }
 
   .menu-container.active {
+    display: flex; /* Mostra il menu hamburger quando è attivo */
+  }
+
+  /* Centra la barra di ricerca o la scritta "Home" */
+  .center-container {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    align-items: center;
+  }
+
+  /* Allinea i bottoni a destra */
+  .right-container {
+    display: flex;
+    align-items: center; /* Allinea gli elementi verticalmente al centro */
+    gap: 10px; /* Spazio tra il bottone "Logout" e l'icona del profilo */
+  }
+
+  /* Mostra il menu hamburger solo quando è attivo */
+  .menu-container.active {
     right: 0;
   }
+  
 }
 
 @media screen and (min-width: 1025px) {
+  .menu-icon-container {
+    display: none; /* Nascondi l'icona del menu hamburger su schermi grandi */
+  }
+
+  .menu-container {
+    display: none; /* Nascondi il menu hamburger su schermi grandi */
+  }
+
   .logo-container {
     display: flex;
     justify-content: center;
@@ -325,14 +369,6 @@ li:hover {
     gap: 20px; /* Aggiungi spazio tra i tasti */
   }
 
-  .menu-icon-container {
-    display: none; /* Nascondi l'icona del menu hamburger */
-  }
-
-  .menu-container {
-    display: none; /* Nascondi il menu su schermi più grandi */
-  }
-
   /* I bottoni sono sempre visibili su dispositivi desktop */
   .auth-buttons {
     display: flex; /* Rendi i bottoni visibili su schermi grandi */
@@ -342,8 +378,7 @@ li:hover {
   }
 
   input[type="text"] {
-    width: 100%;
-    max-width: 500px; /* Limita la larghezza massima */
+    width: 500px; /* Limita la larghezza massima */
     padding: 12px 15px;
     font-size: 16px;
     font-family: Helvetica, Arial, sans-serif;
@@ -355,13 +390,14 @@ li:hover {
     background-color: whitesmoke;
   }
 
-  .ricerca-bottoni{
+  .ricerca-bottoni {
     display: flex;
   }
 
-  .home-bottoni{
+  .home-bottoni {
     display: flex;
   }
+
   .search-wrapper {
     align-items: center; /* Centra gli elementi verticalmente */
     flex: 1; /* Occupa lo spazio rimanente */
@@ -370,13 +406,14 @@ li:hover {
     width: 100%; /* Occupa tutta la larghezza disponibile */
     max-width: 500px; /* Imposta una larghezza massima */
   }
-  
+
   .search-wrapper input {
-       font-size: 14px; /* Riduci la dimensione del testo */
-      padding-left: 10px; /* Riduci il padding a sinistra per lasciare spazio all'icona */
-      padding-right: 80px; /* Riduci il padding a destra per icona */
+    font-size: 14px; /* Riduci la dimensione del testo */
+    padding-left: 10px; /* Riduci il padding a sinistra per lasciare spazio all'icona */
+    padding-right: 80px; /* Riduci il padding a destra per icona */
+    width: 500px;
   }
-  
+
   /* Contenitore a destra */
   .right-container {
     justify-content: center; /* Centra il contenuto orizzontalmente */
