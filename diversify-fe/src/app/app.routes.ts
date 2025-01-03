@@ -5,6 +5,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegistrazioneFormComponent } from './registrazione-form/registrazione-form.component';
 import { SchedaAreaPersonaleComponent } from './scheda-area-personale/scheda-area-personale.component';
 import { PaginaProfiloAmministratoreComponent } from './pagina-profilo-amministratore/pagina-profilo-amministratore.component';
+import { ChiSiamoComponent } from './chi-siamo/chi-siamo.component';
 
 
 export const routes: Routes = [
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'registrato', component: RegistrazioneFormComponent },
   { path: 'scheda-area-personale', component: SchedaAreaPersonaleComponent },
   { path: 'pagina-profilo-amministratore', component: PaginaProfiloAmministratoreComponent },
+  { path: 'chi-siamo', component: ChiSiamoComponent }// Rotta per "Chi Siamo"
 ];

@@ -172,6 +172,17 @@ public class UtenteController {
     @PostMapping("/recupera_password")
     public ResponseEntity<?> recuperaPassword(@RequestBody RecuperaPasswordRequest recuperaPasswordRequest) {
         try {
+            // Verifica che i campi obbligatori siano presenti
+            if (recuperaPasswordRequest.getEmail() == null || recuperaPasswordRequest.getEmail().isBlank()) {
+                throw new IllegalArgumentException("L'email non può essere nulla o vuota.");
+            }
+            if (recuperaPasswordRequest.getCodiceFiscale() == null || recuperaPasswordRequest.getCodiceFiscale().isBlank()) {
+                throw new IllegalArgumentException("Il codice fiscale non può essere nullo o vuoto.");
+            }
+            if (recuperaPasswordRequest.getNewPassword() == null || recuperaPasswordRequest.getNewPassword().isBlank()) {
+                throw new IllegalArgumentException("La nuova password non può essere nulla o vuota.");
+            }
+
             // Passo 1: Verifica email e codice fiscale
             Optional<Utente> utenteOptional = utenteService.findByEmailAndCodiceFiscale(
                     recuperaPasswordRequest.getEmail(),
@@ -201,6 +212,9 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
         }
     }
+
+
+
     /**
      * Endpoint per recuperare un utente a partire dal token JWT.
      *
@@ -208,10 +222,17 @@ public class UtenteController {
      * @return l'utente corrispondente se il token è valido, altrimenti un messaggio di errore.
      */
     @GetMapping("/recupera_utente")
-    public ResponseEntity<?> getUserFromToken(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<?> getUserFromToken(@RequestHeader(value = "Authorization", required = false) String token) {
+        // Controlla se il token è nullo o vuoto
+        if (token == null || token.isBlank()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o utente non trovato.");
+        }
+
         // Rimuove il prefisso "Bearer " dal token, se presente
         if (token.startsWith("Bearer ")) {
             token = token.substring(7);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o utente non trovato.");
         }
 
         // Recupera l'utente dal servizio
@@ -223,9 +244,51 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o utente non trovato.");
         }
     }
+
+    /**
+     * Endpoint per eliminare l'account di un utente.
+     * <p>
+     * Questo metodo consente di eliminare l'account di un utente autenticato.
+     * Utilizza un token JWT presente nell'intestazione della richiesta per identificare e autorizzare l'operazione.
+     * Se il token è valido e corrisponde a un utente, l'account viene eliminato con successo.
+     * </p>
+     *
+     * @param authorizationHeader l'intestazione HTTP "Authorization" contenente il token JWT.
+     *                            Il formato atteso è "Bearer {token}".
+     * @return una {@link ResponseEntity} che rappresenta il risultato dell'operazione:
+     * <ul>
+     *     <li>HTTP 200 OK: se l'account è stato eliminato con successo.</li>
+     *     <li>HTTP 401 UNAUTHORIZED: se il token è mancante, malformato o non valido.</li>
+     *     <li>HTTP 404 NOT FOUND: se l'utente associato al token non è stato trovato.</li>
+     * </ul>
+     */
     @PostMapping("/delete-account")
     public ResponseEntity<?> deleteAccount(@RequestHeader("Authorization") String authorizationHeader) {
-        String response = utenteService.deleteUser(authorizationHeader);
+        if (authorizationHeader == null || authorizationHeader.isBlank()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido");
+        }
+
+        if (!authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token malformato");
+        }
+
+        String token = authorizationHeader.substring(7); // Rimuove "Bearer "
+
+        String response = utenteService.deleteUser(token);
+
+        if ("Utente non trovato".equals(response)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        if ("Token non valido".equals(response)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
         return ResponseEntity.ok(response);
     }
+<<<<<<< HEAD
 }
+=======
+
+}
+>>>>>>> origin/develop

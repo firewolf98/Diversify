@@ -2,23 +2,33 @@
   <div class="post-container">
     <a href="#" class="back-link">← Torna alla mappa</a>
     <h1 class="post-title">La Diversità di Genere</h1>
+    
     <div class="post-content">
       <div class="post-header">
         <img src="Discussione.png" alt="Discussione" class="post-icon" />
         <span class="post-title-text">Risorse Utili per Comprendere la Diversità di Genere</span>
         <span class="badge">Discussione</span>
       </div>
+
+      <!-- Autore sotto il titolo e il badge -->
+      <div class="post-author-container">
+        <img src="Avatar.png" alt="Avatar" class="post-author-avatar" />
+        <span class="post-author-name">Lucia</span>
+      </div>
+      
       <p class="post-description">
         Benvenuti nel nostro post dedicato alla diversità di genere e ai diritti umani. Questo spazio è stato creato
         per promuovere il dialogo, l'informazione e la condivisione di esperienze su temi legati all'identità di
         genere, all'uguaglianza e al rispetto delle differenze.
       </p>
+      
       <div class="post-footer">
-        <span class="post-author">Postato da <a href="#">Lucia</a></span>
-        <a href="#" class="post-action">Rispondi</a>
-        <a href="#" class="post-action">Condividi</a>
+        <button (click)="toggleLikePost()" class="like-button">
+          {{ hasLikedPost ? '👎 Togli Mi Piace' : '👍 Mi Piace' }}
+          <span *ngIf="postLikes > 0">({{ postLikes }})</span>
+        </button> 
       </div>
-
+      
       <!-- Sezione per i commenti -->
       <div class="comments-section">
         <h2>Commenti</h2>
@@ -36,18 +46,9 @@
             Aggiungi Commento
           </button>
         </div>
-
+        
         <!-- Lista dei commenti -->
-        <div *ngFor="let comment of comments" class="comment-container">
-          <img [src]="comment.authorAvatar" alt="Avatar" class="comment-avatar" />
-          <div>
-            <div class="comment-author">
-              {{ comment.authorName }}
-              <span class="comment-date">- {{ comment.date | date: 'short' }}</span>
-            </div>
-            <div class="comment-text">{{ comment.text }}</div>
-          </div>
-        </div>
+        <app-commento *ngFor="let comment of comments" [comment]="comment"></app-commento>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@
   /* Box a destra: Sidebar di Gestione */
   .box-destra {
     flex: 1;
-    background-color: #ffe9d6;
+    background-color: #fdece8;
     padding: 20px;
     overflow-y: auto;
   }

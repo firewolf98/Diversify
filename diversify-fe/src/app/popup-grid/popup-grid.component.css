@@ -19,19 +19,20 @@
   box-sizing: border-box;
 }
 
-  /* Link "Torna alla mappa" */
-  .back-link {
-    color: #5a67d8; 
-    font-size: 18px;
-    text-decoration: none;
-    margin-bottom: 10px;
-    display: inline-block;
-  }
-  
-  .back-link:hover {
-    text-decoration: underline;
-  }
+/* "Torna alla mappa" */
+.back-link {
+  color: #3182ce; /* Colore blu */
+  font-size: 14px;
+  font-weight: bold; /* Grassetto */
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 0;
+}
 
+.back-link:hover {
+  color: #2b6cb0; /* Blu più scuro al passaggio del mouse */
+  text-decoration: underline;
+}
 
 /* Titolo */
 .title {

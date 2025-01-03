@@ -2,9 +2,17 @@
 .header-container {
   display: flex;
   justify-content: space-between; /* Assicura che ci sia spazio per i tasti */
+  align-items: center; /* Centra verticalmente */
   padding: 20px;
   background-color: #fdece8; /* Colore di sfondo rosa pesca */
   height: 60px; /* Altezza dell'header */
+}
+
+/* Contenitore degli elementi a destra */
+.right-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  gap: 15px; /* Spazio tra bottone e icona */
 }
 
 .logo-container {
@@ -261,6 +269,7 @@ li:hover {
   font-weight: bold; /* Testo in grassetto */
   text-decoration: none; /* Rimuove la sottolineatura */
   transition: color 0.3s ease, transform 0.2s ease; /* Transizione per il cambio di colore e effetto hover */
+  text-align: center; /* Centra il testo orizzontalmente */
 }
 
 .home-link:hover {
@@ -383,7 +392,7 @@ li:hover {
 
   input[type="text"] {
     width: 100%;
-    max-width: 300px; /* Limita la larghezza massima */
+    max-width: 500px; /* Limita la larghezza massima */
     padding: 12px 15px;
     font-size: 16px;
     font-family: Helvetica, Arial, sans-serif;

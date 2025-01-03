@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
-import { FooterComponent } from "./footer/footer.component";
-
-import { SchedaAreaPersonaleComponent } from "./scheda-area-personale/scheda-area-personale.component";
-import { RegistrazioneFormComponent } from "./registrazione-form/registrazione-form.component";
-import { MapComponent } from "./mappa/mappa.component";
-import { CommentoComponent } from './commento/commento.component';
-import { ForumComponent } from "./forum/forum.component";
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
 	selector: 'app-root',

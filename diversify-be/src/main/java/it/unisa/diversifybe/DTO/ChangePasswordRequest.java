@@ -4,7 +4,7 @@ import lombok.*;
 
 /**
  * Rappresenta la richiesta per cambiare la password di un utente.
- * Contiene il nome utente, la password corrente e la nuova password.
+ * Contiene la password corrente e la nuova password.
  */
 @Data
 @NoArgsConstructor
@@ -20,4 +20,5 @@ public class ChangePasswordRequest {
      * La nuova password che verrà impostata.
      */
     private String newPassword;
+
 }

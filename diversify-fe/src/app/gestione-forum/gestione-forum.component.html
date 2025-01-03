@@ -1,2 +1,47 @@
-<h2>Gestione Forum</h2>
-<p>Contenuto della componente Gestione Forum</p>
+<form [formGroup]="forumForm" (ngSubmit)="onSubmit()">
+    <div class="form-container">
+      <!-- Campo Paese -->
+      <label for="country-select">Seleziona un Paese:</label>
+      <select id="country-select" formControlName="country"
+        [ngClass]="{ 'ng-invalid': hasError('country', 'required'), 'ng-touched': forumForm.controls['country'].touched }">
+        <option value="" disabled>-- Seleziona un Paese --</option>
+        <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+      </select>
+      <div *ngIf="hasError('country', 'required')" class="error">
+        Il Paese è obbligatorio.
+      </div>
+  
+      <!-- Campo Titolo -->
+      <label for="forum-title">Titolo Forum:</label>
+      <input id="forum-title" type="text" formControlName="title" placeholder="Inserisci il titolo"
+        [ngClass]="{ 'ng-invalid': hasError('title', 'required') || hasError('title', 'minlength'), 
+                     'ng-touched': forumForm.controls['title'].touched }">
+      <div *ngIf="hasError('title', 'required')" class="error">
+        Il titolo è obbligatorio.
+      </div>
+      <div *ngIf="hasError('title', 'minlength')" class="error">
+        Il titolo deve avere almeno 3 caratteri.
+      </div>
+  
+      <!-- Campo Descrizione -->
+      <label for="forum-description">Descrizione Forum:</label>
+      <textarea id="forum-description" formControlName="description" placeholder="Inserisci la descrizione"
+        [ngClass]="{ 'ng-invalid': hasError('description', 'required') || hasError('description', 'minlength'), 
+                     'ng-touched': forumForm.controls['description'].touched }"></textarea>
+      <div *ngIf="hasError('description', 'required')" class="error">
+        La descrizione è obbligatoria.
+      </div>
+      <div *ngIf="hasError('description', 'minlength')" class="error">
+        La descrizione deve avere almeno 10 caratteri.
+      </div>
+  
+      <!-- Pulsante -->
+      <button type="submit" class="btn-primary">Crea Forum</button>
+    </div>
+  </form>
+  
+  <!-- Messaggio di errore globale -->
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+  

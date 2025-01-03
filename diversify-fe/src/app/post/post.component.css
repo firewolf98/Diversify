@@ -5,6 +5,61 @@ body {
   height: 100%; 
 }
 
+/* Stile per il tasto Mi Piace del post */
+.like-button {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 10px 20px; /* Aumentiamo il padding per renderlo più grande */
+  cursor: pointer;
+  font-size: 16px; /* Aumentiamo la dimensione del font */
+  color: #333;
+  transition: background-color 0.3s;
+  margin-top: 15px; /* Aggiungi più spazio sopra il tasto */
+  margin-bottom: 15px; /* Aggiungi più spazio sotto il tasto */
+  border-radius: 20px;
+}
+
+.like-button:hover {
+  background-color: #e2e8f0;
+}
+
+.like-button:active {
+  background-color: #cbd5e0;
+}
+
+.like-button svg {
+  width: 18px; /* Ridurre la dimensione dell'icona */
+  height: 18px;
+}
+
+/* Icona di Mi Piace (Aggiunta) */
+.like-button .like-icon {
+  font-size: 16px; /* Dimensione dell'icona */
+}
+
+/* Contenitore dell'autore nel post */
+/* Contenitore dell'autore nel post */
+.post-author-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  margin-bottom: 15px; /* Spazio sotto l'autore */
+}
+
+/* Immagine dell'autore */
+.post-author-avatar {
+  width: 40px; /* Dimensione simile a quella dei commenti */
+  height: 40px;
+  border-radius: 50%; /* Rende l'immagine rotonda */
+  margin-right: 10px; /* Spazio tra immagine e nome */
+}
+
+/* Nome dell'autore nel post */
+.post-author-name {
+  font-size: 16px; /* Dimensione simile a quella dei commenti */
+  font-weight: bold;
+  color: #333; /* Colore scuro per il nome */
+}
+
 .background-container {
 background-color: #ffe3d8;
 display: flex;
@@ -57,16 +112,15 @@ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
 
 /* Bottone "Aggiungi Commento" */
 .comment-button {
-  background-color: #007bff; /* Colore blu */
-  color: white; /* Testo bianco */
-  border: none; /* Nessun bordo */
-  border-radius: 5px; /* Angoli arrotondati */
-  padding: 10px 20px; /* Spaziatura interna */
-  font-size: 16px; /* Dimensione del testo */
-  cursor: pointer; /* Cursore puntatore */
-  transition: background-color 0.3s ease; /* Transizione per l'effetto hover */
-  margin-top: 0px; /* Riduci lo spazio sopra il bottone */
-  margin-bottom: 20px; /* Spazio sotto il bottone */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto; /* Sposta il bottone completamente a destra */
 }
 
 /* Effetto hover per il bottone */
@@ -103,17 +157,46 @@ color: #555;
   text-align: right; /* Allinea il testo della data a destra */
 }
 
-textarea {
-resize: none; /* Impedisce il ridimensionamento */
-width: 90%;   /* Larghezza */
-height: 60px; /* Altezza */
-font-style: italic;
-color: #555;
-border: 1px solid #ccc;
-border-radius: 5px;
-padding: 10px;
-margin-bottom: 10px;
-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Stile per il titolo "Commenti" */
+.comments-section h2 {
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+  font-size: 20px; /* Aumenta la dimensione del testo */
+  font-weight: 700; /* Rende il titolo grassetto */
+  color: #36454f; /* Colore accentuato per il titolo */
+  margin-top: 30px; /* Aggiungi spazio sopra il titolo */
+  margin-bottom: 15px; /* Aggiungi spazio sotto il titolo */
+  border-bottom: 2px solid #36454f; /* Aggiungi una linea sotto per separare visivamente */
+  padding-bottom: 10px; /* Distanza dalla linea */
+  text-align: left; /* Centra il titolo */
+}
+
+/* Campo di testo per i commenti */
+.comment-textarea {
+  width: 97%; /* Larghezza al 100% per adattarsi bene */
+  height: 60px; /* Altezza simile al campo dei subcommenti */
+  padding: 10px; /* Aggiungi padding per spazio interno */
+  border-radius: 8px; /* Angoli arrotondati per un aspetto più morbido */
+  border: 1px solid #ccc; /* Colore del bordo simile al campo dei subcommenti */
+  font-size: 14px; /* Dimensione del testo */
+  font-family: Roboto, sans-serif; /* Font simile a quello dei subcommenti */
+  color: #333; /* Colore del testo simile a quello dei subcommenti */
+  background-color: #f9f9f9; /* Colore di sfondo chiaro */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Ombra leggera per dare profondità */
+  resize: none; /* Impedisce il ridimensionamento del campo */
+  margin-bottom: 10px; /* Spazio sotto il campo di testo */
+}
+
+/* Stato al passaggio del mouse */
+.comment-textarea:hover {
+  border-color: #3182ce; /* Colore bordo quando il campo è in focus */
+  background-color: #f1f8ff; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+/* Stato al focus */
+.comment-textarea:focus {
+  border-color: #3182ce; /* Colore del bordo quando il campo è in focus */
+  background-color: #f1f8ff; /* Colore di sfondo al focus */
+  outline: none; /* Rimuove il contorno blu di default */
 }
 
 /* Titolo principale */
@@ -255,6 +338,7 @@ gap: 8px; /* Riduci lo spazio tra le azioni */
     font-size: 14px; /* Ridurre la dimensione del testo per le azioni */
     margin-left: 10px; /* Ridurre il margine tra le azioni */
   }
+  
 /* Media query per dispositivi con larghezza massima di 600px (Telefono) */
 @media screen and (max-width: 600px) {
   .background-container {

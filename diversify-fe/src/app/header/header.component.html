@@ -6,7 +6,7 @@
     </div>
 
     <!-- Sezione condizionale per la Barra di ricerca -->
-    <div *ngIf="!isLoggedIn(); else loggedInTemplate" class="search-container">
+    <div *ngIf="isHomePage(); else notHomePage" class="search-container">
         <input 
             type="text" 
             placeholder="Cerca un Paese" 
@@ -20,6 +20,10 @@
             </li>
         </ul>
     </div>
+
+    <ng-template #notHomePage>
+        <a href="" class="home-link">Home</a>
+    </ng-template>
 
     <!-- Bottoni per Accedi e Registrati se non loggato -->
     <div *ngIf="!isLoggedIn()" class="auth-buttons">
@@ -47,14 +51,17 @@
             <a href="" class="home-link">Home</a>
     </ng-template>
 
-    <!-- Sezione condizionale se l'utente è loggato -->
-    <div *ngIf="isLoggedIn" class="auth-buttons">
-        <button class="auth-button" (click)="logout()">Logout</button>
-    </div>     
-        
+    <!-- Creazione di un contenitore a destra per il bottone e l'icona profilo -->
+    <div class="right-container">
+        <!-- Sezione condizionale se l'utente è loggato -->
+        <div *ngIf="isLoggedIn" class="auth-buttons">
+            <button class="auth-button" (click)="logout()">Logout</button>
+        </div>     
         <div class="menu-items">
             <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()">
         </div>
+    </div>
+
     </ng-template>
 
     <!-- Menu icon per dispositivi mobili -->
@@ -70,7 +77,7 @@
 <!-- Menu Hamburger -->
 <div class="menu-container" [ngClass]="{'active': menuVisible}">
     <div *ngIf="isLoggedIn()" class="menu-items">
-        <a href="#profile">Gestione Profilo</a>
+        <a (click)="navigateToProfile()">Gestione Profilo</a>
         <div class="auth-buttons">
             <button class="auth-button" (click)="logout()">Logout</button>
         </div>

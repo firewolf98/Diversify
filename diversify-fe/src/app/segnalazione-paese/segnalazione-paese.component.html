@@ -1,2 +1,71 @@
-<h2>Segnalazione Paese</h2>
-<p>Contenuto della componente Segnalazione Paese</p>
+<div class="popup-wrapper">
+    <div class="popup-background">
+        <div class="popup">
+            <div class="search-container">
+                <label class="label-country">Scegli un Paese UE:</label> <br>
+                <input 
+                  type="text" 
+                  id="country" 
+                  placeholder="Cerca un Paese" 
+                  [(ngModel)]="searchTerm" 
+                  (input)="onSearchChange($event)" 
+                  (click)="toggleDropdown()" 
+                />
+                <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+                    <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
+                        {{ country }}
+                    </li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3>Benchmark generale dei diritti umani per {{ selectedCountry }}</h3>
+                <input type="range" min="0" max="5" [(ngModel)]="humanRightsBenchmark" (change)="onBenchmarkChange(humanRightsBenchmark, 'human')" />
+                <p>{{ humanRightsBenchmark }}</p>
+                <span class="benchmark-comment">{{ getBenchmarkComment(humanRightsBenchmark) }}</span>
+            </div>
+
+            <!-- Campo di testo per la descrizione generale dello stato dei diritti umani -->
+            <div class="text-area-container">
+                <textarea 
+                  [(ngModel)]="humanRightsDescription" 
+                  placeholder="Inserisci una descrizione dello stato dei diritti umani nel Paese selezionato..." 
+                  rows="4" 
+                  cols="50">
+                </textarea>
+            </div>
+
+            <div>
+                <h3>Benchmark dei diritti LGBT per {{ selectedCountry }}</h3>
+                <input type="range" min="0" max="5" [(ngModel)]="lgbtRightsBenchmark" (change)="onBenchmarkChange(lgbtRightsBenchmark, 'lgbt')" />
+                <p>{{ lgbtRightsBenchmark }}</p>
+                <span class="benchmark-comment">{{ getBenchmarkComment(lgbtRightsBenchmark) }}</span>
+            </div>
+            
+            <div>
+                <h3>Benchmark dei diritti per le persone con disabilità per {{ selectedCountry }}</h3>
+                <input type="range" min="0" max="5" [(ngModel)]="disabilityRightsBenchmark" (change)="onBenchmarkChange(disabilityRightsBenchmark, 'disability')" />
+                <p>{{ disabilityRightsBenchmark }}</p>
+                <span class="benchmark-comment">{{ getBenchmarkComment(disabilityRightsBenchmark) }}</span>
+            </div>
+            
+            <div>
+                <h3>Benchmark dei diritti contro il razzismo per {{ selectedCountry }}</h3>
+                <input type="range" min="0" max="5" [(ngModel)]="racismRightsBenchmark" (change)="onBenchmarkChange(racismRightsBenchmark, 'racism')" />
+                <p>{{ racismRightsBenchmark }}</p>
+                <span class="benchmark-comment">{{ getBenchmarkComment(racismRightsBenchmark) }}</span>
+            </div>
+            
+            <div>
+                <h3>Benchmark dei diritti delle donne per {{ selectedCountry }}</h3>
+                <input type="range" min="0" max="5" [(ngModel)]="womenRightsBenchmark" (change)="onBenchmarkChange(womenRightsBenchmark, 'women')" />
+                <p>{{ womenRightsBenchmark }}</p>
+                <span class="benchmark-comment">{{ getBenchmarkComment(womenRightsBenchmark) }}</span>
+            </div>
+
+            <br><br>
+            
+            <button class="save-button">Salva modifiche</button>
+        </div>
+    </div>
+</div>
