@@ -1,32 +1,38 @@
 /* Stile generale per l'header */
 .header-container {
   display: flex;
-  justify-content: space-between; /* Assicura che ci sia spazio per i tasti */
-  align-items: center; /* Centra verticalmente */
-  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   background-color: #fdece8; /* Colore di sfondo rosa pesca */
-  height: 60px; /* Altezza dell'header */
+  padding: 10px 0;
 }
- 
-/* Contenitore degli elementi centrato e a destra */
+
+/* Contenitore centrale per la barra di ricerca o la scritta "Home" */
+.center-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenitore per i bottoni a destra */
 .right-container {
   display: flex;
-  align-items: center; /* Centra verticalmente */
-  justify-content: flex-end; /* Allinea a destra */
-  gap: 15px; /* Spazio tra bottone e icona */
+  align-items: center; /* Allinea gli elementi verticalmente al centro */
+  gap: 10px; /* Spazio tra il bottone "Logout" e l'icona del profilo */
 }
- 
- 
+
 .logo-container {
   flex-shrink: 0; /* Evita che il contenitore si riduca */
   margin-right: 20px; /* Distanza tra logo e barra di ricerca */
 }
- 
+
 .logo {
   height: 85px; /* Altezza del logo */
   width: auto; /* Mantieni le proporzioni */
 }
- 
+
 .search-input {
   border: none;
   background: transparent;
@@ -36,7 +42,7 @@
   padding-left: 30px;
   padding-right: 50px;
 }
- 
+
 .icona {
   position: absolute;
   left: 5px;
@@ -46,7 +52,7 @@
   width: auto;
   cursor: pointer;
 }
- 
+
 /* Stile per l'icona del menu (hamburger) */
 .menu-icon-container {
   display: flex;
@@ -55,13 +61,13 @@
   justify-content: center;
   transition: transform 0.3s ease; /* Aggiungi una transizione per l'animazione */
 }
- 
+
 /* Effetto hover per l'icona */
 .menu-icon-container:hover {
   border-radius: 5px; /* Arrotonda gli angoli */
   padding: 5px; /* Aggiungi un po' di spazio attorno */
 }
- 
+
 /* Lo stile dell'icona del menu */
 .menu-icon {
   width: 35px; /* Aumenta la larghezza per renderla più visibile */
@@ -71,7 +77,7 @@
   justify-content: space-between;
   align-items: center; /* Allinea le linee al centro */
 }
- 
+
 .menu-icon span {
   display: block;
   height: 5px; /* Aumenta la larghezza delle linee */
@@ -80,20 +86,20 @@
   border-radius: 2px; /* Arrotonda gli angoli delle linee */
   transition: transform 0.3s ease; /* Aggiungi una transizione per l'animazione */
 }
- 
+
 /* Effetto per quando l'icona è attiva (quando il menu è aperto) */
 .menu-icon-container.active .menu-icon span:nth-child(1) {
   transform: translateY(9px) rotate(45deg); /* Ruota la prima linea per formare un "X" */
 }
- 
+
 .menu-icon-container.active .menu-icon span:nth-child(2) {
   opacity: 0; /* Nasconde la seconda linea */
 }
- 
+
 .menu-icon-container.active .menu-icon span:nth-child(3) {
   transform: translateY(-9px) rotate(-45deg); /* Ruota la terza linea per completare l'"X" */
 }
- 
+
 .menu-container {
   position: fixed; /* Fisso sul lato dello schermo */
   top: 0;
@@ -108,12 +114,12 @@
   flex-direction: column;
   padding: 20px;
 }
- 
+
 /* Menu visibile */
 .menu-container.active {
   right: 0; /* Spostalo dentro lo schermo */
 }
- 
+
 /* Stile per i tasti nel menu */
 .menu-items {
   display: flex;
@@ -125,7 +131,7 @@
   box-sizing: border-box; /* Include padding nelle dimensioni */
   flex: 0;
 }
- 
+
 .menu-items a {
   font-size: 16px; /* Dimensione del font */
   text-align: center; /* Centra il testo */
@@ -137,27 +143,26 @@
   border-radius: 6px; /* Arrotondamento leggero */
   transition: color 0.3s ease, background-color 0.3s ease;
 }
- 
+
 .menu-items a:hover {
   color: #007bff;
   background-color: #ffebe2;
 }
- 
+
 .menu-items img {
   width: 30px; /* Imposta la larghezza dell'immagine */
   height: auto; /* Mantieni le proporzioni */
 }
- 
- 
+
 .menu-icon span:nth-child(1),
 .menu-icon span:nth-child(2) {
   margin-bottom: 6px;
 }
- 
+
 .menu-icon-container:hover .menu-icon span {
   background-color: #555; /* Colore più chiaro al passaggio del mouse */
 }
- 
+
 /* Stile per la barra di ricerca */
 input[type="text"] {
   max-width: 300px; /* Riduci la larghezza della barra */
@@ -171,12 +176,12 @@ input[type="text"] {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   background-color: whitesmoke;
 }
- 
+
 input[type="text"]:focus {
   border-color: #ffeba7;
   box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2);
 }
- 
+
 /* Stile per la lista dei risultati */
 ul {
   list-style-type: none;
@@ -197,11 +202,11 @@ ul {
   z-index: 1000;
   background-color: #ffebe2;
 }
- 
+
 ul.active {
   border-color: #ffeba7;
 }
- 
+
 li {
   padding: 15px;
   font-size: 16px;
@@ -209,23 +214,21 @@ li {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
 }
- 
+
 li:hover {
   background-color: #fff5f1;
   color: #642102;
   transform: scale(1.001);
 }
- 
- 
- 
+
 /* Stile per il contenitore dei bottoni Accedi e Registrati */
 .auth-buttons {
   display: flex; /* Disporre i bottoni in orizzontale */
-  flex-direction: column; /* Colonna per mostrare i pulsanti uno sopra l'altro */
+  flex-direction: row; /* Allinea i bottoni in orizzontale */
   gap: 10px; /* Spazio tra i pulsanti */
   padding: 10px;
 }
- 
+
 /* Stile per i bottoni Accedi e Registrati */
 .auth-buttons button {
   background-color: #007bff; /* Colore di base */
@@ -238,29 +241,28 @@ li:hover {
   cursor: pointer; /* Cambia il cursore al passaggio sopra */
   transition: background-color 0.3s ease, transform 0.2s ease; /* Transizione per l'effetto hover */
 }
- 
+
 /* Effetto hover per i bottoni */
 .auth-buttons button:hover {
-  background-color: #007bff; /* Colore più scuro per il hover */
+  background-color: #0056b3; /* Colore più scuro per il hover */
   transform: scale(1.05); /* Leggero ingrandimento al passaggio sopra */
 }
- 
+
 /* Effetto focus per i bottoni */
 .auth-buttons button:focus {
   outline: none; /* Rimuove il bordo di focus predefinito */
   box-shadow: 0 0 5px rgba(0, 86, 179, 0.6); /* Aggiungi un'ombra blu quando il bottone è selezionato */
 }
- 
+
 /* Aggiungi uno stile per il bottone 'Registrati' */
 .auth-buttons button:last-child {
   background-color: #28a745; /* Colore verde per 'Registrati' */
 }
- 
+
 .auth-buttons button:last-child:hover {
   background-color: #218838; /* Colore più scuro per il hover di 'Registrati' */
 }
- 
- 
+
 /* Stile per il link "Home" */
 .home-link {
   color: #007BFF; /* Colore del testo blu */
@@ -270,95 +272,45 @@ li:hover {
   transition: color 0.3s ease, transform 0.2s ease; /* Transizione per il cambio di colore e effetto hover */
   text-align: center; /* Centra il testo orizzontalmente */
 }
- 
+
 .home-link:hover {
   color: #0056b3; /* Colore più scuro al passaggio del mouse */
   transform: translateY(-3px); /* Piccola animazione di spostamento */
 }
- 
+
 .home-link:focus {
   outline: none; /* Rimuove l'effetto di contorno quando il link è selezionato */
 }
- 
+
 .home-link:active {
   color: #004085; /* Colore più scuro quando il link è cliccato */
   transform: translateY(1px); /* Spostamento verso il basso durante il click */
 }
- 
+
 /* Media query per schermi più piccoli (max-width 1024px) */
 @media screen and (max-width: 1024px) {
   .header-container {
     justify-content: space-between;
     padding: 0 12px;
   }
- 
-  .search-container {
-    flex-grow: 1; /* Fa crescere il search-container per occupare spazio disponibile */
+
+  .center-container {
+    justify-content: flex-start;
+  }
+
+  .right-container {
+    display: none;
+  }
+
+  .menu-icon-container {
     display: flex;
-    justify-content: center; /* Centra orizzontalmente */
-    align-items: center; /* Centra verticalmente */
-    padding: 10px;
   }
- 
-  .menu-items {
-    display: none; /* Nascondi il menu sui dispositivi mobili */
-  }
- 
-  /* Menu visibile */
+
   .menu-container.active {
-    right: 0; /* Mostra il menu quando è attivato */
-    display: flex; /* Mostra il menu */
-  }
- 
-  /* Nascondi i bottoni se il menu non è attivo */
-  .auth-buttons {
-    display: none; /* Nascondi i bottoni sui dispositivi mobili */
-  }
- 
-  .menu-container.active .auth-buttons {
-    display: flex; /* Mostra i bottoni quando il menu è attivo */
-    flex-direction: column; /* Allinea verticalmente i bottoni */
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-  }
- 
-  .menu-items a {
-    font-size: 16px;
-    padding: 12px 0;
-  }
- 
-  .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* o specifica un'altezza */
-  }
- 
-  .logo {
-    height: 50px; /* Riduci ulteriormente il logo per schermi piccoli */
-    width: auto;
-  }
- 
-  /* Quando il menu è attivato */
-  .menu-container.active .menu-items {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 150px;
     right: 0;
-    background-color: #fdece8;
-    width: 100%;
-  }
- 
-  .search-input {
-    font-size: 14px; /* Riduci la dimensione del testo */
-    padding-left: 10px; /* Riduci il padding a sinistra per lasciare spazio all'icona */
-    padding-right: 80px; /* Riduci il padding a destra per icona */
   }
 }
- 
- 
+
 @media screen and (min-width: 1025px) {
   .logo-container {
     display: flex;
@@ -366,21 +318,21 @@ li:hover {
     align-items: center;
     height: 100%; /* o specifica un'altezza */
   }
- 
+
   .menu-items {
     display: flex; /* Mostra i tasti */
     flex-direction: row; /* Allinea i tasti orizzontalmente */
     gap: 20px; /* Aggiungi spazio tra i tasti */
   }
- 
+
   .menu-icon-container {
     display: none; /* Nascondi l'icona del menu hamburger */
   }
- 
+
   .menu-container {
     display: none; /* Nascondi il menu su schermi più grandi */
   }
- 
+
   /* I bottoni sono sempre visibili su dispositivi desktop */
   .auth-buttons {
     display: flex; /* Rendi i bottoni visibili su schermi grandi */
@@ -388,7 +340,7 @@ li:hover {
     gap: 15px;
     justify-content: center;
   }
- 
+
   input[type="text"] {
     width: 100%;
     max-width: 500px; /* Limita la larghezza massima */
@@ -402,32 +354,33 @@ li:hover {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: whitesmoke;
   }
- 
-  /* Stile per la barra di ricerca */
-  .search-container {
-    width: 100%;
-    justify-content: center; /* Centra il contenuto orizzontalmente */
+
+  .ricerca-bottoni{
+    display: flex;
+  }
+
+  .home-bottoni{
+    display: flex;
+  }
+  .search-wrapper {
     align-items: center; /* Centra gli elementi verticalmente */
-    position: relative;
-}
- 
-/* Contenitore per centraggio dell'input */
-.search-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 0; /* Adatta solo alla dimensione del contenuto */
-}
- 
-.search-wrapper input[type=text] {
-  max-width: 400px; /* Larghezza massima */
-  width: 100%; /* Adatta alla larghezza disponibile */
-}
- 
-/* Contenitore a destra */
-.right-container {
-  display: flex;
-  align-items: center;
-}
- 
+    flex: 1; /* Occupa lo spazio rimanente */
+    display: flex;
+    justify-content: center; /* Centra la barra di ricerca */
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+    max-width: 500px; /* Imposta una larghezza massima */
+  }
+  
+  .search-wrapper input {
+       font-size: 14px; /* Riduci la dimensione del testo */
+      padding-left: 10px; /* Riduci il padding a sinistra per lasciare spazio all'icona */
+      padding-right: 80px; /* Riduci il padding a destra per icona */
+  }
+  
+  /* Contenitore a destra */
+  .right-container {
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    display: flex;
+    align-items: center; /* Centra gli elementi verticalmente */
+  }
 }
