@@ -2,6 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { FormsModule } from '@angular/forms'; // Importa FormsModule per [(ngModel)]
 
+// Elenco dei Paesi dell'Unione Europea
+const countriesDB = [
+  'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia', 
+  'Germania', 'Grecia', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo', 'Malta', 'Paesi Bassi', 
+  'Polonia', 'Portogallo', 'Repubblica Ceca', 'Romania', 'Slovacchia', 'Slovenia', 'Spagna', 'Svezia'
+];
+
 interface Campaign {
   title: string;
   country: string;
@@ -25,14 +32,19 @@ interface Campaign {
 export class GestioneCampagneComponent {
   campaigns: Campaign[] = [];
   europeanUnionCountries: string[] = [];
-  selectedCountry: string = '';
   selectedStatus: string = '';
   filteredCampaigns: Campaign[] = [];
   activeComponent: string = ''; // Variabile per gestire il componente attivo
   campaign: Campaign = this.initializeCampaign();
   imagePreview: string | undefined;
+  countries = countriesDB;
+  selectedCountry = '';  // Paese 
+  searchTerm: string = '';
+  filteredCountries: string[] = [];
+  isDropdownVisible: boolean = false;
 
   ngOnInit(): void {
+    this.filteredCountries = this.countries;
     this.loadCampaigns();
     this.loadCountries(); // Carica i paesi
     this.filterAndSortCampaigns();
@@ -225,4 +237,31 @@ export class GestioneCampagneComponent {
       reader.readAsDataURL(file);
     }
   }
+  onSearchChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const searchValue = input.value.trim().toLowerCase();
+
+    this.isDropdownVisible = searchValue.length > 0;
+
+    if (searchValue.length === 0) {
+      this.filteredCountries = [];  // Non mostrare nessun risultato se la barra è vuota
+      return;
+    }
+
+    this.filteredCountries = this.countries
+      .filter(country => country.toLowerCase().includes(searchValue))
+      .sort((a, b) => a.toLowerCase().indexOf(searchValue) - b.toLowerCase().indexOf(searchValue));
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  selectCountry(country: string): void {
+    this.selectedCountry = country;
+    this.searchTerm = country;
+    this.filteredCountries = [];
+    this.isDropdownVisible = false;
+  }
+
 }
