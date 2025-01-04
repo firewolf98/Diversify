@@ -409,3 +409,27 @@ input[type="file"] {
         font-size: 16px;
     }
 }
+
+/* Pulsante Indietro piccolo */
+.container-modifica {
+    position: relative; /* Imposta il contesto di posizionamento */
+  }
+  .create-campaign-container {
+    position: relative; /* Imposta il contesto di posizionamento */
+  }
+button.back-btn {
+    font-size: 12px; /* Riduce la dimensione del font */
+    padding: 5px 10px; /* Riduce il padding per rendere il pulsante più piccolo */
+    width: auto; /* Impedisce che il bottone prenda la larghezza intera */
+    background-color: #007bff; /* Imposta un colore di sfondo chiaro */
+    color: #ffffff; /* Colore del testo */
+    border: 1px solid #0056b3; /* Colore del bordo */
+    border-radius: 5px; /* Angoli arrotondati */
+    position: absolute; /* Posizionamento assoluto */
+    top: 10px; /* Posiziona il pulsante vicino alla parte superiore */
+    left: 10px; /* Posiziona il pulsante a sinistra */
+}
+
+button.back-btn:hover {
+    background-color: #0056b3; /* Cambia il colore di sfondo quando il mouse passa sopra */
+}

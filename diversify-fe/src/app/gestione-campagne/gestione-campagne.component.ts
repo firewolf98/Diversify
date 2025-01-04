@@ -263,5 +263,8 @@ export class GestioneCampagneComponent {
     this.filteredCountries = [];
     this.isDropdownVisible = false;
   }
-
+  goBack(): void {
+    this.setActiveComponent('gestioneCampagne');
+  }
+  
 }
