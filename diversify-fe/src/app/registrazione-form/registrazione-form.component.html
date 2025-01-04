@@ -147,6 +147,14 @@
         </div>
       </div>
   
+    <!-- Link se sei già registrato per condurti alla componente login-->
+		<div class="login-link">
+			<small>
+			  Sei già registrato? 
+			  <a href="javascript:void(0);" (click)="navigateToLogin()">Effettua il login</a>
+			</small>
+		</div>
+
       <!-- Pulsante di Registrazione -->
       <button type="submit" class="btn btn-primary" [disabled]="moduloRegistrazione.invalid">Registrati</button>
     </form>
