@@ -1,2 +1,12 @@
-
-<div id="map"></div>
+<div id="map-container">
+    <div id="dropdown-container">
+        <select (change)="onCategoryChange($event)">
+            <option value="criticitaGenerale" selected>Criticità Generale</option>
+            <option value="criticitaLgbt">Diritti LGBT</option>
+            <option value="criticitaDisabilita">Disabilità</option>
+            <option value="criticitaRazzismo">Razzismo</option>
+            <option value="criticitaDonne">Donne</option>
+        </select>
+    </div>
+    <div id="map" class="map"></div>      
+</div>  
