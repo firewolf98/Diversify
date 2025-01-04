@@ -9,6 +9,8 @@ import { Point } from 'ol/geom';
 import { Style, Icon } from 'ol/style';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
+import { ViewContainerRef } from '@angular/core';
+import { PopupGridComponent } from '../popup-grid/popup-grid.component';
 
 @Component({
   selector: 'app-map',
@@ -22,7 +24,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   private category: string = 'criticitaGenerale'; // Categoria selezionata
   private vectorLayer: VectorLayer | undefined;
 
-  constructor() {
+  constructor(private viewContainerRef: ViewContainerRef) {
     this.countries = [
       { name: "Italia", coordinates: [1398226.38, 5161471.19], criticitaGenerale: 1, criticitaLgbt: 4, criticitaDisabilita: 2, criticitaRazzismo: 3, criticitaDonne: 4 },
       { name: "Francia", coordinates: [261800, 6270564], criticitaGenerale: 3, criticitaLgbt: 1, criticitaDisabilita: 2, criticitaRazzismo: 4, criticitaDonne: 0 },
@@ -144,13 +146,13 @@ export class MapComponent implements OnInit, AfterViewInit {
             country.coordinates[0] + 50000,
             country.coordinates[1] + 50000
           ]),
-          name: `${country.name}-Dinamico`
+          name: `${country.name}`
         });
     
         let pinColor: string;
         switch (criticita) {
           case 1:
-            pinColor = 'benchmark-nero.png';
+            pinColor = 'benchmark-verde.png';
             break;
           case 2:
             pinColor = 'benchmark-giallo.png';
@@ -186,7 +188,21 @@ export class MapComponent implements OnInit, AfterViewInit {
   
   // Funzione per mostrare il popup (aggiungila se necessario)
   private openPopupGrid(countryName: string, coordinate: any): void {
-    // Logica per mostrare il popup
-    console.log(countryName, coordinate);
+    const country = this.countries.find(c => c.name === countryName);
+    const tipoCriticita = country ? country.tipoCriticita : '';  // Assegna una stringa vuota se non c'è
+  
+    // Rimuovi eventuali pop-up esistenti
+    const existingPopups = document.querySelectorAll('.popup');
+    existingPopups.forEach(popup => popup.remove());
+    
+    const popupElement = document.createElement('div');
+    popupElement.classList.add('popup');
+    
+    const componentRef = this.viewContainerRef.createComponent(PopupGridComponent);
+    componentRef.instance.countryName = countryName;
+    componentRef.instance.tipoCriticita = tipoCriticita;  // Passa la stringa vuota se non c'è
+  
+    popupElement.appendChild(componentRef.location.nativeElement);
+    document.body.appendChild(popupElement);
   }
 }
