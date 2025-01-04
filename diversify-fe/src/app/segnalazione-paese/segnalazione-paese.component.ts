@@ -85,12 +85,12 @@ export class SegnalazionePaeseComponent implements OnInit {
   }  
 
   @HostListener('document:click', ['$event'])
-  onClickOutside(event: MouseEvent): void {
-    const clickedInside = event.target instanceof HTMLElement && event.target.closest('.search-container');
-    if (!clickedInside) {
-      this.isDropdownVisible = false;
-    }
+onClickOutside(event: MouseEvent): void {
+  const clickedInside = event.target instanceof HTMLElement && event.target.closest('ul');
+  if (!clickedInside) {
+    this.isDropdownVisible = false;
   }
+}
 
   getBenchmarkComment(value: number): string {
     switch (value) {
