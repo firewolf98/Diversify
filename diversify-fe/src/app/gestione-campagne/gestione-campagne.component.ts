@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule per [(ngMod
 
 // Elenco dei Paesi dell'Unione Europea
 const countriesDB = [
-  'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia', 
+  'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia', 
   'Germania', 'Grecia', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo', 'Malta', 'Paesi Bassi', 
   'Polonia', 'Portogallo', 'Repubblica Ceca', 'Romania', 'Slovacchia', 'Slovenia', 'Spagna', 'Svezia'
 ];
@@ -146,7 +146,7 @@ export class GestioneCampagneComponent {
   // Funzione per caricare i paesi appartenenti all'Unione Europea
   loadCountries(): void {
     this.europeanUnionCountries = [
-      'Austria', 'Belgio', 'Bulgaria', 'Croazia', 'Cipro', 'Repubblica Ceca',
+      'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Croazia', 'Cipro', 'Repubblica Ceca',
       'Danimarca', 'Estonia', 'Finlandia', 'Francia', 'Germania', 'Grecia',
       'Ungheria', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo',
       'Malta', 'Paesi Bassi', 'Polonia', 'Portogallo', 'Romania', 'Slovacchia',
@@ -182,17 +182,25 @@ export class GestioneCampagneComponent {
     this.setActiveComponent('editCampagna', campaign);
   }
 
+  resetFilters(): void {
+    this.selectedCountry = ''; // Resetta il filtro del paese
+    this.selectedStatus = ''; // Resetta il filtro dello stato
+    this.filterAndSortCampaigns(); // Applica i filtri aggiornati
+}
+
   // Funzione per attivare un componente specifico (creazione o modifica)
   setActiveComponent(component: string, selectedCampaign?: Campaign): void {
     this.activeComponent = component;
 
-    // Se la campagna è passata per la modifica, la imposta come campagna da modificare
     if (component === 'editCampagna' && selectedCampaign) {
-      this.campaign = { ...selectedCampaign }; // Clona i dati della campagna selezionata
+        console.log('Campagna selezionata:', selectedCampaign); // Debug
+        this.campaign = { ...selectedCampaign }; // Clona i dati della campagna selezionata
+        this.selectedCountry = this.campaign.country; // Imposta il paese selezionato
+        console.log('Campagna nel form:', this.campaign); // Debug
     } else {
-      this.resetCampaign(); // Azzera il modulo se si sta creando una nuova campagna
+        this.resetCampaign(); // Azzera il modulo se si sta creando una nuova campagna
     }
-  }
+}
 
   // Funzione per azzerare i dati della campagna
   resetCampaign(): void {
