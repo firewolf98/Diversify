@@ -4,10 +4,16 @@
     <h1 class="post-title">La Diversità di Genere</h1>
     
     <div class="post-content">
+      <!-- Header del post -->
       <div class="post-header">
         <img src="Discussione.png" alt="Discussione" class="post-icon" />
         <span class="post-title-text">Risorse Utili per Comprendere la Diversità di Genere</span>
         <span class="badge">Discussione</span>
+        
+        <!-- Icona della bandiera per segnala -->
+        <button class="flag-button" (click)="openReportModal()">
+          <img src="flag-icon.png" alt="Segnala" class="flag-icon" />
+        </button>
       </div>
 
       <!-- Autore sotto il titolo e il badge -->
@@ -50,6 +56,24 @@
         <!-- Lista dei commenti -->
         <app-commento *ngFor="let comment of comments" [comment]="comment"></app-commento>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale di segnalazione -->
+<div *ngIf="showReportModal" class="report-modal">
+  <div class="modal-content">
+    <h3>Segnala il Post</h3>
+    <p>Per favore, descrivi il motivo della segnalazione:</p>
+    <textarea
+      [(ngModel)]="reportReason"
+      placeholder="Inserisci la motivazione..."
+      rows="4"
+      class="report-textarea"
+    ></textarea>
+    <div class="modal-actions">
+      <button (click)="confirmReport()" class="confirm-button">Conferma</button>
+      <button (click)="closeReportModal()" class="cancel-button">Annulla</button>
     </div>
   </div>
 </div>

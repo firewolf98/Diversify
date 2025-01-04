@@ -38,6 +38,21 @@ public class RegisterRequest {
     private String email;
 
 
+    /**
+     * Il codice fiscale dell'utente.
+     */
     private String codiceFiscale;
 
+    /**
+     * ho aggiunto il campo domanda e risposta
+     * La domanda di sicurezza scelta dall'utente durante la registrazione.
+     * Questo campo viene utilizzato per aiutare nel recupero della password.
+     */
+    private String domanda;
+
+    /**
+     * La risposta alla domanda di sicurezza scelta dall'utente durante la registrazione.
+     * Questo campo viene utilizzato per verificare l'identità dell'utente durante il recupero della password.
+     */
+    private String risposta;
 }

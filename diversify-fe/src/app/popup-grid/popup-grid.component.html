@@ -11,7 +11,12 @@
       <span>{{ flag }}</span>
       <h2>{{ countryName }}</h2>
     </div>
-  
+
+    <!-- Mostra solo se tipoCriticita è presente -->
+    <div *ngIf="tipoCriticita" class="tipo-criticita">
+      <p><strong>Tipo Criticità:</strong> {{ tipoCriticita }}</p>
+    </div>
+
     <!-- Griglia dei bottoni -->
     <div class="grid-container">
       <button

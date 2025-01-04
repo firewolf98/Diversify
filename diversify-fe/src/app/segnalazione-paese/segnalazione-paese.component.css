@@ -1,8 +1,6 @@
 /* Posizionamento del contenitore della barra di ricerca */
 div {
     position: relative;
-    display: inline-block;
-    margin-top: 20px;
     width: 100%;  /* Assicurati che il contenitore occupi tutta la larghezza disponibile */
 }
 
@@ -165,6 +163,7 @@ body {
 h1, h2, h3 {
     color: #642102; /* Colore scuro per i titoli */
     margin-bottom: 15px;
+    margin-top: 20px;
     font-weight: 700;
 }
 
@@ -184,9 +183,11 @@ h3 {
 /* Barra di ricerca */
 .search-container {
     position: relative;
-    margin-top: 30px;
     width: 100%;
+    margin-bottom:20px;
+    overflow: visible; /* Assicurati che gli elementi siano visibili */
 }
+
 
 .search-input {
     width: 100%;
@@ -343,26 +344,33 @@ footer a:hover {
 /* Contenitore dello sfondo per il pop-up */
 .popup-background {
     position: relative;
-    background-color: #fdece8; /* Colore di sfondo caldo per il contenitore */
+    background-color: #fdece8; /* Colore di sfondo caldo */
     border-radius: 20px; /* Angoli arrotondati */
-    padding: 30px;
-    width: 100%;
-    max-width: 800px; /* Imposta una larghezza massima per la sezione */
-    margin: 50px auto; /* Centra la sezione orizzontalmente con un margine sopra e sotto */
+    padding: 10px;
+    max-width: 90%; /* Imposta una larghezza massima relativa alla finestra */
+    max-height: 90%; /* Imposta un'altezza massima relativa alla finestra */
+    margin: auto; /* Centra automaticamente */
+    overflow: auto; /* Rendi scrollabile se necessario */
     box-sizing: border-box;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombra morbida per creare un effetto di profondità */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombra morbida */
 }
 
 /* Contenuto principale del pop-up */
 .popup {
     padding: 20px;
 }
+
 .popup-wrapper {
     display: flex;
     justify-content: center; /* Centra orizzontalmente */
     align-items: center; /* Centra verticalmente */
     height: 100vh; /* Prendi tutta l'altezza della finestra */
+    padding: 20px; /* Aggiungi spazio intorno per evitare il taglio */
+    box-sizing: border-box; /* Assicurati che padding venga incluso */
+    overflow: auto; /* Rendi il contenitore scrollabile se necessario */
 }
+
+
 
 /* Stile per il tasto "Salva modifiche" */
 .save-button {
@@ -396,7 +404,7 @@ footer a:hover {
 /* Stile per la scritta "Scegli un Paese UE" */
 .label-country {
     font-family: 'Roboto', sans-serif;
-    font-size: 24px; /* Aumenta la dimensione del font */
+    font-size: 18px; /* Aumenta la dimensione del font */
     font-weight: 700; /* Grassetto per maggiore impatto */
     color: #642102; /* Colore scuro elegante */
     text-transform: uppercase; /* Tutto maiuscolo per un effetto deciso */
@@ -405,7 +413,8 @@ footer a:hover {
     margin-bottom: 15px; /* Distanza dal contenuto sottostante */
     position: relative;
     display: inline-block;
-    padding-bottom: 8px;
+    padding-bottom: 7px;
+    z-index: inherit;
 }
 
 /* Aggiunta di una linea colorata sotto il testo */
@@ -415,21 +424,10 @@ footer a:hover {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 2px;
     background-color: #ff7a60; /* Colore dinamico sotto la scritta */
     border-radius: 5px;
     transition: all 0.3s ease;
-}
-
-/* Effetto hover sulla scritta */
-.label-country:hover {
-    color: #ff7a60; /* Cambia il colore al passaggio del mouse */
-    text-shadow: 3px 3px 8px rgba(255, 122, 96, 0.3); /* Ombra più evidente al passaggio del mouse */
-}
-
-/* Hover sulla linea sotto il testo */
-.label-country:hover::after {
-    background-color: #ff8a65; /* Cambia il colore della linea al passaggio del mouse */
 }
 
 /* Stile per il tasto "Salva modifiche" */

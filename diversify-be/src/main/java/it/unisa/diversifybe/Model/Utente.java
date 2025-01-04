@@ -37,7 +37,6 @@ public class Utente {
     /**
      * Il codice fiscale dell'utente.
      */
-
     private String codiceFiscale;
 
     /**
