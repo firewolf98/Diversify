@@ -20,10 +20,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   private map: Map | undefined;
   private countries: Array<any>;  // Lista dei paesi
   private category: string = 'criticitaGenerale'; // Categoria selezionata
+  private vectorLayer: VectorLayer | undefined;
 
   constructor() {
     this.countries = [
-      { name: "Italia", coordinates: [1398226.38, 5161471.19], criticitaGenerale: 1, criticitaLgbt: 4, criticitaDisabilita: 0, criticitaRazzismo: 3, criticitaDonne: 4 },
+      { name: "Italia", coordinates: [1398226.38, 5161471.19], criticitaGenerale: 1, criticitaLgbt: 4, criticitaDisabilita: 2, criticitaRazzismo: 3, criticitaDonne: 4 },
       { name: "Francia", coordinates: [261800, 6270564], criticitaGenerale: 3, criticitaLgbt: 1, criticitaDisabilita: 2, criticitaRazzismo: 4, criticitaDonne: 0 },
       { name: "Germania", coordinates: [1491538.66, 6893050.21], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 4, criticitaRazzismo: 3, criticitaDonne: 1 },
       { name: "Spagna", coordinates: [-412323.77, 4926736.21], criticitaGenerale: 0, criticitaLgbt: 3, criticitaDisabilita: 1, criticitaRazzismo: 2, criticitaDonne: 4 },
@@ -111,72 +112,81 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   private updatePins(): void {
     const vectorSource = new VectorSource();
+    
+    // Rimuovi il vecchio layer se esiste
+    if (this.vectorLayer) {
+      this.map?.removeLayer(this.vectorLayer);
+    }
 
+    // Aggiungi i nuovi pin
     this.countries.forEach(country => {
       const firstPin = new Feature({
         geometry: new Point(country.coordinates),
         name: country.name
       });
-
+    
       firstPin.setStyle(new Style({
         image: new Icon({
           src: "pin-mappa.png",
           scale: 0.3
         })
       }));
-
+    
       vectorSource.addFeature(firstPin);
-
+    
       // Aggiungi i pin dinamici in base alla categoria
       const criticita = country[this.category];
-      const secondPin = new Feature({
-        geometry: new Point([
-          country.coordinates[0] + 50000,
-          country.coordinates[1] + 50000
-        ]),
-        name: `${country.name}-Dinamico`
-      });
-
-      let pinColor: string;
-      switch (criticita) {
-        case 1:
-          pinColor = 'benchmark-verde.png';
-          break;
-        case 2:
-          pinColor = 'benchmark-giallo.png';
-          break;
-        case 3:
-          pinColor = 'benchmark-arancione.png';
-          break;
-        case 4:
-          pinColor = 'benchmark-rosso.png';
-          break;
-        default:
-          pinColor = 'benchmark-grigio.png';
+    
+      // Se criticita è 0, non aggiungere il secondo pin
+      if (criticita !== 0) {
+        const secondPin = new Feature({
+          geometry: new Point([
+            country.coordinates[0] + 50000,
+            country.coordinates[1] + 50000
+          ]),
+          name: `${country.name}-Dinamico`
+        });
+    
+        let pinColor: string;
+        switch (criticita) {
+          case 1:
+            pinColor = 'benchmark-nero.png';
+            break;
+          case 2:
+            pinColor = 'benchmark-giallo.png';
+            break;
+          case 3:
+            pinColor = 'benchmark-arancione.png';
+            break;
+          case 4:
+            pinColor = 'benchmark-rosso.png';
+            break;
+          default:
+            pinColor = 'benchmark-nero.png';
+        }
+    
+        secondPin.setStyle(new Style({
+          image: new Icon({
+            src: `benchmark/${pinColor}`,
+            scale: 0.3
+          })
+        }));
+    
+        vectorSource.addFeature(secondPin);
       }
-
-      secondPin.setStyle(new Style({
-        image: new Icon({
-          src: `benchmark/${pinColor}`,
-          scale: 0.3
-        })
-      }));
-
-      vectorSource.addFeature(secondPin);
     });
 
-    const vectorLayer = new VectorLayer({
+    this.vectorLayer = new VectorLayer({
       source: vectorSource
     });
 
-    this.map?.addLayer(vectorLayer);
+    // Aggiungi il vectorLayer alla mappa
+    this.map?.addLayer(this.vectorLayer);
   }
-
-  openPopupGrid(countryName: string, coordinate: any): void {
-    // Apri il popup con le informazioni sul paese
-    console.log(`Popup per ${countryName} alle coordinate ${coordinate}`);
+  
+  // Funzione per mostrare il popup (aggiungila se necessario)
+  private openPopupGrid(countryName: string, coordinate: any): void {
+    // Logica per mostrare il popup
+    console.log(countryName, coordinate);
   }
 }
-
-//FUNZIONAAAAAAAAAAAAAAAA
-
