@@ -6,6 +6,7 @@ import { RegistrazioneFormComponent } from './registrazione-form/registrazione-f
 import { SchedaAreaPersonaleComponent } from './scheda-area-personale/scheda-area-personale.component';
 import { PaginaProfiloAmministratoreComponent } from './pagina-profilo-amministratore/pagina-profilo-amministratore.component';
 import { ChiSiamoComponent } from './chi-siamo/chi-siamo.component';
+import { GeneraleAmministratoreComponent } from './generale-amministratore/generale-amministratore.component';
 
 
 export const routes: Routes = [
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'registrato', component: RegistrazioneFormComponent },
   { path: 'scheda-area-personale', component: SchedaAreaPersonaleComponent },
   { path: 'pagina-profilo-amministratore', component: PaginaProfiloAmministratoreComponent },
-  { path: 'chi-siamo', component: ChiSiamoComponent }// Rotta per "Chi Siamo"
+  { path: 'chi-siamo', component: ChiSiamoComponent },// Rotta per "Chi Siamo"
+  { path: 'generale-amministratore', component: GeneraleAmministratoreComponent }// Rotta per "Generale Amministratore"
 ];

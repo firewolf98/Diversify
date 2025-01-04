@@ -69,12 +69,19 @@ ul {
     background-color: #ffffff;
     opacity: 0.9;
     box-sizing: border-box; /* Includi bordi e padding nel calcolo della larghezza */
+    display: none;
+    visibility: hidden;
 }
 
 /* Aggiunta di un bordo attivo per la tendina */
 ul.active {
     border-color: #ff8a65;
 }
+
+ul.visible {
+    display: block;
+    visibility: visible;
+  }
 
 /* Stile per gli item della lista */
 li {
@@ -213,6 +220,15 @@ h3 {
     transform: scale(1.02);
 }
 
+.dropdown-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
 /* Lista dei risultati */
 ul.search-dropdown {
     list-style-type: none;
@@ -230,6 +246,7 @@ ul.search-dropdown {
     opacity: 0.95;
     z-index: 999;
     box-sizing: border-box;
+
 }
 
 /* Aggiunta di un bordo attivo alla tendina */
