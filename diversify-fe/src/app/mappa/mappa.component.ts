@@ -4,16 +4,11 @@ import { OSM } from 'ol/source';
 import { View } from 'ol';
 import { Tile as TileLayer } from 'ol/layer';
 import Map from 'ol/Map';
-import { Overlay } from 'ol';
-//import per i pin:
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 import { Style, Icon } from 'ol/style';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
-//import per pin dinamici:
-import { ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
-import { PopupGridComponent } from '../popup-grid/popup-grid.component';
 
 @Component({
   selector: 'app-map',
@@ -23,13 +18,12 @@ import { PopupGridComponent } from '../popup-grid/popup-grid.component';
 })
 export class MapComponent implements OnInit, AfterViewInit {
   private map: Map | undefined;
-  private countries: Array<any>;  // Aggiungi questa proprietà per la lista dei paesi
+  private countries: Array<any>;  // Lista dei paesi
+  private category: string = 'criticitaGenerale'; // Categoria selezionata
 
-  constructor(private viewContainerRef: ViewContainerRef, 
-              private componentFactoryResolver: ComponentFactoryResolver) {
-    // Inizializza countries direttamente nel costruttore
+  constructor() {
     this.countries = [
-      { name: "Italia", coordinates: [1398226.38, 5161471.19], criticitaGenerale: 1, criticitaLgbt: 4, criticitaDisabilita: 2, criticitaRazzismo: 3, criticitaDonne: 4 },
+      { name: "Italia", coordinates: [1398226.38, 5161471.19], criticitaGenerale: 1, criticitaLgbt: 4, criticitaDisabilita: 0, criticitaRazzismo: 3, criticitaDonne: 4 },
       { name: "Francia", coordinates: [261800, 6270564], criticitaGenerale: 3, criticitaLgbt: 1, criticitaDisabilita: 2, criticitaRazzismo: 4, criticitaDonne: 0 },
       { name: "Germania", coordinates: [1491538.66, 6893050.21], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 4, criticitaRazzismo: 3, criticitaDonne: 1 },
       { name: "Spagna", coordinates: [-412323.77, 4926736.21], criticitaGenerale: 0, criticitaLgbt: 3, criticitaDisabilita: 1, criticitaRazzismo: 2, criticitaDonne: 4 },
@@ -70,19 +64,22 @@ export class MapComponent implements OnInit, AfterViewInit {
       { name: "Russia", coordinates: [4187505.32, 7509131.29], criticitaGenerale: 5, criticitaLgbt: 2, criticitaDisabilita: 1, criticitaRazzismo: 0, criticitaDonne: 3 },
       { name: "Bielorussia", coordinates: [3068143.88, 7151813.43], criticitaGenerale: 4, criticitaLgbt: 0, criticitaDisabilita: 3, criticitaRazzismo: 1, criticitaDonne: 2 },
       { name: "Repubblica Ceca", coordinates: [204005231.5, 645183456], criticitaGenerale: 0, criticitaLgbt: 1, criticitaDisabilita: 3, criticitaRazzismo: 2, criticitaDonne: 4 }
-    ];    
+    ];
   }
 
   ngOnInit(): void {
-    // Imposta la categoria di default
-    this.onCategoryChange({ target: { value: 'criticitaGenerale' } });
+    this.onCategoryChange({ target: { value: this.category } });
   }
 
   ngAfterViewInit(): void {
     this.initializeMap();
   }
 
-  
+  onCategoryChange(event: any): void {
+    this.category = event.target.value;
+    this.updatePins();
+  }
+
   private initializeMap(): void {
     const osmLayer = new TileLayer({
       source: new OSM()
@@ -105,202 +102,81 @@ export class MapComponent implements OnInit, AfterViewInit {
 
       if (clickedFeature) {
         const countryName = clickedFeature.get('name');
-        const tipoCriticita = clickedFeature.get('tipoCriticita');
         this.openPopupGrid(countryName, coordinate);
       }
     });
 
-    const features = this.countries.map(country => {
-      const feature = new Feature({
+    this.updatePins();  // Aggiungi i pin iniziali
+  }
+
+  private updatePins(): void {
+    const vectorSource = new VectorSource();
+
+    this.countries.forEach(country => {
+      const firstPin = new Feature({
         geometry: new Point(country.coordinates),
         name: country.name
       });
 
-      feature.set('tipoCriticita', country.tipoCriticita);
-      feature.setStyle(new Style({
+      firstPin.setStyle(new Style({
         image: new Icon({
-          src: "pin-mappa.png", 
+          src: "pin-mappa.png",
           scale: 0.3
         })
       }));
 
-      if (country.criticita === 1) {
-        const secondFeature = new Feature({
-          geometry: new Point([
-            country.coordinates[0] + 50000,
-            country.coordinates[1] + 50000
-          ]),
-          name: `${country.name}`
-        });
+      vectorSource.addFeature(firstPin);
 
-        secondFeature.set('tipoCriticita', country.tipoCriticita);
-        secondFeature.setStyle(new Style({
-          image: new Icon({
-            src: "benchmark/benchmark-verde.png", 
-            scale: 0.3
-          })
-        }));
-
-        return [feature, secondFeature];
-      }
-      if (country.criticita === 2) {
-        const secondFeature = new Feature({
-          geometry: new Point([
-            country.coordinates[0] + 50000,
-            country.coordinates[1] + 50000
-          ]),
-          name: `${country.name}`
-        });
-
-        secondFeature.set('tipoCriticita', country.tipoCriticita);
-        secondFeature.setStyle(new Style({
-          image: new Icon({
-            src: "benchmark/benchmark-giallo.png", 
-            scale: 0.3
-          })
-        }));
-
-        return [feature, secondFeature];
-      }
-      if (country.criticita === 3) {
-        const secondFeature = new Feature({
-          geometry: new Point([
-            country.coordinates[0] + 50000,
-            country.coordinates[1] + 50000
-          ]),
-          name: `${country.name}`
-        });
-
-        secondFeature.set('tipoCriticita', country.tipoCriticita);
-        secondFeature.setStyle(new Style({
-          image: new Icon({
-            src: "benchmark/benchmark-arancione.png", 
-            scale: 0.3
-          })
-        }));
-
-        return [feature, secondFeature];
-      }
-      if (country.criticita === 4) {
-        const secondFeature = new Feature({
-          geometry: new Point([
-            country.coordinates[0] + 50000,
-            country.coordinates[1] + 50000
-          ]),
-          name: `${country.name}`
-        });
-
-        secondFeature.set('tipoCriticita', country.tipoCriticita);
-        secondFeature.setStyle(new Style({
-          image: new Icon({
-            src: "benchmark/benchmark-rosso.png", 
-            scale: 0.3
-          })
-        }));
-
-        return [feature, secondFeature];
-      }
-      if (country.criticita === 5) {
-        const secondFeature = new Feature({
-          geometry: new Point([
-            country.coordinates[0] + 50000,
-            country.coordinates[1] + 50000
-          ]),
-          name: `${country.name}`
-        });
-
-        secondFeature.set('tipoCriticita', country.tipoCriticita);
-        secondFeature.setStyle(new Style({
-          image: new Icon({
-            src: "benchmark/benchmark-nero.png", 
-            scale: 0.3
-          })
-        }));
-
-        return [feature, secondFeature];
-      }
-
-      return feature;
-    }).flat();
-
-    const vectorSource = new VectorSource({ features });
-    const vectorLayer = new VectorLayer({ source: vectorSource });
-
-    this.map.addLayer(vectorLayer);
-  }
-
-  private openPopupGrid(countryName: string, coordinate: any): void {
-    const country = this.countries.find(c => c.name === countryName);
-    const tipoCriticita = country ? country.tipoCriticita : '';  // Assegna una stringa vuota se non c'è
-  
-    // Rimuovi eventuali pop-up esistenti
-    const existingPopups = document.querySelectorAll('.popup');
-    existingPopups.forEach(popup => popup.remove());
-    
-    const popupElement = document.createElement('div');
-    popupElement.classList.add('popup');
-    
-    const componentRef = this.viewContainerRef.createComponent(PopupGridComponent);
-    componentRef.instance.countryName = countryName;
-    componentRef.instance.tipoCriticita = tipoCriticita;  // Passa la stringa vuota se non c'è
-  
-    popupElement.appendChild(componentRef.location.nativeElement);
-    document.body.appendChild(popupElement);
-  }
-  
-  onCategoryChange(event: any): void {
-    const selectedCategory = event.target.value || 'criticitaGenerale'; // Valore standard: 'criticitaGenerale'
-    
-    // Rimuovi tutti i layer dei pin esistenti (eccetto il primo pin blu)
-    this.map?.getLayers().getArray().forEach(layer => {
-      if (layer instanceof VectorLayer && layer.get('type') !== 'base') {
-        this.map?.removeLayer(layer);
-      }
-    });
-  
-    // Crea nuovi pin in base alla categoria selezionata
-    const newFeatures = this.countries.map(country => {
-      const criticita = country[selectedCategory];
-  
-      let iconPath = '';
-      switch (criticita) {
-        case 1: iconPath = 'benchmark/benchmark-verde.png'; break;
-        case 2: iconPath = 'benchmark/benchmark-giallo.png'; break;
-        case 3: iconPath = 'benchmark/benchmark-arancione.png'; break;
-        case 4: iconPath = 'benchmark/benchmark-rosso.png'; break;
-        case 5: iconPath = 'benchmark/benchmark-viola.png'; break;
-        default: return null; // Non crea pin se il valore non è valido
-      }
-  
-      const feature = new Feature({
-        geometry: new Point(country.coordinates),
-        name: country.name
+      // Aggiungi i pin dinamici in base alla categoria
+      const criticita = country[this.category];
+      const secondPin = new Feature({
+        geometry: new Point([
+          country.coordinates[0] + 50000,
+          country.coordinates[1] + 50000
+        ]),
+        name: `${country.name}-Dinamico`
       });
-  
-      feature.setStyle(new Style({
+
+      let pinColor: string;
+      switch (criticita) {
+        case 1:
+          pinColor = 'benchmark-verde.png';
+          break;
+        case 2:
+          pinColor = 'benchmark-giallo.png';
+          break;
+        case 3:
+          pinColor = 'benchmark-arancione.png';
+          break;
+        case 4:
+          pinColor = 'benchmark-rosso.png';
+          break;
+        default:
+          pinColor = 'benchmark-grigio.png';
+      }
+
+      secondPin.setStyle(new Style({
         image: new Icon({
-          src: iconPath,
-          scale: 0.5
+          src: `benchmark/${pinColor}`,
+          scale: 0.3
         })
       }));
-  
-      return feature;
-    }).filter(feature => feature !== null);
-  
-    // Crea un nuovo layer con i pin aggiornati
-    const vectorSource = new VectorSource({
-      features: newFeatures as Feature[]
+
+      vectorSource.addFeature(secondPin);
     });
-  
+
     const vectorLayer = new VectorLayer({
       source: vectorSource
     });
-  
-    vectorLayer.set('type', 'dynamic'); // Aggiungi un'etichetta per distinguere i layer dinamici
-  
+
     this.map?.addLayer(vectorLayer);
   }
-  
+
+  openPopupGrid(countryName: string, coordinate: any): void {
+    // Apri il popup con le informazioni sul paese
+    console.log(`Popup per ${countryName} alle coordinate ${coordinate}`);
+  }
 }
 
-//FUNZIONAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+//FUNZIONAAAAAAAAAAAAAAAA
+
