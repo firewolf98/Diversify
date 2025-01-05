@@ -49,6 +49,9 @@ public class PostService {
         if (post.getIdAutore() == null || post.getIdAutore().isEmpty()) {
             throw new IllegalArgumentException("L'ID dell'autore non può essere nullo o vuoto.");
         }
+        if(post.getDataCreazione() == null) {
+            throw new IllegalArgumentException("La data della creazione del post non può essere vuota.");
+        }
         postRepository.save(post);
     }
 

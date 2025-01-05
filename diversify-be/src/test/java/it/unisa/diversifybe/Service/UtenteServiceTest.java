@@ -123,7 +123,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForMissingUsername() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest(null, "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", null, "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -136,7 +136,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForMissingEmail() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", null, "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", null, "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -149,7 +149,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForMissingPassword() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", null, "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", null, "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -162,7 +162,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForInvalidCodiceFiscale() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "valid@example.com", "INVALID");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "valid@example.com", "INVALID", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -175,7 +175,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForInvalidEmail() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "invalid-email", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "invalid-email", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -188,7 +188,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForInvalidPassword() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "short", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "short", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -201,7 +201,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForExistingUsername() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("existingUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "existingUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("existingUser")).thenReturn(Optional.of(new Utente()));
 
@@ -212,12 +212,13 @@ class UtenteServiceTest {
         verifyNoMoreInteractions(utenteRepository);
     }
 
+
     /**
      * Test per conflitto su email.
      */
     @Test
     void registerUser_ShouldReturnErrorForExistingEmail() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "existing@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "existing@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("validUser")).thenReturn(Optional.empty());
         when(utenteRepository.findByEmail("existing@example.com")).thenReturn(Optional.of(new Utente()));
@@ -235,13 +236,13 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForHashingError() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("validUser")).thenReturn(Optional.empty());
         when(utenteRepository.findByEmail("valid@example.com")).thenReturn(Optional.empty());
 
-        // Simula l'errore di hashing direttamente
-        UtenteService utenteServiceSpy = spy(utenteService); // Crea uno spy per UtenteService.
+        // Simula l'errore di hashing con uno spy
+        UtenteService utenteServiceSpy = spy(utenteService);
         doThrow(new NoSuchAlgorithmException("Hashing error"))
                 .when(utenteServiceSpy)
                 .hashPassword("ValidPass1");
@@ -259,7 +260,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnSuccessForValidRequest() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("newUser", "ValidPass1", "new@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "newUser", "ValidPass1", "new@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("newUser")).thenReturn(Optional.empty());
         when(utenteRepository.findByEmail("new@example.com")).thenReturn(Optional.empty());
@@ -275,6 +276,7 @@ class UtenteServiceTest {
         verify(utenteRepository, times(1)).findByEmail("new@example.com");
         verify(utenteRepository, times(1)).save(any(Utente.class));
     }
+
 
     /**
      * Test per LoginRequest valido (username e password corretti).

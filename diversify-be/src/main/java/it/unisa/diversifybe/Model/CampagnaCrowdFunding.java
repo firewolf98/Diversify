@@ -31,20 +31,19 @@ public class CampagnaCrowdFunding {
     private String titolo;
 
     /**
+     * Categoria della campagna di crowdfunding.
+     */
+
+    private String categoria;
+
+    /**
      * Descrizione dettagliata della campagna di crowdfunding.
      */
 
-    private String contenuto;
+    private String descrizione;
 
     /**
-     * Lista delle immagini relative alla campagna di crowdfunding.
-     * Le immagini possono essere utilizzate per illustrare la campagna.
-     */
-
-    private List<String> images;
-
-    /**
-     * Data di inizio della campagna di crowdfunding.
+     * Data inizio campagna
      */
 
     private LocalDate dataInizio;
@@ -77,6 +76,7 @@ public class CampagnaCrowdFunding {
     /**
      * Paese della campagna di crowdfunding
      */
+
     private String Paese;
 
 }

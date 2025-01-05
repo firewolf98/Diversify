@@ -51,7 +51,7 @@ public class Segnalazione {
 
     /**
      * Il tipo di segnalazione.
-     * Indica la natura della segnalazione (ad esempio: "offensivo", "spam", ecc.).
+     * Indica
      */
 
     private String tipoSegnalazione;

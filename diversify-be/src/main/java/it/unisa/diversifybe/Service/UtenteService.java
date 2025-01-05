@@ -41,6 +41,15 @@ public class UtenteService {
 
     public String registerUser(RegisterRequest registerRequest) throws NoSuchAlgorithmException {
         // Controllo che i campi obbligatori non siano nulli o vuoti
+
+        if(registerRequest.getName() == null || registerRequest.getName().trim().isEmpty()) {
+            return "Il campo nome è obbligatorio";
+        }
+
+        if(registerRequest.getLastName() == null || registerRequest.getLastName().trim().isEmpty()) {
+            return "Il campo cognome è obbligatorio";
+        }
+
         if (registerRequest.getUsername() == null || registerRequest.getUsername().trim().isEmpty()) {
             return "Il campo username è obbligatorio.";
         }
@@ -49,12 +58,20 @@ public class UtenteService {
             return "Il campo email è obbligatorio.";
         }
 
-        if (registerRequest.getPasswordHash() == null || registerRequest.getPasswordHash().trim().isEmpty()) {
+        if (registerRequest.getPassword() == null || registerRequest.getPassword().trim().isEmpty()) {
             return "Il campo password è obbligatorio.";
         }
 
         if (registerRequest.getCodiceFiscale() == null || !isValidCodiceFiscale(registerRequest.getCodiceFiscale())) {
             return "Codice fiscale non valido.";
+        }
+
+        if(registerRequest.getDomanda() == null || registerRequest.getDomanda().trim().isEmpty()) {
+            return "Domanda non valida.";
+        }
+
+        if(registerRequest.getRisposta() == null || registerRequest.getRisposta().trim().isEmpty()) {
+            return "Risposta non valida.";
         }
 
         // Validazione email
@@ -63,7 +80,7 @@ public class UtenteService {
         }
 
         // Validazione password
-        if (!isValidPassword(registerRequest.getPasswordHash())) {
+        if (!isValidPassword(registerRequest.getPassword())) {
             return "Password non valida. Deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.";
         }
 
@@ -79,8 +96,13 @@ public class UtenteService {
             return "Email già in uso!";
         }
 
+        Optional<Utente> existingUserByCodiceFiscale = utenteRepository.findByCodiceFiscale(registerRequest.getCodiceFiscale());
+        if (existingUserByCodiceFiscale.isPresent()) {
+            return "Codice fiscale già in uso!";
+        }
+
         // Hash della password utilizzando il metodo esistente
-        String hashedPassword = hashPassword(registerRequest.getPasswordHash());
+        String hashedPassword = hashPassword(registerRequest.getPassword());
 
         // Creazione del nuovo utente
         Utente utente = new Utente();
@@ -140,12 +162,12 @@ public class UtenteService {
 
     public JwtResponse authenticateUser(LoginRequest loginRequest) throws NoSuchAlgorithmException {
         // Controlla che username e password non siano nulli o vuoti
-        if (loginRequest.getUsername() == null || loginRequest.getUsername().isEmpty() ||
-                loginRequest.getPasswordHash() == null || loginRequest.getPasswordHash().isEmpty()) {
+        if (loginRequest.getEmail() == null || loginRequest.getEmail().isEmpty() ||
+                loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
             return null; // Manca username o password
         }
 
-        Optional<Utente> utenteOptional = utenteRepository.findByUsername(loginRequest.getUsername());
+        Optional<Utente> utenteOptional = utenteRepository.findByEmail(loginRequest.getEmail());
 
         if (utenteOptional.isEmpty()) {
             return null; // L'utente non esiste
@@ -154,7 +176,7 @@ public class UtenteService {
         Utente utente = utenteOptional.get();
 
         // Controlla se la password hashata corrisponde
-        if (!utente.getPasswordHash().equals(hashPassword(loginRequest.getPasswordHash()))) {
+        if (!utente.getPasswordHash().equals(hashPassword(loginRequest.getPassword()))) {
             return null; // Credenziali non valide
         }
 
