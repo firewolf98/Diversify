@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isLoggedIn(): boolean {
-    console.log("loggato",this.isLogged);
+    
     return this.isLogged;
   }
 
