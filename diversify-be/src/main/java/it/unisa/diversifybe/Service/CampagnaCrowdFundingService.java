@@ -70,6 +70,13 @@ public class CampagnaCrowdFundingService {
         return repository.findByTitoloContaining(keyword);
     }
 
+    public List<CampagnaCrowdFunding> getCampagneByDataInizio(LocalDate dataInizio) {
+        if (dataInizio == null) {
+            throw new IllegalArgumentException("Lo stato non può essere nullo o vuoto.");
+        }
+        return repository.findByDataInizio(dataInizio);
+    }
+
     /**
      * Cerca le campagne in base al loro stato.
      *
@@ -84,24 +91,29 @@ public class CampagnaCrowdFundingService {
         return repository.findByStato(stato);
     }
 
+    /**
+     * Restituisce le campagne filtrate per categoria.
+     *
+     * @param categoria la categoria delle campagne da filtrare.
+     * @return una lista di campagne per categoria.
+     */
+    public List<CampagnaCrowdFunding> getCampagneByCategoria(String categoria) {
+        return repository.findByCategoria(categoria);
+    }
+
 
     /**
-     * Cerca le campagne in base alla data di inizio.
+     * Cerca le campagne in base al Paese in cui sono state pubblicate
      *
-     * @param dataInizio la data di inizio della campagna.
-     * @return una lista di campagne con la data di inizio specificata.
+     * @param paese il Paese in cui sono state pubblicate.
+     * @return una lista di campagne pubblicate in quel Paese
      */
 
-    public List<CampagnaCrowdFunding> getCampagneByDataInizio(LocalDate dataInizio) {
-        if (dataInizio == null) {
-            throw new IllegalArgumentException("La data di inizio non può essere nulla.");
-        }
-        return repository.findByDataInizio(dataInizio);
-    }
 
     public List<CampagnaCrowdFunding> findCampagneByPaese(String paese) {
         return campagnaCrowdFundingRepository.findByPaese(paese);
     }
+
     /**
      * Cerca le campagne in base alla data prevista di fine.
      *
@@ -115,7 +127,6 @@ public class CampagnaCrowdFundingService {
         }
         return repository.findByDataPrevistaFine(dataPrevistaFine);
     }
-
 
     /**
      * Crea una nuova campagna di crowdfunding.
@@ -145,9 +156,8 @@ public class CampagnaCrowdFundingService {
         return repository.findByIdCampagna(idCampagna).stream().findFirst()
                 .map(existingCampagna -> {
                     existingCampagna.setTitolo(updatedCampagna.getTitolo());
-                    existingCampagna.setContenuto(updatedCampagna.getContenuto());
-                    existingCampagna.setImages(updatedCampagna.getImages());
-                    existingCampagna.setDataInizio(updatedCampagna.getDataInizio());
+                    existingCampagna.setDescrizione(updatedCampagna.getDescrizione());
+                    existingCampagna.setCategoria(updatedCampagna.getCategoria());
                     existingCampagna.setDataPrevistaFine(updatedCampagna.getDataPrevistaFine());
                     existingCampagna.setSommaDaRaccogliere(updatedCampagna.getSommaDaRaccogliere());
                     existingCampagna.setSommaRaccolta(updatedCampagna.getSommaRaccolta());

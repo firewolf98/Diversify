@@ -15,11 +15,11 @@ import lombok.*;
 public class LoginRequest {
 
     /**
-     * Il nome utente dell'utente che sta cercando di effettuare il login.
+     * L'email dell'utente che sta cercando di effettuare il login.
      * Questo campo viene utilizzato per identificare univocamente l'utente nel sistema.
      */
 
-    private String username;
+    private String email;
 
     /**
      * La password hashata dell'utente che sta cercando di effettuare il login.
@@ -27,6 +27,6 @@ public class LoginRequest {
      * la sicurezza durante l'autenticazione.
      */
 
-    private String passwordHash;
+    private String password;
 
 }

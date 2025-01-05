@@ -14,6 +14,18 @@ import lombok.*;
 public class RegisterRequest {
 
     /**
+     * Il nome dell'utente che si sta registrando.
+     */
+
+    private String name;
+
+    /**
+     * Il cognome dell'utente che si sta registrando.
+     */
+
+    private String lastName;
+
+    /**
      * Il nome utente scelto dall'utente durante la registrazione.
      * Questo campo viene utilizzato per identificare univocamente l'utente nel sistema.
      */
@@ -27,7 +39,7 @@ public class RegisterRequest {
      * la sicurezza durante la registrazione.
      */
 
-    private String passwordHash;
+    private String password;
 
     /**
      * L'indirizzo email fornito dall'utente durante la registrazione.
@@ -37,10 +49,10 @@ public class RegisterRequest {
 
     private String email;
 
-
     /**
      * Il codice fiscale dell'utente.
      */
+
     private String codiceFiscale;
 
     /**
@@ -48,11 +60,13 @@ public class RegisterRequest {
      * La domanda di sicurezza scelta dall'utente durante la registrazione.
      * Questo campo viene utilizzato per aiutare nel recupero della password.
      */
+
     private String domanda;
 
     /**
      * La risposta alla domanda di sicurezza scelta dall'utente durante la registrazione.
      * Questo campo viene utilizzato per verificare l'identità dell'utente durante il recupero della password.
      */
+
     private String risposta;
 }

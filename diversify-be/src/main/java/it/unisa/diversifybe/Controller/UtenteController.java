@@ -154,19 +154,19 @@ public class UtenteController {
      * </p>
      *
      * @param recuperaPasswordRequest l'oggetto che contiene i dati necessari per il recupero della password:
-     *                                 <ul>
-     *                                     <li>email: l'indirizzo email dell'utente.</li>
-     *                                     <li>codiceFiscale: il codice fiscale dell'utente.</li>
-     *                                     <li>personalAnswer: la risposta alla domanda personale dell'utente.</li>
-     *                                     <li>newPassword: la nuova password da impostare.</li>
-     *                                 </ul>
+     *                                <ul>
+     *                                    <li>email: l'indirizzo email dell'utente.</li>
+     *                                    <li>codiceFiscale: il codice fiscale dell'utente.</li>
+     *                                    <li>personalAnswer: la risposta alla domanda personale dell'utente.</li>
+     *                                    <li>newPassword: la nuova password da impostare.</li>
+     *                                </ul>
      * @return una {@link ResponseEntity} che rappresenta il risultato dell'operazione:
-     *         <ul>
-     *             <li>HTTP 200 OK: se la password è stata aggiornata con successo.</li>
-     *             <li>HTTP 404 NOT FOUND: se non esiste un utente con i dati forniti (email o codice fiscale errati).</li>
-     *             <li>HTTP 401 UNAUTHORIZED: se la risposta alla domanda personale è errata.</li>
-     *             <li>HTTP 500 INTERNAL SERVER ERROR: se si verifica un errore durante l'hashing della password.</li>
-     *         </ul>
+     * <ul>
+     *     <li>HTTP 200 OK: se la password è stata aggiornata con successo.</li>
+     *     <li>HTTP 404 NOT FOUND: se non esiste un utente con i dati forniti (email o codice fiscale errati).</li>
+     *     <li>HTTP 401 UNAUTHORIZED: se la risposta alla domanda personale è errata.</li>
+     *     <li>HTTP 500 INTERNAL SERVER ERROR: se si verifica un errore durante l'hashing della password.</li>
+     * </ul>
      */
 
     @PostMapping("/recupera_password")
@@ -212,7 +212,6 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
         }
     }
-
 
 
     /**
@@ -286,9 +285,4 @@ public class UtenteController {
 
         return ResponseEntity.ok(response);
     }
-<<<<<<< HEAD
 }
-=======
-
-}
->>>>>>> origin/develop
