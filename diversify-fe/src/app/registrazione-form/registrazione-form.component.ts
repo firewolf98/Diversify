@@ -50,7 +50,9 @@ export class RegistrazioneFormComponent {
         username: formData.username,
         password: formData.password,
         email: formData.email,
-        codiceFiscale: formData.cf
+        codiceFiscale: formData.cf,
+        domanda: formData.domanda,
+        risposta: formData.risposta
       };
 
       this.authService.register(user).subscribe(

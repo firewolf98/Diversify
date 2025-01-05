@@ -87,6 +87,8 @@ public class UtenteService {
         utente.setUsername(registerRequest.getUsername().trim());
         utente.setEmail(registerRequest.getEmail().trim());
         utente.setPasswordHash(hashedPassword);
+        utente.setTipoDomanda(registerRequest.getDomanda());
+        utente.setRispostaHash(registerRequest.getRisposta());
 
         // Salvataggio dell'utente nel database
         utenteRepository.save(utente);

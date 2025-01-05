@@ -21,6 +21,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/segnalazioni")
+@CrossOrigin
 public class SegnalazioneController {
 
     private final SegnalazioneService segnalazioneService;

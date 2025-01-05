@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/campagne")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CampagnaCrowdFundingController {
 
     private final CampagnaCrowdFundingService service;

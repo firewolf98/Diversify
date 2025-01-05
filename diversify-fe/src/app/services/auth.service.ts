@@ -13,13 +13,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
  
-  register(user: { username: string; password: string; email: string; codiceFiscale: string }): Observable<any> {
+  register(user: { username: string; password: string; email: string; codiceFiscale: string; domanda: string; risposta: string }): Observable<any> {
     // Crea l'oggetto per la richiesta di registrazione
     const registerRequest = {
       username: user.username,
       passwordHash: user.password,
       email: user.email,
-      codiceFiscale: user.codiceFiscale
+      codiceFiscale: user.codiceFiscale,
+      domanda: user.domanda,
+      risposta: user.risposta
+      
     };
   
     return this.http.post(`${this.apiUrl}/registrazione`, registerRequest);

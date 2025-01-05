@@ -18,6 +18,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/paesi")
+@CrossOrigin
 public class PaeseController {
 
     private final PaeseService paeseService;
@@ -64,7 +65,7 @@ public class PaeseController {
      * @param paese l'oggetto {@link Paese} da creare.
      * @return il Paese creato.
      */
-    @PostMapping
+    @PostMapping("/addPaese")
     public Paese createPaese(@RequestBody Paese paese) {
         return paeseService.createPaese(paese);
     }

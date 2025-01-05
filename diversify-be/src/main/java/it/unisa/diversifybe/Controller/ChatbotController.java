@@ -13,6 +13,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/chatbot")
+@CrossOrigin
 public class ChatbotController {
 
     private final ChatbotService chatbotService;
