@@ -193,12 +193,11 @@ class UtenteControllerTest {
         assertEquals("Username o password errati", response.getBody());
     }
     /**
-     * Test per il metodo registerUser
+     * Test per il metodo registerUser - Registrazione con dati validi.
      */
-
     @Test
     void registerUser_ShouldReturnSuccessMessageForValidData() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String successMessage = "Utente registrato con successo!";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(successMessage);
@@ -208,11 +207,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(successMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Username mancante.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForMissingUsername() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest(null, "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", null, "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String errorMessage = "Il campo username è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -222,11 +225,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Password vuota.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForEmptyPassword() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String errorMessage = "Il campo password è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -236,11 +243,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Email mancante.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForMissingEmail() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", null, "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", null, "CF12345", "Domanda", "Risposta");
         String errorMessage = "Il campo email è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -250,11 +261,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Codice fiscale mancante.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForMissingCodiceFiscale() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", null);
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", null, "Domanda", "Risposta");
         String errorMessage = "Il campo codice fiscale è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -264,11 +279,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Dati duplicati.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForDuplicateData() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String errorMessage = "Username o email già in uso.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -278,11 +297,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Errore nell'algoritmo di hashing.
+     */
     @Test
     void registerUser_ShouldReturnInternalServerErrorForHashingError() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
 
         when(utenteService.registerUser(registerRequest)).thenThrow(new NoSuchAlgorithmException("Hashing error"));
 
@@ -291,7 +314,9 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals("Errore durante la registrazione", response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
+
     /**
      * Test per il metodo changePassword
      */
