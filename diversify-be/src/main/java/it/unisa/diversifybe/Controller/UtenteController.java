@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -75,7 +76,7 @@ public class UtenteController {
             String result = utenteService.registerUser(registerRequest);
             if (result.equals("Utente registrato con successo!")) {
                 // Se la registrazione è riuscita, restituisci un messaggio di successo
-                return ResponseEntity.ok(result);
+                return ResponseEntity.ok(Map.of("message", result));
             } else {
                 // Se ci sono errori (ad esempio, l'username o l'email sono già in uso), restituisci un errore
                 return ResponseEntity.status(400).body(result);
@@ -139,7 +140,7 @@ public class UtenteController {
             // Salva l'utente con la nuova password tramite il repository del service
             utenteService.save(utente);
 
-            return ResponseEntity.ok("Password aggiornata con successo");
+            return ResponseEntity.ok(Map.of("message", "Password aggiornata con successo"));
 
         } catch (NoSuchAlgorithmException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'hashing della password");
