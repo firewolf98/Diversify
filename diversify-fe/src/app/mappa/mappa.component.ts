@@ -12,6 +12,13 @@ import VectorLayer from 'ol/layer/Vector';
 import { ViewContainerRef } from '@angular/core';
 import { PopupGridComponent } from '../popup-grid/popup-grid.component';
 
+const ueExtent = [
+  -2763122.0902452143,  // Longitudine Ovest (Portogallo)
+  3700000.044323073,   // Latitudine Sud (Grecia)
+  6398696.460179701,   // Longitudine Est (Cipro)
+  9053583.87463804    // Latitudine Nord (taglia parte della Scandinavia)
+];
+
 @Component({
   selector: 'app-map',
   standalone: true,
@@ -89,14 +96,16 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     const view = new View({
-      center: [0, 0],
-      zoom: 2
+      center: [1000000, 5000000],  // Centro approssimativo per focalizzare l'UE
+      zoom: 2,                 // Zoom bilanciato per vedere bene le capitali
+      extent: ueExtent
     });
 
     this.map = new Map({
       target: 'map',
       layers: [osmLayer],
-      view: view
+      view: view,
+      interactions: []
     });
 
     this.map.on('click', (event: any) => {
