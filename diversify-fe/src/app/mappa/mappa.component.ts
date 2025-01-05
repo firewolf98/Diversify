@@ -12,6 +12,13 @@ import VectorLayer from 'ol/layer/Vector';
 import { ViewContainerRef } from '@angular/core';
 import { PopupGridComponent } from '../popup-grid/popup-grid.component';
 
+const ueExtent = [
+  -2763122.0902452143,  // Longitudine Ovest (Portogallo)
+  3700000.044323073,   // Latitudine Sud (Grecia)
+  6398696.460179701,   // Longitudine Est (Cipro)
+  9053583.87463804    // Latitudine Nord (taglia parte della Scandinavia)
+];
+
 @Component({
   selector: 'app-map',
   standalone: true,
@@ -36,7 +43,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       { name: "Belgio", coordinates: [484416.76, 6594201.06], criticitaGenerale: 0, criticitaLgbt: 1, criticitaDisabilita: 4, criticitaRazzismo: 2, criticitaDonne: 3 },
       { name: "Paesi Bassi", coordinates: [544603.57, 6867871.26], criticitaGenerale: 4, criticitaLgbt: 2, criticitaDisabilita: 3, criticitaRazzismo: 1, criticitaDonne: 0 },
       { name: "Svizzera", coordinates: [829527.62, 5933730.25], criticitaGenerale: 3, criticitaLgbt: 4, criticitaDisabilita: 2, criticitaRazzismo: 0, criticitaDonne: 1 },
-      { name: "Austria", coordinates: [1822580.10, 6141580.50], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 1, criticitaRazzismo: 4, criticitaDonne: 2 },
+      { name: "Austria", coordinates: [1660097.5474459173, 6046474.734704574], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 1, criticitaRazzismo: 4, criticitaDonne: 2 },
       { name: "Polonia", coordinates: [2338451.85, 6842165.97], criticitaGenerale: 1, criticitaLgbt: 5, criticitaDisabilita: 0, criticitaRazzismo: 3, criticitaDonne: 2 },
       { name: "Svezia", coordinates: [2011302.35, 8251037.95], criticitaGenerale: 0, criticitaLgbt: 1, criticitaDisabilita: 2, criticitaRazzismo: 4, criticitaDonne: 3 },
       { name: "Norvegia", coordinates: [1195453.01, 8380446.92], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 3, criticitaRazzismo: 1, criticitaDonne: 4 },
@@ -47,7 +54,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       { name: "Lituania", coordinates: [2814477.07, 7301414.56], criticitaGenerale: 3, criticitaLgbt: 0, criticitaDisabilita: 2, criticitaRazzismo: 1, criticitaDonne: 4 },
       { name: "Lussemburgo", coordinates: [682345.66, 6379214.54], criticitaGenerale: 4, criticitaLgbt: 3, criticitaDisabilita: 2, criticitaRazzismo: 0, criticitaDonne: 1 },
       { name: "Malta", coordinates: [1615635.30, 4286733.78], criticitaGenerale: 0, criticitaLgbt: 5, criticitaDisabilita: 3, criticitaRazzismo: 4, criticitaDonne: 0 },
-      { name: "Slovacchia", coordinates: [1904515.60, 6132156.30], criticitaGenerale: 3, criticitaLgbt: 1, criticitaDisabilita: 0, criticitaRazzismo: 4, criticitaDonne: 2 },
+      { name: "Slovacchia", coordinates: [2163244.391310441, 6223655.777785426], criticitaGenerale: 3, criticitaLgbt: 1, criticitaDisabilita: 0, criticitaRazzismo: 4, criticitaDonne: 2 },
       { name: "Slovenia", coordinates: [1614909.70, 5788362.07], criticitaGenerale: 1, criticitaLgbt: 2, criticitaDisabilita: 3, criticitaRazzismo: 0, criticitaDonne: 4 },
       { name: "Croazia", coordinates: [1778627.45, 5750367.74], criticitaGenerale: 2, criticitaLgbt: 3, criticitaDisabilita: 0, criticitaRazzismo: 4, criticitaDonne: 1 },
       { name: "Serbia", coordinates: [2277379.96, 5592941.10], criticitaGenerale: 4, criticitaLgbt: 2, criticitaDisabilita: 0, criticitaRazzismo: 3, criticitaDonne: 1 },
@@ -89,14 +96,16 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     const view = new View({
-      center: [0, 0],
-      zoom: 2
+      center: [1000000, 5000000],  // Centro approssimativo per focalizzare l'UE
+      zoom: 2,                 // Zoom bilanciato per vedere bene le capitali
+      extent: ueExtent
     });
 
     this.map = new Map({
       target: 'map',
       layers: [osmLayer],
-      view: view
+      view: view,
+      interactions: []
     });
 
     this.map.on('click', (event: any) => {
