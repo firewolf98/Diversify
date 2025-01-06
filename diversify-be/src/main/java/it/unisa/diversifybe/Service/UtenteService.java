@@ -106,8 +106,11 @@ public class UtenteService {
 
         // Creazione del nuovo utente
         Utente utente = new Utente();
+        utente.setNome(registerRequest.getName().trim());
+        utente.setCognome(registerRequest.getLastName().trim());
         utente.setUsername(registerRequest.getUsername().trim());
         utente.setEmail(registerRequest.getEmail().trim());
+        utente.setCodiceFiscale(registerRequest.getCodiceFiscale().trim());
         utente.setPasswordHash(hashedPassword);
         utente.setTipoDomanda(registerRequest.getDomanda());
         utente.setRispostaHash(registerRequest.getRisposta());

@@ -47,6 +47,8 @@ export class RegistrazioneFormComponent {
     //if (this.moduloRegistrazione.valid) {
       const formData = this.moduloRegistrazione.value;
       const user = {
+        name: formData.nome,
+        lastName: formData.cognome,
         username: formData.username,
         password: formData.password,
         email: formData.email,
@@ -57,7 +59,8 @@ export class RegistrazioneFormComponent {
 
       this.authService.register(user).subscribe(
         response => {
-          console.log('Registrazione riuscita', response);
+          alert(response.message);
+          this.router.navigate(['/']);
         },
         error => {
           console.log('Errore nella registrazione', error);

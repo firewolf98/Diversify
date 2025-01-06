@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service'; // Importa il servizio AuthService
-
+ 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -12,13 +12,13 @@ import { AuthService } from '../services/auth.service'; // Importa il servizio A
   standalone: true, //viene utilizzata per dichiarare che un componente non dipende da un modulo di livello superiore
   imports: [CommonModule, ReactiveFormsModule]
 })
-
+ 
 export class LoginFormComponent {
   loginForm: FormGroup;  // FormGroup per gestire il form di login
   errorMessage: string = '';  // Variabile per memorizzare i messaggi di errore
-
+ 
   isPasswordVisible = false;
-
+ 
   constructor(private fb: FormBuilder,
     private router: Router,
     private authService: AuthService) {
@@ -32,19 +32,18 @@ export class LoginFormComponent {
       ]],
     });
   }
-
+ 
   // Funzione chiamata quando l'utente invia il form
   onSubmit(): void {
     if (this.loginForm.valid) {  // Se il form è valido
       const email = this.loginForm.get('email')?.value;  // Ottieni il valore dell'email
       const password = this.loginForm.get('password')?.value;  // Ottieni il valore della password
-
+ 
       // Usa il servizio AuthService per eseguire il login
       this.authService.login({email, password}).subscribe({
         next: (response) => {
           // Se il login è riuscito, reindirizza alla home
-          console.log('Login successful:', response);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         },
         error: (error) => {
           // Se c'è un errore (credenziali errate, errore di rete, ecc.), mostra un messaggio di errore
@@ -56,18 +55,18 @@ export class LoginFormComponent {
       this.errorMessage = 'Per favore, compila correttamente i campi.';
     }
   }
-
+ 
   // Funzione per verificare se un controllo del form ha un errore specifico
   hasError(controlName: string, errorCode: string): boolean {
     const control = this.loginForm.get(controlName);
     return ((control?.dirty || control?.touched) && control?.hasError(errorCode)) ?? false;
   }
-
+ 
   // Funzione per navigare alla pagina di recupero password
   recoverPassword(): void {
     this.router.navigate(['/recover-password']);
   }
-
+ 
   /**
  * Funzione che abilita/disabilita la visibilità della password.
  * Accetta l'ID dell'elemento come parametro (per futura espandibilità).
@@ -77,10 +76,10 @@ export class LoginFormComponent {
       this.isPasswordVisible = !this.isPasswordVisible;
     }
   }
-
+ 
   // Funzione per navigare alla pagina di registrazione
   navigateToRegistration(): void {
     this.router.navigate(['/registrato']);
   }
-  
+ 
 }
