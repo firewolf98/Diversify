@@ -174,7 +174,7 @@ class AdminControllerTest {
     void createCampaign_ValidData() {
         CampagnaCrowdFunding campagna = new CampagnaCrowdFunding();
         campagna.setTitolo("Test Campaign");
-        campagna.setContenuto("This is a test campaign.");
+        campagna.setDescrizione("This is a test campaign.");
         campagna.setPaese("Italy");
         campagna.setSommaDaRaccogliere(new BigDecimal("10000"));
         campagna.setDataInizio(LocalDate.of(2024, 1, 1));
@@ -214,7 +214,7 @@ class AdminControllerTest {
         String id = "123";
         CampagnaCrowdFunding updatedCampagna = new CampagnaCrowdFunding();
         updatedCampagna.setTitolo("Updated Campaign");
-        updatedCampagna.setContenuto("This campaign has been updated.");
+        updatedCampagna.setDescrizione("This campaign has been updated.");
         updatedCampagna.setPaese("France");
         updatedCampagna.setStato("terminata");
         boolean ruolo = true;
