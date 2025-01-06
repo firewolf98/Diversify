@@ -14,6 +14,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 /* Contenitore per i bottoni a destra */
@@ -184,24 +185,31 @@ input[type="text"]:focus {
   box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2);
 }
 
+.search-wrapper {
+  position: relative; /* Posizionamento relativo per il contenitore */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; /* Regola questa larghezza in base alle tue esigenze */
+}
+
 /* Stile per la lista dei risultati */
 ul {
   list-style-type: none;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 110%;
-  left: 0;
-  right: 0;
+  padding: 0 !important;
+  margin: 5px !important;
+  position: absolute !important;
+  top: 100% !important; /* Modifica questa linea per posizionare la lista direttamente sotto la barra di ricerca */
   border: 1px solid #ccc;
   border-radius: 10px;
   max-height: 200px;
   overflow-y: auto;
-  width: 100%;
+  width: 100% !important;
   max-width: 330px;
   box-sizing: border-box;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  z-index: 1000 !important;
   background-color: #ffebe2;
 }
 
@@ -313,6 +321,10 @@ li:hover {
     display: flex; /* Mostra l'icona del menu hamburger */
   }
 
+  ul{
+    z-index: 1000 !important;
+  }
+
   .right-container .auth-buttons {
     display: none; /* Nascondi i bottoni "Accedi" e "Registrati" nel contenitore destro */
   }
@@ -399,12 +411,12 @@ li:hover {
   }
 
   .search-wrapper {
-    align-items: center; /* Centra gli elementi verticalmente */
-    flex: 1; /* Occupa lo spazio rimanente */
-    display: flex;
-    justify-content: center; /* Centra la barra di ricerca */
-    width: 100%; /* Occupa tutta la larghezza disponibile */
-    max-width: 500px; /* Imposta una larghezza massima */
+      position: relative; /* Questo è obbligatorio */
+      display: inline-block;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 500px; /* Regola questa larghezza in base alle tue esigenze */
   }
 
   .search-wrapper input {
