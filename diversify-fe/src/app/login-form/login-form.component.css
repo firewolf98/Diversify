@@ -184,6 +184,76 @@ button:disabled {
 	position: relative;
 }
 
+.recover-container {
+	width: 100%;
+	max-width: 350px;
+	margin: 50px auto;
+	padding: 20px;
+	border: 1px solid #d1d1d1;
+	border-radius: 10px;
+	background-color: #fdece8;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recover-container h2 {
+	text-align: center;
+	color: #333333;
+	font-family: Arial, sans-serif;
+  }
+  
+  .form-group {
+	margin-bottom: 15px;
+	width: 100%;
+  }
+  
+  label {
+	font-weight: bold;
+	display: block;
+	color: #555555;
+  }
+  
+  input {
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	border: 1px solid #d1d1d1;
+	border-radius: 5px;
+	background-color: #ffffff;
+	font-family: 'Arial', sans-serif;
+	box-sizing: border-box;
+  }
+  
+  button {
+	width: 100%;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #007bff;
+	color: white;
+	font-size: 16px;
+	cursor: pointer;
+	margin-top: 10px;
+  }
+  
+  button:hover {
+	background-color: #0056b3;
+  }
+  
+  button:disabled {
+	background-color: #aaa;
+	cursor: not-allowed;
+  }
+  
+  .error-message {
+	color: red;
+	font-size: 0.875rem;
+  }
+  
+  .success-message {
+	color: green;
+	font-size: 0.875rem;
+  }  
+
 button.toggle-password {
 	position: absolute;
 	width: 10%;

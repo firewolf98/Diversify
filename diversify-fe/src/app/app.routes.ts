@@ -7,6 +7,7 @@ import { SchedaAreaPersonaleComponent } from './scheda-area-personale/scheda-are
 import { PaginaProfiloAmministratoreComponent } from './pagina-profilo-amministratore/pagina-profilo-amministratore.component';
 import { ChiSiamoComponent } from './chi-siamo/chi-siamo.component';
 import { GeneraleAmministratoreComponent } from './generale-amministratore/generale-amministratore.component';
+import { GestionePasswordFormComponent } from './gestione-password-form/gestione-password-form.component';
 
 
 export const routes: Routes = [
@@ -17,5 +18,6 @@ export const routes: Routes = [
   { path: 'scheda-area-personale', component: SchedaAreaPersonaleComponent },
   { path: 'pagina-profilo-amministratore', component: PaginaProfiloAmministratoreComponent },
   { path: 'chi-siamo', component: ChiSiamoComponent },// Rotta per "Chi Siamo"
-  { path: 'generale-amministratore', component: GeneraleAmministratoreComponent }// Rotta per "Generale Amministratore"
+  { path: 'generale-amministratore', component: GeneraleAmministratoreComponent },// Rotta per "Generale Amministratore"
+  { path: 'recupero-password', component: GestionePasswordFormComponent } 
 ];
