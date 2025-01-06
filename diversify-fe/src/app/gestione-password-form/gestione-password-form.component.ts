@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestione-password-form',
@@ -25,7 +26,7 @@ export class GestionePasswordFormComponent {
   // Regex per validare il codice fiscale (italiano - semplificata)
   private fiscalCodePattern: string = '^[A-Za-z0-9]{16}$';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     // Inizializzazione del form per email e codice fiscale
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
@@ -121,6 +122,9 @@ export class GestionePasswordFormComponent {
     if (this.resetPasswordForm.valid && newPassword === confirmPassword) {
       console.log('Nuova password salvata:', newPassword);
       this.goToStep('success');
+      setTimeout(() => {
+        this.router.navigate(['/loggato']); // Naviga verso /loggato dopo 5 secondi
+      }, 8000); 
     } else {
       alert('Correggi gli errori per continuare!');
     }

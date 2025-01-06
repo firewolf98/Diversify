@@ -64,7 +64,7 @@ export class LoginFormComponent {
  
   // Funzione per navigare alla pagina di recupero password
   recoverPassword(): void {
-    this.router.navigate(['/recover-password']);
+    this.router.navigate(['/recupero-password']);
   }
  
   /**
