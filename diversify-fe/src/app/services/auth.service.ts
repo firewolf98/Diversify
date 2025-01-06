@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/utenti';
+  private apiPostUrl = 'http://localhost:8080/posts'
   private readonly TOKEN_KEY = 'auth_token';
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
   private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null); // Nuovo subject per i dati dell'utente
@@ -36,14 +37,16 @@ export class AuthService {
       tap((response) => {
         if (response && response.token) {
           this.saveToken(response.token);
-          console.log("LOGIN", response.token);
           this.userService.setToken(response.token);
           this.isLoggedInSubject.next(true);
+  
+          // Recupera i dati dell'utente e aggiorna il BehaviorSubject
+          this.getUserFromToken().subscribe();
         }
       })
     );
   }
- 
+  
   private saveToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
@@ -66,7 +69,6 @@ export class AuthService {
     this.userSubject.next(null);
     this.userService.setToken(null);
   }
- 
  
   // Nuovo metodo per recuperare i dati dell'utente
   private getUserFromToken(): Observable<any> {
@@ -100,5 +102,18 @@ export class AuthService {
   getUser(): Observable<any> {
     return this.userSubject.asObservable();
   }
+
+  getLoggedUsername(): string | null {
+    const user = this.userSubject.value; // Ottiene i dati dell'utente dal BehaviorSubject
+    return user ? user.username : null; // Restituisce l'username o null se l'utente non è loggato
+  }
+
+  savePost(postData: { titolo: string; contenuto: string; categoria: string; userAutore: string }): Observable<any> {
+    return this.http.post(this.apiPostUrl, postData, {
+      headers: { Authorization: `Bearer ${this.getToken()}` }, // Aggiungi il token di autenticazione
+    });
+  }
+  
+  
  
 }

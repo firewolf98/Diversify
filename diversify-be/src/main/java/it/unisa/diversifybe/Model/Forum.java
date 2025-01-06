@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 
@@ -14,34 +15,34 @@ import java.util.*;
 @AllArgsConstructor
 @Document(collection = "Forum")
 public class Forum {
-
     /**
      * L'identificativo univoco del forum.
      * Questo campo viene utilizzato per distinguere il forum dagli altri nella piattaforma.
      */
-
+    @Id
     private String idForum;
+
     /**
      * Il titolo del forum.
      * Rappresenta il nome o la tematica principale del forum.
      */
-
     private String titolo;
 
     /**
      * La descrizione del forum.
      * Fornisce una breve spiegazione del forum e dei suoi contenuti.
      */
-
     private String descrizione;
+
+    /**
+     * Il paese nel quale è visibile questo forum
+     */
+    private String paese;
 
     /**
      * Una lista di post che appartengono a questo forum.
      * Ogni post è una discussione che può contenere commenti e interazioni.
      */
-
     private List<Post> post;
-    private String Paese;
-
 
 }

@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class Post {
      * L'identificativo univoco del post.
      * Questo campo viene utilizzato per identificare in modo univoco un post all'interno della piattaforma.
      */
-
+    @Id
     private String idPost;
 
     /**
@@ -33,7 +34,7 @@ public class Post {
      * L'identificativo dell'autore del post.
      * Questo campo rappresenta l'autore del post, in genere un riferimento al suo profilo utente.
      */
-
+    @Id
     private String idAutore;
 
     /**
@@ -63,5 +64,9 @@ public class Post {
      */
 
     private List<Commento> commenti;
+
+    /**
+     * L'Id del forum dove è contenuto il post
+     */
     private String idForum;
 }
