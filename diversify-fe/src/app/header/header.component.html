@@ -16,14 +16,15 @@
                         placeholder="Cerca un Paese"
                         (input)="onSearchChange($event)"
                         [(ngModel)]="searchTerm"
-                        (click)="toggleDropdown()"  
-                    />
+                        (click)="toggleDropdown()"
+                    >
                     <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
-                        <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)" (keydown)="selectCountry(country)">
+                        <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
                             {{ country }}
                         </li>
                     </ul>
                 </div>
+                
             </div>
             <ng-template #notLoggedInHomePage>
                 <!-- Barra di ricerca per utenti non loggati -->

@@ -127,3 +127,9 @@
       padding: 12px;
   }
 }
+
+.small-flag {
+  width: 50px;
+  height: auto;
+}
+ 
