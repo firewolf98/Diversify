@@ -1,49 +1,31 @@
 <head>
-    <!-- link per il font Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  </head>
-  
-  <div class="forum-container">
-    <div class="forum-sidebar">
-      <a href="#" class="back-link">← Torna alla mappa</a>
-      <h3>Forum</h3>
-      <ul>
-        <li><button>Violenza sessuale</button></li>
-        <li><button>Violenza sulle donne</button></li>
-        <li><button>Razzismo</button></li>
-        <li><button>LGBTQIA+</button></li>
-      </ul>
-    </div>
-  
-    <div class="forum-main">
-      <h3>In evidenza</h3>
-      <div class="forum-post">
-        <a href="#">Leggi sui diritti umani</a>
-        <p>Postato da Amministratore</p>
-      </div>
-      <div class="forum-post">
-        <a href="#">Regole del forum</a>
-        <p>Postato da Amministratore</p>
-      </div>
-      <div class="forum-post">
-        <a href="#">Risorse Utili per Comprendere la Diversità di Genere</a>
-        <p>Postato da Lucia</p>
-      </div>
-      <div class="forum-post">
-        <a href="#">Abuso tra Partner dello Stesso Sesso: Esperienze e Supporto</a>
-        <p>Postato da Alessandro</p>
-      </div>
-  
-      <!-- Bottone per creare un nuovo post -->
-      <button class="new-post-button" (click)="createNewPost()">New Post</button>
-    
-      <div class="pagination">
-        <button (click)="goToPrevious()">Precedente</button> <!-- Associa il metodo goToPrevious -->
-        <span>{{ currentPage }}</span> <!-- Visualizza il numero della pagina corrente -->
-        <button (click)="goToNext()">Successiva</button> <!-- Associa il metodo goToNext -->
-      </div>
+  <!-- Link per il font Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
 
-    </div>
+<div class="forum-container">
+  <div class="forum-sidebar">
+    <a href="#" class="back-link">← Torna alla mappa</a>
+    <h3>Forum</h3>
+    <ul>
+      <!-- Creazione dinamica dei bottoni per ogni forum -->
+      <li *ngFor="let forum of forums">
+        <button (click)="selectForum(forum.idForum)">{{ forum.titolo }}</button>
+      </li>
+    </ul>
   </div>
   
+
+  <div class="forum-main">
+    <h3>Post del Forum</h3>
+    <div *ngFor="let post of posts" class="forum-post">
+      <a href="#">{{ post.titolo }}</a>
+      <p>Postato da {{ post.id_autore }}</p>
+    </div>
   
+    <ng-template #noPosts>
+      <p>Nessun post disponibile per questo forum.</p>
+    </ng-template>
+  </div>
+</div>
+

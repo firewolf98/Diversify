@@ -3,6 +3,8 @@ import it.unisa.diversifybe.Model.Post;
 import it.unisa.diversifybe.Repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,9 +12,11 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UtenteService utenteService;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, UtenteService utenteService) {
         this.postRepository = postRepository;
+        this.utenteService = utenteService;
     }
 
     /**
@@ -32,27 +36,46 @@ public class PostService {
     }
 
     /**
-     * Salva un post.
+     * Salva un post. Completa i dettagli mancanti (autore, data, commenti, like)
+     * e valida i dati prima di salvare.
      *
      * @param post L'oggetto Post da salvare.
+     * @return Il post salvato.
      */
-    public void save(Post post) {
+    public Post save(Post post) {
+        // Valida i dati di base
         if (post.getTitolo() == null || post.getTitolo().isEmpty()) {
             throw new IllegalArgumentException("Il titolo del post non può essere nullo o vuoto.");
         }
         if (post.getContenuto() == null || post.getContenuto().isEmpty()) {
             throw new IllegalArgumentException("Il contenuto del post non può essere nullo o vuoto.");
         }
+
+        // Recupera l'ID dell'autore dal nome utente
+        if (post.getIdAutore() == null || post.getIdAutore().isEmpty()) {
+            String idAutore = utenteService.getIdByUsername(post.getIdAutore());
+            if (idAutore == null || idAutore.isEmpty()) {
+                throw new IllegalArgumentException("Impossibile trovare l'autore del post.");
+            }
+            post.setIdAutore(idAutore);
+        }
+
+        // Imposta i valori mancanti
+        if (post.getDataCreazione() == null) {
+            post.setDataCreazione(new Date());
+        }
+        if (post.getCommenti() == null) {
+            post.setCommenti(new ArrayList<>());
+        }
+        post.setLike(0);
+
+        // Valida l'ID del forum
         if (post.getIdForum() == null || post.getIdForum().isEmpty()) {
             throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
         }
-        if (post.getIdAutore() == null || post.getIdAutore().isEmpty()) {
-            throw new IllegalArgumentException("L'ID dell'autore non può essere nullo o vuoto.");
-        }
-        if(post.getDataCreazione() == null) {
-            throw new IllegalArgumentException("La data della creazione del post non può essere vuota.");
-        }
-        postRepository.save(post);
+
+        // Salva il post nel repository
+        return postRepository.save(post);
     }
 
     /**

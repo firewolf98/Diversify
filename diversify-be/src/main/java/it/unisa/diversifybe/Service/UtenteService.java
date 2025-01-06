@@ -311,4 +311,18 @@ public class UtenteService {
         }
     }
 
+    /**
+     * Recupera l'ID di un utente dato il suo username.
+     *
+     * @param username L'username dell'utente.
+     * @return L'ID dell'utente.
+     */
+    public String getIdByUsername(String username) {
+        Optional<Utente> utente = utenteRepository.findByUsername(username);
+        if (utente.isEmpty()) {
+            return "Utente non trovato.";
+        }
+        return utente.get().getIdUtente();
+    }
+
 }

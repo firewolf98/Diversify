@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ComponentRef } from '@angular/core';
 import { OSM } from 'ol/source';
 import { View } from 'ol';
 import { Tile as TileLayer } from 'ol/layer';
@@ -12,8 +12,8 @@ import { ViewContainerRef } from '@angular/core';
 import { PopupGridComponent } from '../popup-grid/popup-grid.component';
 import { CountryService } from '../services/country.service';
 import { SearchingCountryService } from '../services/searching-country.service'; // importa il servizio
-
-
+ 
+ 
  
 const ueExtent = [
   -2763122.0902452143,  // Longitudine Ovest (Portogallo)
@@ -33,6 +33,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   private countries: Array<any> | undefined;  // Lista dei paesi
   private category: string = 'criticitaGenerale'; // Categoria selezionata
   private vectorLayer: VectorLayer | undefined;
+  private popupRef: ComponentRef<PopupGridComponent> | null = null;
  
   constructor(private viewContainerRef: ViewContainerRef,
     private countryService:CountryService,
@@ -52,7 +53,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       }));
       this.onCategoryChange({ target: { value: this.category } });
     });
-
+ 
     this.searchingCountryService.selectedCountry$.subscribe((country) => {
       this.updateMapWithCountry(country); // aggiorna la mappa con il paese selezionato
     });
@@ -64,7 +65,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.resetMap(); // Esegui il reset della mappa quando l'evento viene emesso
     });
   }
-
+ 
   private updateMapWithCountry(country: string): void {
     // Trova il paese selezionato e aggiorna la mappa
     const countryCoordinates = this.getCoordinatesForCountry(country);
@@ -195,21 +196,21 @@ export class MapComponent implements OnInit, AfterViewInit {
     const country = this.countries?.find(c => c.name === countryName);
     const tipoCriticita = country ? country.tipoCriticita : '';  // Assegna una stringa vuota se non c'è
  
-    // Rimuovi eventuali pop-up esistenti
-    const existingPopups = document.querySelectorAll('.popup');
-    existingPopups.forEach(popup => popup.remove());
-   
-    const popupElement = document.createElement('div');
-    popupElement.classList.add('popup');
-   
+    this.closePopupGrid();
+ 
     const componentRef = this.viewContainerRef.createComponent(PopupGridComponent);
     componentRef.instance.countryName = countryName;
     componentRef.instance.tipoCriticita = tipoCriticita;  // Passa la stringa vuota se non c'è
     componentRef.instance.flag = country.bandiera;
-
  
+    this.popupRef = componentRef;
+   
+    const popupElement = document.createElement('div');
+    popupElement.classList.add('popup');
     popupElement.appendChild(componentRef.location.nativeElement);
     document.body.appendChild(popupElement);
+ 
+    componentRef.instance.closePopup.subscribe(() => this.closePopupGrid());
   }
  
   private getCoordinatesForCountry(name: string): [number, number] {
@@ -261,12 +262,23 @@ export class MapComponent implements OnInit, AfterViewInit {
     const normalizedCountry = name.toLowerCase().trim();
     return staticCoordinates[normalizedCountry] || [0, 0];
   }
-
+ 
   resetMap(): void {
     const view = this.map?.getView();
     if (view) {
       view.setCenter([1000000, 5000000]);  // Posizione iniziale
       view.setZoom(1);  // Zoom iniziale
+    }
+  }
+ 
+  private closePopupGrid(): void {
+    if (this.popupRef) {
+      this.popupRef.destroy();
+      this.popupRef = null;
+ 
+      // Rimuovi eventuali elementi DOM residui
+      const existingPopups = document.querySelectorAll('.popup');
+      existingPopups.forEach(popup => popup.remove());
     }
   }
  
