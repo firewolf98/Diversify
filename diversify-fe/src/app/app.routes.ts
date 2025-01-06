@@ -9,6 +9,8 @@ import { ChiSiamoComponent } from './chi-siamo/chi-siamo.component';
 import { GeneraleAmministratoreComponent } from './generale-amministratore/generale-amministratore.component';
 import { ForumComponent } from './forum/forum.component';
 import { FormPostComponent } from './form-post/form-post.component';
+import { GestionePasswordFormComponent } from './gestione-password-form/gestione-password-form.component';
+
 
 
 export const routes: Routes = [
@@ -20,5 +22,6 @@ export const routes: Routes = [
   { path: 'pagina-profilo-amministratore', component: PaginaProfiloAmministratoreComponent },
   { path: 'chi-siamo', component: ChiSiamoComponent },// Rotta per "Chi Siamo"
   { path: 'generale-amministratore', component: GeneraleAmministratoreComponent },// Rotta per "Generale Amministratore"
-  { path: 'creapost', component: FormPostComponent } // Rotta per creare un post
+  { path: 'creapost', component: FormPostComponent }, // Rotta per creare un post
+  { path: 'recupero-password', component: GestionePasswordFormComponent } 
 ];

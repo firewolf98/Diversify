@@ -1,9 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { SearchingCountryService } from '../services/searching-country.service'; // importa il servizio
  
 const countriesDB = [
   'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia',
@@ -26,9 +27,14 @@ export class HeaderComponent implements OnInit {
   isLogged: boolean = false;
   utente: any;
   token: string | null = null;
-  ruoloUtente: boolean =false;
+  ruoloUtente: boolean = false;
  
-  constructor(private router: Router, private authService: AuthService, private userService:UserService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private userService:UserService,
+    private searchingCountryService: SearchingCountryService 
+  ) {}
  
   ngOnInit(): void {
     this.filteredCountries = countriesDB;
@@ -57,6 +63,7 @@ export class HeaderComponent implements OnInit {
  
     if (searchValue.length === 0) {
       this.filteredCountries = [];
+      this.searchingCountryService.resetMap();
       return;
     }
  
@@ -73,6 +80,7 @@ export class HeaderComponent implements OnInit {
     this.searchTerm = country;
     this.filteredCountries = [];
     this.isDropdownVisible = false;
+    this.searchingCountryService.selectCountry(country);
   }
  
   toggleMenu(): void {

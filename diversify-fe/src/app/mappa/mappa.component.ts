@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import * as ol from 'ol';
 import { OSM } from 'ol/source';
 import { View } from 'ol';
 import { Tile as TileLayer } from 'ol/layer';
@@ -11,14 +10,18 @@ import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import { ViewContainerRef } from '@angular/core';
 import { PopupGridComponent } from '../popup-grid/popup-grid.component';
+import { CountryService } from '../services/country.service';
+import { SearchingCountryService } from '../services/searching-country.service'; // importa il servizio
 
+
+ 
 const ueExtent = [
   -2763122.0902452143,  // Longitudine Ovest (Portogallo)
   3700000.044323073,   // Latitudine Sud (Grecia)
   6398696.460179701,   // Longitudine Est (Cipro)
   9053583.87463804    // Latitudine Nord (taglia parte della Scandinavia)
 ];
-
+ 
 @Component({
   selector: 'app-map',
   standalone: true,
@@ -27,127 +30,118 @@ const ueExtent = [
 })
 export class MapComponent implements OnInit, AfterViewInit {
   private map: Map | undefined;
-  private countries: Array<any>;  // Lista dei paesi
+  private countries: Array<any> | undefined;  // Lista dei paesi
   private category: string = 'criticitaGenerale'; // Categoria selezionata
   private vectorLayer: VectorLayer | undefined;
+ 
+  constructor(private viewContainerRef: ViewContainerRef,
+    private countryService:CountryService,
+    private searchingCountryService: SearchingCountryService
+  ) {
+    this.countryService.getCountries().subscribe((data) => {
+      this.countries = data.map((country) => ({
+        name: country.nome,
+        coordinates: this.getCoordinatesForCountry(country.nome),
+        criticitaGenerale: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità Generale')?.gravita,
+        criticitaLgbt: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità LGBTQ+')?.gravita,
+        criticitaDisabilita: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità Disabilità')?.gravita,
+        criticitaRazzismo: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità Razzismo')?.gravita,
+        criticitaDonne: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità Donne')?.gravita,
+        tipoCriticita: country.benchmark[0].descrizione,
+        bandiera: country.linkImmagineBandiera
+      }));
+      this.onCategoryChange({ target: { value: this.category } });
+    });
 
-  constructor(private viewContainerRef: ViewContainerRef) {
-    this.countries = [
-      { name: "Italia", coordinates: [1398226.38, 5161471.19], criticitaGenerale: 1, criticitaLgbt: 4, criticitaDisabilita: 2, criticitaRazzismo: 3, criticitaDonne: 4 },
-      { name: "Francia", coordinates: [261800, 6270564], criticitaGenerale: 3, criticitaLgbt: 1, criticitaDisabilita: 2, criticitaRazzismo: 4, criticitaDonne: 0 },
-      { name: "Germania", coordinates: [1491538.66, 6893050.21], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 4, criticitaRazzismo: 3, criticitaDonne: 1 },
-      { name: "Spagna", coordinates: [-412323.77, 4926736.21], criticitaGenerale: 0, criticitaLgbt: 3, criticitaDisabilita: 1, criticitaRazzismo: 2, criticitaDonne: 4 },
-      { name: "Portogallo", coordinates: [-1017076.81, 4679891.74], criticitaGenerale: 1, criticitaLgbt: 2, criticitaDisabilita: 3, criticitaRazzismo: 0, criticitaDonne: 4 },
-      { name: "Regno Unito", coordinates: [-14243.57, 6711459.82], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 1, criticitaRazzismo: 3, criticitaDonne: 4 },
-      { name: "Irlanda", coordinates: [-696920.12, 7047883.07], criticitaGenerale: 1, criticitaLgbt: 2, criticitaDisabilita: 0, criticitaRazzismo: 4, criticitaDonne: 3 },
-      { name: "Belgio", coordinates: [484416.76, 6594201.06], criticitaGenerale: 0, criticitaLgbt: 1, criticitaDisabilita: 4, criticitaRazzismo: 2, criticitaDonne: 3 },
-      { name: "Paesi Bassi", coordinates: [544603.57, 6867871.26], criticitaGenerale: 4, criticitaLgbt: 2, criticitaDisabilita: 3, criticitaRazzismo: 1, criticitaDonne: 0 },
-      { name: "Svizzera", coordinates: [829527.62, 5933730.25], criticitaGenerale: 3, criticitaLgbt: 4, criticitaDisabilita: 2, criticitaRazzismo: 0, criticitaDonne: 1 },
-      { name: "Austria", coordinates: [1660097.5474459173, 6046474.734704574], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 1, criticitaRazzismo: 4, criticitaDonne: 2 },
-      { name: "Polonia", coordinates: [2338451.85, 6842165.97], criticitaGenerale: 1, criticitaLgbt: 5, criticitaDisabilita: 0, criticitaRazzismo: 3, criticitaDonne: 2 },
-      { name: "Svezia", coordinates: [2011302.35, 8251037.95], criticitaGenerale: 0, criticitaLgbt: 1, criticitaDisabilita: 2, criticitaRazzismo: 4, criticitaDonne: 3 },
-      { name: "Norvegia", coordinates: [1195453.01, 8380446.92], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 3, criticitaRazzismo: 1, criticitaDonne: 4 },
-      { name: "Finlandia", coordinates: [2776567.57, 8437079.46], criticitaGenerale: 3, criticitaLgbt: 2, criticitaDisabilita: 1, criticitaRazzismo: 0, criticitaDonne: 4 },
-      { name: "Danimarca", coordinates: [1399266.15, 7496299.91], criticitaGenerale: 0, criticitaLgbt: 5, criticitaDisabilita: 2, criticitaRazzismo: 3, criticitaDonne: 1 },
-      { name: "Estonia", coordinates: [2754719.61, 8275405.92], criticitaGenerale: 1, criticitaLgbt: 0, criticitaDisabilita: 3, criticitaRazzismo: 2, criticitaDonne: 4 },
-      { name: "Lettonia", coordinates: [2683346.93, 7749797.64], criticitaGenerale: 2, criticitaLgbt: 1, criticitaDisabilita: 4, criticitaRazzismo: 3, criticitaDonne: 2 },
-      { name: "Lituania", coordinates: [2814477.07, 7301414.56], criticitaGenerale: 3, criticitaLgbt: 0, criticitaDisabilita: 2, criticitaRazzismo: 1, criticitaDonne: 4 },
-      { name: "Lussemburgo", coordinates: [682345.66, 6379214.54], criticitaGenerale: 4, criticitaLgbt: 3, criticitaDisabilita: 2, criticitaRazzismo: 0, criticitaDonne: 1 },
-      { name: "Malta", coordinates: [1615635.30, 4286733.78], criticitaGenerale: 0, criticitaLgbt: 5, criticitaDisabilita: 3, criticitaRazzismo: 4, criticitaDonne: 0 },
-      { name: "Slovacchia", coordinates: [2163244.391310441, 6223655.777785426], criticitaGenerale: 3, criticitaLgbt: 1, criticitaDisabilita: 0, criticitaRazzismo: 4, criticitaDonne: 2 },
-      { name: "Slovenia", coordinates: [1614909.70, 5788362.07], criticitaGenerale: 1, criticitaLgbt: 2, criticitaDisabilita: 3, criticitaRazzismo: 0, criticitaDonne: 4 },
-      { name: "Croazia", coordinates: [1778627.45, 5750367.74], criticitaGenerale: 2, criticitaLgbt: 3, criticitaDisabilita: 0, criticitaRazzismo: 4, criticitaDonne: 1 },
-      { name: "Serbia", coordinates: [2277379.96, 5592941.10], criticitaGenerale: 4, criticitaLgbt: 2, criticitaDisabilita: 0, criticitaRazzismo: 3, criticitaDonne: 1 },
-      { name: "Bosnia ed Erzegovina", coordinates: [2046799.05, 5442545.32], criticitaGenerale: 3, criticitaLgbt: 4, criticitaDisabilita: 1, criticitaRazzismo: 0, criticitaDonne: 2 },
-      { name: "Montenegro", coordinates: [2144201.41, 5227326.33], criticitaGenerale: 0, criticitaLgbt: 1, criticitaDisabilita: 4, criticitaRazzismo: 2, criticitaDonne: 3 },
-      { name: "Albania", coordinates: [2206125.23, 5060868.63], criticitaGenerale: 5, criticitaLgbt: 0, criticitaDisabilita: 2, criticitaRazzismo: 3, criticitaDonne: 1 },
-      { name: "Macedonia del Nord", coordinates: [2385789.09, 5160354.53], criticitaGenerale: 2, criticitaLgbt: 3, criticitaDisabilita: 4, criticitaRazzismo: 1, criticitaDonne: 0 },
-      { name: "Kosovo", coordinates: [2355936.19, 5260961.26], criticitaGenerale: 1, criticitaLgbt: 4, criticitaDisabilita: 0, criticitaRazzismo: 2, criticitaDonne: 3 },
-      { name: "Bulgaria", coordinates: [2595413.16, 5265924.33], criticitaGenerale: 2, criticitaLgbt: 0, criticitaDisabilita: 4, criticitaRazzismo: 3, criticitaDonne: 1 },
-      { name: "Romania", coordinates: [2905627.16, 5533187.12], criticitaGenerale: 5, criticitaLgbt: 2, criticitaDisabilita: 1, criticitaRazzismo: 0, criticitaDonne: 3 },
-      { name: "Ungheria", coordinates: [2119708.13, 6023674.28], criticitaGenerale: 0, criticitaLgbt: 5, criticitaDisabilita: 3, criticitaRazzismo: 2, criticitaDonne: 1 },
-      { name: "Moldavia", coordinates: [3209372.07, 5945988.65], criticitaGenerale: 4, criticitaLgbt: 0, criticitaDisabilita: 2, criticitaRazzismo: 3, criticitaDonne: 0 },
-      { name: "Cipro", coordinates: [3714061.19, 4187224.21], criticitaGenerale: 3, criticitaLgbt: 2, criticitaDisabilita: 0, criticitaRazzismo: 5, criticitaDonne: 1 },
-      { name: "Turchia", coordinates: [3657294.42, 4854444.62], criticitaGenerale: 2, criticitaLgbt: 1, criticitaDisabilita: 4, criticitaRazzismo: 0, criticitaDonne: 3 },
-      { name: "Ucraina", coordinates: [3397758.97, 6524454.58], criticitaGenerale: 1, criticitaLgbt: 0, criticitaDisabilita: 2, criticitaRazzismo: 4, criticitaDonne: 3 },
-      { name: "Grecia", coordinates: [2642137.67, 4576076.42], criticitaGenerale: 1, criticitaLgbt: 3, criticitaDisabilita: 0, criticitaRazzismo: 2, criticitaDonne: 4 },
-      { name: "Russia", coordinates: [4187505.32, 7509131.29], criticitaGenerale: 5, criticitaLgbt: 2, criticitaDisabilita: 1, criticitaRazzismo: 0, criticitaDonne: 3 },
-      { name: "Bielorussia", coordinates: [3068143.88, 7151813.43], criticitaGenerale: 4, criticitaLgbt: 0, criticitaDisabilita: 3, criticitaRazzismo: 1, criticitaDonne: 2 },
-      { name: "Repubblica Ceca", coordinates: [204005231.5, 645183456], criticitaGenerale: 0, criticitaLgbt: 1, criticitaDisabilita: 3, criticitaRazzismo: 2, criticitaDonne: 4 }
-    ];
+    this.searchingCountryService.selectedCountry$.subscribe((country) => {
+      this.updateMapWithCountry(country); // aggiorna la mappa con il paese selezionato
+    });
   }
-
+ 
   ngOnInit(): void {
     this.onCategoryChange({ target: { value: this.category } });
+    this.searchingCountryService.resetMap$.subscribe(() => {
+      this.resetMap(); // Esegui il reset della mappa quando l'evento viene emesso
+    });
   }
 
+  private updateMapWithCountry(country: string): void {
+    // Trova il paese selezionato e aggiorna la mappa
+    const countryCoordinates = this.getCoordinatesForCountry(country);
+    if (this.map) {
+      this.map.getView().setCenter(countryCoordinates); // centrare la mappa sul paese selezionato
+      this.map.getView().setZoom(6); // Zoom per il paese selezionato
+    }
+  }
+ 
   ngAfterViewInit(): void {
     this.initializeMap();
   }
-
+ 
   onCategoryChange(event: any): void {
     this.category = event.target.value;
     this.updatePins();
   }
-
+ 
   private initializeMap(): void {
     const osmLayer = new TileLayer({
       source: new OSM()
     });
-
+ 
     const view = new View({
       center: [1000000, 5000000],  // Centro approssimativo per focalizzare l'UE
       zoom: 2,                 // Zoom bilanciato per vedere bene le capitali
       extent: ueExtent
     });
-
+ 
     this.map = new Map({
       target: 'map',
       layers: [osmLayer],
       view: view,
       interactions: []
     });
-
+ 
     this.map.on('click', (event: any) => {
       const coordinate = event.coordinate;
       const clickedFeature = this.map?.forEachFeatureAtPixel(event.pixel, (feature) => feature);
-
+ 
       if (clickedFeature) {
         const countryName = clickedFeature.get('name');
         this.openPopupGrid(countryName, coordinate);
       }
     });
-
+ 
     this.updatePins();  // Aggiungi i pin iniziali
   }
-
+ 
   private updatePins(): void {
+ 
     const vectorSource = new VectorSource();
-    
+   
     // Rimuovi il vecchio layer se esiste
     if (this.vectorLayer) {
       this.map?.removeLayer(this.vectorLayer);
     }
-
+ 
     // Aggiungi i nuovi pin
-    this.countries.forEach(country => {
+    this.countries?.forEach(country => {
       const firstPin = new Feature({
         geometry: new Point(country.coordinates),
         name: country.name
       });
-    
+   
       firstPin.setStyle(new Style({
         image: new Icon({
           src: "pin-mappa.png",
-          scale: 0.3
+          scale: 0.4
         })
       }));
-    
+   
       vectorSource.addFeature(firstPin);
-    
+   
       // Aggiungi i pin dinamici in base alla categoria
       const criticita = country[this.category];
-    
+   
       // Se criticita è 0, non aggiungere il secondo pin
       if (criticita !== 0) {
         const secondPin = new Feature({
@@ -157,61 +151,124 @@ export class MapComponent implements OnInit, AfterViewInit {
           ]),
           name: `${country.name}`
         });
-    
+   
         let pinColor: string;
         switch (criticita) {
-          case 1:
+          case '1':
             pinColor = 'benchmark-verde.png';
             break;
-          case 2:
+          case '2':
             pinColor = 'benchmark-giallo.png';
             break;
-          case 3:
+          case '3':
             pinColor = 'benchmark-arancione.png';
             break;
-          case 4:
+          case '4':
             pinColor = 'benchmark-rosso.png';
             break;
           default:
             pinColor = 'benchmark-nero.png';
         }
-    
+   
         secondPin.setStyle(new Style({
           image: new Icon({
             src: `benchmark/${pinColor}`,
-            scale: 0.3
+            scale: 0.4
           })
         }));
-    
+   
         vectorSource.addFeature(secondPin);
       }
     });
-
+ 
     this.vectorLayer = new VectorLayer({
       source: vectorSource
     });
-
+ 
     // Aggiungi il vectorLayer alla mappa
     this.map?.addLayer(this.vectorLayer);
   }
-  
+ 
   // Funzione per mostrare il popup (aggiungila se necessario)
   private openPopupGrid(countryName: string, coordinate: any): void {
-    const country = this.countries.find(c => c.name === countryName);
+ 
+    const country = this.countries?.find(c => c.name === countryName);
     const tipoCriticita = country ? country.tipoCriticita : '';  // Assegna una stringa vuota se non c'è
-  
+ 
     // Rimuovi eventuali pop-up esistenti
     const existingPopups = document.querySelectorAll('.popup');
     existingPopups.forEach(popup => popup.remove());
-    
+   
     const popupElement = document.createElement('div');
     popupElement.classList.add('popup');
-    
+   
     const componentRef = this.viewContainerRef.createComponent(PopupGridComponent);
     componentRef.instance.countryName = countryName;
     componentRef.instance.tipoCriticita = tipoCriticita;  // Passa la stringa vuota se non c'è
-  
+    componentRef.instance.flag = country.bandiera;
+
+ 
     popupElement.appendChild(componentRef.location.nativeElement);
     document.body.appendChild(popupElement);
   }
+ 
+  private getCoordinatesForCountry(name: string): [number, number] {
+    const staticCoordinates: { [key: string]: [number, number] } = {
+      "italia": [1398226.38, 5161471.19],
+      "francia": [261800, 6270564],
+      "germania": [1491538.66, 6893050.21],
+      "spagna": [-412323.77, 4926736.21],
+      "portogallo": [-1017076.81, 4679891.74],
+      "regno unito": [-14243.57, 6711459.82],
+      "irlanda": [-696920.12, 7047883.07],
+      "belgio": [484416.76, 6594201.06],
+      "paesi bassi": [544603.57, 6867871.26],
+      "svizzera": [829527.62, 5933730.25],
+      "austria": [1660097.5474459173, 6046474.734704574],
+      "polonia": [2338451.85, 6842165.97],
+      "svezia": [2011302.35, 8251037.95],
+      "norvegia": [1195453.01, 8380446.92],
+      "finlandia": [2776567.57, 8437079.46],
+      "danimarca": [1399266.15, 7496299.91],
+      "estonia": [2754719.61, 8275405.92],
+      "lettonia": [2683346.93, 7749797.64],
+      "lituania": [2814477.07, 7301414.56],
+      "lussemburgo": [680012.4877201075, 6381813.565947726],
+      "malta": [1615635.30, 4286733.78],
+      "slovacchia": [2163244.391310441, 6223655.777785426],
+      "slovenia": [1614909.70, 5788362.07],
+      "croazia": [1778627.45, 5750367.74],
+      "serbia": [2277379.96, 5592941.10],
+      "bosnia ed erzegovina": [2046799.05, 5442545.32],
+      "montenegro": [2144201.41, 5227326.33],
+      "albania": [2206125.23, 5060868.63],
+      "macedonia del nord": [2385789.09, 5160354.53],
+      "kosovo": [2355936.19, 5260961.26],
+      "bulgaria": [2595413.16, 5265924.33],
+      "romania": [2905627.16, 5533187.12],
+      "ungheria": [2119708.13, 6023674.28],
+      "moldavia": [3209372.07, 5945988.65],
+      "cipro": [3714061.19, 4187224.21],
+      "turchia": [3657294.42, 4854444.62],
+      "ucraina": [3397758.97, 6524454.58],
+      "grecia": [2642137.67, 4576076.42],
+      "russia": [4187505.32, 7509131.29],
+      "bielorussia": [3068143.88, 7151813.43],
+      "repubblica ceca": [1721973.3732084506, 6389141.895904409],
+    };
+ 
+    // Normalizza l'input
+    const normalizedCountry = name.toLowerCase().trim();
+    return staticCoordinates[normalizedCountry] || [0, 0];
+  }
+
+  resetMap(): void {
+    const view = this.map?.getView();
+    if (view) {
+      view.setCenter([1000000, 5000000]);  // Posizione iniziale
+      view.setZoom(1);  // Zoom iniziale
+    }
+  }
+ 
 }
+ 

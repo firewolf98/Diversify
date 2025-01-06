@@ -34,7 +34,7 @@ public class Post {
      * L'identificativo dell'autore del post.
      * Questo campo rappresenta l'autore del post, in genere un riferimento al suo profilo utente.
      */
-    @Id
+
     private String idAutore;
 
     /**
