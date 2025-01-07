@@ -80,7 +80,6 @@ export class SchedaAreaPersonaleComponent {
         this.userService.getUserFromToken(this.token).subscribe(
             (data) => {
             this.utente = data;
-            console.log(this.utente);
             this.username= this.utente.username;
             this.nome= this.utente.nome;
             this.cognome= this.utente.cognome;
