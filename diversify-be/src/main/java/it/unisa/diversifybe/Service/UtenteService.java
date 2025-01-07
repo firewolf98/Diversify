@@ -8,6 +8,7 @@ import it.unisa.diversifybe.Repository.UtenteRepository;
 import it.unisa.diversifybe.Utilities.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -42,11 +43,11 @@ public class UtenteService {
     public String registerUser(RegisterRequest registerRequest) throws NoSuchAlgorithmException {
         // Controllo che i campi obbligatori non siano nulli o vuoti
 
-        if(registerRequest.getName() == null || registerRequest.getName().trim().isEmpty()) {
+        if (registerRequest.getName() == null || registerRequest.getName().trim().isEmpty()) {
             return "Il campo nome è obbligatorio";
         }
 
-        if(registerRequest.getLastName() == null || registerRequest.getLastName().trim().isEmpty()) {
+        if (registerRequest.getLastName() == null || registerRequest.getLastName().trim().isEmpty()) {
             return "Il campo cognome è obbligatorio";
         }
 
@@ -66,11 +67,11 @@ public class UtenteService {
             return "Codice fiscale non valido.";
         }
 
-        if(registerRequest.getDomanda() == null || registerRequest.getDomanda().trim().isEmpty()) {
+        if (registerRequest.getDomanda() == null || registerRequest.getDomanda().trim().isEmpty()) {
             return "Domanda non valida.";
         }
 
-        if(registerRequest.getRisposta() == null || registerRequest.getRisposta().trim().isEmpty()) {
+        if (registerRequest.getRisposta() == null || registerRequest.getRisposta().trim().isEmpty()) {
             return "Risposta non valida.";
         }
 
@@ -290,7 +291,7 @@ public class UtenteService {
      *     <li>"Errore durante l'eliminazione dell'account." in caso di errore generico durante l'operazione.</li>
      * </ul>
      */
-    public String deleteUser(String token) {
+    public String deleteUser(String token, String password) {
         try {
             String username = jwtUtils.validateToken(token); // Ottieni il nome utente dal token
             if (username == null) {
@@ -303,8 +304,14 @@ public class UtenteService {
             }
 
             Utente utente = utenteOptional.get();
-            utenteRepository.delete(utente); // Elimina l'utente
-            return "Account eliminato con successo.";
+
+            String hashedPassword = hashPassword(password);
+
+            if (hashedPassword.equals(utente.getPasswordHash())) {
+                utenteRepository.delete(utente);
+                return "Account eliminato con successo.";
+            }
+            return "Password errata";
 
         } catch (Exception e) {
             return "Errore durante l'eliminazione dell'account.";
@@ -325,4 +332,8 @@ public class UtenteService {
         return utente.get().getIdUtente();
     }
 
+    public Utente getUserByEmail(String email) {
+        Optional<Utente> utenteOptional = utenteRepository.findByEmail(email);
+        return utenteOptional.get();
+    }
 }

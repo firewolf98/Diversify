@@ -41,4 +41,26 @@ export class UserService {
  
     return this.http.post(`${this.apiUrl}/cambia_password`, body, { headers });
   }
+ 
+  getUserQuestion(email:string):Observable<any> {
+    return this.http.post(`${this.apiUrl}/recupera_domanda`, email);
+  }
+ 
+  resetPassword(email:string, codiceFiscale:string, personalAnswer: string, newPassword: string): Observable<any> {
+    const body = {
+      email,
+      codiceFiscale,
+      personalAnswer,
+      newPassword
+    };
+ 
+    return this.http.post(`${this.apiUrl}/recupera_password`, body);
+  }
+ 
+  deleteAccount(token:string, password:string):Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`${this.apiUrl}/delete-account`, password, { headers });
+  }
 }

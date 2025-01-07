@@ -196,9 +196,7 @@ public class UtenteController {
 
             Utente utente = utenteOptional.get();
 
-            // Passo 2: Criptare la risposta fornita e confrontarla con quella salvata
-            String hashedAnswer = utenteService.hashPassword(recuperaPasswordRequest.getPersonalAnswer());
-            if (!hashedAnswer.equals(utente.getRispostaHash())) {
+            if (!recuperaPasswordRequest.getPersonalAnswer().equals(utente.getRispostaHash())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Risposta alla domanda personale errata");
             }
 
@@ -263,7 +261,7 @@ public class UtenteController {
      * </ul>
      */
     @PostMapping("/delete-account")
-    public ResponseEntity<?> deleteAccount(@RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<?> deleteAccount(@RequestBody String password, @RequestHeader("Authorization") String authorizationHeader) {
         if (authorizationHeader == null || authorizationHeader.isBlank()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido");
         }
@@ -274,16 +272,30 @@ public class UtenteController {
 
         String token = authorizationHeader.substring(7); // Rimuove "Bearer "
 
-        String response = utenteService.deleteUser(token);
+        String response = utenteService.deleteUser(token, password);
 
         if ("Utente non trovato".equals(response)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", response));
         }
 
         if ("Token non valido".equals(response)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", response));
         }
 
-        return ResponseEntity.ok(response);
+        if ("Password errata".equals(response)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", response));
+        }
+
+        return ResponseEntity.ok(Map.of("message", response));
+    }
+
+    @PostMapping("/recupera_domanda")
+    public ResponseEntity<?> getDomandaUser(@RequestBody String email) {
+        Utente utente = utenteService.getUserByEmail(email);
+        if (utente != null) {
+            return ResponseEntity.ok(utente);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato.");
+        }
     }
 }

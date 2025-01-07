@@ -33,12 +33,12 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private userService:UserService,
-    private searchingCountryService: SearchingCountryService 
+    private searchingCountryService: SearchingCountryService
   ) {}
  
   ngOnInit(): void {
     this.filteredCountries = countriesDB;
-  
+   
     // Verifica lo stato di login
     this.authService.isLoggedIn().subscribe((status: boolean) => {
       this.isLogged = status;
@@ -59,7 +59,6 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
-  
  
   onSearchChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -123,7 +122,6 @@ export class HeaderComponent implements OnInit {
   }
  
   navigateToProfile(): void {
-    console.log("RUOLO",this.ruoloUtente);
     if (this.ruoloUtente) {
       this.router.navigate(['/generale-amministratore'] );
       this.closeMenu();
@@ -140,3 +138,4 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 }
+ 

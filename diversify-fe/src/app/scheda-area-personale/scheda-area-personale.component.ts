@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Observable, of } from 'rxjs'; // Per simulare la verifica del database
-import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
  
 @Component({
     selector: 'app-scheda-area-personale',
@@ -35,7 +35,7 @@ export class SchedaAreaPersonaleComponent {
     email: string = '';
     domandaPersonale: string = '';
  
-    constructor(private fb: FormBuilder, private userService:UserService) {
+    constructor(private fb: FormBuilder, private userService:UserService, private router: Router, private authService: AuthService) {
         // Inizializzazione dei form
         this.formModificaPassword = this.fb.group({
             vecchiaPassword: [
@@ -112,6 +112,7 @@ export class SchedaAreaPersonaleComponent {
             this.userService.changePassword(this.token, vecchiaPassword, nuovaPassword).subscribe({
                 next: (response) => {
                   alert(response.message);
+                  this.toggleModificaPassword();
                 },
                 error: (error) => {
                   alert(error);
@@ -136,8 +137,18 @@ export class SchedaAreaPersonaleComponent {
  
     // Funzione per confermare l'eliminazione dell'account
     confermaEliminazione(): void {
-        if (this.formEliminaAccount.valid) {
-            console.log('Form valido, procedere con l’eliminazione!');
+        if (this.formEliminaAccount.valid && this.token) {
+            this.userService.deleteAccount(this.token, this.formEliminaAccount.value.passwordEliminazione).subscribe({
+                next: (response) => {
+                  alert("Account eliminato con successo!");
+                  this.authService.logout();
+                  this.router.navigate(['/']);
+                },
+                error: (error) => {
+                    console.log(error);
+                  alert(error.error.message);
+                }
+              });
         } else {
             console.log('Form non valido, correggere gli errori.');
         }
