@@ -48,6 +48,7 @@ export class ForumComponent {
       alert('Seleziona un forum prima di creare un post.');
     }
   }
+  
 }
  
  
