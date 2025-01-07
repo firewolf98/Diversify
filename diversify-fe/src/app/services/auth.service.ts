@@ -91,13 +91,6 @@ export class AuthService {
     );
   }
  
-  // Metodo per verificare se l'utente è un admin
-  isAdmin(): boolean {
-    this.getUserFromToken();
-    const user = this.userSubject.value;
-    return user && user.ruolo;
-  }
- 
   // Metodo per ottenere i dati dell'utente
   getUser(): Observable<any> {
     return this.userSubject.asObservable();

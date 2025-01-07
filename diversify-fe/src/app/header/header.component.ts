@@ -38,22 +38,28 @@ export class HeaderComponent implements OnInit {
  
   ngOnInit(): void {
     this.filteredCountries = countriesDB;
+  
+    // Verifica lo stato di login
     this.authService.isLoggedIn().subscribe((status: boolean) => {
       this.isLogged = status;
-    });
-    this.token = localStorage.getItem('auth_token');
-    if (this.token) {
-      this.userService.getUserFromToken(this.token).subscribe(
-        (data) => {
-          this.utente = data;
-          this.ruoloUtente = data.ruolo;
-        },
-        (error) => {
-          console.error('Errore nel caricamento dei dati utente:', error);
+      if (status) {
+        this.token = localStorage.getItem('auth_token'); // Recupera il token se l'utente è loggato
+        if (this.token) {
+          // Aggiorna i dati dell'utente
+          this.userService.getUserFromToken(this.token).subscribe(
+            (data) => {
+              this.utente = data;
+              this.ruoloUtente = data.ruolo; // Aggiorna il ruolo
+            },
+            (error) => {
+              console.error('Errore nel caricamento dei dati utente:', error);
+            }
+          );
         }
-      );
-    }
+      }
+    });
   }
+  
  
   onSearchChange(event: Event): void {
     const input = event.target as HTMLInputElement;
