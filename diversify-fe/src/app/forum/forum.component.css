@@ -9,13 +9,17 @@ body {
 }
 
 /* Contenitore del forum */
+/* Forum container: Altezza dinamica considerando header e footer */
 .forum-container {
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Spazio tra sezioni */
+    gap: 20px;
     padding: 20px;
-    flex: 1; /* Rende il contenuto flessibile */
-    background-color: transparent; /* Non sovrascrivere il body */
+    flex: 1; 
+    background-color: transparent; 
+    height: 80vh; 
+    box-sizing: border-box; 
+    overflow: hidden; 
 }
 
 /* "Torna alla mappa" */
@@ -35,7 +39,7 @@ body {
 
 /* Sidebar del forum */
 .forum-sidebar {
-    width: 35%;
+    width: 45%;
     background-color: #ffebe2; /* Sfondo della sidebar */
     padding: 15px;
     border: 1px solid #ddd;
@@ -73,11 +77,12 @@ body {
 
 /* Sezione principale del forum (in evidenza) */
 .forum-main {
-    width: 60%;
+    width: 55%;
     background-color: #ffebe2; /* Sfondo per il contenuto in evidenza */
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
+    overflow-y: scroll;
 }
 
 /* Stile per i singoli post */
