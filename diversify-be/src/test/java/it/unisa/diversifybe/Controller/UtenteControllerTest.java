@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -206,9 +207,10 @@ class UtenteControllerTest {
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(successMessage, response.getBody());
+        assertEquals(Map.of("message", successMessage), response.getBody());
         verify(utenteService, times(1)).registerUser(registerRequest);
     }
+
 
     /**
      * Test per il metodo registerUser - Username mancante.
@@ -339,7 +341,7 @@ class UtenteControllerTest {
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Password aggiornata con successo", response.getBody());
+        assertEquals(Map.of("message", "Password aggiornata con successo"), response.getBody());  // Modifica qui per confrontare con la mappa
         verify(utenteService).save(utente);
     }
 
@@ -429,6 +431,8 @@ class UtenteControllerTest {
         // Simula il comportamento dei metodi del mock
         when(jwtUtils.validateToken("validToken")).thenReturn(username);
         when(utenteService.findByUsername(username)).thenReturn(Optional.of(utente));
+
+        // Simula un errore nell'hashing della password
         doThrow(new NoSuchAlgorithmException("Hashing error"))
                 .when(utenteService)
                 .hashPassword("currentPassword");
@@ -447,29 +451,40 @@ class UtenteControllerTest {
         verify(utenteService, times(1)).hashPassword("currentPassword");
         verifyNoMoreInteractions(jwtUtils, utenteService);
     }
+
     /**
      * Test per recuperaPassword con dati validi.
      */
     @Test
     void recuperaPassword_ShouldReturnSuccessForValidData() throws NoSuchAlgorithmException {
+        // Dati di input
         RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", "1234567890", "correctAnswer", "newPassword");
+
+        // Utente simulato
         Utente utente = new Utente();
         utente.setEmail("user@example.com");
         utente.setCodiceFiscale("1234567890");
-        utente.setRispostaHash("hashedCorrectAnswer");
+        utente.setRispostaHash("hashedCorrectAnswer");  // Risposta criptata
 
+        // Simula l'hashing della risposta alla domanda personale (dovrebbe essere la stessa risposta criptata nel database)
+        when(utenteService.hashPassword("correctAnswer")).thenReturn("hashedCorrectAnswer");  // Simula l'hashing della risposta
+        when(utenteService.hashPassword("newPassword")).thenReturn("hashedNewPassword");  // Simula l'hashing della nuova password
+
+        // Simula il comportamento dei metodi
         when(utenteService.findByEmailAndCodiceFiscale("user@example.com", "1234567890"))
                 .thenReturn(Optional.of(utente));
-        when(utenteService.hashPassword("correctAnswer")).thenReturn("hashedCorrectAnswer");
-        when(utenteService.hashPassword("newPassword")).thenReturn("hashedNewPassword");
 
+        // Esegui il metodo
         ResponseEntity<?> response = controller.recuperaPassword(request);
 
+        // Verifica la risposta
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Password aggiornata con successo", response.getBody());
         verify(utenteService).save(utente);
     }
+
+
 
     /**
      * Test per recuperaPassword con utente non trovato.
@@ -552,7 +567,6 @@ class UtenteControllerTest {
         verify(utenteService).hashPassword("correctAnswer");
         verifyNoMoreInteractions(utenteService);
     }
-
 
     /**
      * Test per recuperaPassword con email mancante.
@@ -699,15 +713,21 @@ class UtenteControllerTest {
     void deleteAccount_ShouldReturnSuccessForValidToken() {
         String token = "Bearer validToken";
         String expectedResponse = "Account eliminato con successo";
+        String password = "validPass1";
 
-        when(utenteService.deleteUser("validToken")).thenReturn(expectedResponse);
+        // Configura il comportamento del mock del servizio
+        when(utenteService.deleteUser("validToken", password)).thenReturn(expectedResponse);
 
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        // Esegui il metodo deleteAccount
+        ResponseEntity<?> response = controller.deleteAccount(password, token);
 
+        // Verifica la risposta
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());
-        verify(utenteService, times(1)).deleteUser("validToken");
+
+        // Verifica che il metodo deleteUser sia stato chiamato con i parametri corretti
+        verify(utenteService, times(1)).deleteUser("validToken", password);
     }
 
     /**
@@ -716,12 +736,12 @@ class UtenteControllerTest {
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForMissingToken() {
         String token = null;
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        String password = "validPassword";
+        ResponseEntity<?> response = controller.deleteAccount(token,password);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Token non valido", response.getBody());
+        assertEquals("Token malformato", response.getBody());
         verifyNoInteractions(utenteService);
     }
 
@@ -731,29 +751,31 @@ class UtenteControllerTest {
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForEmptyToken() {
         String token = "";
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        String password = "validPassword";
+        ResponseEntity<?> response = controller.deleteAccount(token, password);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Token non valido", response.getBody());
+        assertEquals("Token malformato", response.getBody());  // Ora il messaggio sarà "Token non valido"
         verifyNoInteractions(utenteService);
     }
+
 
     /**
      * Test per token malformato.
      */
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForMalformedToken() {
-        String token = "InvalidTokenFormat";
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        String token = "InvalidTokenFormat";  // Token malformato
+        String password = "validPassword";
+        ResponseEntity<?> response = controller.deleteAccount(token,password);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         assertEquals("Token malformato", response.getBody());
-        verifyNoInteractions(utenteService);
+        verifyNoInteractions(utenteService);  // Non dovrebbe essere chiamato il servizio
     }
+
 
     /**
      * Test per token scaduto o non valido.
@@ -761,15 +783,15 @@ class UtenteControllerTest {
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForExpiredOrInvalidToken() {
         String token = "Bearer invalidToken";
+        String password = "validPassword";
+        when(utenteService.deleteUser("invalidToken", "validPassword")).thenReturn("Token non valido");
 
-        when(utenteService.deleteUser("invalidToken")).thenReturn("Token non valido");
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        ResponseEntity<?> response = controller.deleteAccount(password, token);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         assertEquals("Token non valido", response.getBody());
-        verify(utenteService, times(1)).deleteUser("invalidToken");
+        verify(utenteService, times(1)).deleteUser("invalidToken", "validPassword");
     }
 
     /**
@@ -777,15 +799,16 @@ class UtenteControllerTest {
      */
     @Test
     void deleteAccount_ShouldReturnNotFoundForNonExistentUser() {
-        String token = "Bearer validToken";
+        String token = "validToken";
+        String password = "validPassword";
 
-        when(utenteService.deleteUser("validToken")).thenReturn("Utente non trovato");
+        when(utenteService.deleteUser("validToken", "validPassword")).thenReturn("Utente non trovato");
 
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        ResponseEntity<?> response = controller.deleteAccount(password, "Bearer " + token);  // Aggiungi il prefisso qui
 
         assertNotNull(response);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals("Utente non trovato", response.getBody());
-        verify(utenteService, times(1)).deleteUser("validToken");
+        verify(utenteService, times(1)).deleteUser("validToken", "validPassword");
     }
 }

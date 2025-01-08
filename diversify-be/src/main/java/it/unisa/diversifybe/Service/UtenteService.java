@@ -332,6 +332,16 @@ public class UtenteService {
         return utente.get().getIdUtente();
     }
 
+    /**
+     * Recupera un utente in base all'indirizzo email fornito.
+     *
+     * Questo metodo cerca un utente nel repository utilizzando l'indirizzo email come criterio.
+     * Se un utente corrispondente viene trovato, esso viene restituito.
+     * Se l'utente non esiste, viene generata un'eccezione {@link java.util.NoSuchElementException}.
+     *
+     * @param email L'indirizzo email dell'utente da cercare.
+     * @return L'oggetto {@link Utente} associato all'indirizzo email fornito.
+     */
     public Utente getUserByEmail(String email) {
         Optional<Utente> utenteOptional = utenteRepository.findByEmail(email);
         return utenteOptional.get();
