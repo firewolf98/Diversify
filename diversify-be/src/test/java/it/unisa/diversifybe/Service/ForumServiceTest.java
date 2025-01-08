@@ -106,8 +106,8 @@ class ForumServiceTest {
     void getAllForums_ShouldReturnListOfForums() {
         // Simulazione di una lista di forum
         List<Forum> forums = new ArrayList<>();
-        forums.add(new Forum("1", "Forum 1", "Descrizione 1", new ArrayList<>(), "Italia"));
-        forums.add(new Forum("2", "Forum 2", "Descrizione 2", new ArrayList<>(), "Spagna"));
+        forums.add(new Forum("1", "Forum 1", "Descrizione 1", "Italia", new ArrayList<>()));
+        forums.add(new Forum("2", "Forum 2", "Descrizione 2", "Spagna", new ArrayList<>()));
 
         // Configurazione del mock
         when(forumRepository.findAll()).thenReturn(forums);
@@ -150,7 +150,7 @@ class ForumServiceTest {
     @Test
     void getForumById_ShouldReturnForumForValidId() {
         String idForum = "1";
-        Forum forum = new Forum(idForum, "Forum 1", "Descrizione 1", new ArrayList<>(), "Italia");
+        Forum forum = new Forum(idForum, "Forum 1", "Descrizione 1", "Italia", new ArrayList<>());
 
         // Configurazione del mock
         when(forumRepository.findById(idForum)).thenReturn(Optional.of(forum));
@@ -227,7 +227,7 @@ class ForumServiceTest {
      */
     @Test
     void addForum_ShouldAddForumForAdmin() {
-        Forum forum = new Forum("1", "Forum 1", "Descrizione", new ArrayList<>(), "Italia");
+        Forum forum = new Forum("1", "Forum 1", "Descrizione", "Italia", new ArrayList<>());
 
         // Configurazione del mock
         when(forumRepository.save(forum)).thenReturn(forum);
@@ -247,7 +247,7 @@ class ForumServiceTest {
      */
     @Test
     void addForum_ShouldThrowSecurityExceptionForNonAdmin() {
-        Forum forum = new Forum("1", "Forum 1", "Descrizione", new ArrayList<>(), "Italia");
+        Forum forum = new Forum("1", "Forum 1", "Descrizione", "Italia", new ArrayList<>());
 
         SecurityException exception = assertThrows(SecurityException.class, () -> forumService.addForum(forum, false));
 
@@ -270,8 +270,8 @@ class ForumServiceTest {
     @Test
     void updateForum_ShouldUpdateForumForValidIdAndAdmin() {
         String idForum = "1";
-        Forum existingForum = new Forum(idForum, "Forum 1", "Descrizione", new ArrayList<>(), "Italia");
-        Forum updatedForum = new Forum(idForum, "Updated Forum", "Updated Description", new ArrayList<>(), "Italia");
+        Forum existingForum = new Forum(idForum, "Forum 1", "Descrizione", "Italia", new ArrayList<>());
+        Forum updatedForum = new Forum(idForum, "Updated Forum", "Updated Description", "Italia", new ArrayList<>());
 
         // Configurazione del mock
         when(forumRepository.findById(idForum)).thenReturn(Optional.of(existingForum));
@@ -295,7 +295,7 @@ class ForumServiceTest {
     @Test
     void updateForum_ShouldThrowIllegalArgumentExceptionForNonExistentId() {
         String idForum = "99";
-        Forum updatedForum = new Forum(idForum, "Updated Forum", "Updated Description", new ArrayList<>(), "Italia");
+        Forum updatedForum = new Forum(idForum, "Updated Forum", "Updated Description", "Italia", new ArrayList<>());
 
         // Configurazione del mock
         when(forumRepository.findById(idForum)).thenReturn(Optional.empty());
@@ -313,7 +313,7 @@ class ForumServiceTest {
     @Test
     void updateForum_ShouldThrowSecurityExceptionForNonAdmin() {
         String idForum = "1";
-        Forum updatedForum = new Forum(idForum, "Updated Forum", "Updated Description", new ArrayList<>(), "Italia");
+        Forum updatedForum = new Forum(idForum, "Updated Forum", "Updated Description", "Italia", new ArrayList<>());
 
         SecurityException exception = assertThrows(SecurityException.class,
                 () -> forumService.updateForum(idForum, updatedForum, false));
@@ -327,7 +327,7 @@ class ForumServiceTest {
      */
     @Test
     void updateForum_ShouldThrowIllegalArgumentExceptionForNullId() {
-        Forum updatedForum = new Forum("1", "Updated Forum", "Updated Description", new ArrayList<>(), "Italia");
+        Forum updatedForum = new Forum("1", "Updated Forum", "Updated Description", "Italia", new ArrayList<>());
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> forumService.updateForum(null, updatedForum, true));
@@ -404,10 +404,9 @@ class ForumServiceTest {
     void findForumsByPaese_ShouldReturnForumsForValidPaese() {
         String paese = "Italia";
         List<Forum> forums = List.of(
-                new Forum("1", "Forum 1", "Descrizione 1", new ArrayList<>(), paese),
-                new Forum("2", "Forum 2", "Descrizione 2", new ArrayList<>(), paese)
+                new Forum("1", "Forum 1", "Descrizione 1", paese, new ArrayList<>()),
+                new Forum("2", "Forum 2", "Descrizione 2", paese, new ArrayList<>())
         );
-
         when(forumRepository.findByPaese(paese)).thenReturn(forums);
 
         List<Forum> result = forumService.findForumsByPaese(paese);

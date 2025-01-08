@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -119,8 +120,8 @@ class ForumControllerTest {
     void getAllForums_ShouldReturnListOfForums() {
         // Simulazione di una lista di forum valida
         List<Forum> forums = new ArrayList<>();
-        forums.add(new Forum("1", "Forum 1", "Descrizione 1", new ArrayList<>(), "Italia"));
-        forums.add(new Forum("2", "Forum 2", "Descrizione 2", new ArrayList<>(), "Spagna"));
+        forums.add(new Forum("1", "Forum 1", "Descrizione 1", "Italia", new ArrayList<>()));
+        forums.add(new Forum("2", "Forum 2", "Descrizione 2", "Spagna", new ArrayList<>()));
 
         // Configurazione del mock
         when(forumService.getAllForums()).thenReturn(forums);
@@ -165,7 +166,7 @@ class ForumControllerTest {
     @Test
     void getForumById_ShouldReturnForumForValidId() {
         // Simulazione di un forum valido
-        Forum forum = new Forum("1", "Forum 1", "Descrizione 1", null, "Italia");
+        Forum forum = new Forum("1", "Forum 1", "Descrizione 1", "Italia", null);
 
         // Configurazione del mock
         when(forumService.getForumById("1")).thenReturn(Optional.of(forum));
@@ -239,7 +240,7 @@ class ForumControllerTest {
     @Test
     void addForum_ShouldAddForumForAdminRole() {
         // Simulazione di un forum valido
-        Forum forum = new Forum("1", "Forum 1", "Descrizione 1", null, "Italia");
+        Forum forum = new Forum("1", "Forum 1", "Descrizione 1", "Italia",null);
 
         // Configurazione del mock
         when(forumService.addForum(forum, true)).thenReturn(forum);
@@ -261,7 +262,7 @@ class ForumControllerTest {
     @Test
     void addForum_ShouldReturnForbiddenForNonAdminRole() {
         // Simulazione di un forum valido
-        Forum forum = new Forum("1", "Forum 1", "Descrizione 1", null, "Italia");
+        Forum forum = new Forum("1", "Forum 1", "Descrizione 1", "Italia", null);
 
         // Configurazione del mock per lanciare SecurityException
         doThrow(new SecurityException("Utente non autorizzato"))
@@ -300,7 +301,7 @@ class ForumControllerTest {
     @Test
     void addForum_ShouldHandleInvalidForumFields() {
         // Simulazione di un forum con campi mancanti
-        Forum forum = new Forum(null, "", "", null, "");
+        Forum forum = new Forum(null, "", "", "", null);
 
         // Configurazione del mock per restituire un errore generico
         doThrow(new IllegalArgumentException("Campi del forum non validi"))
@@ -324,8 +325,8 @@ class ForumControllerTest {
     void updateForum_ShouldReturnUpdatedForumForValidIdAndAdminRole() {
         String idForum = "validId";
         boolean ruolo = true;
-        Forum updatedForum = new Forum("validId", "Updated Title", "Updated Description", null, "Italy");
-        Forum resultForum = new Forum("validId", "Updated Title", "Updated Description", null, "Italy");
+        Forum updatedForum = new Forum("validId", "Updated Title", "Updated Description", "Italy", null);
+        Forum resultForum = new Forum("validId", "Updated Title", "Updated Description", "Italy", null);
 
         when(forumService.updateForum(idForum, updatedForum, ruolo)).thenReturn(resultForum);
 
@@ -344,7 +345,7 @@ class ForumControllerTest {
     void updateForum_ShouldReturnNotFoundForNonexistentId() {
         String idForum = "nonexistentId";
         boolean ruolo = true;
-        Forum updatedForum = new Forum("nonexistentId", "Updated Title", "Updated Description", null, "Italy");
+        Forum updatedForum = new Forum("nonexistentId", "Updated Title", "Updated Description", "Italy", null);
 
         when(forumService.updateForum(idForum, updatedForum, ruolo)).thenThrow(new IllegalArgumentException());
 
@@ -362,7 +363,7 @@ class ForumControllerTest {
     void updateForum_ShouldReturnForbiddenForNonAdminRole() {
         String idForum = "validId";
         boolean ruolo = false; // Non amministratore
-        Forum updatedForum = new Forum("validId", "Updated Title", "Updated Description", null, "Italy");
+        Forum updatedForum = new Forum("validId", "Updated Title", "Updated Description", "Italy", null);
 
         when(forumService.updateForum(idForum, updatedForum, ruolo)).thenThrow(new SecurityException());
 
@@ -380,7 +381,7 @@ class ForumControllerTest {
     void updateForum_ShouldThrowExceptionForNullId() {
         String idForum = null;
         boolean ruolo = true;
-        Forum updatedForum = new Forum("validId", "Updated Title", "Updated Description", null, "Italy");
+        Forum updatedForum = new Forum("validId", "Updated Title", "Updated Description", "Italy", null);
 
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> forumController.updateForum(idForum, updatedForum, ruolo));
@@ -397,7 +398,7 @@ class ForumControllerTest {
     void updateForum_ShouldThrowExceptionForInvalidFields() {
         String idForum = "validId";
         boolean ruolo = true;
-        Forum updatedForum = new Forum(null, null, null, null, "Italy"); // Campi mancanti
+        Forum updatedForum = new Forum(null, null, null, null, null); // Campi mancanti
 
         when(forumService.updateForum(idForum, updatedForum, ruolo)).thenThrow(new IllegalArgumentException());
 
@@ -506,8 +507,8 @@ class ForumControllerTest {
     void getForumsByPaese_ShouldReturnListOfForumsForValidCountry() {
         String paese = "Italia";
         List<Forum> forums = new ArrayList<>();
-        forums.add(new Forum("1", "Forum 1", "Descrizione 1", new ArrayList<>(), "Italia"));
-        forums.add(new Forum("2", "Forum 2", "Descrizione 2", new ArrayList<>(), "Italia"));
+        forums.add(new Forum("1", "Forum 1", "Descrizione 1", "Italia", new ArrayList<>()));
+        forums.add(new Forum("2", "Forum 2", "Descrizione 2", "Italia", new ArrayList<>()));
 
         when(forumService.findForumsByPaese(paese)).thenReturn(forums);
 

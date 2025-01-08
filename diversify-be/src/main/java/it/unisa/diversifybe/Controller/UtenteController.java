@@ -196,19 +196,26 @@ public class UtenteController {
 
             Utente utente = utenteOptional.get();
 
+            // Passo 2: Verifica risposta personale
             if (!recuperaPasswordRequest.getPersonalAnswer().equals(utente.getRispostaHash())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Risposta alla domanda personale errata");
             }
 
             // Passo 3: Criptare la nuova password e aggiornarla nel database
-            String hashedNewPassword = utenteService.hashPassword(recuperaPasswordRequest.getNewPassword());
+            String hashedNewPassword;
+            try {
+                hashedNewPassword = utenteService.hashPassword(recuperaPasswordRequest.getNewPassword());
+            } catch (NoSuchAlgorithmException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
+            }
+
             utente.setPasswordHash(hashedNewPassword);
             utenteService.save(utente);
 
             return ResponseEntity.ok("Password aggiornata con successo");
 
-        } catch (NoSuchAlgorithmException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -260,35 +267,65 @@ public class UtenteController {
      *     <li>HTTP 404 NOT FOUND: se l'utente associato al token non è stato trovato.</li>
      * </ul>
      */
-    @PostMapping("/delete-account")
-    public ResponseEntity<?> deleteAccount(@RequestBody String password, @RequestHeader("Authorization") String authorizationHeader) {
+    @PostMapping("/elimina_account")
+    public ResponseEntity<?> deleteAccount(
+            @RequestBody String password,
+            @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+
+        // Controllo sulla presenza dell'header Authorization
         if (authorizationHeader == null || authorizationHeader.isBlank()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Token non valido"); // Restituisce "Token non valido" se l'header è assente o vuoto
         }
 
+        // Verifica che l'header inizi con "Bearer "
         if (!authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token malformato");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Token malformato"); // Restituisce "Token malformato" se non c'è il prefisso "Bearer"
         }
 
-        String token = authorizationHeader.substring(7); // Rimuove "Bearer "
+        // Estrae il token dal prefisso "Bearer "
+        String token = authorizationHeader.substring(7).trim();
 
+        // Se il token è vuoto dopo il prefisso "Bearer "
+        if (token.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Token non valido"); // Restituisce "Token non valido" per token vuoto
+        }
+
+        // Chiamata al servizio per eliminare l'utente
         String response = utenteService.deleteUser(token, password);
 
-        if ("Utente non trovato".equals(response)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", response));
+        // Mappa le risposte del servizio ai rispettivi stati HTTP
+        switch (response) {
+            case "Utente non trovato":
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Utente non trovato"); // Restituisce solo il messaggio
+            case "Token non valido":
+            case "Password errata":
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(response); // Restituisce direttamente il messaggio
+            case "Account eliminato con successo":
+                return ResponseEntity.ok(response); // Restituisce direttamente il messaggio
+            default:
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Errore durante l'eliminazione dell'account."); // Restituisce solo il messaggio
         }
-
-        if ("Token non valido".equals(response)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", response));
-        }
-
-        if ("Password errata".equals(response)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", response));
-        }
-
-        return ResponseEntity.ok(Map.of("message", response));
     }
 
+    /**
+     * Recupera un utente in base all'indirizzo email fornito.
+     *
+     * Questo metodo gestisce una richiesta POST al percorso "/recupera_domanda".
+     * Esso accetta una stringa contenente l'email di un utente come corpo della richiesta
+     * e restituisce una risposta contenente i dettagli dell'utente se trovato,
+     * oppure un messaggio di errore se l'utente non esiste.
+     *
+     * @param email La stringa contenente l'email dell'utente da cercare.
+     * @return Una risposta HTTP con il codice di stato 200 (OK) e i dettagli dell'utente
+     *         se l'utente esiste, altrimenti restituisce una risposta con il codice di stato 404
+     *         (NOT_FOUND) e un messaggio di errore.
+     */
     @PostMapping("/recupera_domanda")
     public ResponseEntity<?> getDomandaUser(@RequestBody String email) {
         Utente utente = utenteService.getUserByEmail(email);
