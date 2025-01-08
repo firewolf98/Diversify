@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ForumService } from '../services/forum.service';
-
+ 
  
 @Component({
   selector: 'app-popup-grid',
@@ -36,10 +36,10 @@ export class PopupGridComponent {
     this.buttons = [
       { label: `Leggi di ${this.countryName} sulla sicurezza e l'inclusività`, color: 'pink', size: 'large' },
       ...(this.forum && this.forum.length > 0
-        ? [{ label: this.forum[0].titolo, color: 'green', size: 'large' }]
+        ? [{ label: this.forum[0].titolo, color: 'green', size: 'large',action: () => this.goToSpecificForum(this.forum[0].idForum) }]
         : []),
       ...(this.forum && this.forum.length > 0
-        ? [{ label: this.forum[1].titolo, color: 'green', size: 'large' }]
+        ? [{ label: this.forum[1].titolo, color: 'green', size: 'large',action: () => this.goToSpecificForum(this.forum[1].idForum) }]
         : []),
       { label: `Tutti i forum su ${this.countryName}`, color: 'blue', size: 'small', action: () => this.goToForum() },
       { label: `Campagna di crowdfunding: Ċentru għall-persuni b'diżabilità f'${this.countryName}`, color: 'green', size: 'medium' },
@@ -58,5 +58,10 @@ export class PopupGridComponent {
     });
   }
  
+  goToSpecificForum(forumId: string) {
+    this.closePopup.emit();
+    this.router.navigate(['/forum'], {
+      queryParams: { country: this.countryName, forumId: forumId }
+    });
+  }
 }
- 

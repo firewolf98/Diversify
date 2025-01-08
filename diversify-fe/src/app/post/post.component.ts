@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentoComponent } from '../commento/commento.component';
-
+import { ActivatedRoute } from '@angular/router';
+ 
 @Component({
   selector: 'app-post',
   standalone: true,
@@ -32,31 +33,43 @@ export class PostComponent {
       replies: []
     },
   ];
-
+ 
   postLikes = 0;
   hasLikedPost = false;
   newComment = { text: '' };
-
+ 
   // Variabili per il modale di segnalazione
   showReportModal = false;
   reportReason = '';
-
+ 
   // Dati della segnalazione
   reportedUser = 'Lucia'; // Username segnalato (esempio: autore del post)
   reportingUser = 'UtenteCorrente'; // Username segnalante (esempio: utente loggato)
   reportType = 'post'; // Tipo di segnalazione (in questo caso, "post")
-
+ 
+  postId: string | null = null;
+  forumId: string | null = null;
+ 
+  constructor(private route: ActivatedRoute) {}
+ 
+  ngOnInit(): void {
+    this.postId = this.route.snapshot.paramMap.get('postId');
+    this.forumId = this.route.snapshot.paramMap.get('selectedForumId');
+    console.log("POSTID",this.postId);
+    console.log("FORUMID",this.forumId);
+  }
+ 
   // Apre il modale di segnalazione
   openReportModal() {
     this.showReportModal = true;
   }
-
+ 
   // Chiude il modale di segnalazione
   closeReportModal() {
     this.showReportModal = false;
     this.reportReason = ''; // Resetta il campo di testo
   }
-
+ 
   // Conferma la segnalazione
   confirmReport() {
     if (this.reportReason.trim()) {
@@ -66,7 +79,7 @@ export class PostComponent {
       alert('Per favore, inserisci una motivazione.');
     }
   }
-
+ 
   // Funzione per inviare la segnalazione
   submitReport(reportedUser: string, reportingUser: string, reason: string, type: string) {
     const reportData = {
@@ -75,14 +88,14 @@ export class PostComponent {
       reason: reason, // Motivazione della segnalazione
       type: type // Tipo di segnalazione (es. "post")
     };
-
+ 
     // Stampa i dati della segnalazione in console
     console.log('Segnalazione inviata:', reportData);
-
+ 
     // Qui puoi aggiungere la logica per inviare i dati a un servizio backend
     // Esempio: this.reportService.submitReport(reportData).subscribe(...);
   }
-
+ 
   // Aggiungi un commento
   addComment() {
     if (this.newComment.text.trim()) {
@@ -98,13 +111,13 @@ export class PostComponent {
       this.newComment.text = '';
     }
   }
-
+ 
   // Mi Piace per il post
   toggleLikePost() {
     this.hasLikedPost = !this.hasLikedPost;
     this.postLikes += this.hasLikedPost ? 1 : -1;
   }
-
+ 
   // Mi Piace per i commenti
   likeComment(comment: any) {
     comment.likes++;

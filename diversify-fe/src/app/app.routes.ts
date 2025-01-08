@@ -10,18 +10,44 @@ import { GeneraleAmministratoreComponent } from './generale-amministratore/gener
 import { FormPostComponent } from './form-post/form-post.component';
 import { GestionePasswordFormComponent } from './gestione-password-form/gestione-password-form.component';
 import { ForumComponent } from './forum/forum.component';
- 
- 
+import { ForumAccessGuard } from './guards/forum-access.guard'; // Aggiungi la guardia per i forum
+import { AuthGuard } from './guards/auth.guard';
+
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
-  { path: 'post', component: PostComponent },  // La nuova rotta per il componente Post
-  { path: 'loggato', component: LoginFormComponent },
+ 
+  //Rotta per mostrare il post del forum
+  { 
+    path: 'post/:postId/:selectedForumId', 
+    component: PostComponent, 
+    canActivate: [ForumAccessGuard] // Protegge l'accesso ai post
+  },
+
+  { 
+    path: 'loggato', 
+    component: LoginFormComponent, 
+    canActivate: [AuthGuard] // Protegge l'accesso alla pagina di login 
+  },
+
   { path: 'registrato', component: RegistrazioneFormComponent },
   { path: 'scheda-area-personale', component: SchedaAreaPersonaleComponent },
   { path: 'pagina-profilo-amministratore', component: PaginaProfiloAmministratoreComponent },
-  { path: 'chi-siamo', component: ChiSiamoComponent },// Rotta per "Chi Siamo"
-  { path: 'generale-amministratore', component: GeneraleAmministratoreComponent },// Rotta per "Generale Amministratore"
-  { path: 'creapost', component: FormPostComponent }, // Rotta per creare un post
-  { path: 'recupero-password', component: GestionePasswordFormComponent } ,
-  { path: 'forum', component: ForumComponent}
+  { path: 'chi-siamo', component: ChiSiamoComponent },
+  { path: 'generale-amministratore', component: GeneraleAmministratoreComponent },
+  { path: 'creapost', component: FormPostComponent },
+  { path: 'recupero-password', component: GestionePasswordFormComponent },
+  
+  // Rotta per mostrare tutti i forum
+  { 
+    path: 'forum', 
+    component: ForumComponent, 
+    canActivate: [ForumAccessGuard] // Protegge l'accesso ai forum
+  },
+
+  // Rotta per mostrare un forum specifico in evidenza
+  { 
+    path: 'forum/:forumId', 
+    component: ForumComponent, 
+    canActivate: [ForumAccessGuard] // Protegge l'accesso ai forum specifici
+  },
 ];
