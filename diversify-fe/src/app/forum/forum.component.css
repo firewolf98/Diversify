@@ -44,6 +44,7 @@ body {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    overflow-y: scroll;
 }
 
 /* Aggiungi una distanza tra il titolo "Forum" e il bordo della sidebar */
@@ -157,3 +158,16 @@ body {
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+button.selected-forum {
+    background-color: #003366 !important; /* Sfondo scuro */
+    color: #fff !important;           /* Testo bianco */
+    font-weight: bold;                /* Grassetto */
+    border: 2px solid #000;           /* Bordo nero */
+    pointer-events: none;             /* Disabilita il comportamento hover */
+  }
+ 
+  /* Mantieni l'effetto hover per gli altri pulsanti */
+  .forum-sidebar button:hover:not(.selected-forum) {
+    background-color: #003366; /* Blu più scuro al passaggio del mouse */
+  }

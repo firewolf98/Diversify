@@ -114,7 +114,6 @@ public class ForumService {
         if (paese == null || paese.isBlank()) {
             throw new IllegalArgumentException("Il parametro 'paese' non può essere nullo o vuoto.");
         }
-        System.out.println("Paese richiesto: " + paese);
 
         return  forumRepository.findByPaese(paese);
     }

@@ -1,37 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { UserService } from './user.service';
- 
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/utenti';
-  private apiPostUrl = 'http://localhost:8080/posts'
+  private apiPostUrl = 'http://localhost:8080/posts';
   private readonly TOKEN_KEY = 'auth_token';
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
-  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null); // Nuovo subject per i dati dell'utente
- 
+  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   constructor(private http: HttpClient, private userService: UserService) {}
- 
-  register(user: { name:string; lastName:string; username: string; password: string; email: string; codiceFiscale: string; domanda: string; risposta: string }): Observable<any> {
-    // Crea l'oggetto per la richiesta di registrazione
-    const registerRequest = {
-      name: user.name,
-      lastName: user.lastName,
-      username: user.username,
-      password: user.password,
-      email: user.email,
-      codiceFiscale: user.codiceFiscale,
-      domanda: user.domanda,
-      risposta: user.risposta
-     
-    };
- 
-    return this.http.post(`${this.apiUrl}/registrazione`, registerRequest);
+
+  // Metodo di registrazione
+  register(user: { name: string; lastName: string; username: string; password: string; email: string; codiceFiscale: string; domanda: string; risposta: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/registrazione`, user);
   }
- 
+
+  // Metodo di login
   login(user: { email: string; password: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, user).pipe(
       tap((response) => {
@@ -39,74 +28,92 @@ export class AuthService {
           this.saveToken(response.token);
           this.userService.setToken(response.token);
           this.isLoggedInSubject.next(true);
-  
+
           // Recupera i dati dell'utente e aggiorna il BehaviorSubject
           this.getUserFromToken().subscribe();
         }
       })
     );
   }
-  
+
   private saveToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
- 
+
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
- 
+
   private hasToken(): boolean {
     return !!this.getToken();
   }
- 
+
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }
- 
+
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     this.isLoggedInSubject.next(false);
     this.userSubject.next(null);
     this.userService.setToken(null);
   }
- 
-  // Nuovo metodo per recuperare i dati dell'utente
+
+  // Metodo per ottenere i dati dell'utente dal token
   private getUserFromToken(): Observable<any> {
     const token = this.getToken();
     if (!token) {
-      return new Observable<any>((observer) => {
-        observer.next(null); // Se non c'è token, ritorna null
-        observer.complete();
-      });
+      return of(null);
     }
-   
+
     return this.http.get<any>(`${this.apiUrl}/recupera_utente`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     }).pipe(
       tap((user) => {
         if (user) {
-          this.userSubject.next(user); // Salva i dati dell'utente
+          this.userSubject.next(user);
         }
       })
     );
   }
- 
-  // Metodo per ottenere i dati dell'utente
+
+  // Metodo per ottenere l'utente corrente
   getUser(): Observable<any> {
-    return this.userSubject.asObservable();
+    const token = this.getToken();
+    if (!token) {
+      return of(null);
+    }
+
+    const user = this.userSubject.value;
+    if (user) {
+      return of(user);
+    }
+
+    // Se il token esiste ma l'utente non è in memoria, recuperalo dal backend
+    return this.getUserFromToken().pipe(
+      tap((userData) => {
+        if (userData) {
+          this.userSubject.next(userData);
+        }
+      }),
+      catchError(() => of(null)) // Restituisci null in caso di errore
+    );
   }
 
   getLoggedUsername(): string | null {
-    const user = this.userSubject.value; // Ottiene i dati dell'utente dal BehaviorSubject
-    return user ? user.username : null; // Restituisce l'username o null se l'utente non è loggato
+    const user = this.userSubject.value;
+    return user ? user.username : null;
+  }
+
+  // Metodo per verificare se l'utente è bannato
+  isUserBanned(): boolean {
+    const user = this.userSubject.value;
+    return user ? user.banned : false;
   }
 
   savePost(postData: { titolo: string; contenuto: string; categoria: string; userAutore: string }): Observable<any> {
     return this.http.post(this.apiPostUrl, postData, {
-      headers: { Authorization: `Bearer ${this.getToken()}` }, // Aggiungi il token di autenticazione
+      headers: { Authorization: `Bearer ${this.getToken()}` },
     });
   }
-  
-  
- 
 }

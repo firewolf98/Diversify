@@ -83,6 +83,10 @@ public class Utente {
      */
 
     private boolean ruolo;
+
+    /**
+     * Definisce se un utente è bannato dai forum
+     */
     private boolean banned;
 }
 

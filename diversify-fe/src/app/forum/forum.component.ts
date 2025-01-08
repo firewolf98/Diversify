@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { RouterModule } from '@angular/router';
 import { ForumService } from '../services/forum.service';
@@ -16,21 +16,33 @@ export class ForumComponent {
   forums: any[] = []; // Lista dei forum
   posts: any[] = []; // Lista dei post del forum selezionato
   selectedForumId: string | null = null; // ID del forum selezionato
+  countryName: string = 'Italia';
  
-  constructor(private http: HttpClient, private router: Router,private forumService: ForumService) {}
+  constructor(private route: ActivatedRoute,private http: HttpClient, private router: Router,private forumService: ForumService) {}
  
   ngOnInit(): void {
-    this.loadForums('Italia'); // Carica i forum del paese selezionato (puoi passare il paese dinamicamente)
+    // Recupera query parameters (country e forumId)
+    this.route.queryParams.subscribe(params => {
+      this.countryName = params['country'] || 'Italia'; // Default 'Italia'
+      this.selectedForumId = params['forumId'] || null;
+      // Carica i dati
+      this.loadForums(this.countryName);
+     
+    });
   }
  
   // Carica i forum associati a un paese
   loadForums(paese: string): void {
-    this.forumService.loadForums(paese).subscribe((data) => {
+    this.forumService.loadForums(paese).subscribe(data => {
       this.forums = data;
-      });  
+      if (this.selectedForumId) {
+        this.selectForum(this.selectedForumId);
+      }
+    });
   }
  
   selectForum(forumId: string): void {
+    this.selectedForumId = forumId;
     const forum = this.forums.find(f => f.idForum === forumId);
     if (forum) {
       this.posts = forum.post; // Imposta i post del forum selezionato
@@ -48,7 +60,9 @@ export class ForumComponent {
       alert('Seleziona un forum prima di creare un post.');
     }
   }
-  
+ 
+  navigateToPost(postId: string): void {
+    this.router.navigate(['/post', postId, this.selectedForumId]);
+  }
+ 
 }
- 
- 
