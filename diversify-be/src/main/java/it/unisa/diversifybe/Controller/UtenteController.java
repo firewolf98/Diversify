@@ -197,7 +197,15 @@ public class UtenteController {
             Utente utente = utenteOptional.get();
 
             // Passo 2: Verifica risposta personale
-            if (!recuperaPasswordRequest.getPersonalAnswer().equals(utente.getRispostaHash())) {
+            String hashedAnswer;
+            try {
+                hashedAnswer = utenteService.hashPassword(recuperaPasswordRequest.getPersonalAnswer());
+            } catch (NoSuchAlgorithmException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
+            }
+
+            // Se hashedAnswer è null (non dovrebbe accadere, ma aggiungiamo ulteriore controllo)
+            if (hashedAnswer == null || !hashedAnswer.equals(utente.getRispostaHash())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Risposta alla domanda personale errata");
             }
 
@@ -218,6 +226,8 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+
 
 
     /**
@@ -297,25 +307,20 @@ public class UtenteController {
         String response = utenteService.deleteUser(token, password);
 
         // Mappa le risposte del servizio ai rispettivi stati HTTP
-        switch (response) {
-            case "Utente non trovato":
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Utente non trovato"); // Restituisce solo il messaggio
-            case "Token non valido":
-            case "Password errata":
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body(response); // Restituisce direttamente il messaggio
-            case "Account eliminato con successo":
-                return ResponseEntity.ok(response); // Restituisce direttamente il messaggio
-            default:
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body("Errore durante l'eliminazione dell'account."); // Restituisce solo il messaggio
-        }
+        return switch (response) {
+            case "Utente non trovato" -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Utente non trovato"); // Restituisce solo il messaggio
+            case "Token non valido", "Password errata" -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(response); // Restituisce direttamente il messaggio
+            case "Account eliminato con successo" ->
+                    ResponseEntity.ok(response); // Restituisce direttamente il messaggio
+            default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Errore durante l'eliminazione dell'account."); // Restituisce solo il messaggio
+        };
     }
 
     /**
      * Recupera un utente in base all'indirizzo email fornito.
-     *
      * Questo metodo gestisce una richiesta POST al percorso "/recupera_domanda".
      * Esso accetta una stringa contenente l'email di un utente come corpo della richiesta
      * e restituisce una risposta contenente i dettagli dell'utente se trovato,
