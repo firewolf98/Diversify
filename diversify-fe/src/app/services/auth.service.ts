@@ -59,23 +59,29 @@ export class AuthService {
     this.userService.setToken(null);
   }
 
-  // Metodo per ottenere i dati dell'utente dal token
+  
   private getUserFromToken(): Observable<any> {
     const token = this.getToken();
     if (!token) {
       return of(null);
     }
-
+  
     return this.http.get<any>(`${this.apiUrl}/recupera_utente`, {
       headers: { Authorization: `Bearer ${token}` },
     }).pipe(
       tap((user) => {
         if (user) {
           this.userSubject.next(user);
+          console.log('Dati utente caricati:', user);
         }
+      }),
+      catchError((error) => {
+        console.error('Errore durante il recupero dei dati utente:', error);
+        return of(null);
       })
     );
   }
+  
 
   // Metodo per ottenere l'utente corrente
   getUser(): Observable<any> {

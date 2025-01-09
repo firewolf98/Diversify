@@ -16,16 +16,33 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> {
     return this.authService.isLoggedIn().pipe(
       map((isLoggedIn) => {
-        if (isLoggedIn) {
-          console.log("ACCESS DENIED: Utente già loggato");
-          this.router.navigate(['/']); // Reindirizza alla homepage se loggato
+        const restrictedPaths = ['scheda-area-personale', 'recupero-password'];
+        const currentPath = route.routeConfig?.path || '';
+
+        // Se non loggato
+        if (!isLoggedIn) {
+          if (currentPath === 'loggato' || currentPath === 'registrato') {
+            return true; // Consenti l'accesso alle pagine di login o registrazione
+          }
+          console.log('ACCESS DENIED: Utente non loggato');
+          this.router.navigate(['/loggato']);
           return false;
         }
-        return true; // Accesso consentito se non loggato
+
+        // Se loggato
+        if (restrictedPaths.includes(currentPath)) {
+          console.log('ACCESS GRANTED: Utente loggato, accesso consentito alla rotta:', currentPath);
+          return true;
+        }
+
+        console.log('ACCESS DENIED: Utente loggato, accesso non consentito a questa rotta:', currentPath);
+        this.router.navigate(['/']); // Reindirizza alla homepage
+        return false;
       }),
       catchError((error) => {
-        console.log("ERRORE durante la verifica dello stato di login:", error);
-        return of(true); // Permette l'accesso in caso di errore
+        console.log('ERRORE durante la verifica dello stato di login:', error);
+        this.router.navigate(['/loggato']);
+        return of(false); // Impedisce l'accesso in caso di errore
       })
     );
   }

@@ -12,42 +12,74 @@ import { GestionePasswordFormComponent } from './gestione-password-form/gestione
 import { ForumComponent } from './forum/forum.component';
 import { ForumAccessGuard } from './guards/forum-access.guard'; // Aggiungi la guardia per i forum
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
  
-  //Rotta per mostrare il post del forum
+  
   { 
     path: 'post/:postId/:selectedForumId', 
     component: PostComponent, 
-    canActivate: [ForumAccessGuard] // Protegge l'accesso ai post
+    canActivate: [ForumAccessGuard] 
   },
 
   { 
     path: 'loggato', 
     component: LoginFormComponent, 
-    canActivate: [AuthGuard] // Protegge l'accesso alla pagina di login 
+    canActivate: [AuthGuard]
   },
 
-  { path: 'registrato', component: RegistrazioneFormComponent },
-  { path: 'scheda-area-personale', component: SchedaAreaPersonaleComponent },
-  { path: 'pagina-profilo-amministratore', component: PaginaProfiloAmministratoreComponent },
-  { path: 'chi-siamo', component: ChiSiamoComponent },
-  { path: 'generale-amministratore', component: GeneraleAmministratoreComponent },
-  { path: 'creapost', component: FormPostComponent },
-  { path: 'recupero-password', component: GestionePasswordFormComponent },
+  { 
+    path: 'registrato',
+     component: RegistrazioneFormComponent,
+     canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'scheda-area-personale',
+    component: SchedaAreaPersonaleComponent,
+    canActivate: [AuthGuard]
+   },
+
+   {
+    path: 'pagina-profilo-amministratore',
+    component: PaginaProfiloAmministratoreComponent,
+    canActivate: [AdminGuard], 
+  },
+
+  {
+    path: 'generale-amministratore',
+    component: GeneraleAmministratoreComponent,
+    canActivate: [AdminGuard], 
+  },
+
+  { 
+    path: 'chi-siamo',
+    component: ChiSiamoComponent
+  },
+
+  { 
+     path: 'creapost',
+     component: FormPostComponent,
+     canActivate: [ForumAccessGuard]
+  },
+
+  { 
+    path: 'recupero-password', 
+    component: GestionePasswordFormComponent,
+    canActivate: [AuthGuard]
+  },
   
-  // Rotta per mostrare tutti i forum
   { 
     path: 'forum', 
     component: ForumComponent, 
-    canActivate: [ForumAccessGuard] // Protegge l'accesso ai forum
+    canActivate: [ForumAccessGuard] 
   },
 
-  // Rotta per mostrare un forum specifico in evidenza
   { 
     path: 'forum/:forumId', 
     component: ForumComponent, 
-    canActivate: [ForumAccessGuard] // Protegge l'accesso ai forum specifici
+    canActivate: [ForumAccessGuard] 
   },
 ];
