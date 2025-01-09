@@ -16,12 +16,12 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> {
     return this.authService.isLoggedIn().pipe(
       map((isLoggedIn) => {
-        const restrictedPaths = ['scheda-area-personale', 'recupero-password'];
+        const restrictedPaths = ['scheda-area-personale'];
         const currentPath = route.routeConfig?.path || '';
 
         // Se non loggato
         if (!isLoggedIn) {
-          if (currentPath === 'loggato' || currentPath === 'registrato') {
+          if (currentPath === 'loggato' || currentPath === 'registrato' || currentPath === 'recupero-password' ) {
             return true; // Consenti l'accesso alle pagine di login o registrazione
           }
           console.log('ACCESS DENIED: Utente non loggato');
