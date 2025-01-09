@@ -3,8 +3,10 @@ package it.unisa.diversifybe.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.management.ConstructorParameters;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,10 +14,15 @@ import java.util.List;
  * La classe {@code ConversazioneChatbot} rappresenta una conversazione tra un utente e la chatbot.
  */
 @Data
+@Document(collection = "ConversazioneChatbot")
 public class ConversazioneChatbot {
 
-    private String idUtente;
+    @Id
     private String idConversazione;
+
+    @Indexed(unique = true) // Impone l'unicità per idUtente
+    private String idUtente;
+
     private LocalDateTime dataUltimaInterazione;
     private List<Messaggio> messaggi;
 

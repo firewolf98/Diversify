@@ -84,18 +84,18 @@ public class ChatbotService {
             conversazione.setMessaggi(new ArrayList<>());
         }
 
-        // Aggiunge il nuovo messaggio
+        // Aggiunge il nuovo messaggio alla lista esistente
         ConversazioneChatbot.Messaggio nuovoMessaggio = new ConversazioneChatbot.Messaggio();
         nuovoMessaggio.setDomandaUtente(chatbotMessage.getQuestion());
         nuovoMessaggio.setRispostaChatbot(chatbotMessage.getAnswer());
         nuovoMessaggio.setTimestamp(LocalDateTime.now());
-
         conversazione.getMessaggi().add(nuovoMessaggio);
+
+        // Aggiorna la data dell'ultima interazione
         conversazione.setDataUltimaInterazione(LocalDateTime.now());
 
-        // Salva la conversazione aggiornata
+        // Salva la conversazione aggiornata nel database
         conversazioneRepository.save(conversazione);
+
     }
-
-
 }

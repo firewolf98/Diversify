@@ -1,0 +1,1 @@
+Questa cartella si occupa di conservare i modelli che il NLP utilizzerà per elaborare le risposte.

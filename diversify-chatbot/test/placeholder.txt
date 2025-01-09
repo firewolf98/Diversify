@@ -1,0 +1,1 @@
+Questa cartella racchiuderà tutti i test effettuati sul chatbot.
