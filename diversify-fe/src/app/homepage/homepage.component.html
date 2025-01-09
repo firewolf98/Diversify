@@ -1,6 +1,5 @@
 <div class="homepage-container">
     <app-map></app-map> <!-- La mappa -->
-    <app-icona-brigid></app-icona-brigid> <!-- L'icona di Brigid-->
+    <app-icona-brigid *ngIf="isLogged"></app-icona-brigid> <!-- Mostra solo se loggato -->
     <app-apertura-chat-bot></app-apertura-chat-bot>
 </div>
-  
