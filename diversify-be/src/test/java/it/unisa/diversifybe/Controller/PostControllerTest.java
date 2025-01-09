@@ -162,13 +162,27 @@ Ogni metodo di test simula un comportamento specifico in base a vari input, veri
         post.setIdForum("forum789");
 
         // Simulazione del comportamento del servizio
-        doNothing().when(postService).save(post);
+        doAnswer(invocation -> {
+            Post argument = invocation.getArgument(0); // Ottiene l'argomento passato al metodo save
+            assertEquals(post, argument); // Verifica che il post passato sia quello atteso
+            return null; // Simula il comportamento di un metodo void
+        }).when(postService).save(any(Post.class));
 
         // Esecuzione del metodo da testare
         Post response = postController.createPost(post);
 
         // Verifica della risposta
-        assertEquals(post, response);
+        assertNotNull(response);
+        assertEquals(post.getIdPost(), response.getIdPost());
+        assertEquals(post.getTitolo(), response.getTitolo());
+        assertEquals(post.getIdAutore(), response.getIdAutore());
+        assertEquals(post.getContenuto(), response.getContenuto());
+        assertEquals(post.getDataCreazione(), response.getDataCreazione());
+        assertEquals(post.getLike(), response.getLike());
+        assertEquals(post.getIdForum(), response.getIdForum());
+
+        // Verifica delle interazioni con il servizio
+        verify(postService, times(1)).save(post);
 
         // Stampa dei dettagli della risposta
         System.out.println("Post Creato:");
@@ -180,6 +194,7 @@ Ogni metodo di test simula un comportamento specifico in base a vari input, veri
         System.out.println("Numero di Like: " + response.getLike());
         System.out.println("ID Forum: " + response.getIdForum());
     }
+
 
     @Test
     public void testCreatePost_NullPost() {

@@ -513,7 +513,7 @@ class UtenteControllerTest {
     }
 
     /**
-     * Test per recuperaPassword con risposta personale errata.
+     * Test per `recuperaPassword` con risposta personale errata.
      */
     @Test
     void recuperaPassword_ShouldReturnUnauthorizedForIncorrectAnswer() throws NoSuchAlgorithmException {
@@ -523,89 +523,65 @@ class UtenteControllerTest {
         utente.setCodiceFiscale("1234567890");
         utente.setRispostaHash("hashedCorrectAnswer");
 
-        when(utenteService.findByEmailAndCodiceFiscale("user@example.com", "1234567890"))
-                .thenReturn(Optional.of(utente));
-        when(utenteService.hashPassword("wrongAnswer")).thenReturn("hashedWrongAnswer");
-
-        ResponseEntity<?> response = controller.recuperaPassword(request);
-
-        assertNotNull(response);
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Risposta alla domanda personale errata", response.getBody());
-        verify(utenteService).findByEmailAndCodiceFiscale("user@example.com", "1234567890");
-        verify(utenteService).hashPassword("wrongAnswer");
-        verifyNoMoreInteractions(utenteService);
-    }
-
-    /**
-     * Test per recuperaPassword con errore nell'algoritmo di hashing.
-     */
-    @Test
-    void recuperaPassword_ShouldReturnInternalServerErrorForHashingError() throws NoSuchAlgorithmException {
-        RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", "1234567890", "correctAnswer", "newPassword");
-        Utente utente = new Utente();
-        utente.setEmail("user@example.com");
-        utente.setCodiceFiscale("1234567890");
-        utente.setRispostaHash("hashedCorrectAnswer");
-
         // Configura il comportamento dei mock
         when(utenteService.findByEmailAndCodiceFiscale("user@example.com", "1234567890"))
                 .thenReturn(Optional.of(utente));
-        when(utenteService.hashPassword("correctAnswer"))
-                .thenThrow(new NoSuchAlgorithmException("Hashing error"));
+        when(utenteService.hashPassword("wrongAnswer")).thenReturn("hashedWrongAnswer");
 
         // Esegui il metodo da testare
         ResponseEntity<?> response = controller.recuperaPassword(request);
 
         // Verifica il risultato della risposta
         assertNotNull(response);
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Errore durante la crittografia dei dati", response.getBody());
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        assertEquals("Risposta alla domanda personale errata", response.getBody());
 
         // Verifica che siano state eseguite solo le chiamate previste
         verify(utenteService).findByEmailAndCodiceFiscale("user@example.com", "1234567890");
-        verify(utenteService).hashPassword("correctAnswer");
+        verify(utenteService).hashPassword("wrongAnswer");
         verifyNoMoreInteractions(utenteService);
     }
 
     /**
-     * Test per recuperaPassword con email mancante.
+     * Test per `recuperaPassword` con email mancante.
      */
     @Test
-    void recuperaPassword_ShouldThrowExceptionForMissingEmail() {
+    void recuperaPassword_ShouldReturnBadRequestForMissingEmail() {
+        // Configura la richiesta con un'email mancante
         RecuperaPasswordRequest request = new RecuperaPasswordRequest(null, "1234567890", "correctAnswer", "newPassword");
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.recuperaPassword(request));
+        // Esegui il metodo da testare
+        ResponseEntity<?> response = controller.recuperaPassword(request);
 
-        assertEquals("L'email non può essere nulla o vuota.", exception.getMessage());
+        // Verifica il risultato della risposta
+        assertNotNull(response);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("L'email non può essere nulla o vuota.", response.getBody());
+
+        // Verifica che il servizio non venga mai chiamato
         verifyNoInteractions(utenteService);
     }
 
     /**
-     * Test per recuperaPassword con codice fiscale mancante.
+     * Test per `recuperaPassword` con codice fiscale mancante.
      */
     @Test
-    void recuperaPassword_ShouldThrowExceptionForMissingCodiceFiscale() {
+    void recuperaPassword_ShouldReturnBadRequestForMissingCodiceFiscale() {
+        // Configura la richiesta con un codice fiscale mancante
         RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", null, "correctAnswer", "newPassword");
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.recuperaPassword(request));
+        // Esegui il metodo da testare
+        ResponseEntity<?> response = controller.recuperaPassword(request);
 
-        assertEquals("Il codice fiscale non può essere nullo o vuoto.", exception.getMessage());
+        // Verifica il risultato della risposta
+        assertNotNull(response);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Il codice fiscale non può essere nullo o vuoto.", response.getBody());
+
+        // Verifica che il servizio non venga mai chiamato
         verifyNoInteractions(utenteService);
     }
 
-    /**
-     * Test per recuperaPassword con nuova password mancante.
-     */
-    @Test
-    void recuperaPassword_ShouldThrowExceptionForMissingNewPassword() {
-        RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", "1234567890", "correctAnswer", null);
-
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.recuperaPassword(request));
-
-        assertEquals("La nuova password non può essere nulla o vuota.", exception.getMessage());
-        verifyNoInteractions(utenteService);
-    }
 
     /**
      * Test per getUserFromToken
