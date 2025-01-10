@@ -20,7 +20,7 @@ export class RegistrazioneFormComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthService,    private router: Router ) {
     this.moduloRegistrazione = this.fb.group({
-      nome: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]], // Nome con prima lettera maiuscola
+      nome: ['', [Validators.required, Validators.pattern("^[A-ZÀ-Ý][a-zà-ÿ' -]*$")]],
       cognome: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]], // Cognome con prima lettera maiuscola
       domanda: ['', [Validators.required]],
       risposta: ['', [Validators.required]],
@@ -34,7 +34,7 @@ export class RegistrazioneFormComponent {
         ],
       ],
       confermaPassword: ['', [Validators.required]],
-      cf: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{16}$')]], // Codice fiscale di 16 caratteri
+      cf: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{16}$'), this.uppercaseValidator,]], // Codice fiscale di 16 caratteri
       username: ['', [Validators.required, Validators.minLength(5)]], // Username di almeno 5 caratteri
     }, {
       validators: this.passwordsMustMatch,  // Validatore per le password
@@ -81,6 +81,15 @@ export class RegistrazioneFormComponent {
     }
     return null;  // Restituisce null se le password sono valide
   }
+
+    // Validazione personalizzata per verificare che il codice fiscale sia in uppercase
+    uppercaseValidator(control: AbstractControl): ValidationErrors | null {
+      const value = control.value;
+      if (value && value !== value.toUpperCase()) {
+        return { notUppercase: true }; // Errore se non è tutto in uppercase
+      }
+      return null;
+    }
 
 
   // Funzione per verificare se il Codice Fiscale esiste già (mock del database)
