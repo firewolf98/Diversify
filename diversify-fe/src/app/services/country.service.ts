@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
  
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,9 @@ export class CountryService {
   constructor(private http: HttpClient) {}
  
   getCountries(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      tap((data) => console.log('Countries from backend:', data))
+    );
   }
 }
  

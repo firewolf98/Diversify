@@ -159,7 +159,7 @@ public class PaeseController {
      * @throws IllegalArgumentException se l'ID del Paese è nullo o vuoto.
      */
     @GetMapping("/{idPaese}/documenti-informativi")
-    public ResponseEntity<List<DocumentoInformativo>> getDocumentiInformativiByPaese(@PathVariable String idPaese) {
+    public ResponseEntity<?> getDocumentiInformativiByPaese(@PathVariable String idPaese) {
         if (idPaese == null || idPaese.trim().isEmpty()) {
             throw new IllegalArgumentException("L'ID del Paese non può essere nullo o vuoto.");
         }
