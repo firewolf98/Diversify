@@ -15,7 +15,7 @@
         />
         <div *ngIf="moduloRegistrazione.get('nome')?.touched && moduloRegistrazione.get('nome')?.invalid" class="error-message">
           <div *ngIf="moduloRegistrazione.get('nome')?.hasError('required')">Il nome è obbligatorio</div>
-          <div *ngIf="moduloRegistrazione.get('nome')?.hasError('pattern')">Il nome deve iniziare con una lettera maiuscola</div>
+          <div *ngIf="moduloRegistrazione.get('nome')?.hasError('pattern')">Solo la prima lettera del nome è maiuscola e il nome non può contenere simboli eccetto spazi</div>
         </div>
       </div>
   
@@ -127,6 +127,9 @@
           <div *ngIf="moduloRegistrazione.get('cf')?.hasError('required')">Il codice fiscale è obbligatorio</div>
           <div *ngIf="moduloRegistrazione.get('cf')?.hasError('pattern')">Il codice fiscale deve contenere esattamente 16 caratteri</div>
           <div *ngIf="moduloRegistrazione.get('cf')?.hasError('cfEsistente')">Il codice fiscale è già presente nel sistema</div>
+          <div *ngIf="moduloRegistrazione.get('cf')?.hasError('notUppercase')">
+            Il codice fiscale deve essere scritto in lettere maiuscole.
+          </div>
         </div>
       </div>
   

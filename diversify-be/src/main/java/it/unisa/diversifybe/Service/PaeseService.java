@@ -119,7 +119,7 @@ public class PaeseService {
 
     /**
      * Restituisce i paesi associati a un forum specifico.
-     *
+     *<p>
      * Questo metodo verifica se l'ID del forum è nullo o vuoto e solleva un'eccezione {@link IllegalArgumentException}.
      * Restituisce una lista di paesi associati al forum specificato.
      *
@@ -138,7 +138,7 @@ public class PaeseService {
     }
     /**
      * Restituisce i paesi associati a una campagna di crowdfunding specifica.
-     *
+     *<p>
      * Questo metodo verifica se l'ID della campagna è nullo o vuoto e solleva un'eccezione {@link IllegalArgumentException}.
      * Restituisce una lista di paesi associati alla campagna specificata.
      *

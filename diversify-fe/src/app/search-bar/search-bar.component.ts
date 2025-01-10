@@ -63,21 +63,22 @@ export class SearchBarComponent implements OnInit {
   }
 
   toggleDropdown(): void {
-    this.isDropdownVisible = !this.isDropdownVisible;  // Toggle visibilità della tendina
+    this.isDropdownVisible = !this.isDropdownVisible;  
   }
 
   selectCountry(country: string): void {
-    this.searchTerm = country;  // Imposta il Paese selezionato
-    this.filteredCountries = []; // Nascondi i risultati
-    this.isDropdownVisible = false;  // Chiudi la tendina dopo la selezione
+    this.searchTerm = country; 
+    this.filteredCountries = []; 
+    this.isDropdownVisible = false;  
   }
 
   // Aggiungi il listener per il clic fuori dalla barra di ricerca
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent): void {
-    const clickedInside = event.target instanceof HTMLElement && event.target.closest('.search-container');
+    const clickedInside = (event.target as HTMLElement).closest('.search-container');
+    
     if (!clickedInside) {
-      this.isDropdownVisible = false;  // Nascondi la tendina se l'utente clicca fuori
-    }
+      this.isDropdownVisible = false; // Nascondi il dropdown se clicchi fuori
   }
+ }
 }

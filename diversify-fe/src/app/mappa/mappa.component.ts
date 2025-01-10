@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ComponentRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ComponentRef, HostListener } from '@angular/core';
 import { OSM } from 'ol/source';
 import { View } from 'ol';
 import { Tile as TileLayer } from 'ol/layer';
@@ -34,13 +34,15 @@ export class MapComponent implements OnInit, AfterViewInit {
   private category: string = 'criticitaGenerale'; // Categoria selezionata
   private vectorLayer: VectorLayer | undefined;
   private popupRef: ComponentRef<PopupGridComponent> | null = null;
- 
+
   constructor(private viewContainerRef: ViewContainerRef,
-    private countryService:CountryService,
+    private countryService: CountryService,
     private searchingCountryService: SearchingCountryService
   ) {
     this.countryService.getCountries().subscribe((data) => {
+      console.log('Dati ricevuti dal backend:', data); // Controlla se `idPaese` è presente
       this.countries = data.map((country) => ({
+        id: country.idPaese, // Assicurati che l'oggetto abbia un campo ID
         name: country.nome,
         coordinates: this.getCoordinatesForCountry(country.nome),
         criticitaGenerale: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità Generale')?.gravita,
@@ -53,13 +55,14 @@ export class MapComponent implements OnInit, AfterViewInit {
       }));
       this.onCategoryChange({ target: { value: this.category } });
     });
- 
+
     this.searchingCountryService.selectedCountry$.subscribe((country) => {
       this.updateMapWithCountry(country); // aggiorna la mappa con il paese selezionato
     });
   }
- 
+
   ngOnInit(): void {
+    
     this.onCategoryChange({ target: { value: this.category } });
     this.searchingCountryService.resetMap$.subscribe(() => {
       this.resetMap(); // Esegui il reset della mappa quando l'evento viene emesso
@@ -190,29 +193,32 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map?.addLayer(this.vectorLayer);
   }
  
-  // Funzione per mostrare il popup (aggiungila se necessario)
   private openPopupGrid(countryName: string, coordinate: any): void {
- 
     const country = this.countries?.find(c => c.name === countryName);
+    console.log('Oggetto Paese:', country); // Stampa i dettagli del paese selezionato
     const tipoCriticita = country ? country.tipoCriticita : '';  // Assegna una stringa vuota se non c'è
- 
+    const countryId = country?.id || null;
+  
+    console.log('ID del Paese selezionato:', countryId); // Stampa l'ID del paese nella console
+  
     this.closePopupGrid();
- 
+  
     const componentRef = this.viewContainerRef.createComponent(PopupGridComponent);
     componentRef.instance.countryName = countryName;
     componentRef.instance.tipoCriticita = tipoCriticita;  // Passa la stringa vuota se non c'è
-    componentRef.instance.flag = country.bandiera;
- 
+    componentRef.instance.flag = country?.bandiera || '';
+    componentRef.instance.idPaese = countryId || ''; // Passa l'ID del paese al popup
+  
     this.popupRef = componentRef;
-   
+  
     const popupElement = document.createElement('div');
     popupElement.classList.add('popup');
     popupElement.appendChild(componentRef.location.nativeElement);
     document.body.appendChild(popupElement);
- 
+  
     componentRef.instance.closePopup.subscribe(() => this.closePopupGrid());
   }
- 
+
   private getCoordinatesForCountry(name: string): [number, number] {
     const staticCoordinates: { [key: string]: [number, number] } = {
       "italia": [1398226.38, 5161471.19],
@@ -279,6 +285,17 @@ export class MapComponent implements OnInit, AfterViewInit {
       // Rimuovi eventuali elementi DOM residui
       const existingPopups = document.querySelectorAll('.popup');
       existingPopups.forEach(popup => popup.remove());
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const clickedInsidePopup = target.closest('.popup');
+    const clickedOnMap = target.closest('#map');
+
+    if (!clickedInsidePopup && !clickedOnMap) {
+      this.closePopupGrid();
     }
   }
  

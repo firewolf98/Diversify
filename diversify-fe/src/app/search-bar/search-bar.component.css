@@ -69,6 +69,7 @@ div {
 
 .search-container {
     position: relative;
+    display: inline-block;
     width: 100%; /* La barra di ricerca occupa il 100% della larghezza disponibile */
 }
 
