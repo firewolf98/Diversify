@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ComponentRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ComponentRef, HostListener } from '@angular/core';
 import { OSM } from 'ol/source';
 import { View } from 'ol';
 import { Tile as TileLayer } from 'ol/layer';
@@ -279,6 +279,17 @@ export class MapComponent implements OnInit, AfterViewInit {
       // Rimuovi eventuali elementi DOM residui
       const existingPopups = document.querySelectorAll('.popup');
       existingPopups.forEach(popup => popup.remove());
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const clickedInsidePopup = target.closest('.popup');
+    const clickedOnMap = target.closest('#map');
+
+    if (!clickedInsidePopup && !clickedOnMap) {
+      this.closePopupGrid();
     }
   }
  
