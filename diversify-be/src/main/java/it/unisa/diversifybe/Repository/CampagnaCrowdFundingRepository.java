@@ -2,6 +2,7 @@ package it.unisa.diversifybe.Repository;
 
 import it.unisa.diversifybe.Model.CampagnaCrowdFunding;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -95,4 +96,7 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
      */
 
     List<CampagnaCrowdFunding> findByCategoria(String keyword);
+
+    @Query("{ 'Paese': ?0 }")
+    List<CampagnaCrowdFunding> findCampagneByPaese(String paese);
 }

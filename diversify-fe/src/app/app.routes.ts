@@ -10,9 +10,11 @@ import { GeneraleAmministratoreComponent } from './generale-amministratore/gener
 import { FormPostComponent } from './form-post/form-post.component';
 import { GestionePasswordFormComponent } from './gestione-password-form/gestione-password-form.component';
 import { ForumComponent } from './forum/forum.component';
-import { ForumAccessGuard } from './guards/forum-access.guard'; // Aggiungi la guardia per i forum
+import { ForumAccessGuard } from './guards/forum-access.guard'; 
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { CampagnaCrowdfundingComponent } from './campagna-crowdfunding/campagna-crowdfunding.component';
+
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -81,5 +83,11 @@ export const routes: Routes = [
     path: 'forum/:forumId', 
     component: ForumComponent, 
     canActivate: [ForumAccessGuard] 
+  },
+
+  {
+    path: 'campagne/:paese', 
+    component: CampagnaCrowdfundingComponent,
+    canActivate: [AuthGuard], 
   },
 ];

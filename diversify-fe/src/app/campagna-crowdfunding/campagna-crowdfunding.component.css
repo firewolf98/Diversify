@@ -1,0 +1,86 @@
+/* Contenitore principale delle campagne */
+.campaign-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffebe2; /* Colore di sfondo caldo */
+    overflow-y: scroll;
+}
+
+/* Stile per ogni singola card della campagna */
+.campaign-card {
+    width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    
+}
+
+/* Sfondo della campagna con immagine */
+.campaign-background {
+    width: 100%;
+    height: 390px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Contenuto della campagna */
+.campaign-content {
+    padding: 15px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.campaign-content h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #004b8f;
+}
+
+.campaign-content p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.campaign-content p strong {
+    font-weight: bold;
+    color: #004b8f;
+}
+
+/* Stile per il link di donazione */
+.donation-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.donation-link:hover {
+    background-color: #e64a19;
+}
+
+/* Effetto hover sulla card */
+.campaign-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Messaggio per quando non ci sono campagne */
+.campaign-container p {
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+    margin-top: 20px;
+}

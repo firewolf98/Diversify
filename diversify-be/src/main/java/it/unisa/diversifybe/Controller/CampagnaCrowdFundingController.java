@@ -32,9 +32,10 @@ public class CampagnaCrowdFundingController {
     public ResponseEntity<List<CampagnaCrowdFunding>> getAllCampagne() {
         return ResponseEntity.ok(service.getAllCampagne());
     }
-    @GetMapping("/api/campagne/by-paese/{paese}")
+    @GetMapping("/by-paese/{paese}")
     public ResponseEntity<List<CampagnaCrowdFunding>> getCampagneByPaese(@PathVariable String paese) {
         List<CampagnaCrowdFunding> campagne = service.findCampagneByPaese(paese);
+
         if (campagne.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
