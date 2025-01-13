@@ -16,6 +16,10 @@
     overflow: auto /* Nasconde il contenuto che esce dal contenitore */
 }
 
+* {
+    font-family: 'Roboto', sans-serif !important /* Utilizza il font Roboto per tutti gli elementi */
+}
+
 button.reset-btn {
     background-color: #6C63FF; /* Colore viola */
     color: white;
