@@ -1,11 +1,14 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.CampagnaCrowdFunding;
+import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Repository.CampagnaCrowdFundingRepository;
+import it.unisa.diversifybe.Repository.PaeseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CampagnaCrowdFundingService {
 
+    private final PaeseRepository paeseRepository;
     private final CampagnaCrowdFundingRepository repository;
     private final CampagnaCrowdFundingRepository campagnaCrowdFundingRepository;
 
@@ -35,14 +39,27 @@ public class CampagnaCrowdFundingService {
      * @param idCampagna l'ID della campagna.
      * @return un Optional contenente la campagna se trovata, altrimenti vuoto.
      */
-
-
     public Optional<CampagnaCrowdFunding> getCampagnaByIdCampagna(String idCampagna) {
         if (idCampagna == null || idCampagna.isBlank()) {
             throw new IllegalArgumentException("L'ID della campagna non può essere nullo o vuoto.");
         }
-        return repository.findByIdCampagna(idCampagna).stream().findFirst();
+
+        // Cerca nei documenti della collection Paese
+        List<Paese> paesi = paeseRepository.findAll(); // Assumendo che esista un metodo per ottenere tutti i Paesi
+
+        for (Paese paese : paesi) {
+            if (paese.getCampagneCrowdfunding() != null) {
+                for (CampagnaCrowdFunding campagna : paese.getCampagneCrowdfunding()) {
+                    if (idCampagna.equals(campagna.getIdCampagna())) {
+                        return Optional.of(campagna); // Restituisci la campagna trovata
+                    }
+                }
+            }
+        }
+
+        return Optional.empty(); // Restituisci un Optional vuoto se non trovata
     }
+
 
     /**
      * Restituisce tutte le campagne con un titolo esatto specificato.
@@ -111,8 +128,19 @@ public class CampagnaCrowdFundingService {
 
 
     public List<CampagnaCrowdFunding> findCampagneByPaese(String paese) {
-        return campagnaCrowdFundingRepository.findByPaese(paese);
+        List<Paese> paesi = paeseRepository.findByNome(paese);
+        List<CampagnaCrowdFunding> campagneEstratte = new ArrayList<>();
+
+        for (Paese p : paesi) {
+            if (p.getCampagneCrowdfunding() != null) {
+                campagneEstratte.addAll(p.getCampagneCrowdfunding());
+            }
+        }
+
+        return campagneEstratte;
     }
+
+
 
     /**
      * Cerca le campagne in base alla data prevista di fine.

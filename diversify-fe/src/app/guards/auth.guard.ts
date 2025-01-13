@@ -16,12 +16,16 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> {
     return this.authService.isLoggedIn().pipe(
       map((isLoggedIn) => {
-        const restrictedPaths = ['scheda-area-personale'];
+        const restrictedPaths = ['scheda-area-personale', 'campagne']; // Aggiunto 'campagne' come rotta protetta
         const currentPath = route.routeConfig?.path || '';
 
         // Se non loggato
         if (!isLoggedIn) {
-          if (currentPath === 'loggato' || currentPath === 'registrato' || currentPath === 'recupero-password' ) {
+          if (
+            currentPath === 'loggato' ||
+            currentPath === 'registrato' ||
+            currentPath === 'recupero-password'
+          ) {
             return true; // Consenti l'accesso alle pagine di login o registrazione
           }
           console.log('ACCESS DENIED: Utente non loggato');
@@ -29,8 +33,8 @@ export class AuthGuard implements CanActivate {
           return false;
         }
 
-        // Se loggato
-        if (restrictedPaths.includes(currentPath)) {
+        // Se loggato, consenti l'accesso alle rotte protette
+        if (restrictedPaths.some((path) => currentPath.startsWith(path))) {
           console.log('ACCESS GRANTED: Utente loggato, accesso consentito alla rotta:', currentPath);
           return true;
         }

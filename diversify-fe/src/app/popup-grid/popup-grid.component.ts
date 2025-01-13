@@ -63,7 +63,6 @@ export class PopupGridComponent {
       console.log('ID Paese non fornito.');
     }
   }
-  
 
   private updateButtons(): void {
     this.buttons = [
@@ -100,20 +99,16 @@ export class PopupGridComponent {
           ]
         : []),
       {
-        label: `Tutti i forum su ${this.countryName}`,
-        color: 'blue',
-        size: 'small',
-        action: () => this.goToForum(),
-      },
-      {
-        label: `Campagna di crowdfunding: Ċentru għall-persuni b'diżabilità f'${this.countryName}`,
-        color: 'green',
-        size: 'medium',
-      },
-      {
         label: `Tutte le campagne di crowdfunding`,
         color: 'blue',
         size: 'medium',
+        action: () => this.goToAllCampagne(),
+      },
+      {
+        label: `Campagna di crowdfunding: ${this.countryName}`,
+        color: 'green',
+        size: 'medium',
+        action: () => this.goToSpecificCampagna('CAMP01'), // Passa l'ID specifico
       },
     ];
   }
@@ -139,4 +134,18 @@ export class PopupGridComponent {
   openVideo(link: string): void {
     window.open(link, '_blank'); // Apre il link video in una nuova scheda.
   }
+
+  // Naviga alla lista completa delle campagne di crowdfunding.
+  private goToAllCampagne(): void {
+    this.closePopup.emit();
+    this.router.navigate(['/campagne', this.countryName]);
+  }
+
+  // Naviga a una specifica campagna di crowdfunding.
+private goToSpecificCampagna(idCampagna: string): void {
+  this.closePopup.emit();
+  this.router.navigate(['/campagne', this.countryName], {
+    queryParams: { idCampagna },
+  });
+}
 }
