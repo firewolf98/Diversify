@@ -1,0 +1,24 @@
+<div class="container">
+    <h1>Documento informativo</h1>
+    <h5>TESTO INFORMATIVO</h5>
+  
+    <p>Seleziona un video:</p>
+    <select id="video-select" (change)="onVideoChange($event)">
+      <option *ngFor="let video of videos" [value]="video.name">{{ video.name }}</option>
+    </select>
+  
+    <p>Seleziona un documento:</p>
+    <select id="text-select" (change)="onTextChange($event)">
+      <option *ngFor="let text of texts" [value]="text.name">{{ text.name }}</option>
+    </select>
+
+    <div class="document-content">
+      <h2>Contenuto del Documento</h2>
+      <p *ngIf="selectedDocument">{{ selectedDocument }}</p>
+      <p *ngIf="!selectedDocument">Seleziona un documento per visualizzarne il contenuto.</p>
+      
+      <!-- Bottone posizionato a destra all'interno del contenuto -->
+      <button class="download-button" (click)="downloadPDF()">Scarica PDF</button>
+    </div>
+  </div>
+  
