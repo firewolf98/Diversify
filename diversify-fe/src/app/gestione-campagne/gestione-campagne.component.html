@@ -7,9 +7,9 @@
         <div class="filters">
             <label for="countryFilter">Paese:</label>
             <select id="countryFilter" class="filter-select" [(ngModel)]="selectedCountry" (change)="filterAndSortCampaigns()">
-                <option *ngFor="let country of uniqueCountries" [value]="country">
+                <option *ngFor="let country of countries" [value]="country">
                     {{ country }}
-                </option>
+                  </option>
             </select>
 
             <label for="statusFilter">Status:</label>
@@ -69,9 +69,9 @@
         <div class="campo-paese">
             <label for="country">Paese:</label>
             <select id="country" [(ngModel)]="campaign.country" name="country" required>
-                <option *ngFor="let country of uniqueCountries" [value]="country">
+                <option *ngFor="let country of countries" [value]="country">
                     {{ country }}
-                </option>
+                  </option>
             </select>
         </div>
 
@@ -146,14 +146,15 @@
         <div class="search-container">
             <label class="label-country">Scegli un Paese UE:</label> <br>
             <select id="countryFilter" class="filter-select" [(ngModel)]="campaign.country" name="country">
-                <option *ngFor="let country of uniqueCountries" [value]="country">
+                <option *ngFor="let country of countries" [value]="country">
                     {{ country }}
-                </option>
+                  </option>
             </select>
             <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
-                <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
+                <li *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)">
                     {{ country }}
-                </li>
+                  </li>
+                  
             </ul>
         </div>
 

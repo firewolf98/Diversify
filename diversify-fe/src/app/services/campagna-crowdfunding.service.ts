@@ -19,5 +19,22 @@ export class CampagnaService {
     const url = `${this.apiUrl}/${idCampagna}`;
     return this.http.get<any>(url);
   }
+
+  getAllCampagne(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  createCampagna(campaign: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, campaign);
+  }
+
+  updateCampagna(campaign: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${campaign.idCampagna}`, campaign);
+  }
+
+  deleteCampagna(idCampagna: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${idCampagna}`);
+  }
+  
   
 }
