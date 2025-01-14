@@ -79,7 +79,6 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
 
     List<CampagnaCrowdFunding> findByStato(String stato);
 
-
     /**
      * Trova una lista di campagne in base alla categoria della campagna.
      *
