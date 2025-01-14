@@ -52,7 +52,7 @@
     <div class="right-container">
         <div *ngIf="isLoggedIn(); else notLoggedIn">
             <div class="auth-buttons">
-                <button class="auth-button" (click)="logout()">Logout</button>
+                <button class="auth-button" (click)="logout()">Disconnetti</button>
                 <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()" class="profile-icon">
             </div>
         </div>
@@ -79,7 +79,7 @@
     <div *ngIf="isLoggedIn()" class="menu-items">
         <a (click)="navigateToProfile()" >Gestione Profilo</a>
         <div class="auth-buttons">
-            <button class="auth-button" (click)="logout()">Logout</button>
+            <button class="auth-button" (click)="logout()">Disconnetti</button>
         </div>
     </div>
     <div *ngIf="!isLoggedIn()" class="auth-buttons">
