@@ -7,16 +7,16 @@
         <div class="filters">
             <label for="countryFilter">Paese:</label>
             <select id="countryFilter" class="filter-select" [(ngModel)]="selectedCountry" (change)="filterAndSortCampaigns()">
-                <option *ngFor="let country of uniqueCountries" [value]="country">
+                <option *ngFor="let country of countries" [value]="country">
                     {{ country }}
-                </option>
+                  </option>
             </select>
 
             <label for="statusFilter">Status:</label>
             <select id="statusFilter" class="filter-select" [(ngModel)]="selectedStatus" (change)="filterAndSortCampaigns()">
                 <option value="">Tutti</option>
-                <option value="Pubblicata">Pubblicata</option>
-                <option value="Terminata">Terminata</option>
+                <option value="attiva">Attiva</option>
+                <option value="chiusa">Chiusa</option>
             </select>
 
             <button class="btn reset-btn" (click)="resetFilters()">Reset Filtri</button>
@@ -69,9 +69,9 @@
         <div class="campo-paese">
             <label for="country">Paese:</label>
             <select id="country" [(ngModel)]="campaign.country" name="country" required>
-                <option *ngFor="let country of uniqueCountries" [value]="country">
+                <option *ngFor="let country of countries" [value]="country">
                     {{ country }}
-                </option>
+                  </option>
             </select>
         </div>
 
@@ -122,16 +122,16 @@
             <input id="deadline" type="date" [(ngModel)]="campaign.deadline" name="deadline" required />
         </div>
 
-        <!-- Carica Immagine di Sfondo -->
+        <!-- Link Immagine di Sfondo -->
         <div class="campo-immagine">
-            <label for="backgroundImage">Carica Immagine di Sfondo:</label>
-            <input type="file" (change)="onImageSelected($event)" />
+            <label for="backgroundImage">Link Immagine di Sfondo:</label>
+            <input id="backgroundImage" type="text" [(ngModel)]="campaign.backgroundImage" name="backgroundImage" required />
         </div>
 
         <!-- Anteprima Immagine -->
-        <div *ngIf="imagePreview" class="background-preview">
+        <div *ngIf="campaign.backgroundImage" class="background-preview">
             <h4>Anteprima Immagine:</h4>
-            <img [src]="imagePreview" alt="Anteprima Immagine" />
+            <img [src]="campaign.backgroundImage" alt="Anteprima Immagine" />
         </div>
 
         <button type="submit" class="btn save-btn">Salva</button>
@@ -146,14 +146,15 @@
         <div class="search-container">
             <label class="label-country">Scegli un Paese UE:</label> <br>
             <select id="countryFilter" class="filter-select" [(ngModel)]="campaign.country" name="country">
-                <option *ngFor="let country of uniqueCountries" [value]="country">
+                <option *ngFor="let country of countries" [value]="country">
                     {{ country }}
-                </option>
+                  </option>
             </select>
             <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
-                <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
+                <li *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)">
                     {{ country }}
-                </li>
+                  </li>
+                  
             </ul>
         </div>
 
@@ -204,16 +205,16 @@
             <input id="expiryDate" type="date" [(ngModel)]="campaign.deadline" name="expiryDate" required />
         </div>
 
-        <!-- Carica Immagine di Sfondo -->
+        <!-- Link Immagine di Sfondo -->
         <div class="campo-immagine">
-            <label for="backgroundImage">Carica Immagine di Sfondo:</label>
-            <input type="file" (change)="onImageSelected($event)" />
+            <label for="backgroundImage">Link Immagine di Sfondo:</label>
+            <input id="backgroundImage" type="text" [(ngModel)]="campaign.backgroundImage" name="backgroundImage" required />
         </div>
 
         <!-- Anteprima Immagine -->
-        <div *ngIf="imagePreview" class="background-preview">
+        <div *ngIf="campaign.backgroundImage" class="background-preview">
             <h4>Anteprima Immagine:</h4>
-            <img [src]="imagePreview" alt="Anteprima Immagine" />
+            <img [src]="campaign.backgroundImage" alt="Anteprima Immagine" />
         </div>
 
         <button type="submit" class="btn save-btn">Salva Modifiche</button>

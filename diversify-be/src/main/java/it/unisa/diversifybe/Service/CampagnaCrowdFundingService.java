@@ -30,8 +30,16 @@ public class CampagnaCrowdFundingService {
      * @return una lista di tutte le campagne disponibili.
      */
     public List<CampagnaCrowdFunding> getAllCampagne() {
-        return repository.findAll();
+        List<CampagnaCrowdFunding> allCampaigns = new ArrayList<>();
+        List<Paese> paesi = paeseRepository.findAll();
+        for (Paese paese : paesi) {
+            if (paese.getCampagneCrowdfunding() != null) {
+                allCampaigns.addAll(paese.getCampagneCrowdfunding());
+            }
+        }
+        return allCampaigns;
     }
+
 
     /**
      * Cerca una campagna di crowdfunding in base al suo ID.
@@ -107,17 +115,6 @@ public class CampagnaCrowdFundingService {
         }
         return repository.findByStato(stato);
     }
-
-    /**
-     * Restituisce le campagne filtrate per categoria.
-     *
-     * @param categoria la categoria delle campagne da filtrare.
-     * @return una lista di campagne per categoria.
-     */
-    public List<CampagnaCrowdFunding> getCampagneByCategoria(String categoria) {
-        return repository.findByCategoria(categoria);
-    }
-
 
     /**
      * Cerca le campagne in base al Paese in cui sono state pubblicate

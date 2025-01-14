@@ -1,26 +1,21 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importa CommonModule
-import { FormsModule } from '@angular/forms'; // Importa FormsModule per [(ngModel)]
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CampagnaService } from '../services/campagna-crowdfunding.service';
 
-// Elenco dei Paesi dell'Unione Europea
-const countriesDB = [
-  'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia', 
-  'Germania', 'Grecia', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo', 'Malta', 'Paesi Bassi', 
-  'Polonia', 'Portogallo', 'Repubblica Ceca', 'Romania', 'Slovacchia', 'Slovenia', 'Spagna', 'Svezia'
-];
-
+// Interfaccia per la campagna
 interface Campaign {
   id: string;
   title: string;
   country: string;
-  status: 'Pubblicata' | 'Terminata';
-  category?: string;
-  description?: string;
-  targetFunds?: number;
-  currentFunds?: number;
-  deadline?: string;
-  donationLink?: string;
-  backgroundImage?: string; // Percorso immagine (opzionale)
+  status: 'attiva' | 'chiusa';
+  category: string;
+  description: string;
+  targetFunds: number;
+  currentFunds: number;
+  deadline: string;
+  donationLink: string;
+  backgroundImage: string;
 }
 
 @Component({
@@ -28,39 +23,106 @@ interface Campaign {
   standalone: true,
   templateUrl: './gestione-campagne.component.html',
   styleUrls: ['./gestione-campagne.component.css'],
-  imports: [CommonModule, FormsModule], // Aggiungi CommonModule e FormsModule
+  imports: [CommonModule, FormsModule],
 })
-export class GestioneCampagneComponent {
+export class GestioneCampagneComponent implements OnInit {
   campaigns: Campaign[] = [];
-  europeanUnionCountries: string[] = [];
-  selectedStatus: string = '';
   filteredCampaigns: Campaign[] = [];
-  activeComponent: string = ''; // Variabile per gestire il componente attivo
-  campaign: Campaign = this.initializeCampaign();
-  imagePreview: string | undefined;
-  countries = countriesDB;
-  selectedCountry = '';  // Paese 
+  selectedCountry: string = ''; // Filtro per Paese
+  selectedStatus: string = ''; // Filtro per Stato
+  activeComponent: string = ''; // Stato del componente attivo
+  campaign: Campaign = this.initializeCampaign(); // Campagna inizializzata sempre valida
+  countries: string[] = [
+    'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca',
+    'Estonia', 'Finlandia', 'Francia', 'Germania', 'Grecia', 'Irlanda', 'Italia',
+    'Lettonia', 'Lituania', 'Lussemburgo', 'Malta', 'Paesi Bassi', 'Polonia',
+    'Portogallo', 'Repubblica Ceca', 'Romania', 'Slovacchia', 'Slovenia',
+    'Spagna', 'Svezia',
+  ];
+  isDropdownVisible: boolean = false;
   searchTerm: string = '';
   filteredCountries: string[] = [];
-  isDropdownVisible: boolean = false;
+  imagePreview: string | undefined;
+
+  constructor(private campagnaService: CampagnaService) {}
 
   ngOnInit(): void {
-    this.filteredCountries = this.countries;
     this.loadCampaigns();
-    this.loadCountries(); // Carica i paesi
+    this.filteredCountries = this.countries;
+  }
+
+  // Carica le campagne dal backend
+  loadCampaigns(): void {
+    this.campagnaService.getAllCampagne().subscribe(
+      (data) => {
+        console.log('Dati ricevuti dal backend:', data);
+        this.campaigns = data.map((c) => this.mapCampaign(c)); // Mappatura dei dati ricevuti
+        this.filterAndSortCampaigns();
+      },
+      (error) => {
+        console.error('Errore durante il caricamento delle campagne:', error);
+      }
+    );
+  }
+
+  // Mappa i dati dal backend all'interfaccia interna
+  private mapCampaign(c: any): Campaign {
+    return {
+      id: c.idCampagna,
+      title: c.titolo,
+      country: c.paese,
+      status: c.stato,
+      category: c.categoria,
+      description: c.descrizione,
+      targetFunds: c.sommaDaRaccogliere,
+      currentFunds: c.sommaRaccolta,
+      deadline: c.dataPrevistaFine,
+      donationLink: c.linkDonazione,
+      backgroundImage: c.immagine,
+    };
+  }
+
+  // Filtra e ordina le campagne
+  filterAndSortCampaigns(): void {
+    console.log('Campagne prima di essere filtrate:', this.campaigns);
+    console.log('Paese selezionato:', this.selectedCountry);
+    console.log('Stato selezionato:', this.selectedStatus);
+
+    // Filtra le campagne in base ai criteri selezionati
+    this.filteredCampaigns = this.campaigns
+      .filter((campaign) => {
+        const matchesCountry = !this.selectedCountry || this.selectedCountry === 'Tutti' || campaign.country === this.selectedCountry;
+        const matchesStatus = !this.selectedStatus || campaign.status === this.selectedStatus;
+        return matchesCountry && matchesStatus;
+      })
+      .sort((a, b) => a.title.localeCompare(b.title));
+
+    console.log('Campagne filtrate:', this.filteredCampaigns);
+}
+
+  // Resetta i filtri
+  resetFilters(): void {
+    this.selectedCountry = '';
+    this.selectedStatus = '';
     this.filterAndSortCampaigns();
   }
 
-  // Inizializza una campagna vuota
+  // Gestisce il componente attivo
+  setActiveComponent(component: string, selectedCampaign?: Campaign): void {
+    this.activeComponent = component;
+    this.campaign = selectedCampaign ? { ...selectedCampaign } : this.initializeCampaign();
+  }
+
+  // Inizializza una nuova campagna vuota
   initializeCampaign(): Campaign {
     return {
       id: crypto.randomUUID(),
       title: '',
       country: '',
-      status: 'Pubblicata',
+      status: 'attiva',
       category: '',
       description: '',
-      targetFunds: undefined,
+      targetFunds: 0,
       currentFunds: 0,
       deadline: '',
       donationLink: '',
@@ -68,184 +130,73 @@ export class GestioneCampagneComponent {
     };
   }
 
-  // Funzione per caricare le campagne
-  loadCampaigns(): void {
-    this.campaigns = [
-      {
-        id: '0',
-        title: 'Progetto 0',
-        country: 'Italia',
-        status: 'Pubblicata',
-        category: 'Sostenibilità',
-        description: 'Promuoviamo la sostenibilità ambientale.',
-        targetFunds: 10000,
-        currentFunds: 4000,
-        deadline: '2024-12-31',
-      },
-      {
-        id: '1',
-        title: 'Progetto 1',
-        country: 'Francia',
-        status: 'Pubblicata',
-        category: 'Sostenibilità',
-        description: 'Promuoviamo la sostenibilità ambientale.',
-        targetFunds: 10000,
-        currentFunds: 4000,
-        deadline: '2024-12-31',
-      },
-      {
-        id: '2',
-        title: 'Progetto 2',
-        country: 'Italia',
-        status: 'Pubblicata',
-        category: 'Sostenibilità',
-        description: 'Promuoviamo la sostenibilità ambientale.',
-        targetFunds: 10000,
-        currentFunds: 4000,
-        deadline: '2024-12-31',
-      },
-      {
-        id: '3',
-        title: 'Progetto 3',
-        country: 'Spagna',
-        status: 'Pubblicata',
-        category: 'Sostenibilità',
-        description: 'Promuoviamo la sostenibilità ambientale.',
-        targetFunds: 10000,
-        currentFunds: 4000,
-        deadline: '2024-12-31',
-      },
-      {
-        id: '4',
-        title: 'Progetto 4',
-        country: 'Germania',
-        status: 'Pubblicata',
-        category: 'Sostenibilità',
-        description: 'Promuoviamo la sostenibilità ambientale.',
-        targetFunds: 10000,
-        currentFunds: 4000,
-        deadline: '2024-12-31',
-      },
-      {
-        id: '5',
-        title: 'Progetto 5',
-        country: 'Polonia',
-        status: 'Pubblicata',
-        category: 'Sostenibilità',
-        description: 'Promuoviamo la sostenibilità ambientale.',
-        targetFunds: 10000,
-        currentFunds: 4000,
-        deadline: '2024-12-31',
-      },
-      {
-        id: '6',
-        title: 'Progetto 6',
-        country: 'Italia',
-        status: 'Pubblicata',
-        category: 'Sostenibilità',
-        description: 'Promuoviamo la sostenibilità ambientale.',
-        targetFunds: 10000,
-        currentFunds: 4000,
-        deadline: '2024-12-31',
-      }
-      
-    ];
-  }
-
-  // Funzione per caricare i paesi appartenenti all'Unione Europea
-  loadCountries(): void {
-    this.europeanUnionCountries = [
-      'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Croazia', 'Cipro', 'Repubblica Ceca',
-      'Danimarca', 'Estonia', 'Finlandia', 'Francia', 'Germania', 'Grecia',
-      'Ungheria', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo',
-      'Malta', 'Paesi Bassi', 'Polonia', 'Portogallo', 'Romania', 'Slovacchia',
-      'Slovenia', 'Spagna', 'Svezia',
-    ];
-  }
-
-  // Funzione per filtrare e ordinare le campagne
-  filterAndSortCampaigns(): void {
-    this.filteredCampaigns = this.campaigns
-      .filter(
-        campaign =>
-          (!this.selectedCountry || campaign.country === this.selectedCountry) &&
-          (!this.selectedStatus || campaign.status === this.selectedStatus),
-      )
-      .sort((a, b) => a.title.localeCompare(b.title)); // Ordina le campagne alfabeticamente per titolo
-  }
-
-  // Getter per i paesi unici
-  get uniqueCountries(): string[] {
-    return this.europeanUnionCountries;
-  }
-
-  removeCampaign(id: string): void {
-    // Rimuovi la campagna dalla lista usando l'id
-    this.campaigns = this.campaigns.filter(campaign => campaign.id !== id);
-    this.filterAndSortCampaigns();
-  }  
-
-  // Funzione per modificare una campagna
-  editCampaign(campaign: Campaign): void {
-    this.setActiveComponent('editCampagna', campaign);
-  }
-
-  resetFilters(): void {
-    this.selectedCountry = ''; // Resetta il filtro del paese
-    this.selectedStatus = ''; // Resetta il filtro dello stato
-    this.filterAndSortCampaigns(); // Applica i filtri aggiornati
-}
-
-  // Funzione per attivare un componente specifico (creazione o modifica)
-  setActiveComponent(component: string, selectedCampaign?: Campaign): void {
-    this.activeComponent = component;
-  
-    if (component === 'editCampagna' && selectedCampaign) {
-      this.campaign = { ...selectedCampaign }; // Clona i dati della campagna selezionata
-    } else {
-      this.resetCampaign(); // Azzera il modulo per una nuova campagna
-    }
-  }
-  
-
-  // Funzione per azzerare i dati della campagna
-  resetCampaign(): void {
-    this.campaign = this.initializeCampaign();
-    this.imagePreview = undefined;
-  }
-
-  // Funzione per salvare una campagna
+  // Salva una campagna
   saveCampaign(): void {
+    if (!this.campaign) return;
+
     if (
       !this.campaign.title ||
       !this.campaign.country ||
       !this.campaign.category ||
       !this.campaign.targetFunds ||
-      !this.campaign.deadline
+      !this.campaign.deadline ||
+      !this.campaign.backgroundImage
     ) {
       alert('Compila tutti i campi obbligatori!');
-      return; // Blocca il salvataggio se i campi obbligatori non sono compilati
+      return;
     }
-  
-    if (this.activeComponent === 'createCampagna') {
-      // Aggiungi una nuova campagna
-      this.campaigns.push({ ...this.campaign });
-    } else if (this.activeComponent === 'editCampagna') {
-      // Trova l'indice della campagna da modificare
-      const index = this.campaigns.findIndex(c => c.id === this.campaign.id);
-  
-      if (index !== -1) {
-        // Aggiorna i dati della campagna
-        this.campaigns[index] = { ...this.campaign };
-      } else {
-        console.error('Campagna non trovata per la modifica:', this.campaign);
+
+    const isNew = !this.campaign.id;
+    const payload = this.mapToBackend(this.campaign);
+
+    const request = isNew
+      ? this.campagnaService.createCampagna(payload)
+      : this.campagnaService.updateCampagna(payload);
+
+    request.subscribe(
+      () => {
+        alert(isNew ? 'Campagna creata con successo!' : 'Campagna aggiornata con successo!');
+        this.loadCampaigns();
+        this.setActiveComponent('');
+      },
+      (error) => {
+        console.error('Errore durante il salvataggio della campagna:', error);
       }
-    }
-  
-    this.filterAndSortCampaigns(); // Applica i filtri e aggiorna la lista
-    this.setActiveComponent(''); // Torna alla vista principale
+    );
   }
-  
+
+  // Mappa i dati al formato richiesto dal backend
+  private mapToBackend(campaign: Campaign): any {
+    return {
+      idCampagna: campaign.id,
+      titolo: campaign.title,
+      paese: campaign.country,
+      stato: campaign.status,
+      categoria: campaign.category,
+      descrizione: campaign.description,
+      sommaDaRaccogliere: campaign.targetFunds,
+      sommaRaccolta: campaign.currentFunds,
+      dataPrevistaFine: campaign.deadline,
+      linkDonazione: campaign.donationLink,
+      immagine: campaign.backgroundImage,
+    };
+  }
+
+  // Rimuove una campagna
+  removeCampaign(id: string): void {
+    if (confirm('Sei sicuro di voler eliminare questa campagna?')) {
+      this.campagnaService.deleteCampagna(id).subscribe(
+        () => {
+          alert('Campagna eliminata con successo!');
+          this.loadCampaigns();
+        },
+        (error) => {
+          console.error('Errore durante l\'eliminazione della campagna:', error);
+        }
+      );
+    }
+  }
+
   // Gestione immagine selezionata
   onImageSelected(event: any): void {
     const file = event.target.files[0];
@@ -258,6 +209,11 @@ export class GestioneCampagneComponent {
       reader.readAsDataURL(file);
     }
   }
+
+  toggleDropdown(): void {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
   onSearchChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     const searchValue = input.value.trim().toLowerCase();
@@ -265,27 +221,22 @@ export class GestioneCampagneComponent {
     this.isDropdownVisible = searchValue.length > 0;
 
     if (searchValue.length === 0) {
-      this.filteredCountries = [];  // Non mostrare nessun risultato se la barra è vuota
+      this.filteredCountries = [];
       return;
     }
 
     this.filteredCountries = this.countries
-      .filter(country => country.toLowerCase().includes(searchValue))
+      .filter((country) => country.toLowerCase().includes(searchValue))
       .sort((a, b) => a.toLowerCase().indexOf(searchValue) - b.toLowerCase().indexOf(searchValue));
   }
 
-  toggleDropdown(): void {
-    this.isDropdownVisible = !this.isDropdownVisible;
+  onCountrySelected(country: string): void {
+    this.selectedCountry = country;
+    this.isDropdownVisible = false;
+    this.filterAndSortCampaigns(); // Applica i filtri aggiornati
   }
 
-  selectCountry(country: string): void {
-    this.selectedCountry = country;
-    this.searchTerm = country;
-    this.filteredCountries = [];
-    this.isDropdownVisible = false;
-  }
   goBack(): void {
     this.setActiveComponent('gestioneCampagne');
   }
-  
 }
