@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
@@ -14,6 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @Document(collection = "Paesi")
 public class Paese {
+
+    /**
+     * ObjectId del Paese
+     */
+    @Id
+    private String _id;
 
     /**
      * L'identificativo univoco del paese.

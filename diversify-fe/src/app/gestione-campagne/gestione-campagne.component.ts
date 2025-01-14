@@ -28,12 +28,12 @@ interface Campaign {
 export class GestioneCampagneComponent implements OnInit {
   campaigns: Campaign[] = [];
   filteredCampaigns: Campaign[] = [];
-  selectedCountry: string = ''; // Filtro per Paese
+  selectedCountry: string = 'Tutti'; // Filtro per Paese
   selectedStatus: string = ''; // Filtro per Stato
   activeComponent: string = ''; // Stato del componente attivo
   campaign: Campaign = this.initializeCampaign(); // Campagna inizializzata sempre valida
   countries: string[] = [
-    'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca',
+    'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca',
     'Estonia', 'Finlandia', 'Francia', 'Germania', 'Grecia', 'Irlanda', 'Italia',
     'Lettonia', 'Lituania', 'Lussemburgo', 'Malta', 'Paesi Bassi', 'Polonia',
     'Portogallo', 'Repubblica Ceca', 'Romania', 'Slovacchia', 'Slovenia',
@@ -48,7 +48,7 @@ export class GestioneCampagneComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCampaigns();
-    this.filteredCountries = this.countries;
+    this.filterAndSortCampaigns(); // Applica i filtri iniziali
   }
 
   // Carica le campagne dal backend
@@ -82,23 +82,24 @@ export class GestioneCampagneComponent implements OnInit {
     };
   }
 
-  // Filtra e ordina le campagne
-  filterAndSortCampaigns(): void {
-    console.log('Campagne prima di essere filtrate:', this.campaigns);
-    console.log('Paese selezionato:', this.selectedCountry);
-    console.log('Stato selezionato:', this.selectedStatus);
+ // Filtra e ordina le campagne
+filterAndSortCampaigns(): void {
 
-    // Filtra le campagne in base ai criteri selezionati
-    this.filteredCampaigns = this.campaigns
-      .filter((campaign) => {
-        const matchesCountry = !this.selectedCountry || this.selectedCountry === 'Tutti' || campaign.country === this.selectedCountry;
-        const matchesStatus = !this.selectedStatus || campaign.status === this.selectedStatus;
-        return matchesCountry && matchesStatus;
-      })
-      .sort((a, b) => a.title.localeCompare(b.title));
+  // Filtra le campagne in base al paese e allo stato
+  this.filteredCampaigns = this.campaigns
+    .filter((campaign) => {
+      const matchesCountry =
+        !this.selectedCountry || this.selectedCountry === 'Tutti' || campaign.country === this.selectedCountry;
+      const matchesStatus =
+        !this.selectedStatus || campaign.status === this.selectedStatus;
+      return matchesCountry && matchesStatus;
+    })
+    .sort((a, b) => a.title.localeCompare(b.title)); // Ordina le campagne per titolo
 
-    console.log('Campagne filtrate:', this.filteredCampaigns);
+
 }
+
+  
 
   // Resetta i filtri
   resetFilters(): void {
@@ -131,13 +132,13 @@ export class GestioneCampagneComponent implements OnInit {
   }
 
   // Salva una campagna
-  saveCampaign(): void {
+  saveCampaign(create: boolean): void {
     if (!this.campaign) return;
 
     if (
       !this.campaign.title ||
       !this.campaign.country ||
-      !this.campaign.category ||
+      !this.campaign.category || this.campaign.category==="" ||
       !this.campaign.targetFunds ||
       !this.campaign.deadline ||
       !this.campaign.backgroundImage
@@ -145,17 +146,17 @@ export class GestioneCampagneComponent implements OnInit {
       alert('Compila tutti i campi obbligatori!');
       return;
     }
-
-    const isNew = !this.campaign.id;
+    
+    
     const payload = this.mapToBackend(this.campaign);
-
-    const request = isNew
+    console.log(payload);
+    const request = create
       ? this.campagnaService.createCampagna(payload)
       : this.campagnaService.updateCampagna(payload);
 
     request.subscribe(
       () => {
-        alert(isNew ? 'Campagna creata con successo!' : 'Campagna aggiornata con successo!');
+        alert(create ? 'Campagna creata con successo!' : 'Campagna aggiornata con successo!');
         this.loadCampaigns();
         this.setActiveComponent('');
       },

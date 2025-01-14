@@ -206,11 +206,8 @@ export class MapComponent implements OnInit, AfterViewInit {
  
   private openPopupGrid(countryName: string, coordinate: any): void {
     const country = this.countries?.find(c => c.name === countryName);
-    console.log('Oggetto Paese:', country); // Stampa i dettagli del paese selezionato
     const tipoCriticita = country ? country.tipoCriticita : '';  // Assegna una stringa vuota se non c'è
     const countryId = country?.id || null;
-  
-    console.log('ID del Paese selezionato:', countryId); // Stampa l'ID del paese nella console
   
     this.closePopupGrid();
   

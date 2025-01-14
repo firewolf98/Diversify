@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -68,4 +69,14 @@ public class CampagnaCrowdFunding {
      * Immagine dello sfondo della campagna
      */
     private String immagine;
+
+    /**
+     * Link per effettuare la donazione
+     */
+    private String linkDonazione;
+
+    /**
+     * Attributo utile per individuare facilmente l'appartenenza della campagna a un Paese
+     */
+    private String paese;
 }
