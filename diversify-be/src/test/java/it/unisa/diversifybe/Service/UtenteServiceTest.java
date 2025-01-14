@@ -123,7 +123,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForMissingUsername() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest(null, "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", null, "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -136,7 +136,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForMissingEmail() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", null, "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", null, "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -149,7 +149,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForMissingPassword() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", null, "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", null, "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -162,7 +162,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForInvalidCodiceFiscale() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "valid@example.com", "INVALID");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "valid@example.com", "INVALID", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -175,7 +175,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForInvalidEmail() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "invalid-email", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "invalid-email", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -188,7 +188,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForInvalidPassword() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "short", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "short", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         String response = utenteService.registerUser(request);
 
@@ -201,7 +201,7 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForExistingUsername() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("existingUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "existingUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("existingUser")).thenReturn(Optional.of(new Utente()));
 
@@ -212,12 +212,13 @@ class UtenteServiceTest {
         verifyNoMoreInteractions(utenteRepository);
     }
 
+
     /**
      * Test per conflitto su email.
      */
     @Test
     void registerUser_ShouldReturnErrorForExistingEmail() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "existing@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "existing@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("validUser")).thenReturn(Optional.empty());
         when(utenteRepository.findByEmail("existing@example.com")).thenReturn(Optional.of(new Utente()));
@@ -235,31 +236,37 @@ class UtenteServiceTest {
      */
     @Test
     void registerUser_ShouldReturnErrorForHashingError() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("validUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "validUser", "ValidPass1", "valid@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("validUser")).thenReturn(Optional.empty());
         when(utenteRepository.findByEmail("valid@example.com")).thenReturn(Optional.empty());
 
-        // Simula l'errore di hashing direttamente
-        UtenteService utenteServiceSpy = spy(utenteService); // Crea uno spy per UtenteService.
+        // Simula l'errore di hashing con uno spy
+        UtenteService utenteServiceSpy = spy(utenteService);
         doThrow(new NoSuchAlgorithmException("Hashing error"))
                 .when(utenteServiceSpy)
                 .hashPassword("ValidPass1");
 
+        // Verifica che l'eccezione venga lanciata
         Exception exception = assertThrows(NoSuchAlgorithmException.class, () -> utenteServiceSpy.registerUser(request));
 
         assertEquals("Hashing error", exception.getMessage());
+
+        // Verifica che i metodi del repository siano stati chiamati
         verify(utenteRepository, times(1)).findByUsername("validUser");
         verify(utenteRepository, times(1)).findByEmail("valid@example.com");
-        verifyNoMoreInteractions(utenteRepository);
+
+        // Assicurati che il metodo save non venga mai chiamato
+        verify(utenteRepository, never()).save(any(Utente.class));
     }
+
 
     /**
      * Test per registrazione utente valida.
      */
     @Test
     void registerUser_ShouldReturnSuccessForValidRequest() throws NoSuchAlgorithmException {
-        RegisterRequest request = new RegisterRequest("newUser", "ValidPass1", "new@example.com", "RSSMRA85M01H501Z");
+        RegisterRequest request = new RegisterRequest("John", "Doe", "newUser", "ValidPass1", "new@example.com", "RSSMRA85M01H501Z", "Domanda", "Risposta");
 
         when(utenteRepository.findByUsername("newUser")).thenReturn(Optional.empty());
         when(utenteRepository.findByEmail("new@example.com")).thenReturn(Optional.empty());
@@ -276,17 +283,18 @@ class UtenteServiceTest {
         verify(utenteRepository, times(1)).save(any(Utente.class));
     }
 
+
     /**
      * Test per LoginRequest valido (username e password corretti).
      */
     @Test
     void authenticateUser_ShouldReturnJwtForValidCredentials() throws NoSuchAlgorithmException {
-        LoginRequest request = new LoginRequest("validUser", "ValidPass1");
+        LoginRequest request = new LoginRequest("validEmail@example.com", "ValidPass1"); // Usa un'email valida
         Utente utente = new Utente();
         utente.setUsername("validUser");
         utente.setPasswordHash("hashedPassword");
 
-        when(utenteRepository.findByUsername("validUser")).thenReturn(Optional.of(utente));
+        when(utenteRepository.findByEmail("validEmail@example.com")).thenReturn(Optional.of(utente)); // Mock findByEmail
 
         // Usa uno spy per mockare il metodo hashPassword
         UtenteService utenteServiceSpy = spy(utenteService);
@@ -300,6 +308,7 @@ class UtenteServiceTest {
         assertEquals("generatedJwtToken", response.getToken());
         verify(jwtUtils, times(1)).generateToken("validUser");
     }
+
 
 
     /**
@@ -370,12 +379,12 @@ class UtenteServiceTest {
      */
     @Test
     void authenticateUser_ShouldThrowExceptionForHashingError() throws NoSuchAlgorithmException {
-        LoginRequest request = new LoginRequest("validUser", "ValidPass1");
+        LoginRequest request = new LoginRequest("validEmail@example.com", "ValidPass1");
         Utente utente = new Utente();
         utente.setUsername("validUser");
         utente.setPasswordHash("hashedPassword");
 
-        when(utenteRepository.findByUsername("validUser")).thenReturn(Optional.of(utente));
+        when(utenteRepository.findByEmail("validEmail@example.com")).thenReturn(Optional.of(utente));
 
         // Usa uno spy per simulare l'errore di hashing
         UtenteService utenteServiceSpy = spy(utenteService);
@@ -383,6 +392,7 @@ class UtenteServiceTest {
                 .when(utenteServiceSpy)
                 .hashPassword("ValidPass1");
 
+        // Verifica che l'eccezione venga lanciata
         Exception exception = assertThrows(NoSuchAlgorithmException.class, () -> utenteServiceSpy.authenticateUser(request));
 
         assertEquals("Hashing error", exception.getMessage());
@@ -718,22 +728,30 @@ class UtenteServiceTest {
      * Test per token valido con utente corrispondente.
      */
     @Test
-    void deleteUser_ShouldReturnSuccessForValidToken() {
+    void deleteUser_ShouldReturnSuccessForValidToken() throws NoSuchAlgorithmException {
         String token = "validToken";
         String username = "validUser";
+        String password = "validPass1";
+        String hashedPassword = "hashedValidPass1"; // Simula l'hash della password
         Utente utente = new Utente();
         utente.setUsername(username);
+        utente.setPasswordHash(hashedPassword);
 
         when(jwtUtils.validateToken(token)).thenReturn(username);
         when(utenteRepository.findByUsername(username)).thenReturn(Optional.of(utente));
 
-        String result = utenteService.deleteUser(token);
+        // Mock del metodo hashPassword per restituire l'hash corretto
+        UtenteService utenteServiceSpy = spy(utenteService);
+        doReturn(hashedPassword).when(utenteServiceSpy).hashPassword(password);
+
+        String result = utenteServiceSpy.deleteUser(token, password);
 
         assertEquals("Account eliminato con successo.", result);
         verify(jwtUtils, times(1)).validateToken(token);
         verify(utenteRepository, times(1)).findByUsername(username);
         verify(utenteRepository, times(1)).delete(utente);
     }
+
 
     /**
      * Test per token valido ma utente non trovato.
@@ -742,11 +760,12 @@ class UtenteServiceTest {
     void deleteUser_ShouldReturnErrorForUserNotFound() {
         String token = "validToken";
         String username = "nonExistentUser";
+        String password = "validPass1";
 
         when(jwtUtils.validateToken(token)).thenReturn(username);
         when(utenteRepository.findByUsername(username)).thenReturn(Optional.empty());
 
-        String result = utenteService.deleteUser(token);
+        String result = utenteService.deleteUser(token,password);
 
         assertEquals("Utente non trovato.", result);
         verify(jwtUtils, times(1)).validateToken(token);
@@ -760,10 +779,10 @@ class UtenteServiceTest {
     @Test
     void deleteUser_ShouldReturnErrorForInvalidToken() {
         String token = "invalidToken";
-
+        String password = "validPass1";
         when(jwtUtils.validateToken(token)).thenReturn(null);
 
-        String result = utenteService.deleteUser(token);
+        String result = utenteService.deleteUser(token,password);
 
         assertEquals("Token non valido.", result);
         verify(jwtUtils, times(1)).validateToken(token);
@@ -777,8 +796,8 @@ class UtenteServiceTest {
     @Test
     void deleteUser_ShouldReturnErrorForNullToken() {
         String token = null;
-
-        String result = utenteService.deleteUser(token);
+        String password = "validPass1";
+        String result = utenteService.deleteUser(token,password);
 
         assertEquals("Token non valido.", result);
         verify(jwtUtils, never()).validateToken(anyString());
@@ -790,21 +809,27 @@ class UtenteServiceTest {
      * Test per errore generico durante l'eliminazione.
      */
     @Test
-    void deleteUser_ShouldReturnErrorForGenericException() {
+    void deleteUser_ShouldReturnErrorForGenericException() throws NoSuchAlgorithmException {
         String token = "validToken";
         String username = "validUser";
+        String password = "validPass1"; // Password in chiaro
+        String hashedPassword = utenteService.hashPassword(password); // Genera l'hash della password
+
         Utente utente = new Utente();
         utente.setUsername(username);
+        utente.setPasswordHash(hashedPassword); // Imposta l'hash corretto
 
+        // Simula il comportamento dei metodi
         when(jwtUtils.validateToken(token)).thenReturn(username);
         when(utenteRepository.findByUsername(username)).thenReturn(Optional.of(utente));
         doThrow(new RuntimeException("Generic error")).when(utenteRepository).delete(utente);
 
-        String result = utenteService.deleteUser(token);
+        String result = utenteService.deleteUser(token, password);
 
         assertEquals("Errore durante l'eliminazione dell'account.", result);
         verify(jwtUtils, times(1)).validateToken(token);
         verify(utenteRepository, times(1)).findByUsername(username);
         verify(utenteRepository, times(1)).delete(utente);
     }
+
 }

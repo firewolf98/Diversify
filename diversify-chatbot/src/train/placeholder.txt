@@ -1,0 +1,1 @@
+Questa cartella racchiude gli script utilizzati per effettuare il train del modello.

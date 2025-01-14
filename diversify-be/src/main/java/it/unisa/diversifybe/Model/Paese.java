@@ -41,7 +41,7 @@ public class Paese {
      * Ogni campagna è rappresentata da un identificativo (ID).
      */
 
-    private List<String> campagneCrowdfunding;
+    private List<CampagnaCrowdFunding> campagneCrowdfunding;
 
     /**
      * Una lista di benchmark associati al paese.

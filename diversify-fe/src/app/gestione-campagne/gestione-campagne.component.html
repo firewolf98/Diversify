@@ -7,7 +7,6 @@
         <div class="filters">
             <label for="countryFilter">Paese:</label>
             <select id="countryFilter" class="filter-select" [(ngModel)]="selectedCountry" (change)="filterAndSortCampaigns()">
-                <option value="">Tutti</option>
                 <option *ngFor="let country of uniqueCountries" [value]="country">
                     {{ country }}
                 </option>
@@ -19,6 +18,8 @@
                 <option value="Pubblicata">Pubblicata</option>
                 <option value="Terminata">Terminata</option>
             </select>
+
+            <button class="btn reset-btn" (click)="resetFilters()">Reset Filtri</button>
         </div>
 
         <!-- Lista di Campagne -->
@@ -40,7 +41,7 @@
                         <td>
                             <div class="button-container">
                                 <button class="btn edit-btn" (click)="setActiveComponent('editCampagna', campaign)">Modifica</button>
-                                <button class="btn remove-btn" (click)="removeCampaign(campaign.title)">Rimuovi</button>
+                                <button class="btn remove-btn" (click)="removeCampaign(campaign.id)">Rimuovi</button>
                             </div>
                         </td>
                     </tr>
@@ -59,11 +60,21 @@
         </div>
     </div>
 
-    <!-- Sezione per creare una nuova campagna -->
- <!-- Sezione per creare una nuova campagna -->
+  <!-- Sezione per creare una nuova campagna -->
 <div *ngIf="activeComponent === 'createCampagna'" class="container-modifica">
+    <button class="btn back-btn" (click)="setActiveComponent('')">Annulla</button>
     <h3>Crea Nuova Campagna</h3>
     <form (ngSubmit)="saveCampaign()">
+        <!-- Paese -->
+        <div class="campo-paese">
+            <label for="country">Paese:</label>
+            <select id="country" [(ngModel)]="campaign.country" name="country" required>
+                <option *ngFor="let country of uniqueCountries" [value]="country">
+                    {{ country }}
+                </option>
+            </select>
+        </div>
+
         <!-- Titolo -->
         <div class="campo-titolo">
             <label for="title">Titolo della Campagna:</label>
@@ -107,8 +118,8 @@
 
         <!-- Data di Scadenza -->
         <div class="campo-scadenza">
-            <label for="expiryDate">Data di Scadenza:</label>
-            <input id="expiryDate" type="date" [(ngModel)]="campaign.deadline" name="expiryDate" required />
+            <label for="deadline">Data di Scadenza:</label>
+            <input id="deadline" type="date" [(ngModel)]="campaign.deadline" name="deadline" required />
         </div>
 
         <!-- Carica Immagine di Sfondo -->
@@ -125,14 +136,27 @@
 
         <button type="submit" class="btn save-btn">Salva</button>
     </form>
-    <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
 </div>
-
 
 <!-- Sezione per modificare una campagna esistente -->
 <div *ngIf="activeComponent === 'editCampagna'" class="container-modifica">
+    <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
     <h3>Modifica Campagna</h3>
     <form (ngSubmit)="saveCampaign()">
+        <div class="search-container">
+            <label class="label-country">Scegli un Paese UE:</label> <br>
+            <select id="countryFilter" class="filter-select" [(ngModel)]="campaign.country" name="country">
+                <option *ngFor="let country of uniqueCountries" [value]="country">
+                    {{ country }}
+                </option>
+            </select>
+            <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+                <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
+                    {{ country }}
+                </li>
+            </ul>
+        </div>
+
         <!-- Titolo -->
         <div class="campo-titolo">
             <label for="title">Titolo della Campagna:</label>
@@ -194,5 +218,4 @@
 
         <button type="submit" class="btn save-btn">Salva Modifiche</button>
     </form>
-    <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
 </div>

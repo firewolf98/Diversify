@@ -1,0 +1,31 @@
+<div class="post-form-container">
+    <h2>Pubblica un Post</h2>
+
+    <a href="/forum" class="back-link">← Torna ai forum</a>
+  
+    <form [formGroup]="moduloPost" (ngSubmit)="inviaPost()">
+      <!-- Titolo del Post -->
+      <div class="form-group">
+        <label for="title">Titolo</label>
+        <input id="title" type="text" formControlName="titolo" placeholder="Inserisci il titolo del post" />
+        <div *ngIf="moduloPost.get('titolo')?.touched && moduloPost.get('titolo')?.invalid" class="error-message">
+          <div *ngIf="moduloPost.get('titolo')?.hasError('required')">Il titolo è obbligatorio</div>
+          <div *ngIf="moduloPost.get('titolo')?.hasError('minlength')">Il titolo deve avere almeno 5 caratteri</div>
+        </div>
+      </div>
+  
+      <!-- Contenuto del Post -->
+      <div class="form-group">
+        <label for="content">Contenuto</label>
+        <textarea id="content" formControlName="contenuto" placeholder="Scrivi il contenuto del post"></textarea>
+        <div *ngIf="moduloPost.get('contenuto')?.touched && moduloPost.get('contenuto')?.invalid" class="error-message">
+          <div *ngIf="moduloPost.get('contenuto')?.hasError('required')">Il contenuto è obbligatorio</div>
+          <div *ngIf="moduloPost.get('contenuto')?.hasError('minlength')">Il contenuto deve avere almeno 20 caratteri</div>
+        </div>
+      </div>
+  
+      <!-- Pulsante Invia -->
+      <button type="submit" [disabled]="moduloPost.invalid">Pubblica</button>
+    </form>
+  </div>
+  

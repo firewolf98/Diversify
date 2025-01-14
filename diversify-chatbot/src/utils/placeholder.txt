@@ -1,0 +1,3 @@
+Questa cartella racchiude service ed interface:
+Service si occupa di eseguire il chatbot.
+Interface fornisce un interfaccia con i metodi pubblici del chatbot.

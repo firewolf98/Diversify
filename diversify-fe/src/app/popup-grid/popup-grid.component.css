@@ -17,6 +17,7 @@
   justify-content: space-between;
   overflow-y: auto; /* Aggiunge uno scroll se il contenuto eccede */
   box-sizing: border-box;
+  z-index: 1000; /* Imposta il popup sopra gli altri elementi */
 }
 
 /* "Torna alla mappa" */
@@ -127,3 +128,9 @@
       padding: 12px;
   }
 }
+
+.small-flag {
+  width: 50px;
+  height: auto;
+}
+ 

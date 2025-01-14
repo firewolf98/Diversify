@@ -45,6 +45,14 @@
 			</div>
 		</div>
 
+		<!-- Link se non sei registrato per condurti alla componente registrazione-->
+		<div class="register-link">
+			<small>
+			  Non sei registrato? 
+			  <a href="javascript:void(0);" (click)="navigateToRegistration()">Registrati</a>
+			</small>
+		  </div>
+		
 		<!-- Bottone di invio del form, che sarà disabilitato se il form è invalido -->
 		<button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
 			Login
@@ -57,8 +65,7 @@
 
 		<!-- Link per il recupero password, che reindirizza alla pagina di recupero -->
 		<div class="forgot-password">
-			<a href="javascript:void(0);" (click)="recoverPassword()">Hai dimenticato la password? Clicca qui per
-				recuperare.</a>
+			Hai dimenticato la password? <a href="javascript:void(0);" (click)="recoverPassword()"> Clicca qui per recuperare.</a>
 		</div>
 	</form>
 </div>

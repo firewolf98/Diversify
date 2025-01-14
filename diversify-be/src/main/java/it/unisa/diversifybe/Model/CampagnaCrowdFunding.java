@@ -21,62 +21,51 @@ public class CampagnaCrowdFunding {
     /**
      * Identificativo unico della campagna di crowdfunding.
      */
-
     private String idCampagna;
 
     /**
      * Titolo della campagna di crowdfunding.
      */
-
     private String titolo;
+
+    /**
+     * Categoria della campagna di crowdfunding.
+     */
+    private String categoria;
 
     /**
      * Descrizione dettagliata della campagna di crowdfunding.
      */
-
-    private String contenuto;
-
-    /**
-     * Lista delle immagini relative alla campagna di crowdfunding.
-     * Le immagini possono essere utilizzate per illustrare la campagna.
-     */
-
-    private List<String> images;
+    private String descrizione;
 
     /**
-     * Data di inizio della campagna di crowdfunding.
+     * Data inizio campagna
      */
-
     private LocalDate dataInizio;
 
     /**
      * Data di fine prevista della campagna di crowdfunding.
      */
-
     private LocalDate dataPrevistaFine;
 
     /**
      * L'importo che la campagna di crowdfunding si propone di raccogliere.
      */
-
     private BigDecimal sommaDaRaccogliere;
 
     /**
      * L'importo effettivamente raccolto dalla campagna di crowdfunding.
      */
-
     private BigDecimal sommaRaccolta;
 
     /**
      * Stato attuale della campagna di crowdfunding.
      * Gli stati possibili includono "terminata", "attiva", "in sospensione".
      */
-
     private String stato;
 
     /**
-     * Paese della campagna di crowdfunding
+     * Immagine dello sfondo della campagna
      */
-    private String Paese;
-
+    private String immagine;
 }

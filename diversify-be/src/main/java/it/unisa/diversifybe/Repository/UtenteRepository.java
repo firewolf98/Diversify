@@ -56,5 +56,7 @@ public interface UtenteRepository extends MongoRepository<Utente, String> {
 
     Optional<Utente> findByEmailAndCodiceFiscale(String email, String codiceFiscale);
 
+    Optional<Utente> findByCodiceFiscale(String codiceFiscale);
+
     List<Utente> findByRuolo(boolean ruolo);
 }

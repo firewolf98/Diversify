@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs'; // Aggiunto per mockare la verifica del database
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-registrazione-form',
@@ -16,9 +18,9 @@ export class RegistrazioneFormComponent {
   isPasswordVisible: boolean = false;
   isConfermaPasswordVisible: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService,    private router: Router ) {
     this.moduloRegistrazione = this.fb.group({
-      nome: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]], // Nome con prima lettera maiuscola
+      nome: ['', [Validators.required, Validators.pattern("^[A-ZÀ-Ý][a-zà-ÿ' -]*$")]],
       cognome: ['', [Validators.required, Validators.pattern('^[A-Z][a-z]*$')]], // Cognome con prima lettera maiuscola
       domanda: ['', [Validators.required]],
       risposta: ['', [Validators.required]],
@@ -32,7 +34,7 @@ export class RegistrazioneFormComponent {
         ],
       ],
       confermaPassword: ['', [Validators.required]],
-      cf: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{16}$')]], // Codice fiscale di 16 caratteri
+      cf: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9]{16}$'), this.uppercaseValidator,]], // Codice fiscale di 16 caratteri
       username: ['', [Validators.required, Validators.minLength(5)]], // Username di almeno 5 caratteri
     }, {
       validators: this.passwordsMustMatch,  // Validatore per le password
@@ -42,12 +44,31 @@ export class RegistrazioneFormComponent {
 
   // Funzione per inviare i dati
   inviaDati(): void {
-    if (this.moduloRegistrazione.valid) {
-      // Esegui l'invio dei dati
-      console.log('Dati inviati:', this.moduloRegistrazione.value);
-    } else {
-      console.log('Modulo non valido');
-    }
+    //if (this.moduloRegistrazione.valid) {
+      const formData = this.moduloRegistrazione.value;
+      const user = {
+        name: formData.nome,
+        lastName: formData.cognome,
+        username: formData.username,
+        password: formData.password,
+        email: formData.email,
+        codiceFiscale: formData.cf,
+        domanda: formData.domanda,
+        risposta: formData.risposta
+      };
+
+      this.authService.register(user).subscribe(
+        response => {
+          alert(response.message);
+          this.router.navigate(['/']);
+        },
+        error => {
+          console.log('Errore nella registrazione', error);
+        }
+      );
+    //} else {
+      //console.log('Modulo non valido');
+    //}
   }
 
   // Validatore per verificare se le password corrispondono
@@ -60,6 +81,15 @@ export class RegistrazioneFormComponent {
     }
     return null;  // Restituisce null se le password sono valide
   }
+
+    // Validazione personalizzata per verificare che il codice fiscale sia in uppercase
+    uppercaseValidator(control: AbstractControl): ValidationErrors | null {
+      const value = control.value;
+      if (value && value !== value.toUpperCase()) {
+        return { notUppercase: true }; // Errore se non è tutto in uppercase
+      }
+      return null;
+    }
 
 
   // Funzione per verificare se il Codice Fiscale esiste già (mock del database)
@@ -113,4 +143,11 @@ export class RegistrazioneFormComponent {
       this.isConfermaPasswordVisible = !this.isConfermaPasswordVisible;
     }
   }
-}
+
+    // Funzione per navigare alla pagina di registrazione
+    navigateToLogin(): void {
+      this.router.navigate(['/loggato']);
+    }
+  
+    
+} 

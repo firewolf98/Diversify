@@ -18,6 +18,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/paesi")
+@CrossOrigin
 public class PaeseController {
 
     private final PaeseService paeseService;
@@ -64,7 +65,7 @@ public class PaeseController {
      * @param paese l'oggetto {@link Paese} da creare.
      * @return il Paese creato.
      */
-    @PostMapping
+    @PostMapping("/addPaese")
     public Paese createPaese(@RequestBody Paese paese) {
         return paeseService.createPaese(paese);
     }
@@ -158,7 +159,7 @@ public class PaeseController {
      * @throws IllegalArgumentException se l'ID del Paese è nullo o vuoto.
      */
     @GetMapping("/{idPaese}/documenti-informativi")
-    public ResponseEntity<List<DocumentoInformativo>> getDocumentiInformativiByPaese(@PathVariable String idPaese) {
+    public ResponseEntity<?> getDocumentiInformativiByPaese(@PathVariable String idPaese) {
         if (idPaese == null || idPaese.trim().isEmpty()) {
             throw new IllegalArgumentException("L'ID del Paese non può essere nullo o vuoto.");
         }

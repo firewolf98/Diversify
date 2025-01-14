@@ -8,6 +8,8 @@
     gap: 10px;
     background-color: #fdece8; /* Sfondo rosa pesca */
     border-radius: 50%; /* Solo l'icona è visibile inizialmente */
+    border-color: rgba(0, 86, 179, 0.6);
+    border-style:double;
     padding: 10px; /* Spazio intorno all'icona */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;

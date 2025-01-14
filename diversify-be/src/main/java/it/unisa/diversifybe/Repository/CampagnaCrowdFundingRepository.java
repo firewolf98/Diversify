@@ -2,6 +2,7 @@ package it.unisa.diversifybe.Repository;
 
 import it.unisa.diversifybe.Model.CampagnaCrowdFunding;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,6 +26,15 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
     List<CampagnaCrowdFunding> findByIdCampagna(String idCampagna);
 
     /**
+     * Trova una lista di campagne con la data di inizio specificata.
+     *
+     * @param dataInizio la data di inizio della campagna.
+     * @return una lista di campagne che iniziano nella data specificata.
+     */
+
+    List<CampagnaCrowdFunding> findByDataInizio(LocalDate dataInizio);
+
+    /**
      * Trova una lista di campagne con il titolo esattamente corrispondente.
      *
      * @param titolo il titolo esatto della campagna.
@@ -41,24 +51,6 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
      */
 
     List<CampagnaCrowdFunding> findByTitoloContaining(String keyword);
-
-    /**
-     * Trova una lista di campagne che iniziano in una data specifica.
-     *
-     * @param dataInizio la data di inizio della campagna.
-     * @return una lista di campagne con la data di inizio specificata.
-     */
-
-    List<CampagnaCrowdFunding> findByDataInizio(LocalDate dataInizio);
-
-    /**
-     * Trova una lista di campagne che iniziano in una data specifica o successiva.
-     *
-     * @param dataInizio la data di inizio della campagna.
-     * @return una lista di campagne con data di inizio uguale o successiva a quella specificata.
-     */
-
-    List<CampagnaCrowdFunding> findByDataInizioGreaterThanEqual(LocalDate dataInizio);
 
     /**
      * Trova una lista di campagne che terminano in una data prevista specifica.
@@ -87,5 +79,24 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
 
     List<CampagnaCrowdFunding> findByStato(String stato);
 
+    /**
+     * Trova una lista di campagne in base al Paese in cui sono state pubblicate.
+     *
+     * @param paese il Paese in cui è stata pubblicata la campagna (ad esempio: "Italia", "Malta").
+     * @return una lista di campagne pubblicate nel Paese specificato
+     */
+
     List<CampagnaCrowdFunding> findByPaese(String paese);
+
+    /**
+     * Trova una lista di campagne in base alla categoria della campagna.
+     *
+     * @param keyword la categoria della campagna (ad esempio: "Sostenibilità").
+     * @return una lista di campagne con la categoria specificata.
+     */
+
+    List<CampagnaCrowdFunding> findByCategoria(String keyword);
+
+    @Query("{ 'Paese': ?0 }")
+    List<CampagnaCrowdFunding> findCampagneByPaese(String paese);
 }

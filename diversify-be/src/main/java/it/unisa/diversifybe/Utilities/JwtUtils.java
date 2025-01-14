@@ -2,10 +2,7 @@ package it.unisa.diversifybe.Utilities;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -31,28 +28,9 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    private final Key key ;
-    private final long expirationTime;
+    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final long expirationTime = 36000000;
 
-    /**
-     * Costruttore per {@code JwtUtils}.
-     *
-     * @param secret         La chiave segreta utilizzata per firmare i token JWT.
-     *                       Deve essere configurata tramite la proprietà {@code jwt.secret}.
-     * @param expirationTime Il tempo di scadenza del token in millisecondi.
-     *                       Deve essere configurato tramite la proprietà {@code jwt.expiration-time}.
-     */
-    public JwtUtils(@Value("${jwt.secret}") String secret,
-                    @Value("${jwt.expiration-time}") long expirationTime) {
-        // Use the secret key for HMAC-SHA256 or generate a secure key if the secret is not provided or too short
-        if (secret != null && secret.length() >= 32) {
-            this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        } else {
-            // Automatically generate a key of correct length for HS256 if the provided secret is too short
-            this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        }
-        this.expirationTime = expirationTime;
-    }
 
     /**
      * Genera un token JWT con un soggetto specifico e un tempo di scadenza predefinito.

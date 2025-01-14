@@ -1,0 +1,165 @@
+/* Contenitore del modulo per il post */
+.post-form-container {
+    width: 100%;
+    max-width: 350px; /* Imposta una larghezza massima per il contenitore */
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #fdece8; /* Colore pesca chiaro */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+}
+
+/* Titolo del modulo */
+.post-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333; /* Testo scuro */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Gruppi di input */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%; /* Assicura che gli input non escano dal contenitore */
+}
+
+/* Etichette dei campi */
+label {
+    font-weight: bold;
+    display: block;
+    color: #555555; /* Grigio scuro */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Input degli utenti */
+input, textarea {
+    width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
+    padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
+    margin-top: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
+}
+
+/* Textarea specifico */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Cambia il colore del bordo quando un input è in focus */
+input:focus, textarea:focus, select:focus {
+    border-color: #007bff !important; /* Colore blu quando l'input è in focus */
+    outline: none !important;
+}
+
+/* Cambia il colore del bordo mentre l'utente sta scrivendo (ng-dirty) */
+input.ng-dirty, textarea.ng-dirty, select.ng-dirty {
+    border-color: #007bff !important; /* Bordo blu mentre si scrive */
+}
+
+/* Cambia il colore del bordo quando il campo è valido */
+input.ng-valid.ng-touched, textarea.ng-valid.ng-touched, select.ng-valid.ng-touched {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido */
+}
+
+/* Cambia il colore del bordo quando il campo è invalido */
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border-color: red !important; /* Bordo rosso quando il campo è invalido */
+}
+
+/* Messaggi di errore */
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* Pulsante per l'invio */
+button {
+    width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    cursor: pointer;
+    margin-top: 10px; /* Spazio tra i pulsanti */
+}
+
+/* Effetto hover per il bottone */
+button:hover {
+    background-color: #0056b3; /* Blu più scuro */
+}
+
+/* Bottone disabilitato */
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Media Query per dispositivi mobili */
+@media (max-width: 600px) {
+    .post-form {
+        width: 90%; /* Adatta la larghezza per dispositivi mobili */
+        margin: 20px auto;
+    }
+
+    .post-form h2 {
+        font-size: 1.5rem; /* Riduce la dimensione del titolo */
+    }
+
+    input, textarea {
+        padding: 8px 10px;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+/* "Torna alla mappa" */
+.back-link {
+    color: #3182ce; /* Colore blu */
+    font-size: 14px;
+    font-weight: bold; /* Grassetto */
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.back-link:hover {
+    color: #2b6cb0; /* Blu più scuro al passaggio del mouse */
+    text-decoration: underline;
+}
+
+/* Media Query per dispositivi tablet */
+@media (max-width: 1024px) {
+    .post-form {
+        width: 80%;
+        margin: 30px auto;
+    }
+
+    .post-form h2 {
+        font-size: 1.75rem;
+    }
+
+    input, textarea {
+        padding: 10px 12px;
+        font-size: 1.1rem;
+    }
+
+    button {
+        padding: 14px;
+        font-size: 16px;
+    }
+}

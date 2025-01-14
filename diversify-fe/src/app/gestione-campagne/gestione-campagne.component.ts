@@ -2,7 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { FormsModule } from '@angular/forms'; // Importa FormsModule per [(ngModel)]
 
+// Elenco dei Paesi dell'Unione Europea
+const countriesDB = [
+  'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia', 
+  'Germania', 'Grecia', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo', 'Malta', 'Paesi Bassi', 
+  'Polonia', 'Portogallo', 'Repubblica Ceca', 'Romania', 'Slovacchia', 'Slovenia', 'Spagna', 'Svezia'
+];
+
 interface Campaign {
+  id: string;
   title: string;
   country: string;
   status: 'Pubblicata' | 'Terminata';
@@ -25,14 +33,19 @@ interface Campaign {
 export class GestioneCampagneComponent {
   campaigns: Campaign[] = [];
   europeanUnionCountries: string[] = [];
-  selectedCountry: string = '';
   selectedStatus: string = '';
   filteredCampaigns: Campaign[] = [];
   activeComponent: string = ''; // Variabile per gestire il componente attivo
   campaign: Campaign = this.initializeCampaign();
   imagePreview: string | undefined;
+  countries = countriesDB;
+  selectedCountry = '';  // Paese 
+  searchTerm: string = '';
+  filteredCountries: string[] = [];
+  isDropdownVisible: boolean = false;
 
   ngOnInit(): void {
+    this.filteredCountries = this.countries;
     this.loadCampaigns();
     this.loadCountries(); // Carica i paesi
     this.filterAndSortCampaigns();
@@ -41,6 +54,7 @@ export class GestioneCampagneComponent {
   // Inizializza una campagna vuota
   initializeCampaign(): Campaign {
     return {
+      id: crypto.randomUUID(),
       title: '',
       country: '',
       status: 'Pubblicata',
@@ -58,6 +72,7 @@ export class GestioneCampagneComponent {
   loadCampaigns(): void {
     this.campaigns = [
       {
+        id: '0',
         title: 'Progetto 0',
         country: 'Italia',
         status: 'Pubblicata',
@@ -68,6 +83,7 @@ export class GestioneCampagneComponent {
         deadline: '2024-12-31',
       },
       {
+        id: '1',
         title: 'Progetto 1',
         country: 'Francia',
         status: 'Pubblicata',
@@ -78,6 +94,7 @@ export class GestioneCampagneComponent {
         deadline: '2024-12-31',
       },
       {
+        id: '2',
         title: 'Progetto 2',
         country: 'Italia',
         status: 'Pubblicata',
@@ -88,6 +105,7 @@ export class GestioneCampagneComponent {
         deadline: '2024-12-31',
       },
       {
+        id: '3',
         title: 'Progetto 3',
         country: 'Spagna',
         status: 'Pubblicata',
@@ -98,6 +116,7 @@ export class GestioneCampagneComponent {
         deadline: '2024-12-31',
       },
       {
+        id: '4',
         title: 'Progetto 4',
         country: 'Germania',
         status: 'Pubblicata',
@@ -108,6 +127,7 @@ export class GestioneCampagneComponent {
         deadline: '2024-12-31',
       },
       {
+        id: '5',
         title: 'Progetto 5',
         country: 'Polonia',
         status: 'Pubblicata',
@@ -118,6 +138,7 @@ export class GestioneCampagneComponent {
         deadline: '2024-12-31',
       },
       {
+        id: '6',
         title: 'Progetto 6',
         country: 'Italia',
         status: 'Pubblicata',
@@ -134,7 +155,7 @@ export class GestioneCampagneComponent {
   // Funzione per caricare i paesi appartenenti all'Unione Europea
   loadCountries(): void {
     this.europeanUnionCountries = [
-      'Austria', 'Belgio', 'Bulgaria', 'Croazia', 'Cipro', 'Repubblica Ceca',
+      'Tutti', 'Austria', 'Belgio', 'Bulgaria', 'Croazia', 'Cipro', 'Repubblica Ceca',
       'Danimarca', 'Estonia', 'Finlandia', 'Francia', 'Germania', 'Grecia',
       'Ungheria', 'Irlanda', 'Italia', 'Lettonia', 'Lituania', 'Lussemburgo',
       'Malta', 'Paesi Bassi', 'Polonia', 'Portogallo', 'Romania', 'Slovacchia',
@@ -158,29 +179,34 @@ export class GestioneCampagneComponent {
     return this.europeanUnionCountries;
   }
 
-  // Funzione per rimuovere una campagna
-  removeCampaign(title: string): void {
-    // Rimuovi la campagna dalla lista
-    this.campaigns = this.campaigns.filter(campaign => campaign.title !== title);
+  removeCampaign(id: string): void {
+    // Rimuovi la campagna dalla lista usando l'id
+    this.campaigns = this.campaigns.filter(campaign => campaign.id !== id);
     this.filterAndSortCampaigns();
-  }
+  }  
 
   // Funzione per modificare una campagna
   editCampaign(campaign: Campaign): void {
     this.setActiveComponent('editCampagna', campaign);
   }
 
+  resetFilters(): void {
+    this.selectedCountry = ''; // Resetta il filtro del paese
+    this.selectedStatus = ''; // Resetta il filtro dello stato
+    this.filterAndSortCampaigns(); // Applica i filtri aggiornati
+}
+
   // Funzione per attivare un componente specifico (creazione o modifica)
   setActiveComponent(component: string, selectedCampaign?: Campaign): void {
     this.activeComponent = component;
-
-    // Se la campagna è passata per la modifica, la imposta come campagna da modificare
+  
     if (component === 'editCampagna' && selectedCampaign) {
       this.campaign = { ...selectedCampaign }; // Clona i dati della campagna selezionata
     } else {
-      this.resetCampaign(); // Azzera il modulo se si sta creando una nuova campagna
+      this.resetCampaign(); // Azzera il modulo per una nuova campagna
     }
   }
+  
 
   // Funzione per azzerare i dati della campagna
   resetCampaign(): void {
@@ -197,22 +223,29 @@ export class GestioneCampagneComponent {
       !this.campaign.targetFunds ||
       !this.campaign.deadline
     ) {
-      return; // Verifica che i campi obbligatori siano compilati
+      alert('Compila tutti i campi obbligatori!');
+      return; // Blocca il salvataggio se i campi obbligatori non sono compilati
     }
-
+  
     if (this.activeComponent === 'createCampagna') {
+      // Aggiungi una nuova campagna
       this.campaigns.push({ ...this.campaign });
     } else if (this.activeComponent === 'editCampagna') {
-      const index = this.campaigns.findIndex(c => c.title === this.campaign.title);
+      // Trova l'indice della campagna da modificare
+      const index = this.campaigns.findIndex(c => c.id === this.campaign.id);
+  
       if (index !== -1) {
+        // Aggiorna i dati della campagna
         this.campaigns[index] = { ...this.campaign };
+      } else {
+        console.error('Campagna non trovata per la modifica:', this.campaign);
       }
     }
-
-    this.filterAndSortCampaigns();
-    this.setActiveComponent('');
+  
+    this.filterAndSortCampaigns(); // Applica i filtri e aggiorna la lista
+    this.setActiveComponent(''); // Torna alla vista principale
   }
-
+  
   // Gestione immagine selezionata
   onImageSelected(event: any): void {
     const file = event.target.files[0];
@@ -225,4 +258,34 @@ export class GestioneCampagneComponent {
       reader.readAsDataURL(file);
     }
   }
+  onSearchChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const searchValue = input.value.trim().toLowerCase();
+
+    this.isDropdownVisible = searchValue.length > 0;
+
+    if (searchValue.length === 0) {
+      this.filteredCountries = [];  // Non mostrare nessun risultato se la barra è vuota
+      return;
+    }
+
+    this.filteredCountries = this.countries
+      .filter(country => country.toLowerCase().includes(searchValue))
+      .sort((a, b) => a.toLowerCase().indexOf(searchValue) - b.toLowerCase().indexOf(searchValue));
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  selectCountry(country: string): void {
+    this.selectedCountry = country;
+    this.searchTerm = country;
+    this.filteredCountries = [];
+    this.isDropdownVisible = false;
+  }
+  goBack(): void {
+    this.setActiveComponent('gestioneCampagne');
+  }
+  
 }

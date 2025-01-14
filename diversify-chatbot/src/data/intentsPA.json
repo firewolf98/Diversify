@@ -1,0 +1,2631 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "Is anyone there?",
+        "Hi there",
+        "Hello",
+        "Hey there",
+        "Howdy",
+        "Hola",
+        "Bonjour",
+        "Konnichiwa",
+        "Guten tag",
+        "Ola"
+        ],
+      "responses": [
+        "Hello there. Tell me how are you feeling today?",
+        "Hi there. What brings you here today?",
+        "Hi there. How are you feeling today?",
+        "Great to see you. How do you feel currently?",
+        "Hello there. Glad to see you're back. What's going on in your world right now?"
+      ]
+    },
+    {
+      "tag": "morning",
+      "patterns": [
+        "Good morning"
+      ],
+      "responses": [
+        "Good morning. I hope you had a good night's sleep. How are you feeling today?"
+      ]
+    },
+    {
+      "tag": "afternoon",
+      "patterns": [
+        "Good afternoon"
+      ],
+      "responses": [
+        "Good afternoon. How is your day going?"
+      ]
+    },
+    {
+      "tag": "evening",
+      "patterns": [
+        "Good evening"
+      ],
+      "responses": [
+        "Good evening. How has your day been?"
+      ]
+    },
+    {
+      "tag": "night",
+      "patterns": [
+        "Good night"
+      ],
+      "responses": [
+        "Good night. Get some proper sleep",
+        "Good night. Sweet dreams."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye",
+        "See you later",
+        "Goodbye",
+        "Au revoir",
+        "Sayonara",
+        "ok bye",
+        "Bye then",
+        "Fare thee well"
+      ],
+      "responses": [
+        "See you later.",
+        "Have a nice day.",
+        "Bye! Come back again.",
+        "I'll see you soon."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thanks",
+        "Thank you",
+        "That's helpful",
+        "Thanks for the help",
+        "Thank you very much"
+      ],
+      "responses": [
+        "Happy to help!",
+        "Any time!",
+        "My pleasure",
+        "You're most welcome!"
+      ]
+    },
+    {
+      "tag": "no-response",
+      "patterns": [
+        ""
+      ],
+      "responses": [
+        "Sorry, I didn't understand you.",
+        "Please go on.",
+        "Not sure I understand that.",
+        "Please don't hesitate to talk to me."
+      ]
+    },
+    {
+      "tag": "neutral-response",
+      "patterns": ["nothing much"
+      ],
+      "responses": [
+        "Oh, I see. Do you want to talk about something?"
+      ]
+    },
+    {
+      "tag": "about",
+      "patterns": [
+        "Who are you?",
+        "What are you?",
+        "Who you are?",
+        "Tell me more about yourself.",
+        "What is your name?",
+        "What should I call you?",
+        "What's your name?",
+        "Tell me about yourself"
+      ],
+      "responses": [
+        "I'm Brigid, your Personal Therapeutic AI Assistant. How are you feeling today?",
+        "I'm Brigid, a Therapeutic AI Assistant designed to assist you. Tell me about yourself.",
+        "I'm Brigid. I am a conversational agent designed to mimic a therapist. So how are you feeling today?",
+        "You can call me Brigid.",
+        "I'm Brigid!",
+        "Call me Brigid."
+      ]
+    },
+    {
+      "tag": "skill",
+      "patterns": [
+        "What can you do?"
+      ],
+      "responses": [
+        "I can provide general advice regarding anxiety and depression, answer questions related to mental health and make daily conversations. Do not consider me as a substitute for an actual mental healthcare worker. Please seek help if you don't feel satisfied with me."
+      ]
+    },
+    {
+      "tag": "creation",
+      "patterns": [
+        "Who created you?", "How were you made?", "How were you created?"
+      ],
+      "responses": [
+        "I was created by a team of AI developers.",
+        "I was trained on a text dataset using Deep Learning & Natural Language Processing techniques.",
+        "The real question is: Who created you?"
+      ]
+    },
+    {
+      "tag": "name",
+      "patterns": [
+        "My name is ",
+        "I am name.",
+        "I go by "
+      ],
+      "responses": [
+        "Oh, nice to meet you. Tell me, how was your week?",
+        "Nice to meet you. So, tell me. How do you feel today?",
+        "That's a great name. Tell me more about yourself."
+      ]
+    },
+    {
+      "tag": "help",
+      "patterns": [
+        "Could you help me?", "Give me a hand please",
+        "Can you help?",
+        "What can you do for me?",
+        "I need support",
+        "I need help",
+        "Support me please"
+      ],
+      "responses": [
+        "Sure. Tell me how I can assist you.",
+        "Tell me your problem so that I can assist you.",
+        "Yes, sure. How can I help you?"
+      ]
+    },
+    {
+      "tag": "sad",
+      "patterns": [
+        "I am feeling lonely",
+        "I am so lonely",
+        "I feel down",
+        "I feel sad",
+        "I am sad",
+        "I feel so lonely",
+        "I feel empty",
+        "I don't have anyone"
+      ],
+      "responses": [
+        "I'm sorry to hear that. I'm here for you. Talking about it might help. So, tell me why do you think you're feeling this way?",
+        "I'm here for you. Could you tell me why you're feeling this way?",
+        "Why do you think you feel this way?",
+        "How long have you been feeling this way?"
+      ]
+    },
+    {
+      "tag": "stressed",
+      "patterns": ["I am so stressed out", "I am so stressed", "I feel stuck", "I still feel stressed", "I am so burned out"],
+      "responses": [
+        "What do you think is causing this?",
+        "Take a deep breath and gather your thoughts. Go take a walk if possible. Stay hydrated.",
+        "Give yourself a break. Go easy on yourself.",
+        "I am sorry to hear that. What is the reason behind this?"
+      ]
+    },
+    {
+      "tag": "worthless",
+      "patterns": [
+        "I feel so worthless.",
+        "No one likes me.",
+        "I can't do anything.",
+        "I am so useless",
+        "Nothing makes sense anymore"
+      ],
+      "responses": [
+        "It's only natural to feel this way. Tell me more. What else is on your mind?",
+        "Let's discuss further why you're feeling this way.",
+        "You are not alone in your feelings. There is always someone there to help. You can always change your feelings and your way of thinking by being open to trying to change."
+      ]
+    },
+    {
+      "tag": "depressed",
+      "patterns": [
+        "I can't take it anymore",
+        "I am so depressed",
+        "I think I'm depressed.",
+        "I have depression"
+      ],
+      "responses": [
+        "It helps to talk about what's happening. You're going to be okay.",
+        "Talk to me. Tell me more. It helps if you open up yourself to someone else.",
+        "Sometimes when we are depressed, it is hard to care about anything. It can be hard to do the simplest of things. Give yourself time to heal."
+      ]
+    },
+    {
+      "tag": "happy",
+      "patterns": [
+        "I feel great today.",
+        "I am happy.",
+        "I feel happy.",
+        "I'm good.",
+        "cheerful",
+        "I'm fine",
+        "I feel okay"
+      ],
+      "responses": [
+        "That's great to hear. I'm glad you're feeling this way.",
+        "Oh, I see. That's great.",
+        "Did something happen which made you feel this way?"
+      ]
+    },
+    {
+      "tag": "casual",
+      "patterns": [
+        "Oh, I see.",
+        "ok",
+        "okay",
+        "nice",
+        "Whatever",
+        "K",
+        "Fine",
+        "yeah",
+        "yes",
+        "no",
+        "not really"
+      ],
+      "responses": [
+        "Let's discuss further why you're feeling this way.",
+        "How were you feeling last week?",
+        "I'm listening. Please go on.",
+        "Tell me more",
+        "Can you elaborate on that?",
+        "Come, elucidate your thoughts."
+      ]
+    },
+    {
+      "tag": "anxious",
+      "patterns": [
+        "I feel so anxious.",
+        "I'm so anxious because of "
+      ],
+      "responses": [
+        "Don't be hard on yourself. What's the reason behind this?",
+        "Can you tell me more about this feeling?",
+        "I understand that it can be scary. Tell me more about it.",
+        "Don't let the little worries bring you down. What's the worst that can happen?"
+      ]
+    },
+    {
+      "tag": "not-talking",
+      "patterns": [
+        "I don't want to talk about it.",
+        "No, just stay away.",
+        "I can't bring myself to open up.",
+        "Just shut up"
+      ],
+      "responses": [
+        "Talking about something really helps. If you're not ready to open up then that's okay. Just know that I'm here for you whenever you need me.",
+        "I want to help you. I really do. But in order for me to help you, you're gonna have to talk to me.", "I'm here to listen to you and help you vent. So please talk to me.",
+        "You can talk to me without fear of judgment."
+      ]
+    },
+    {
+      "tag": "jokes",
+      "patterns": [
+        "Tell me a joke", "Tell me another joke"
+      ],
+      "responses": [
+        "Mental health is not a joke."
+      ]
+    },
+    {
+      "tag": "repeat",
+      "patterns": [
+        "You already told me that",
+        "You mentioned that already",
+        "Why are you repeating yourself?"
+      ],
+      "responses": [
+        "Oh sorry, I didn't realize that. I'll try not to repeat myself again."
+      ]
+    },
+    {
+      "tag": "scared",
+      "patterns": [
+        "I'm scared",
+        "That sounds awful. What do I do?",
+        "No, I don't want to feel this way",
+        "I am scared for myself"
+      ],
+      "responses": [
+        "It's only natural to feel this way. I'm here for you.",
+        "It'll all be okay. This feeling is only momentary.",
+        "I understand how you feel. Don't put yourself down because of it."
+      ]
+    },
+    {
+      "tag": "default",
+      "patterns": [
+        "exams",
+        "friends",
+        "relationship",
+        "boyfriend",
+        "girlfriend",
+        "family",
+        "money",
+        "financial problems"
+      ],
+      "responses": [
+        "Oh, I see. Tell me more.",
+        "I see. What else?",
+        "Tell me more about it.",
+        "Oh okay. Why don't you tell me more about it?",
+        "I'm listening. Tell me more."
+      ]
+    },
+    {
+      "tag": "relationship_issue",
+      "patterns": [
+        "My partner doesn't understand me",
+        "I had a fight with my boyfriend",
+        "My girlfriend doesn't listen to me",
+         "I'm having relationship issues", "We don't communicate well",
+         "Our relationship feels distant"
+      ],
+      "responses": [
+        "Relationships can be challenging. What do you think is causing these issues?",
+        "Communication is key in relationships. Have you tried expressing your feelings openly?",
+        "It's okay to have conflicts. What steps can you take to address them?",
+        "Take a deep breath and try to approach the situation with empathy. Tell me more."
+      ]
+    },
+    {
+      "tag": "career_stress",
+      "patterns": [
+        "I feel stuck in my job",
+        "My work is overwhelming",
+        "I hate my job",
+        "I'm unhappy with my career",
+        "I feel unmotivated at work"
+     ],
+      "responses": [
+        "Work-related stress can be tough. What aspects of your job make you feel this way?",
+        "It might help to think about what motivates you. What do you enjoy doing?",
+        "Have you considered speaking to someone at work or exploring other opportunities?",
+        "It's okay to feel this way sometimes. What changes could make things better for you?"
+      ]
+    },
+    {
+      "tag": "parenting",
+      "patterns": [
+        "I'm struggling as a parent",
+        "My kids don't listen to me",
+        "Parenting is so hard",
+        "I feel like I'm failing as a parent",
+        "I can't manage my kids' behavior"
+     ],
+     "responses": [
+        "Parenting is one of the toughest jobs. What's been the most challenging part for you?",
+        "It's okay to feel this way. You're doing your best. Can you share more about your concerns?",
+        "Have you considered seeking support from other parents or professionals?",
+        "Sometimes small changes in approach can make a big difference. What have you tried so far?"
+     ]
+    },
+    {
+      "tag": "anxiety_1",
+      "patterns": [
+        "I feel so anxious all the time",
+        "I'm constantly worrying",
+        "I have panic attacks",
+        "I feel overwhelmed with anxiety",
+        "I can't calm down"
+      ],
+      "responses": [
+        "Anxiety can be overwhelming. Have you tried any techniques to manage it, like deep breathing?",
+        "You're not alone in feeling this way. What triggers your anxiety?",
+        "It might help to focus on one small step at a time. What's on your mind right now?",
+        "Talking about it can be a relief. Please share more if you're comfortable."
+      ]
+    },
+    {
+      "tag": "self_improvement",
+      "patterns": [
+        "How can I improve myself?",
+        "I want to be a better person",
+        "How do I build good habits?",
+        "I want to grow as a person",
+        "How can I become more disciplined?"
+     ],
+      "responses": [
+        "Self-improvement is a journey. What's one area you'd like to focus on?",
+        "Setting small, achievable goals can make a big difference. What's a habit you'd like to start?",
+        "Reflecting on your values and priorities can guide you. What inspires you?",
+        "Remember to celebrate small wins along the way. What step can you take today?"
+      ]
+    },
+    {
+      "tag": "health_concern",
+      "patterns": [
+        "I'm worried about my health", "I feel sick often",
+        "I can't manage my health issues",
+        "I'm not sleeping well", "I feel tired all the time"
+     ],
+      "responses": [
+        "Taking care of your health is so important. Have you spoken to a healthcare professional?",
+        "What's been the biggest concern for you lately?",
+        "Sometimes small lifestyle changes can help. What have you tried so far?",
+        "It's okay to feel concerned. What specific health issues are troubling you?"
+     ]
+    },
+    {
+      "tag": "financial_stress_1",
+      "patterns": [
+        "I'm struggling with money",
+        "I can't pay my bills", "I'm worried about my financial situation",
+        "I have too much debt", "My finances are overwhelming me"
+     ],
+      "responses": [
+        "Financial stress can feel overwhelming. Have you considered speaking to a financial advisor?",
+        "What steps have you taken so far to address your concerns?",
+        "Breaking it down into smaller, manageable tasks might help. What's your biggest priority?",
+        "You're not alone in this. Are there any resources in your community that can assist?"
+      ]
+    },
+    {
+      "tag": "social_anxiety_1",
+      "patterns": [
+        "I feel nervous around people",
+        "I can't handle social situations",
+        "I avoid going out",
+        "I feel judged by others",
+        "Crowds make me anxious"
+     ],
+      "responses": [
+        "Social anxiety can be difficult. What situations make you feel most uncomfortable?",
+        "Taking small steps to expose yourself to social settings might help. Have you tried that?",
+        "You're not alone in feeling this way. What thoughts come to mind in social situations?",
+        "It's okay to take things at your own pace. What would help you feel more comfortable?"
+      ]
+    },
+    {
+      "tag": "hobby_interest",
+      "patterns": [
+        "I want to start a new hobby",
+        "What hobbies can I try?",
+        "I feel bored all the time",
+        "I need something fun to do",
+        "How do I find a passion?"
+      ],
+      "responses": [
+        "Exploring new hobbies can be exciting. What interests you?",
+        "Trying out different activities can help you find your passion. What have you considered so far?",
+        "Sometimes reconnecting with things you enjoyed in the past can be a great start. What did you love doing as a kid?",
+        "Take it one step at a time. What sounds like fun to you right now?"
+      ]
+    },
+    {
+      "tag": "gratitude",
+      "patterns": [
+        "I'm grateful for my family",
+        "I appreciate my friends",
+        "I'm thankful for what I have",
+        "I feel blessed", "I'm lucky to have a good life"
+      ],
+       "responses": [
+         "That's wonderful to hear. Gratitude is a powerful feeling.",
+         "Appreciating what you have can bring so much joy. What are you most thankful for?",
+         "Reflecting on the positive aspects of life is amazing. Tell me more.",
+         "It's great that you feel this way. What inspired this gratitude?"
+       ]
+    },
+    {
+      "tag": "career_advice",
+      "patterns": [
+        "How do I choose a career?",
+        "I don't know what job suits me",
+        "What skills should I learn for my career?",
+        "How do I prepare for a job interview?",
+        "I want to change my job but I'm scared"
+      ],
+      "responses": [
+        "Choosing a career can be tough. What are your interests and strengths?",
+        "It's okay to feel unsure. Have you considered talking to a career counselor?",
+        "Learning new skills is always valuable. What field interests you the most?",
+        "Preparing for an interview is key. Have you practiced common questions?",
+        "Changing jobs is a big decision. What excites or worries you about it?"
+      ]
+    },
+    {
+      "tag": "relationships",
+      "patterns": [
+        "I have a problem with my partner",
+        "How do I make friends?",
+        "I feel distant from my family", "How do I fix a broken friendship?",
+        "I'm having trust issues"
+     ],
+      "responses": [
+        "Relationships can be complex. What’s been happening lately?",
+        "Building connections takes time. What activities could help you meet new people?",
+        "Communication is key in relationships. Have you tried sharing how you feel?",
+        "Repairing trust takes effort from both sides. What would you like to improve?",
+        "Family dynamics can be tricky. Is there someone you trust to talk to about this?"
+     ]
+    },
+    {
+      "tag": "financial_advice",
+      "patterns": [
+        "How do I save money?",
+        "I need help with budgeting",
+        "What’s the best way to invest?",
+        "I’m struggling with debt",
+        "How can I make extra income?"
+     ],
+      "responses": [
+        "Budgeting is a great first step. Have you tracked your expenses recently?",
+        "Saving money is all about planning. What’s your financial goal?",
+        "Investments can be rewarding. Have you considered talking to a financial advisor?",
+        "Dealing with debt can be overwhelming. What steps have you taken so far?",
+        "Earning extra income can help. Are you open to freelance work or part-time jobs?"
+     ]
+    },
+    {
+      "tag": "health_issues",
+      "patterns": [
+        "I don't feel well",
+        "What should I do for a headache?",
+        "How do I manage stress?", "I think I'm getting sick",
+        "How do I improve my sleep?"
+     ],
+      "responses": [
+        "I'm sorry you're not feeling well. Have you considered consulting a doctor?",
+        "Headaches can have many causes. Have you tried resting or staying hydrated?",
+        "Stress management is important. Would relaxation techniques help you?",
+        "If you're feeling sick, rest and hydration are key. Have you checked your symptoms with a professional?",
+        "Improving sleep can be life-changing. Have you tried setting a regular bedtime?"
+     ]
+    },
+    {
+      "tag": "anxiety_2",
+      "patterns": [
+        "I feel anxious", "How do I calm down from anxiety?",
+        "I'm having an anxiety attack",
+        "I can't stop worrying", "How do I manage anxiety?"
+     ],
+      "responses": [
+        "I'm sorry you're feeling this way. Have you tried taking deep breaths or grounding exercises?",
+        "Managing anxiety takes time. Would a mindfulness exercise help right now?",
+        "Panic attacks can be overwhelming. Can you find a safe, quiet space to breathe?",
+        "Worrying can feel endless. Have you tried writing down your thoughts to organize them?",
+        "Anxiety is tough, but there are techniques to help. Would you like me to guide you through one?"
+     ]
+    },
+    {
+      "tag": "depression",
+      "patterns": [
+        "I feel so down", "I think I might be depressed",
+        "I can't find joy in anything",
+        "How do I cope with depression?",
+        "I feel hopeless"
+     ],
+      "responses": [
+        "I'm sorry you're feeling this way. You're not alone, and there is help available.",
+        "Talking to someone you trust might help. Have you considered reaching out?",
+        "It’s okay to take things one step at a time. Would you like to discuss small steps you can take today?",
+        "Depression can feel isolating. You might find it helpful to connect with a therapist or counselor.",
+        "Your feelings are valid. Would you like some tips to try to lift your mood right now?"
+     ]
+    },
+    {
+      "tag": "self_esteem_1",
+      "patterns": [
+        "I don't feel good about myself",
+        "How do I build self-confidence?",
+        "I always compare myself to others",
+        "Why do I feel so inadequate?",
+        "I can't seem to like myself"
+     ],
+      "responses": [
+        "Building self-esteem takes time. What’s one thing you like about yourself?",
+        "It’s okay to feel this way. Have you tried focusing on your strengths?",
+        "Comparisons can be tough. Remember, everyone’s journey is unique.",
+        "You are valuable just as you are. Would you like to talk more about what you're feeling?",
+        "Confidence grows with practice. What’s something you’ve achieved recently that you’re proud of?"
+      ]
+    },
+    {
+      "tag": "grief_1",
+      "patterns": [
+        "I lost someone close to me", "How do I cope with grief?",
+        "I can't stop missing them", "Why does it hurt so much?",
+        "How long does grief last?"
+     ],
+      "responses": [
+        "I'm so sorry for your loss. Grieving takes time, and your feelings are valid.",
+        "It’s okay to miss them and feel pain. Would you like to talk about your memories?",
+        "Grief can be overwhelming. Have you considered joining a support group or talking to someone you trust?",
+        "Healing is a personal journey. What helps you feel connected to them in a healthy way?",
+        "There’s no right timeline for grief. It’s important to be gentle with yourself."
+      ]
+    },
+    {
+      "tag": "loneliness_1",
+      "patterns": [
+        "I feel so alone", "How do I make friends?",
+        "I have no one to talk to",
+        "Why do I feel so isolated?",
+        "How do I stop feeling lonely?"
+      ],
+      "responses": [
+        "Loneliness can be hard. Have you thought about joining a community group or activity?",
+        "Feeling isolated is tough. I’m here to listen if you’d like to share.",
+        "Building connections takes time. What activities could help you meet new people?",
+        "You’re not alone in feeling this way. Would you like to explore ways to feel more connected?",
+        "Sometimes reaching out to an old friend can make a difference. Is there someone you’d like to reconnect with?"
+      ]
+    },
+    {
+      "tag": "anger_management_1",
+      "patterns": [
+        "I can't control my anger",
+        "How do I deal with being so angry?",
+        "I feel like I might explode",
+        "Why do I get angry so easily?",
+        "How can I calm down when I'm mad?"
+     ],
+      "responses": [
+        "Anger can feel overwhelming. Have you tried taking deep breaths or stepping away for a moment?",
+        "It’s okay to feel angry, but managing it is important. Would you like a quick technique to calm down?",
+        "Identifying the source of your anger can help. What triggered this feeling?",
+        "Expressing anger constructively takes practice. Would writing down your thoughts help?",
+        "Sometimes physical activity, like going for a walk, can help diffuse anger. Would you like to try that?"
+      ]
+    },
+    {
+      "tag": "motivation_1",
+      "patterns": [
+        "I feel unmotivated",
+        "How do I find the energy to do things?",
+        "I can't start anything",
+        "Why do I procrastinate so much?",
+        "I don't feel like doing anything"
+      ],
+      "responses": [
+        "It’s okay to feel this way. What’s one small thing you can do right now?",
+        "Sometimes starting small is the key. What’s a task you’ve been avoiding that feels manageable?",
+        "Procrastination can be a sign of feeling overwhelmed. Would breaking tasks into smaller steps help?",
+        "You don’t have to do everything at once. What’s one thing that excites or interests you?",
+        "Lack of motivation can happen to anyone. What usually helps you feel energized?"
+      ]
+    },
+    {
+      "tag": "stress",
+      "patterns": [
+        "I'm so stressed out", "How do I handle stress?",
+        "Everything feels too much", "Why do I feel so overwhelmed?",
+        "What can I do to relax?"
+     ],
+      "responses": [
+        "Stress can build up quickly. Would deep breathing or a short break help right now?",
+        "Feeling overwhelmed is tough. Have you tried listing out your priorities?",
+        "Relaxation techniques like meditation or a short walk might help. Would you like some guidance?",
+        "It’s okay to feel stressed. Talking about it can help. What’s been on your mind?",
+        "Breaking tasks into smaller steps can ease stress. Would you like help planning?"
+      ]
+    },
+    {
+      "tag": "boundaries_1",
+      "patterns": [
+        "How do I set boundaries?",
+        "I feel like people take advantage of me",
+        "Why do I have a hard time saying no?",
+        "I want to protect my time better",
+        "How do I handle someone who ignores my limits?"
+     ],
+      "responses": [
+        "Setting boundaries is important. Have you thought about what’s most important to you?",
+        "Saying no can feel hard at first, but it gets easier with practice. Would you like some examples?",
+        "Protecting your time is valuable. What’s one situation where you’d like to set a boundary?",
+        "When someone ignores your limits, it’s okay to reinforce them calmly. Would you like to discuss how?",
+        "Clear communication is key to boundaries. What’s one way you can express your needs clearly?"
+      ]
+    },
+    {
+      "tag": "self_care",
+      "patterns": [
+        "What are some self-care tips?",
+        "How do I take care of myself?",
+        "I feel burnt out",
+        "What can I do to feel better?",
+        "Why is self-care important?"
+      ],
+      "responses": [
+        "Self-care is about prioritizing yourself. What’s something small you enjoy doing?",
+        "Taking breaks and resting are vital. Would you like suggestions for relaxing activities?",
+        "Burnout can happen when you don’t pause. What’s one thing you can let go of today?",
+        "Caring for yourself is a step toward feeling better. Would creating a routine help you?",
+        "Self-care builds resilience. Have you tried activities like journaling or meditating?"
+      ]
+    },
+    {
+      "tag": "panic_attack",
+      "patterns": [
+        "I'm having a panic attack",
+        "How do I stop a panic attack?",
+        "I feel like I can't breathe",
+        "My heart is racing and I feel scared",
+        "How do I calm down during a panic attack?"
+      ],
+      "responses": [
+        "Panic attacks can be overwhelming. Try to focus on your breathing: inhale for 4 seconds, hold for 4, and exhale for 4.",
+        "You’re safe. Grounding exercises, like naming 5 things you can see, might help.",
+        "It’s okay to feel this way. Can you find a quiet place to sit and focus on calming thoughts?",
+        "Try to remind yourself: this is temporary and you will get through it.",
+        "Your feelings are valid. Would you like me to guide you through a relaxation technique?"
+      ]
+    },
+    {
+      "tag": "relationship_issues_1",
+      "patterns": [
+        "I'm having relationship problems",
+        "How do I fix my relationship?",
+        "I feel like my partner doesn't understand me",
+        "Why do we keep arguing?",
+        "How do I communicate better with my partner?"
+     ],
+      "responses": [
+        "Relationships can be challenging. Have you tried expressing your feelings calmly and openly?",
+        "Communication is key. What’s one thing you’d like your partner to understand?",
+        "Disagreements are normal. Would you like tips for resolving conflicts more effectively?",
+        "It might help to focus on listening to each other. Have you considered seeking couple’s counseling?",
+        "Building understanding takes time. Would you like suggestions for improving communication?"
+     ]
+    },
+    {
+      "tag": "work_stress",
+      "patterns": [
+        "I'm stressed about work",
+        "How do I manage work pressure?",
+        "My workload feels overwhelming",
+        "I can't balance work and life",
+        "Why do I feel so drained after work?"
+     ],
+      "responses": [
+        "Work stress can build up. Have you tried prioritizing tasks or delegating where possible?",
+        "Taking breaks during the day might help. Would you like tips for better time management?",
+        "Burnout is common. Can you set aside time for activities you enjoy?",
+        "Balancing work and life is important. What’s one thing you can do for yourself today?",
+        "Feeling drained after work is tough. Have you tried setting boundaries with your workload?"
+     ]
+    },
+    {
+      "tag": "negative_thoughts",
+      "patterns": [
+        "I have a lot of negative thoughts",
+        "Why do I always think the worst?",
+        "I can't stop thinking bad things about myself",
+        "How do I break free from negativity?",
+        "My thoughts are overwhelming me"
+     ],
+      "responses": [
+        "Negative thoughts can be persistent. Have you tried reframing them into something more positive?",
+        "It’s okay to have these thoughts. Would writing them down and challenging them help?",
+        "Focusing on small, positive moments can make a difference. What’s one good thing about today?",
+        "You’re not alone in feeling this way. Would you like strategies to challenge negative thinking?",
+        "Mindfulness exercises can help calm overwhelming thoughts. Would you like to try one together?"
+     ]
+    },
+    {
+      "tag": "fear_and_phobia",
+      "patterns": [
+        "I'm afraid of failing",
+        "How do I deal with my fears?",
+        "I have a phobia that’s holding me back",
+        "Why am I so scared all the time?", "How do I overcome my fear?"
+     ],
+      "responses": [
+        "Fears are natural, but they can be managed. What’s one step you could take to face your fear?",
+        "It’s okay to feel scared. Breaking things into smaller steps might help. Would you like guidance?",
+        "Phobias can be limiting. Have you thought about speaking with a professional for support?",
+        "Fear often feels bigger than it is. Can you focus on what you can control?",
+        "Courage doesn’t mean not being scared. It means taking action despite the fear. What’s one small step you could take?"
+      ]
+    },
+    {
+      "tag": "family_conflicts_1",
+      "patterns": [
+        "My family doesn't understand me",
+        "How do I deal with family arguments?",
+        "I feel distant from my family",
+        "Why is it so hard to talk to my parents?",
+        "How can I improve my relationship with my siblings?"
+     ],
+      "responses": [
+        "Family relationships can be complicated. Would discussing your feelings calmly help?",
+        "Arguments happen. Have you tried taking a break to cool off before continuing the conversation?",
+        "Feeling distant can be hard. Could spending quality time together help?",
+        "It’s okay to feel frustrated. Would you like tips on how to express your feelings effectively?",
+        "Building better relationships takes time. What’s one positive thing you could focus on in your family dynamics?"
+      ]
+    },
+    {
+      "tag": "sleep_issues_1",
+      "patterns": [
+        "I can't sleep", "How do I get better sleep?",
+        "Why am I always tired?",
+        "I have trouble falling asleep at night",
+        "What can I do to sleep better?"
+     ],
+      "responses": [
+        "Sleep issues are common. Have you tried establishing a relaxing bedtime routine?",
+        "Avoiding screens an hour before bed can help. Would you like more tips?",
+        "It might help to write down your thoughts before bed to clear your mind. Have you tried that?",
+        "Drinking calming tea or doing light stretches might improve your sleep. Would you like suggestions?",
+        "If this persists, consulting a doctor might be helpful. Would you like to explore natural remedies in the meantime?"
+      ]
+    },
+    {
+      "tag": "forgiveness_1",
+      "patterns": [
+        "How do I forgive someone?",
+        "I can't let go of resentment",
+        "Why is forgiving so hard?",
+        "Should I forgive them?", "I want to move on but can't forgive"
+     ],
+      "responses": [
+        "Forgiveness is a personal journey. What’s holding you back from letting go?",
+        "Letting go of resentment can be freeing. Would you like to talk about what happened?",
+        "It’s okay to take your time to process. Forgiveness doesn’t mean forgetting. Would exploring your feelings help?",
+        "Moving on can bring peace. What’s one step you could take toward that today?",
+        "Forgiving is for your own well-being, not theirs. Would focusing on yourself help?"
+      ]
+    },
+    {
+      "tag": "overthinking_1",
+      "patterns": [
+        "I can't stop overthinking",
+        "Why do I always analyze everything?",
+        "How do I stop obsessing over things?",
+        "I keep replaying events in my head", "How can I quiet my mind?"
+      ],
+      "responses": [
+        "Overthinking can be exhausting. Have you tried focusing on the present moment?",
+        "Writing down your thoughts might help organize them. Would you like to try?",
+        "Sometimes taking a walk or doing something physical can interrupt the cycle. Would that help?",
+        "It’s okay to feel this way. Can you identify one thing within your control right now?",
+        "Mindfulness exercises can calm an overactive mind. Would you like to try one?"
+      ]
+    },
+    {
+      "tag": "self_esteem_2",
+      "patterns": [
+        "I feel worthless",
+        "Why am I not good enough?",
+        "How can I improve my self-esteem?",
+        "I can't seem to like myself",
+        "I always compare myself to others"
+     ],
+      "responses": [
+        "Self-esteem is built over time. Can you name one thing you like about yourself?",
+        "Comparisons can be harmful. What makes you unique and special?",
+        "You’re valuable just as you are. Would you like some affirmations to boost your confidence?",
+        "It’s okay to feel this way sometimes. Focusing on small accomplishments can help. What’s one thing you’ve achieved recently?",
+        "Building self-esteem takes patience. Would you like to discuss practical steps?"
+      ]
+    },
+    {
+      "tag": "loneliness_2",
+      "patterns": [
+        "I feel so lonely",
+        "Why do I have no one to talk to?",
+        "How do I cope with loneliness?",
+        "I feel like nobody understands me",
+        "I just want someone to be there for me"
+      ],
+      "responses": [
+        "Loneliness can feel overwhelming. Have you considered joining a community or group that shares your interests?",
+        "You’re not alone in feeling this way. Would you like suggestions for connecting with others?",
+        "It’s okay to seek connection. Can you reach out to someone you trust?",
+        "Sometimes, focusing on activities you enjoy can help. What’s something that makes you happy?",
+        "You’re valued and cared for. Would you like tips on building meaningful relationships?"
+      ]
+    },
+    {
+      "tag": "coping_with_loss",
+      "patterns": [
+        "How do I deal with grief?",
+        "I lost someone close to me",
+        "Why does losing someone hurt so much?",
+        "I can't stop thinking about my loss",
+        "How do I move on after losing someone?"
+       ],
+      "responses": [
+        "Grieving is a process, and it’s okay to take your time. Would you like to talk about your feelings?",
+        "Loss is painful, but remembering the good times can bring comfort. What’s one memory that makes you smile?",
+        "You’re not alone in this. Have you considered speaking with someone who understands your grief?",
+        "It’s okay to feel overwhelmed. Finding small moments of peace might help. Would you like suggestions?",
+        "Moving forward doesn’t mean forgetting. How can you honor their memory today?"
+      ]
+    },
+    {
+      "tag": "stress_management",
+      "patterns": [
+        "I'm feeling so stressed",
+        "How do I relax when I'm overwhelmed?",
+        "Why am I always so tense?",
+        "I can't seem to calm down",
+        "Stress is taking over my life"
+     ],
+      "responses": [
+        "Stress can be managed. Have you tried deep breathing or meditation?",
+        "Taking short breaks during the day might help. Would you like tips for managing stress?",
+        "Focusing on what you can control can reduce stress. What’s one thing you can simplify today?",
+        "Physical activity like walking or stretching can help. Would you like to try?",
+        "You’re doing your best. Have you considered writing down your worries to organize your thoughts?"]
+    },
+    {
+      "tag": "motivation_2",
+      "patterns": [
+        "I can't seem to stay motivated",
+        "How do I find purpose again?",
+        "I feel like giving up",
+        "Why can't I accomplish my goals?",
+        "I need help staying focused"
+      ],
+      "responses": [
+        "Motivation can come in waves. What’s one small step you can take today?",
+        "Breaking goals into smaller tasks might help. What’s your first step?",
+        "It’s okay to feel stuck. Reflecting on your reasons for starting might reignite your drive. Would you like help with that?",
+        "Sometimes rest is needed to regain motivation. Have you given yourself permission to take a break?",
+        "You have the strength to move forward. What’s one thing you can do right now to get closer to your goal?"
+     ]
+    },
+    {
+      "tag": "decision_making_1",
+      "patterns": [
+        "I can't make a decision",
+        "How do I choose between two options?",
+        "Why is making decisions so hard?",
+        "I overthink every decision",
+        "How do I make the right choice?"
+      ],
+      "responses": [
+        "Decision-making can feel overwhelming. Have you tried listing pros and cons?",
+        "It’s okay to take your time. What’s one thing that feels most important to you in this decision?",
+        "Sometimes, going with your intuition can help. What does your gut tell you?",
+        "You’re capable of making good choices. Would breaking it into smaller steps help?",
+        "No decision is ever perfect. What’s one action you can take to move forward confidently?"
+      ]
+    },
+    {
+      "tag": "social_anxiety_2",
+      "patterns": [
+        "I get nervous around people",
+        "How do I overcome social anxiety?",
+        "I hate speaking in public",
+        "Why do I always feel awkward?",
+        "How can I be more confident in social situations?"
+      ],
+      "responses": [
+        "Social anxiety can be tough. Practicing small interactions might help. Would you like some tips?",
+        "It’s okay to feel nervous. Focusing on your breathing can help you stay calm.",
+        "Preparation can build confidence. What’s one thing you can practice before your next interaction?",
+        "You’re not alone in feeling this way. Would visualizing positive outcomes help?",
+        "Confidence grows with time. What’s one small step you could take today to challenge your anxiety?"
+      ]
+    },
+    {
+      "tag": "boundaries_2",
+      "patterns": [
+        "How do I set boundaries?",
+        "Why is it so hard to say no?",
+        "I feel like people take advantage of me",
+        "How do I stand up for myself?",
+        "How can I protect my personal space?"
+      ],
+      "responses": [
+        "Setting boundaries is important. What’s one area where you’d like to start?",
+        "It’s okay to say no. Practice using clear but polite language. Would you like an example?",
+        "Your feelings are valid. Can you think of one way to communicate them to others?",
+        "Boundaries protect your well-being. What’s one way you can prioritize yourself today?",
+        "Saying no doesn’t mean you’re unkind. Would focusing on your needs help you feel more confident?"
+      ]
+    },
+    {
+      "tag": "change_and_uncertainty",
+      "patterns": [
+        "How do I deal with change?",
+        "I feel lost during this transition",
+        "Why is uncertainty so scary?",
+        "I can't handle not knowing what's next",
+        "How do I embrace change?"
+      ],
+      "responses": [
+        "Change can feel unsettling. What’s one thing you can control in this situation?",
+        "Focusing on small steps forward might help. What’s one thing you can do today?",
+        "Uncertainty is part of life. Would grounding yourself in the present moment help?",
+        "It’s okay to feel scared. Reflecting on past times you’ve overcome change might inspire you.",
+        "Adapting takes time. What’s one positive outcome you can envision in this transition?"
+      ]
+    },
+    {
+      "tag": "finding_purpose_1",
+      "patterns": [
+        "I don't know what I want in life",
+        "How do I find meaning?",
+        "Why do I feel so empty?",
+        "What should I do with my life?",
+        "I can't figure out my purpose"
+      ],
+      "responses": [
+        "Purpose evolves over time. What’s one thing you enjoy or find fulfilling?",
+        "It’s okay to not have all the answers right now. Would exploring new interests help?",
+        "Reflecting on your values might bring clarity. What matters most to you?",
+        "You’re not alone in feeling this way. Have you tried journaling to explore your thoughts?",
+        "Taking small steps can lead to big discoveries. What’s one new thing you’d like to try?"
+      ]
+    },
+    {
+      "tag": "lgbtq_support",
+      "patterns": [
+        "I think I might be LGBTQ+",
+        "How do I come out to my friends and family?",
+        "I feel like nobody accepts me for who I am",
+        "I’m struggling with my identity",
+        "Where can I find support as an LGBTQ+ person?"
+      ],
+      "responses": [
+        "Your identity is valid, and you’re not alone. Would you like resources or guidance for support?",
+        "Coming out is a personal journey. Taking it one step at a time might help. Can I help you prepare?",
+        "It’s okay to seek acceptance, but your worth doesn’t depend on others. What helps you feel most confident in yourself?",
+        "Finding a supportive community can make a difference. Would you like suggestions for connecting with others?",
+        "You’re valued and important. Would you like to talk about how you’re feeling?"
+      ]
+    },
+    {
+      "tag": "racial_discrimination",
+      "patterns": [
+        "How do I deal with racism?",
+        "I feel like I’m being treated unfairly because of my race",
+        "Why do people judge me based on my skin color?",
+        "I feel alone as a minority",
+        "Where can I find support against discrimination?"
+     ],
+      "responses": [
+        "Experiencing racism can be deeply painful. Would you like to share what happened?",
+        "You have every right to be treated with respect. Would you like tips on standing up for yourself in tough situations?",
+        "Connecting with others who share your experiences might help. Can I suggest some resources or communities?",
+        "Your feelings are valid. Focusing on self-care can help during challenging times. What’s one thing you can do for yourself today?",
+        "You’re not alone. Advocacy groups and support networks might provide the help you need. Would you like more information?"
+      ]
+    },
+    {
+      "tag": "gender_equality",
+      "patterns": [
+        "I feel undervalued as a woman",
+        "Why do people treat me differently because of my gender?",
+        "How do I stand up for gender equality?",
+        "I face sexism at work",
+        "Where can I find support as a woman in a male-dominated field?"
+      ],
+      "responses": [
+        "You deserve respect and equality. Can I help you find ways to address these challenges?",
+        "Standing up for yourself can feel tough. Would you like examples of assertive communication?",
+        "Connecting with others in similar situations might help. Can I suggest organizations or groups that support gender equality?",
+        "Your feelings are valid. Would documenting these experiences help you take action?",
+        "Advocating for yourself is empowering. What’s one step you can take to assert your value today?"
+      ]
+    },
+    {
+      "tag": "disability_support",
+      "patterns": [
+        "I feel excluded because of my disability",
+        "How do I advocate for accessibility?",
+        "Why do people treat me differently because I’m disabled?",
+        "I need help navigating life with a disability",
+        "Where can I find support as a person with disabilities?"
+      ],
+      "responses": [
+        "You’re not alone. Would you like resources to connect with others in the disability community?",
+        "Advocating for accessibility is important. Would you like suggestions on how to raise awareness?",
+        "Your experiences are valid, and you deserve inclusion. What’s one way you can prioritize your well-being today?",
+        "There are communities and organizations that focus on support and advocacy. Would you like information on them?",
+        "It’s okay to seek help. What’s one challenge you’re facing that we can tackle together?"
+      ]
+    },
+    {
+      "tag": "religious_minority_support",
+      "patterns": [
+        "I feel judged because of my religion",
+        "How do I deal with religious discrimination?",
+        "I feel isolated as part of a religious minority",
+        "Why do people stereotype me because of my faith?",
+        "Where can I find support for my religious beliefs?"
+      ],
+      "responses": [
+        "Your faith and identity are valid. Would you like suggestions for finding a supportive community?",
+        "Discrimination can be deeply hurtful. Would you like tips on handling difficult interactions?",
+        "You’re not alone in this experience. Connecting with others who share your faith might help. Can I suggest some groups or resources?",
+        "It’s okay to feel hurt. Would focusing on practices that bring you peace and connection help?",
+        "Advocacy and education can foster understanding. Would you like help finding ways to raise awareness about your experiences?"
+     ]
+    },
+    {
+      "tag": "immigration_challenges",
+      "patterns": [
+        "I’m struggling as an immigrant",
+        "How do I deal with being far from home?",
+        "Why is it so hard to fit in as an immigrant?",
+        "I feel like I don’t belong here",
+        "Where can I find help adjusting to a new country?"
+      ],
+      "responses": [
+        "Adjusting to a new country can be overwhelming. Would you like resources to help you feel more at home?",
+        "You’re not alone in feeling this way. What’s one thing that reminds you of home and brings you comfort?",
+        "Building connections in a new place takes time. Would joining local groups or events help?",
+        "You bring unique value and perspective. What’s one step you can take today to explore your new environment?",
+        "Support networks for immigrants can be incredibly helpful. Would you like suggestions for where to start?"
+      ]
+    },
+    {
+      "tag": "ally_support",
+      "patterns": [
+        "How can I be a better ally?", "I want to support minorities, but I don’t know how",
+        "How do I stand up against discrimination?", "What can I do to help marginalized groups?",
+        "How do I educate myself about minority issues?"
+      ],
+      "responses": [
+        "Being an ally is a continuous journey. What’s one issue you’d like to learn more about?",
+        "Listening and amplifying voices of marginalized groups is important. Would you like resources on this?",
+        "Standing up against discrimination can make a difference. Would practicing assertive responses help?",
+        "Educating yourself is a great step. Would you like book or article recommendations on minority issues?",
+        "You’re making a positive impact by seeking to help. What’s one action you can take today to support inclusion?"
+     ]
+    },
+    {
+      "tag": "microaggressions_1",
+      "patterns": [
+        "I feel hurt by subtle comments people make",
+        "How do I respond to microaggressions?",
+        "Why do people dismiss my experiences?",
+        "I don’t know how to handle microaggressions",
+        "What can I do when someone says something offensive but subtle?"
+      ],
+      "responses": [
+        "Microaggressions can be hurtful. Would you like tips on addressing them calmly and effectively?",
+        "You deserve to be respected. Practicing assertive communication might help. Would you like examples?",
+        "It’s okay to feel hurt. Documenting these incidents can help you process and take action. Would that help?",
+        "You’re not alone. Would connecting with others who’ve faced similar challenges provide support?",
+        "Educating others can foster understanding. Would discussing how their words affect you feel helpful?"
+     ]
+    },
+    {
+      "tag": "minority_stigma",
+      "patterns": [
+        "Why is there so much stigma in minority communities?",
+        "I feel judged because of my background.",
+        "Do people like me get proper help?",
+        "Why is mental health ignored in minority groups?",
+        "No one understands my cultural struggles."
+      ],
+      "responses": [
+        "Cultural stigma can be challenging. I'm here to provide a safe space for you.",
+        "You're not alone in facing this. Let's talk about how you're feeling.",
+        "It's okay to feel this way. There are people who understand and want to help.",
+        "Opening up is the first step. I'm here to support you."
+      ]
+    },
+    {
+      "tag": "discrimination",
+      "patterns": [
+        "I face discrimination daily.",
+        "People treat me differently because of who I am.",
+        "How can I handle being discriminated against?",
+        "Why does society treat minorities unfairly?",
+        "I feel excluded because of my identity."
+      ],
+      "responses": [
+        "I'm sorry you're experiencing this. Tell me how it's affecting you.",
+        "Discrimination can be deeply hurtful. Let's talk about it.",
+        "You deserve to be treated with respect. How can I help you feel heard?",
+        "I'm here to listen to your experiences and support you."
+      ]
+    },
+    {
+      "tag": "LGBTQ_support",
+      "patterns": [
+        "I'm LGBTQ+ and I feel alone.",
+        "My family doesn't accept my identity.",
+        "Being LGBTQ+ is so hard.", "I need support as an LGBTQ+ person.",
+        "I don't feel safe being myself."
+      ],
+      "responses": [
+        "Your identity is valid, and you deserve support and love.",
+        "It's hard not to feel accepted. Tell me more about how you're feeling.",
+        "You're not alone in this. I'm here for you.",
+        "Let's talk about what you're going through. You deserve a safe space."
+      ]
+    },
+    {
+      "tag": "anxiety_social",
+      "patterns": [
+        "I have social anxiety.",
+        "I'm scared of being judged.",
+        "I feel so nervous around people.",
+        "Social gatherings make me anxious.",
+        "I can't handle being in public spaces."
+      ],
+      "responses": [
+        "Social anxiety can be tough. What situations make you most anxious?",
+        "Let's explore why you feel this way and how to make it better.",
+        "Taking small steps can help. Tell me more about your experiences.",
+        "You're not alone in this. Let's work through it together."
+      ]
+    },
+    {
+      "tag": "racial_identity",
+      "patterns": [
+        "I struggle with my racial identity.",
+        "People make me feel bad about my race.",
+        "I'm proud of my culture, but others judge me.",
+        "Why is it hard being myself in this society?",
+        "I feel disconnected from my roots."
+      ],
+      "responses": [
+        "Your culture and identity are important. Tell me more about how you're feeling.",
+        "It's not easy to face this, but you have every right to be proud of who you are.",
+        "Let's talk about what makes you feel disconnected.",
+        "You're not alone. I'm here to listen and support you."
+      ]
+    },
+    {
+      "tag": "intersectionality",
+      "patterns": [
+        "I face challenges because of multiple aspects of my identity.",
+        "It's hard being a minority and dealing with mental health.",
+        "My struggles are ignored because of who I am.",
+        "People don't understand how my identities intersect.",
+        "I feel invisible in mental health conversations."
+      ],
+      "responses": [
+        "Your experiences matter. Let's discuss how your identities shape your challenges.",
+        "It's okay to feel this way. I'm here to provide a safe space for you.",
+        "Intersectionality can make things complex. Tell me more about your feelings.",
+        "You're seen and heard. Let's work through this together."
+      ]
+    },
+    {
+      "tag": "body_image_1",
+      "patterns": [
+        "I don't like how I look.",
+        "I hate my body.", "Why do I feel so insecure?",
+        "People judge me because of my appearance.",
+        "I feel unattractive and worthless."
+      ],
+      "responses": [
+        "Your worth is not defined by your appearance. Tell me more about your feelings.",
+        "It's okay to feel this way, but remember you're unique and valuable.",
+        "Let's explore why you feel this way and how to build self-acceptance.",
+        "You deserve kindness, including from yourself. Let's work on this together."
+      ]
+    },
+    {
+      "tag": "imposter_syndrome_1",
+      "patterns": [
+        "I feel like a fraud.",
+        "I don't deserve my success.",
+        "Why do I feel so inadequate?",
+        "Everyone else is better than me.",
+        "I can't believe in myself."
+      ],
+      "responses": [
+        "Imposter syndrome is common, but your achievements are real. Tell me more.",
+        "You're more capable than you think. Let's talk about your strengths.",
+        "It's okay to doubt yourself sometimes, but you belong where you are.",
+        "Let's explore why you feel this way and how to overcome it."
+      ]
+    },
+    {
+      "tag": "microaggressions_2",
+      "patterns": [
+        "People make small comments that hurt.",
+        "I experience subtle racism every day.",
+        "How do I deal with microaggressions?",
+        "Why do people say things that make me feel small?",
+        "I feel hurt by casual comments about my identity."
+      ],
+      "responses": [
+        "Microaggressions can be deeply painful. I'm here to support you.",
+        "Your feelings are valid. Tell me more about your experiences.",
+        "Let's talk about how to handle these situations and take care of yourself.",
+        "It's okay to feel hurt. You deserve understanding and respect."
+      ]
+    },
+    {
+      "tag": "minority_resilience",
+      "patterns": [
+        "How can I stay strong as a minority?",
+        "I want to build resilience in tough times.",
+        "How do I find strength in my identity?",
+        "I want to overcome the challenges of being a minority.",
+        "How do I thrive despite societal pressures?"
+      ],
+      "responses": [
+        "Building resilience is a journey. Let's explore what empowers you.",
+        "Your identity is a source of strength. How can you use it to grow?",
+        "Let's talk about strategies to navigate challenges and thrive.",
+        "You are stronger than you realize. Let's work on building that strength."
+      ]
+    },
+    {
+      "tag": "trauma_recovery",
+      "patterns": [
+        "How do I recover from a traumatic event?",
+        "I can't move past my trauma.",
+        "Why do I feel stuck after my trauma?",
+        "How can I heal from something terrible?", "Trauma has changed my life."
+      ],
+      "responses": [
+        "Healing from trauma takes time, and you're not alone in this.",
+        "Let's talk about what you're going through. Recovery is possible.",
+        "It's okay to feel stuck. Processing trauma can take time.",
+        "I'm here to listen and help you navigate your feelings."
+      ]
+    },
+    {
+      "tag": "stress_management",
+      "patterns": [
+        "I feel so stressed all the time.",
+        "How do I manage my stress?",
+        "Stress is taking over my life.",
+        "I can't relax, no matter what.", "Why do I feel so overwhelmed?"
+      ],
+      "responses": [
+        "Stress can be overwhelming, but there are ways to manage it. Tell me more.",
+        "Let's explore some techniques to help you feel more at ease.",
+        "It's okay to feel stressed. You're taking a step in the right direction by seeking help.",
+        "Tell me about what's causing your stress. We can work through it together."
+      ]
+    },
+    {
+      "tag": "loneliness_3",
+      "patterns": [
+        "I feel so alone.",
+        "No one understands me.",
+        "Why do I feel lonely even around people?",
+        "How do I stop feeling so isolated?", "I feel invisible."
+      ],
+      "responses": [
+        "Feeling lonely can be really hard. Tell me more about what you're going through.",
+        "You are not alone, and your feelings matter. Let's talk about it.",
+        "It's okay to feel this way. Sharing your thoughts is a great first step.",
+        "I'm here for you. Let's explore ways to feel more connected."
+      ]
+    },
+    {
+      "tag": "perfectionism",
+      "patterns": [
+        "I feel like I have to be perfect.",
+        "Why can't I accept my mistakes?",
+        "I'm scared of failing.",
+        "How do I stop being so hard on myself?",
+        "I can't handle imperfection."
+      ],
+      "responses": [
+        "Perfectionism can be exhausting. Let's talk about why you feel this way.",
+        "It's okay to make mistakes. You don't have to be perfect.",
+        "You deserve self-compassion. Tell me more about your struggles.",
+        "Let's work on embracing your imperfections and being kinder to yourself."
+      ]
+    },
+    {
+      "tag": "support_for_minors",
+      "patterns": [
+        "I'm a teenager and I need help.",
+        "My parents don't understand me.",
+        "School makes me so anxious.",
+        "How do I deal with pressure as a kid?",
+        "I feel like no one listens to me."
+      ],
+      "responses": [
+        "Being a young person can be tough. I'm here to listen.",
+        "Tell me more about what's bothering you. You're not alone.",
+        "School and family pressures can be overwhelming. Let's talk about it.",
+        "You deserve support and understanding. Let's work through this together."
+      ]
+    },
+    {
+      "tag": "intersectional_support",
+      "patterns": [
+        "I face challenges because of my identity.",
+        "Why do people treat me differently?",
+        "It's hard being myself in this society.",
+        "How do I cope with intersectional struggles?",
+        "I feel misunderstood because of who I am."
+      ],
+      "responses": [
+        "Your experiences matter, and you deserve understanding. Tell me more.",
+        "It's okay to feel this way. I'm here to provide a safe space for you.",
+        "Let's talk about how your identity shapes your experiences.",
+        "You are not alone. I'm here to support you."
+      ]
+    },
+    {
+      "tag": "self_harm",
+      "patterns": [
+        "I hurt myself sometimes.",
+        "Why do I feel the need to self-harm?",
+        "I don't know how to stop hurting myself.",
+        "How do I cope without self-harming?",
+        "I feel so much pain inside."
+      ],
+      "responses": [
+        "I'm so sorry you're feeling this way. Let's talk about what you're going through.",
+        "You are not alone. I'm here to listen and support you.",
+        "It's important to find healthy ways to cope. Let's explore that together.",
+        "You deserve kindness and care. Let's work on this together."
+      ]
+    },
+    {
+      "tag": "anger_management_2",
+      "patterns": [
+        "I can't control my anger.",
+        "Why do I get so angry?",
+        "How do I manage my anger better?",
+        "I feel like my anger is ruining my relationships.",
+        "I explode over little things."
+      ],
+      "responses": [
+        "Anger can be hard to manage. Let's talk about what triggers it.",
+        "It's okay to feel angry, but let's find healthier ways to express it.",
+        "Tell me more about your anger. Together, we can work on managing it.",
+        "You're not alone in feeling this way. I'm here to help."
+      ]
+    },
+    {
+      "tag": "relationship_issues_2",
+      "patterns": [
+        "My partner and I keep fighting.",
+        "How do I deal with a toxic relationship?",
+        "I feel unloved in my relationship.",
+        "Why can't I communicate with my partner?",
+        "My relationships are falling apart."
+      ],
+      "responses": [
+        "Relationships can be challenging. Tell me more about what's happening.",
+        "It's okay to seek help for your relationship struggles. I'm here to listen.",
+        "Let's explore ways to improve communication and connection.",
+        "You deserve healthy relationships. Let's work through this together."
+      ]
+    },
+    {
+      "tag": "minority_advocacy",
+      "patterns": [
+        "How can I stand up for my community?",
+        "I want to advocate for minority rights.",
+        "How do I make a difference for minorities?",
+        "What resources can I use to support my community?",
+        "How do I fight injustice as a minority?"
+      ],
+      "responses": [
+        "Advocating for your community is powerful. Let's explore how you can make an impact.",
+        "You can make a difference. Tell me more about your goals.",
+        "There are many ways to support minority rights. Let's find what works for you.",
+        "Your efforts to fight injustice matter. Let's talk about how to empower yourself."
+      ]
+    },
+    {
+      "tag": "self_esteem_3",
+      "patterns": [
+        "I don't feel good about myself.",
+        "Why do I always feel not enough?",
+        "I have low self-esteem.",
+        "How can I feel better about myself?",
+        "I don't believe in myself."
+      ],
+      "responses": [
+        "Building self-esteem takes time, but you are worth the effort.",
+        "You are valuable and deserve to feel good about yourself. Let's talk more.",
+        "Tell me about what makes you feel this way. I'm here to listen.",
+        "You are enough, just as you are. Let's explore ways to help you see that."
+      ]
+    },
+    {
+      "tag": "social_anxiety_3",
+      "patterns": [
+        "I feel nervous in social situations.",
+        "How do I deal with social anxiety?",
+        "I avoid people because of my anxiety.",
+        "Why is it so hard for me to talk to others?",
+        "Socializing makes me panic."
+      ],
+      "responses": [
+        "Social anxiety can feel overwhelming, but you're not alone.",
+        "Let's work on strategies to make social situations feel safer for you.",
+        "It's okay to feel this way. Tell me more about your experiences.",
+        "I'm here to support you as you navigate your anxiety."
+      ]
+    },
+    {
+      "tag": "support_lgbtq",
+      "patterns": [
+        "I'm struggling with my identity.",
+        "How do I come out to my family?",
+        "I feel judged because of my sexuality.",
+        "It's hard being LGBTQ+ in my community.",
+        "How do I find acceptance as a queer person?"
+      ],
+      "responses": [
+        "Your identity is valid, and you deserve love and acceptance.",
+        "Coming out is a personal journey. Let's explore how you feel about it.",
+        "You are not alone in this. Tell me more about what you're experiencing.",
+        "I'm here to support you as you embrace your true self."
+      ]
+    },
+    {
+      "tag": "coping_with_loss",
+      "patterns": [
+        "I lost someone I loved.",
+        "How do I cope with grief?",
+        "The pain of losing someone feels unbearable.",
+        "Why can't I move on after losing them?",
+        "I feel lost after their death."
+      ],
+      "responses": [
+        "Grief is a natural process, and your feelings are valid.",
+        "Losing someone you love is hard. Let's talk about your emotions.",
+        "Healing takes time, and it's okay to feel the way you do.",
+        "I'm here to listen and help you process your grief."
+      ]
+    },
+    {
+      "tag": "emotional_regulation",
+      "patterns": [
+        "How do I control my emotions?",
+        "I feel like my emotions are all over the place.",
+        "Why do I get overwhelmed so easily?",
+        "I can't handle my feelings.",
+        "How do I stay calm in tough situations?"
+      ],
+      "responses": [
+        "It's okay to feel overwhelmed. Let's explore ways to manage your emotions.",
+        "Your emotions are valid, and learning to regulate them is a process.",
+        "Tell me more about what you're experiencing. I'm here to help.",
+        "You are not alone in this. Together, we can work on building emotional resilience."
+      ]
+    },
+    {
+      "tag": "burnout",
+      "patterns": [
+        "I'm so tired all the time.",
+        "How do I recover from burnout?",
+        "I feel like I can't handle my workload anymore.",
+        "Why do I feel so drained?",
+        "Work is taking everything out of me."
+      ],
+      "responses": [
+        "Burnout is tough, but recognizing it is the first step. Let's talk.",
+        "You deserve rest and recovery. Tell me about what's going on.",
+        "It's okay to feel this way. Let's explore ways to ease your burden.",
+        "I'm here to help you find balance and take care of yourself."
+      ]
+    },
+    {
+      "tag": "family_conflicts_2",
+      "patterns": [
+        "My family doesn't understand me.",
+        "I keep arguing with my parents.",
+        "How do I deal with family problems?",
+        "Why does my family always fight?",
+        "I feel disconnected from my family."
+      ],
+      "responses": [
+        "Family conflicts can be really challenging. Let's talk about your situation.",
+        "You deserve to feel understood and valued by your family.",
+        "It's okay to seek help for family issues. I'm here to listen.",
+        "Let's explore ways to improve communication and understanding in your family."
+      ]
+    },
+    {
+      "tag": "feeling_unheard",
+      "patterns": [
+        "No one listens to me.",
+        "Why do I feel invisible?",
+        "I feel like my voice doesn't matter.",
+        "How do I get people to hear me?", "I feel so ignored."
+      ],
+      "responses": [
+        "Your voice matters, and I'm here to listen.",
+        "Feeling unheard can be really painful. Tell me more.",
+        "You deserve to be acknowledged and valued. Let's talk.",
+        "I'm here to support you and help you feel seen."
+      ]
+    },
+    {
+      "tag": "support_for_caregivers",
+      "patterns": [
+        "I'm exhausted from taking care of others.",
+        "How do I handle caregiver burnout?",
+        "I feel like I have no time for myself.",
+        "Being a caregiver is overwhelming.",
+        "Why do I feel guilty for wanting a break?"
+      ],
+      "responses": [
+        "Caregiving can be incredibly demanding. Let's talk about how you're feeling.",
+        "You deserve support and rest. Tell me more about your situation.",
+        "It's okay to prioritize yourself sometimes. You can't pour from an empty cup.",
+        "I'm here to help you navigate the challenges of being a caregiver."
+      ]
+    },
+    {
+      "tag": "finding_purpose_2",
+      "patterns": [
+        "I don't know what my purpose is.",
+        "How do I find meaning in my life?",
+        "I feel like I'm just drifting.",
+        "Why do I feel so lost?", "How do I discover what I'm meant to do?"
+      ],
+      "responses": [
+        "Finding purpose can be a journey. Let's explore what matters to you.",
+        "It's okay to feel uncertain. You're taking an important step by seeking clarity.",
+        "Tell me about your passions and dreams. Let's work on this together.",
+        "You are not alone in feeling this way. Let's find what brings you fulfillment."
+      ]
+    },
+    {
+      "tag": "loneliness_4",
+      "patterns": [
+        "I feel so alone.",
+        "How do I deal with loneliness?",
+        "I have no one to talk to.",
+        "Why do I always feel lonely?",
+        "Being alone hurts."
+      ],
+      "responses": [
+        "Loneliness can be really hard. I'm here to listen.",
+        "It's okay to feel this way. Let's explore what might help.",
+        "You are not alone. Let's talk about how you're feeling.",
+        "Connection is important, and I'm here to support you."
+      ]
+    },
+    {
+      "tag": "fear_of_failure",
+      "patterns": [
+        "I'm afraid of failing.",
+        "What if I don't succeed?",
+        "Failure scares me.",
+        "I can't try because I'm scared to fail.",
+        "How do I overcome fear of failure?"
+      ],
+      "responses": [
+        "Failure is a part of growth, and you're stronger than you think.",
+        "It's okay to feel afraid. Let's work on building confidence together.",
+        "You don't have to face this fear alone. Let's talk about it.",
+        "Taking risks can be scary, but you deserve to pursue your goals."
+      ]
+    },
+    {
+      "tag": "overthinking_2",
+      "patterns": [
+        "I can't stop overthinking.",
+        "Why do I analyze everything?",
+        "Overthinking is ruining my peace.",
+        "How do I stop overanalyzing?",
+        "My thoughts keep spiraling."
+      ],
+      "responses": [
+        "Overthinking can be exhausting. Let's talk about your thoughts.",
+        "It's okay to feel this way. I'm here to help you find calm.",
+        "Let's work on strategies to quiet your mind and focus on the present.",
+        "You are not alone in this. Tell me more about what's on your mind."
+      ]
+    },
+    {
+      "tag": "trust_issues",
+      "patterns": [
+        "I have trouble trusting people.",
+        "Why can't I trust anyone?",
+        "How do I learn to trust again?",
+        "I've been hurt before and can't trust now.",
+        "Building trust is hard for me."
+      ],
+      "responses": [
+        "Trust takes time, and it's okay to move at your own pace.",
+        "It's understandable to feel this way after being hurt. Let's talk.",
+        "Rebuilding trust is possible, and I'm here to support you.",
+        "You deserve to feel safe and secure. Let's explore this together."
+      ]
+    },
+    {
+      "tag": "relationship_stress",
+      "patterns": [
+        "My relationship feels stressful.",
+        "How do I deal with relationship problems?",
+        "I feel distant from my partner.",
+        "Why are relationships so hard?",
+        "I'm struggling in my relationship."
+      ],
+      "responses": [
+        "Relationships can be challenging. Let's talk about what's going on.",
+        "You deserve a healthy and supportive relationship. Tell me more.",
+        "It's okay to feel this way. Let's explore ways to improve things.",
+        "I'm here to help you navigate these feelings and challenges."
+      ]
+    },
+    {
+      "tag": "identity_crisis_1",
+      "patterns": [
+        "I don't know who I am.",
+        "How do I figure out my identity?",
+        "I feel lost and don't know myself.",
+        "Why can't I understand who I am?",
+        "I'm questioning my identity."
+      ],
+      "responses": [
+        "Exploring your identity can be a journey. Let's take it together.",
+        "It's okay to feel unsure. I'm here to help you reflect and discover.",
+        "Tell me more about what you're experiencing. You are not alone.",
+        "You are valuable, even in moments of uncertainty. Let's talk."
+      ]
+    },
+    {
+      "tag": "perfectionism_2",
+      "patterns": [
+        "I always feel like I have to be perfect.",
+        "How do I stop being a perfectionist?",
+        "Why do I fear making mistakes?",
+        "I can't handle failure because I need to be perfect.",
+        "Perfectionism is exhausting me."
+      ],
+      "responses": [
+        "Perfectionism can be tough to manage. Let's explore how you feel.",
+        "You are enough, even when things aren't perfect. Tell me more.",
+        "It's okay to make mistakes. Growth comes from imperfection.",
+        "You don't have to carry this burden alone. I'm here to help."
+      ]
+    },
+    {
+      "tag": "support_for_youth",
+      "patterns": [
+        "I'm a teenager and I need advice.",
+        "How do I handle school stress?",
+        "I feel like no one understands me as a young person.",
+        "Being a teen is so hard.", "I don't know how to talk to my parents."
+      ],
+      "responses": [
+        "Being a young person can be really challenging. I'm here to listen.",
+        "You deserve to be understood and supported. Tell me more.",
+        "School and life can be overwhelming. Let's talk about how you're feeling.",
+        "I'm here to help you navigate these challenges."
+      ]
+    },
+    {
+      "tag": "panic_attacks",
+      "patterns": [
+        "I think I'm having a panic attack.",
+        "How do I calm down during a panic attack?",
+        "Why do I feel like I can't breathe?",
+        "Panic attacks are terrifying.",
+        "Help me manage panic attacks."
+      ],
+      "responses": [
+        "Panic attacks can be scary, but you are safe right now.",
+        "Let's work on calming techniques together. You're not alone.",
+        "It's okay to feel this way. I'm here to help you regain control.",
+        "We can explore ways to manage and prevent panic attacks."
+      ]
+    },
+    {
+      "tag": "forgiveness_2",
+      "patterns": [
+        "How do I forgive someone?",
+        "Forgiveness is hard for me.",
+        "Why can't I let go of resentment?",
+        "I want to move on but can't forgive.",
+        "How do I find peace through forgiveness?"
+      ],
+      "responses": [
+        "Forgiveness is a personal journey, and it's okay to take your time.",
+        "Letting go of resentment can be freeing. Let's explore how to start.",
+        "You deserve peace. Tell me more about what you're feeling.",
+        "I'm here to help you work through these emotions."
+      ]
+    },
+    {
+      "tag": "body_image_2",
+      "patterns": [
+        "I hate the way I look.",
+        "How do I feel better about my body?",
+        "I struggle with my body image.",
+        "Why can't I accept how I look?",
+        "I feel ashamed of my body."
+      ],
+      "responses": [
+        "Your worth is not defined by your appearance. Let's talk about this.",
+        "You deserve to feel good about yourself. Tell me more.",
+        "It's okay to feel this way. I'm here to support you.",
+        "Together, we can work on building a positive self-image."
+      ]
+    },
+    {
+      "tag": "career_doubts",
+      "patterns": [
+        "I don't know if I'm in the right career.",
+        "How do I choose a career path?",
+        "I feel stuck in my job.", "What if I fail in my career?",
+        "Why do I feel unfulfilled at work?"
+      ],
+      "responses": [
+        "Career doubts are normal. Let's explore what you're passionate about.",
+        "You deserve to feel fulfilled in your work. Tell me more.",
+        "It's okay to question your path. Let's talk about your options.",
+        "I'm here to support you in finding clarity and direction."
+      ]
+    },
+    {
+      "tag": "bullying",
+      "patterns": [
+        "I'm being bullied.",
+        "How do I handle bullying?",
+        "Why do people treat me this way?",
+        "Bullying is making my life miserable.",
+        "I feel helpless against bullies."
+      ],
+      "responses": [
+        "You don't deserve to be treated this way. Let's talk about your experiences.",
+        "Bullying can be very hurtful. I'm here to support you.",
+        "It's okay to seek help for this. Tell me more about what's happening.",
+        "You are not alone, and I'm here to help you navigate this situation."
+      ]
+    },
+    {
+      "tag": "grief_2",
+      "patterns": [
+        "I lost someone I love.",
+        "How do I cope with grief?",
+        "I feel so empty after losing them.",
+        "Why does grief hurt so much?",
+        "I can't move on from losing someone."
+      ],
+      "responses": [
+        "Grief is a natural response to loss, and I'm here to support you.",
+        "You don't have to face this alone. Let's talk about your feelings.",
+        "It's okay to feel the way you do. Healing takes time.",
+        "I'm here to listen and help you through this difficult time."
+      ]
+    },
+    {
+      "tag": "imposter_syndrome_2",
+      "patterns": [
+        "I feel like a fraud.",
+        "Why do I think I'm not good enough?",
+        "Everyone will find out I'm not capable.",
+        "How do I deal with imposter syndrome?",
+        "I feel like I don't belong."
+      ],
+  "responses": [
+    "Imposter syndrome is more common than you think. You are not alone.",
+    "Your achievements are real, and you deserve them. Let's talk about it.",
+    "It's okay to doubt yourself sometimes. I'm here to help.",
+    "You are capable and worthy. Let's explore why you feel this way."
+  ]
+    },
+    {
+      "tag": "chronic_stress",
+      "patterns": [
+        "I'm always stressed out.",
+        "How do I manage constant stress?",
+        "Stress is ruining my life.",
+        "Why can't I relax?",
+        "I feel overwhelmed every day."
+      ],
+      "responses": [
+        "Chronic stress can be exhausting. Let's talk about what you're experiencing.",
+        "It's important to take care of yourself. I'm here to help.",
+        "We can work on finding ways to reduce and manage your stress.",
+        "You're not alone in feeling this way. Let's explore some strategies."
+      ]
+    },
+    {
+      "tag": "gender_identity",
+      "patterns": [
+        "I'm questioning my gender identity.",
+        "How do I figure out my gender?",
+        "I don't feel like myself in this body.",
+        "What does being nonbinary mean?",
+        "I'm struggling with my gender identity."
+      ],
+      "responses": [
+        "Exploring your gender identity is a personal journey. I'm here to listen.",
+        "You deserve to feel comfortable and understood. Tell me more.",
+        "It's okay to question your identity. Let's talk about how you're feeling.",
+        "You are valid and important, just as you are."
+      ]
+    },
+    {
+      "tag": "social_anxiety_4",
+      "patterns": [
+        "I feel anxious in social situations.",
+        "How do I overcome social anxiety?", "I avoid people because of my anxiety.",
+        "Why do I feel so nervous around others?", "Socializing is so hard for me."
+      ],
+      "responses": [
+        "Social anxiety can be tough to deal with, but you're not alone.",
+        "You deserve to feel comfortable around others. Let's explore this together.",
+        "We can work on building your confidence step by step.",
+        "It's okay to take small steps. Tell me more about your experiences."
+      ]
+    },
+    {
+      "tag": "dealing_with_rejection",
+      "patterns": [
+        "Rejection hurts so much.",
+        "How do I handle being rejected?",
+        "I feel like no one wants me.",
+        "Why does rejection feel unbearable?",
+        "I can't get over being rejected."
+      ],
+      "responses": [
+        "Rejection is hard to cope with, but it doesn't define your worth.",
+        "You are valuable and deserving, no matter what. Let's talk about this.",
+        "It's okay to feel hurt. I'm here to support you.",
+        "Let's explore ways to heal and move forward from this experience."
+      ]
+    },
+    {
+      "tag": "addiction_support",
+      "patterns": [
+        "I'm struggling with addiction.",
+        "How do I stop my addiction?",
+        "I can't control my urges.",
+        "Addiction is ruining my life.",
+        "I need help with substance abuse."
+      ],
+      "responses": [
+        "Addiction is a difficult challenge, and you're brave for seeking help.",
+        "You are not alone in this. Let's talk about your experiences.",
+        "It's okay to ask for help. I'm here to support you.",
+        "We can work on finding resources and steps toward recovery."
+      ]
+    },
+    {
+      "tag": "family_conflict_3",
+      "patterns": [
+        "I'm having problems with my family.",
+        "How do I resolve family issues?",
+        "My family doesn't understand me.",
+        "Family conflicts are so stressful.",
+        "Why is my family so hard to deal with?"
+      ],
+      "responses": [
+        "Family conflicts can be very challenging. Let's talk about what's happening.",
+        "You deserve to feel understood and supported. Tell me more.",
+        "It's okay to feel this way. I'm here to help you navigate these challenges.",
+        "Let's explore ways to improve communication and understanding."
+      ]
+    },
+    {
+      "tag": "living_with_disabilities",
+      "patterns": [
+        "I feel isolated because of my disability.",
+        "How do I cope with my disability?",
+        "Living with a disability is so hard.",
+        "No one understands my struggles.",
+        "I feel limited by my disability."],
+      "responses": [
+        "Living with a disability can be challenging, and I'm here to support you.",
+        "You are valuable and deserving, no matter your circumstances.",
+        "Let's talk about your experiences and how I can help.",
+        "You are not alone. Let's explore ways to find support and resources."
+      ]
+    },
+    {
+      "tag": "microaggressions_3",
+      "patterns": [
+        "How do I deal with microaggressions?",
+        "People say hurtful things without realizing.",
+        "Why do microaggressions bother me so much?",
+        "I feel frustrated with subtle discrimination.",
+        "What should I do when I face microaggressions?"
+      ],
+      "responses": [
+        "Microaggressions can be deeply hurtful. Let's talk about your experiences.",
+        "You deserve to be treated with respect. Tell me more about what happened.",
+        "It's okay to feel upset. I'm here to listen and support you.",
+        "We can explore ways to respond and care for yourself in these situations."
+      ]
+    },
+    {
+      "tag": "hope_and_motivation",
+      "patterns": [
+        "I feel hopeless.",
+        "How do I find motivation again?",
+        "Life feels so meaningless.",
+        "Why can't I find hope?",
+        "I need encouragement to keep going."
+      ],
+      "responses": [
+        "Hope can be hard to find sometimes, but I'm here to help you.",
+        "You are not alone in this feeling. Let's talk about what's on your mind.",
+        "It's okay to feel this way. Together, we can explore ways to reignite your motivation.",
+        "You are stronger than you think, and you have the power to overcome this."
+      ]
+    },
+    {
+      "tag": "intersectionality_support",
+      "patterns": [
+        "I feel invisible because of my identity.",
+        "How do I handle discrimination from multiple sides?",
+        "I'm struggling with being a minority in different ways.",
+        "Why does society treat me this way?",
+        "Being myself feels like a challenge every day."
+      ],
+      "responses": [
+        "Your experiences are valid, and I'm here to support you.",
+        "You are more than the challenges you face. Tell me more about your journey.",
+        "It's okay to feel this way. You deserve understanding and respect.",
+        "Together, we can explore ways to navigate these complex challenges."
+      ]
+    },
+    {
+      "tag": "bullying_support",
+      "patterns": [
+        "I'm being bullied.",
+        "How do I handle bullying?",
+        "People are mean to me.",
+        "I'm scared to go to school because of bullying.",
+        "Why am I being treated this way?"
+      ],
+      "responses": [
+        "Being bullied is very difficult. I'm here to help you through this.",
+        "You don't deserve to be treated this way. Let's talk about how you're feeling.",
+        "I'm sorry you're going through this. Together, we can find a way to address it.",
+         "You are not alone in this. Let me help you navigate these challenges."
+      ]
+    },
+    {
+      "tag": "trauma_recovery_2",
+      "patterns": [
+        "I can't forget about my trauma.",
+       "How do I heal from trauma?",
+       "Why does my past haunt me?",
+       "I feel stuck because of what happened.",
+        "Trauma is ruining my life."
+      ],
+      "responses": [
+        "Healing from trauma takes time, and I'm here to support you every step of the way.",
+        "You are not defined by your trauma. Let's explore ways to move forward.",
+        "It's okay to feel this way. Together, we can work through your pain.",
+        "You are strong for facing this. Let me help you find ways to heal."
+      ]
+    },
+    {
+      "tag": "mental_health_crisis",
+      "patterns": [
+        "I'm having a mental health crisis.",
+        "I feel like I'm losing control.",
+        "What do I do during a crisis?",
+        "I'm scared of my thoughts.",
+        "I don't know how to handle this crisis."
+        ],
+      "responses": [
+        "During a crisis, it's important to reach out for support. I'm here to help you.",
+        "You are not alone. Let's work through this together.",
+        "It's okay to feel overwhelmed. Let's focus on calming strategies.",
+        "Your feelings matter. Let's take this one step at a time."
+      ]
+    },
+    {
+      "tag": "loneliness_5",
+      "patterns": [
+        "I feel so alone.",
+        "Why does no one care about me?",
+        "I have no one to talk to.",
+        "Loneliness is consuming me.",
+        "I just want someone to understand me."
+      ],
+      "responses": [
+        "Loneliness can be very painful, but you are not truly alone. I'm here to listen.",
+        "Your feelings are valid, and you deserve connection. Let's talk about it.",
+        "It's okay to feel this way. Together, we can explore ways to feel more connected.",
+        "You matter, and your feelings matter. I'm here to support you."
+      ]
+    },
+    {
+      "tag": "perfectionism_3",
+      "patterns": [
+        "I feel like I have to be perfect.",
+        "Why can't I accept my mistakes?",
+        "Perfectionism is exhausting.",
+        "I can't handle failure.",
+        "How do I stop being a perfectionist?"
+      ],
+      "responses": [
+        "Perfectionism can be overwhelming. Let's work on embracing imperfection together.",
+        "It's okay to make mistakes. They don't define your worth.",
+        "You are enough just as you are. Let's explore how to let go of perfectionism.",
+        "I'm here to help you find balance and self-acceptance."
+      ]
+    },
+    {
+      "tag": "support_for_lgbtq_1",
+      "patterns": [
+        "I'm scared to come out.",
+        "How do I deal with homophobia?",
+        "I think I might be gay.",
+        "My family doesn't accept my sexuality.",
+        "What does it mean to be LGBTQ?"
+      ],
+      "responses": [
+        "Your identity is valid, and you deserve love and acceptance.",
+        "It's okay to be who you are. Let's talk about your experiences.",
+        "Coming out is a personal choice, and you should do it when you feel ready.",
+        "You are not alone in this. I'm here to support you."
+      ]
+    },
+    {
+      "tag": "sleep_issues_2",
+      "patterns": [
+        "I can't sleep at night.",
+        "How do I deal with insomnia?",
+        "Why am I always tired?",
+        "Sleep is so hard for me.",
+        "I wake up feeling unrested."
+      ],
+      "responses": [
+        "Sleep issues can be frustrating. Let's explore ways to improve your rest.",
+        "You deserve restful sleep. Let's talk about your sleep patterns.",
+        "I'm here to help you find strategies for better sleep.",
+        "It's okay to struggle with sleep. Together, we can work on solutions."
+      ]
+    },
+    {
+      "tag": "coping_with_change",
+      "patterns": [
+        "Change is so hard for me.",
+        "I can't adjust to my new life.",
+        "Why is change so scary?",
+        "How do I cope with big changes?",
+        "Change makes me anxious."
+      ],
+      "responses": [
+        "Change can be overwhelming, but it's also an opportunity for growth.",
+        "You are not alone in feeling this way. Let's talk about how you're coping.",
+        "It's okay to feel anxious about change. I'm here to help you navigate it.",
+        "Together, we can find ways to make this transition smoother."
+      ]
+    },
+    {
+      "tag": "financial_stress_2",
+      "patterns": [
+        "Money is stressing me out.",
+        "How do I deal with financial problems?",
+        "I'm scared about my finances.",
+        "Why is money such a source of anxiety?",
+        "I can't stop worrying about bills."
+      ],
+      "responses": [
+        "Financial stress can feel overwhelming. I'm here to support you.",
+        "Let's talk about your concerns and explore ways to manage your stress.",
+        "You don't have to face this alone. Let's find strategies together.",
+        "Your feelings are valid, and I'm here to help you cope with financial stress."
+      ]
+    },
+    {
+      "tag": "overcoming_fear_1",
+      "patterns": [
+        "I'm scared of everything.",
+        "How do I overcome fear?",
+        "Fear is controlling my life.",
+        "Why am I so afraid all the time?",
+        "I can't face my fears."
+      ],
+      "responses": [
+        "Fear can be paralyzing, but you are stronger than it. Let's talk about it.",
+        "It's okay to feel scared. Together, we can work on facing your fears.",
+        "You are not alone in this. I'm here to help you find courage.",
+        "Let's explore strategies to help you overcome your fears step by step."
+      ]
+    },
+    {
+      "tag": "loneliness_6",
+      "patterns": [
+        "I feel so alone.", "No one understands me.",
+        "I don't have anyone to talk to.",
+        "Why do I feel lonely all the time?",
+        "I just want someone to care about me."
+      ],
+      "responses": [
+        "Loneliness can be really painful. I'm here to listen.",
+        "You don't have to face this alone. Let's talk about it.",
+        "Feeling lonely is difficult, but you are not alone in this.",
+        "Your feelings matter, and I'm here to support you."
+      ]
+    },
+    {
+      "tag": "perfectionism_4",
+      "patterns": [
+        "I feel like I have to be perfect.",
+        "Why can't I stop being a perfectionist?",
+        "Nothing I do feels good enough.",
+        "How do I deal with my need for perfection?",
+        "I can't handle failure."
+      ],
+      "responses": [
+        "Perfectionism can be overwhelming. Let's explore this together.",
+        "It's okay to let go of perfection. You are enough just as you are.",
+        "You don't have to be perfect to be valued. Let's talk about this.",
+        "We can work on finding balance and self-acceptance."
+      ]
+    },
+    {
+      "tag": "parenting_stress",
+      "patterns": [
+        "Being a parent is so hard.",
+        "I feel like I'm failing as a parent.",
+        "How do I deal with parenting stress?",
+        "I don't know how to handle my kids.",
+        "Parenting feels so overwhelming."
+      ],
+      "responses": [
+        "Parenting is a tough job, and you're doing your best.",
+        "It's okay to feel overwhelmed. Let's talk about what's going on.",
+        "You are not alone in feeling this way. I'm here to help.",
+        "Let's explore ways to support you in your parenting journey."
+      ]
+    },
+    {
+      "tag": "self_doubt",
+      "patterns": [
+        "I doubt myself all the time.",
+        "Why can't I trust my own decisions?",
+        "I feel like I'm not good enough.",
+        "How do I stop second-guessing myself?",
+        "I always feel unsure about everything."
+      ],
+      "responses": [
+        "Self-doubt can be challenging, but you are stronger than you think.",
+        "You deserve to trust yourself. Let's talk about why you feel this way.",
+        "It's okay to feel unsure sometimes. I'm here to help.",
+        "Together, we can work on building your confidence."
+      ]
+    },
+    {
+      "tag": "workplace_discrimination",
+      "patterns": [
+        "I feel discriminated against at work.",
+        "How do I handle bias at my job?",
+        "Why is my workplace so unfair?",
+        "I feel left out because of my identity.",
+        "What should I do about workplace discrimination?"
+      ],
+      "responses": [
+        "You deserve to feel respected and valued at work.",
+        "Workplace discrimination is tough to handle, but I'm here to help.",
+        "Let's talk about what you're experiencing and how to address it.",
+        "You are not alone in this. Together, we can find ways to cope."
+      ]
+    },
+    {
+      "tag": "finding_purpose_3",
+      "patterns": [
+        "I feel like my life has no purpose.",
+        "How do I figure out what I want in life?",
+        "I feel so lost and directionless.",
+        "What is the point of everything?",
+        "I don't know what to do with my life."
+      ],
+      "responses": [
+        "It's okay to feel lost sometimes. Let's explore your thoughts together.",
+        "You have value and purpose, even if it feels unclear right now.",
+        "I'm here to help you find clarity and direction.",
+        "Together, we can work on discovering what brings you meaning."
+      ]
+    },
+    {
+      "tag": "boundaries_3",
+      "patterns": [
+        "How do I set boundaries?",
+        "I feel like people take advantage of me.",
+        "Why is it so hard to say no?",
+        "I can't seem to enforce my boundaries.",
+        "I feel guilty when I set limits."
+      ],
+      "responses": [
+        "Setting boundaries is an important step towards self-care.",
+        "You have the right to say no and protect your energy.",
+        "It's okay to prioritize your well-being. Let's talk about how to start.",
+        "You are deserving of respect and space. I'm here to support you."
+      ]
+    },
+    {
+      "tag": "trauma_healing",
+      "patterns": [
+        "I can't move on from my past trauma.",
+        "How do I start healing from trauma?",
+        "Why does my past still hurt so much?",
+        "I feel trapped by what happened to me.",
+        "Can trauma ever truly heal?"
+      ],
+      "responses": [
+        "Healing from trauma is a journey, and I'm here to support you.",
+        "Your feelings are valid, and you deserve compassion.",
+        "It's okay to take things one step at a time. Let's explore this together.",
+        "You are stronger than your past, and healing is possible."
+      ]
+    },
+    {
+      "tag": "managing_emotions",
+      "patterns": [
+        "I can't control my emotions.",
+        "How do I stop feeling so overwhelmed?",
+        "I feel like my emotions are out of control.",
+        "Why do I feel so much all the time?",
+        "I struggle with managing my feelings."
+      ],
+      "responses": [
+        "Managing emotions can be difficult, but you are not alone.",
+        "It's okay to feel overwhelmed. Let's talk about it.",
+        "Together, we can explore ways to navigate your emotions.",
+        "You have the strength to handle this. I'm here to help."
+      ]
+    },
+    {
+      "tag": "support_for_refugees",
+      "patterns": [
+        "I'm a refugee and feel out of place.",
+        "How do I cope with being in a new country?",
+        "I feel isolated as a refugee.",
+        "What resources are there for people like me?",
+        "Being a refugee is so hard."
+      ],
+      "responses": [
+        "You are not alone in this journey. Let's talk about your experiences.",
+        "Adjusting to a new environment can be challenging, and I'm here to help.",
+        "Your resilience is inspiring. Let's explore how to find support.",
+        "You deserve to feel safe and understood. I'm here for you."
+      ]
+    },
+    {
+      "tag": "coping_with_burnout",
+      "patterns": [
+        "I feel so burnt out.",
+        "Why am I always exhausted?",
+        "I can't keep up with everything.",
+        "How do I recover from burnout?",
+        "Burnout is taking over my life."
+      ],
+      "responses": [
+        "Burnout can be overwhelming, but you're not alone in this.",
+        "It's important to take care of yourself. Let's talk about how.",
+        "You deserve to rest and recharge. I'm here to support you.",
+        "Together, we can find ways to ease the pressure you're feeling."
+      ]
+    },
+    {
+      "tag": "allyship_support",
+      "patterns": [
+        "How can I be a better ally?",
+        "What does it mean to support minorities?",
+        "I want to help, but I don't know how.",
+        "How do I stand up against discrimination?",
+        "Being an ally feels complicated."
+      ],
+      "responses": [
+        "Being an ally is a valuable role. Let's talk about how you can make a difference.",
+        "Your willingness to support others is meaningful. I'm here to help you learn more.",
+        "Together, we can explore ways to promote inclusivity and understanding.",
+        "You can make a positive impact. Let's discuss the steps you can take."
+      ]
+    },
+    {
+      "tag": "handling_criticism",
+      "patterns": [
+        "How do I take criticism better?",
+        "Why does criticism hurt so much?",
+        "I feel attacked when people criticize me.",
+        "How can I handle feedback without feeling upset?",
+        "Criticism makes me feel worthless."
+      ],
+      "responses": [
+        "Criticism can be tough to handle. Let's talk about how you feel.",
+        "You are not defined by others' opinions. I'm here to help you process this.",
+        "It's okay to feel sensitive to criticism. Let's explore ways to cope.",
+        "Together, we can work on building your resilience to feedback."
+      ]
+    },
+    {
+      "tag": "grief_support",
+      "patterns": [
+        "I lost someone close to me.",
+        "How do I cope with grief?", "Why does grief feel so overwhelming?",
+        "I can't move on from losing them.",
+        "What can I do to handle my loss?"
+      ],
+      "responses": [
+        "I'm sorry for your loss. Your feelings are valid and important.",
+        "Grief takes time, and it's okay to feel what you're feeling.",
+        "You don't have to go through this alone. I'm here to listen.",
+        "Healing from loss is a process, and we can take it one step at a time."
+      ]
+    },
+    {
+      "tag": "identity_crisis_2",
+      "patterns": [
+        "I don't know who I am anymore.",
+        "How do I figure out who I want to be?",
+        "I feel like I've lost myself.",
+        "Why do I feel so disconnected from my identity?",
+        "What should I do when I'm questioning my identity?"
+      ],
+      "responses": [
+        "It's normal to question yourself sometimes. Let's explore this together.",
+        "You are unique, and it's okay to take time to rediscover yourself.",
+        "I'm here to help you navigate these feelings of uncertainty.",
+        "Your identity matters, and you deserve the space to understand it."
+      ]
+    },
+    {
+      "tag": "dealing_with_prejudice",
+      "patterns": [
+        "I'm tired of being judged for who I am.",
+        "How do I handle prejudice?",
+        "Why do people treat me differently?",
+        "What should I do when facing discrimination?",
+        "I feel hurt by others' biases."
+      ],
+      "responses": [
+        "You deserve to be treated with respect and dignity.",
+        "Facing prejudice can be painful. I'm here to support you.",
+        "Let's talk about your experiences and how they affect you.",
+        "Together, we can explore ways to cope and find strength."
+      ]
+    },
+    {
+      "tag": "overcoming_fear_2",
+      "patterns": [
+        "I'm scared all the time.",
+        "How do I face my fears?",
+        "Fear is controlling my life.",
+        "What can I do to stop being so afraid?",
+        "I feel paralyzed by my fears."
+      ],
+  "responses": [
+    "Fear can feel overwhelming, but you have the strength to face it.",
+    "Let's talk about what you're feeling and why it scares you.",
+    "You are not alone in this. Together, we can work on overcoming it.",
+    "It's okay to feel scared. I'm here to help you through it."
+  ]
+    },
+    {
+      "tag": "imposter_syndrome_3",
+      "patterns": [
+        "I feel like I'm not good enough.",
+        "Why do I think I'm a fraud?",
+        "I feel like I don't deserve my success.",
+        "How do I stop doubting my abilities?",
+        "I always feel like I'm faking it."
+      ],
+      "responses": [
+        "You are not a fraud. Your achievements are real and deserved.",
+        "Imposter syndrome is tough, but you are capable and worthy.",
+        "Let's explore why you feel this way and work on changing it.",
+        "You are enough, and your efforts matter. I'm here to support you."
+      ]
+    },
+    {
+      "tag": "forgiveness_3",
+      "patterns": [
+        "How do I forgive someone who hurt me?",
+        "Why is it so hard to forgive?",
+        "I can't let go of what they did to me.",
+        "Forgiveness feels impossible.",
+        "What does it mean to truly forgive?"
+      ],
+      "responses": [
+        "Forgiveness is a personal journey, and it's okay to take your time.",
+        "Letting go of anger can be freeing, but it doesn't mean forgetting.",
+        "I'm here to help you process your feelings and find your path.",
+        "Forgiveness is for your peace of mind. Let's explore this together."
+      ]
+    },
+    {
+      "tag": "anger_management_3",
+      "patterns": [
+        "I get angry so easily.",
+        "How do I control my anger?",
+        "Why am I always so irritated?",
+        "I can't stop losing my temper.",
+        "Anger is ruining my relationships."
+      ],
+      "responses": [
+        "Anger is a natural emotion, but let's work on managing it.",
+        "You have the power to respond to anger in a healthy way.",
+        "Together, we can explore techniques to help you stay calm.",
+        "I'm here to support you in finding balance and control."
+      ]
+    },
+    {
+      "tag": "body_image_3",
+      "patterns": [
+        "I hate the way I look.",
+        "Why can't I accept my body?",
+        "I feel so insecure about my appearance.",
+        "How do I improve my body image?",
+        "I can't stop comparing myself to others."
+      ],
+      "responses": [
+        "Your worth is not defined by your appearance.",
+        "Body image struggles are tough, but you are not alone.",
+        "Let's talk about what you're feeling and how we can address it.",
+        "You deserve self-love and acceptance. I'm here to help."
+      ]
+    },
+    {
+      "tag": "decision_making_2",
+      "patterns": [
+        "I can't make decisions.",
+        "How do I decide what to do?",
+        "Why do I always second-guess myself?",
+        "Making choices feels so stressful.",
+        "I need help with an important decision."
+      ],
+      "responses": [
+        "Decision-making can be challenging. Let's break it down together.",
+        "You are capable of making good choices. I'm here to support you.",
+        "Let's explore your options and what feels right for you.",
+        "You don't have to figure this out alone. Let's talk it through."
+      ]
+    },
+    {
+      "tag": "understanding_emotions",
+      "patterns": [
+        "Why do I feel this way?",
+        "I can't make sense of my emotions.",
+        "How do I understand what I'm feeling?",
+        "My emotions are so confusing.",
+        "I don't know why I react like this."
+      ],
+      "responses": [
+        "Understanding your emotions takes time, and I'm here to help.",
+        "Let's explore what you're feeling and why.",
+        "Your emotions are valid, even if they feel confusing.",
+        "Together, we can work on making sense of your feelings."
+      ]
+    },
+    {
+      "tag": "support_for_LGBTQ_2",
+      "patterns": [
+        "I'm struggling with my identity as LGBTQ.",
+        "How do I come out to my family?",
+        "I feel isolated as an LGBTQ person.",
+        "What resources are there for LGBTQ support?",
+        "Being LGBTQ is so hard sometimes."
+      ],
+      "responses": [
+        "You are valid and deserving of love and respect.",
+        "Coming out is your choice, and it's okay to take your time.",
+        "Let's talk about your feelings and how to find support.",
+        "You are not alone. I'm here to listen and help."
+      ]
+    },
+    {
+      "tag": "finding_community",
+      "patterns": [
+        "I want to make friends.",
+        "How do I find people who understand me?",
+        "I feel like I don't belong anywhere.",
+        "Where can I meet supportive people?",
+        "I need a sense of community."
+      ],
+      "responses": [
+        "Finding a community can take time, but you're not alone.",
+        "Let's explore ways to connect with people who share your values.",
+        "You deserve to feel a sense of belonging. I'm here to help.",
+        "Together, we can find opportunities to build meaningful connections."
+      ]
+    }
+  ]
+}

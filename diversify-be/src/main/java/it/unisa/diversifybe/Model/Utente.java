@@ -1,7 +1,9 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ public class Utente {
     /**
      * L'identificativo unico dell'utente nel sistema.
      */
-
+    @Id
     private String idUtente;
 
     /**
@@ -37,7 +39,6 @@ public class Utente {
     /**
      * Il codice fiscale dell'utente.
      */
-
     private String codiceFiscale;
 
     /**
@@ -82,6 +83,10 @@ public class Utente {
      */
 
     private boolean ruolo;
+
+    /**
+     * Definisce se un utente è bannato dai forum
+     */
     private boolean banned;
 }
 

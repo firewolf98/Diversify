@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necessario per usare i pipes come dat
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -7,48 +7,93 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   templateUrl: './commento.component.html',
   styleUrls: ['./commento.component.css'],
-  imports: [CommonModule, FormsModule] // Importa CommonModule per abilitare il pipe date
+  imports: [CommonModule, FormsModule],
 })
 export class CommentoComponent {
-  @Input() comment!: { // Aggiungiamo Input per ricevere il commento dal componente padre
+  @Input() comment!: {
     authorName: string;
     authorAvatar: string;
     text: string;
     date: string;
-    likes: number; // Aggiunta del contatore dei likes
+    likes: number;
     replies: { authorAvatar: string; authorName: string; text: string; date: string }[];
   };
 
-  newComment = { text: '' }; // Inizializza il nuovo commento
-  isReplying: boolean = false; // Gestisce la visualizzazione del form di risposta
-  hasLiked: boolean = false;  // Traccia se l'utente ha messo "Mi Piace"
+  newComment = { text: '' };
+  isReplying: boolean = false;
+  hasLiked: boolean = false;
   replyText: string = '';
 
+  // Variabili per il modale di segnalazione
+  showReportModal = false;
+  reportReason = '';
+  reportedComment: any = null; // Memorizza il commento o il subcommento segnalato
+
+  // Variabile per il messaggio di conferma
+  showConfirmation = false;
+
+  // Apre il modale di segnalazione
+  openReportModal(comment: any) {
+    this.reportedComment = comment; // Memorizza il commento o il subcommento segnalato
+    this.showReportModal = true;
+  }
+
+  // Chiude il modale di segnalazione
+  closeReportModal() {
+    this.showReportModal = false;
+    this.reportReason = ''; // Resetta il campo di testo
+    this.reportedComment = null; // Resetta il commento segnalato
+  }
+
+  // Conferma la segnalazione
+  confirmReport() {
+    if (this.reportReason.trim() && this.reportedComment) {
+      console.log('Segnalazione inviata:', {
+        reportedUser: this.reportedComment.authorName, // Usa l'autore del commento/subcommento segnalato
+        reportingUser: 'UtenteCorrente', // Esempio: utente loggato
+        reason: this.reportReason,
+        type: 'comment' // Puoi distinguere tra "comment" e "reply" se necessario
+      });
+
+      // Mostra il messaggio di conferma
+      this.showConfirmation = true;
+
+      // Nascondi il messaggio dopo 3 secondi
+      setTimeout(() => {
+        this.showConfirmation = false;
+      }, 3000);
+
+      this.closeReportModal();
+    } else {
+      alert('Per favore, inserisci una motivazione.');
+    }
+  }
+
   onReply(): void {
-    this.isReplying = !this.isReplying; // Mostra/nasconde il modulo di risposta
+    this.isReplying = !this.isReplying;
     if (this.isReplying) {
-      this.replyText = ''; // Resetta il campo di testo quando viene mostrato il modulo
+      this.replyText = '';
     }
   }
 
   likeComment(): void {
     if (this.hasLiked) {
-      this.comment.likes -= 1; // Rimuovi il like
+      this.comment.likes -= 1;
     } else {
-      this.comment.likes += 1; // Aggiungi un like
+      this.comment.likes += 1;
     }
-    this.hasLiked = !this.hasLiked; // Alterna lo stato
+    this.hasLiked = !this.hasLiked;
   }
 
   submitReply(replyText: string): void {
     if (replyText.trim()) {
       const newReply = {
-        authorAvatar: 'Avatar.png', // Aggiungi qui l'avatar dell'autore, se necessario
-        authorName: 'Utente', // Aggiungi qui il nome dell'autore, se necessario
+        authorAvatar: 'Avatar.png',
+        authorName: 'Utente',
         text: replyText,
-        date: new Date().toLocaleString()
+        date: new Date().toLocaleString(),
       };
-      this.comment.replies.push(newReply); // Aggiungi il nuovo subcommento alla lista delle risposte
+      this.comment.replies.push(newReply);
       this.isReplying = false;
     }
   }

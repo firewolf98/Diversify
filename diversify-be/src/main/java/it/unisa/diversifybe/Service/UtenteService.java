@@ -8,6 +8,7 @@ import it.unisa.diversifybe.Repository.UtenteRepository;
 import it.unisa.diversifybe.Utilities.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -41,6 +42,15 @@ public class UtenteService {
 
     public String registerUser(RegisterRequest registerRequest) throws NoSuchAlgorithmException {
         // Controllo che i campi obbligatori non siano nulli o vuoti
+
+        if (registerRequest.getName() == null || registerRequest.getName().trim().isEmpty()) {
+            return "Il campo nome è obbligatorio";
+        }
+
+        if (registerRequest.getLastName() == null || registerRequest.getLastName().trim().isEmpty()) {
+            return "Il campo cognome è obbligatorio";
+        }
+
         if (registerRequest.getUsername() == null || registerRequest.getUsername().trim().isEmpty()) {
             return "Il campo username è obbligatorio.";
         }
@@ -49,12 +59,20 @@ public class UtenteService {
             return "Il campo email è obbligatorio.";
         }
 
-        if (registerRequest.getPasswordHash() == null || registerRequest.getPasswordHash().trim().isEmpty()) {
+        if (registerRequest.getPassword() == null || registerRequest.getPassword().trim().isEmpty()) {
             return "Il campo password è obbligatorio.";
         }
 
         if (registerRequest.getCodiceFiscale() == null || !isValidCodiceFiscale(registerRequest.getCodiceFiscale())) {
             return "Codice fiscale non valido.";
+        }
+
+        if (registerRequest.getDomanda() == null || registerRequest.getDomanda().trim().isEmpty()) {
+            return "Domanda non valida.";
+        }
+
+        if (registerRequest.getRisposta() == null || registerRequest.getRisposta().trim().isEmpty()) {
+            return "Risposta non valida.";
         }
 
         // Validazione email
@@ -63,7 +81,7 @@ public class UtenteService {
         }
 
         // Validazione password
-        if (!isValidPassword(registerRequest.getPasswordHash())) {
+        if (!isValidPassword(registerRequest.getPassword())) {
             return "Password non valida. Deve contenere almeno 8 caratteri, una lettera maiuscola, una lettera minuscola e un numero.";
         }
 
@@ -79,14 +97,24 @@ public class UtenteService {
             return "Email già in uso!";
         }
 
+        Optional<Utente> existingUserByCodiceFiscale = utenteRepository.findByCodiceFiscale(registerRequest.getCodiceFiscale());
+        if (existingUserByCodiceFiscale.isPresent()) {
+            return "Codice fiscale già in uso!";
+        }
+
         // Hash della password utilizzando il metodo esistente
-        String hashedPassword = hashPassword(registerRequest.getPasswordHash());
+        String hashedPassword = hashPassword(registerRequest.getPassword());
 
         // Creazione del nuovo utente
         Utente utente = new Utente();
+        utente.setNome(registerRequest.getName().trim());
+        utente.setCognome(registerRequest.getLastName().trim());
         utente.setUsername(registerRequest.getUsername().trim());
         utente.setEmail(registerRequest.getEmail().trim());
+        utente.setCodiceFiscale(registerRequest.getCodiceFiscale().trim());
         utente.setPasswordHash(hashedPassword);
+        utente.setTipoDomanda(registerRequest.getDomanda());
+        utente.setRispostaHash(registerRequest.getRisposta());
 
         // Salvataggio dell'utente nel database
         utenteRepository.save(utente);
@@ -138,12 +166,12 @@ public class UtenteService {
 
     public JwtResponse authenticateUser(LoginRequest loginRequest) throws NoSuchAlgorithmException {
         // Controlla che username e password non siano nulli o vuoti
-        if (loginRequest.getUsername() == null || loginRequest.getUsername().isEmpty() ||
-                loginRequest.getPasswordHash() == null || loginRequest.getPasswordHash().isEmpty()) {
+        if (loginRequest.getEmail() == null || loginRequest.getEmail().isEmpty() ||
+                loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
             return null; // Manca username o password
         }
 
-        Optional<Utente> utenteOptional = utenteRepository.findByUsername(loginRequest.getUsername());
+        Optional<Utente> utenteOptional = utenteRepository.findByEmail(loginRequest.getEmail());
 
         if (utenteOptional.isEmpty()) {
             return null; // L'utente non esiste
@@ -152,7 +180,7 @@ public class UtenteService {
         Utente utente = utenteOptional.get();
 
         // Controlla se la password hashata corrisponde
-        if (!utente.getPasswordHash().equals(hashPassword(loginRequest.getPasswordHash()))) {
+        if (!utente.getPasswordHash().equals(hashPassword(loginRequest.getPassword()))) {
             return null; // Credenziali non valide
         }
 
@@ -263,7 +291,7 @@ public class UtenteService {
      *     <li>"Errore durante l'eliminazione dell'account." in caso di errore generico durante l'operazione.</li>
      * </ul>
      */
-    public String deleteUser(String token) {
+    public String deleteUser(String token, String password) {
         try {
             String username = jwtUtils.validateToken(token); // Ottieni il nome utente dal token
             if (username == null) {
@@ -276,12 +304,46 @@ public class UtenteService {
             }
 
             Utente utente = utenteOptional.get();
-            utenteRepository.delete(utente); // Elimina l'utente
-            return "Account eliminato con successo.";
+
+            String hashedPassword = hashPassword(password);
+
+            if (hashedPassword.equals(utente.getPasswordHash())) {
+                utenteRepository.delete(utente);
+                return "Account eliminato con successo.";
+            }
+            return "Password errata";
 
         } catch (Exception e) {
             return "Errore durante l'eliminazione dell'account.";
         }
     }
 
+    /**
+     * Recupera l'ID di un utente dato il suo username.
+     *
+     * @param username L'username dell'utente.
+     * @return L'ID dell'utente.
+     */
+    public String getIdByUsername(String username) {
+        Optional<Utente> utente = utenteRepository.findByUsername(username);
+        if (utente.isEmpty()) {
+            return "Utente non trovato.";
+        }
+        return utente.get().getIdUtente();
+    }
+
+    /**
+     * Recupera un utente in base all'indirizzo email fornito.
+     *
+     * Questo metodo cerca un utente nel repository utilizzando l'indirizzo email come criterio.
+     * Se un utente corrispondente viene trovato, esso viene restituito.
+     * Se l'utente non esiste, viene generata un'eccezione {@link java.util.NoSuchElementException}.
+     *
+     * @param email L'indirizzo email dell'utente da cercare.
+     * @return L'oggetto {@link Utente} associato all'indirizzo email fornito.
+     */
+    public Utente getUserByEmail(String email) {
+        Optional<Utente> utenteOptional = utenteRepository.findByEmail(email);
+        return utenteOptional.get();
+    }
 }

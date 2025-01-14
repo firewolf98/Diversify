@@ -11,11 +11,11 @@
                   (input)="onSearchChange($event)" 
                   (click)="toggleDropdown()" 
                 />
-                <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+                <ul [class.visible]="isDropdownVisible && filteredCountries.length > 0">
                     <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
-                        {{ country }}
+                      {{ country }}
                     </li>
-                </ul>
+                  </ul>
             </div>
             
             <div>
@@ -50,7 +50,7 @@
             </div>
             
             <div>
-                <h3>Benchmark dei diritti contro il razzismo per {{ selectedCountry }}</h3>
+                <h3 class="scritta-a-caso">Benchmark dei diritti contro il razzismo per {{ selectedCountry }}</h3>
                 <input type="range" min="0" max="5" [(ngModel)]="racismRightsBenchmark" (change)="onBenchmarkChange(racismRightsBenchmark, 'racism')" />
                 <p>{{ racismRightsBenchmark }}</p>
                 <span class="benchmark-comment">{{ getBenchmarkComment(racismRightsBenchmark) }}</span>

@@ -9,13 +9,17 @@ body {
 }
 
 /* Contenitore del forum */
+/* Forum container: Altezza dinamica considerando header e footer */
 .forum-container {
     display: flex;
     flex-direction: row;
-    gap: 20px; /* Spazio tra sezioni */
+    gap: 20px;
     padding: 20px;
-    flex: 1; /* Rende il contenuto flessibile */
-    background-color: transparent; /* Non sovrascrivere il body */
+    flex: 1; 
+    background-color: transparent; 
+    height: 80vh; 
+    box-sizing: border-box; 
+    overflow: hidden; 
 }
 
 /* "Torna alla mappa" */
@@ -35,11 +39,12 @@ body {
 
 /* Sidebar del forum */
 .forum-sidebar {
-    width: 35%;
+    width: 45%;
     background-color: #ffebe2; /* Sfondo della sidebar */
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    overflow-y: scroll;
 }
 
 /* Aggiungi una distanza tra il titolo "Forum" e il bordo della sidebar */
@@ -73,11 +78,12 @@ body {
 
 /* Sezione principale del forum (in evidenza) */
 .forum-main {
-    width: 60%;
+    width: 55%;
     background-color: #ffebe2; /* Sfondo per il contenuto in evidenza */
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
+    overflow-y: scroll;
 }
 
 /* Stile per i singoli post */
@@ -152,3 +158,16 @@ body {
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+button.selected-forum {
+    background-color: #003366 !important; /* Sfondo scuro */
+    color: #fff !important;           /* Testo bianco */
+    font-weight: bold;                /* Grassetto */
+    border: 2px solid #000;           /* Bordo nero */
+    pointer-events: none;             /* Disabilita il comportamento hover */
+  }
+ 
+  /* Mantieni l'effetto hover per gli altri pulsanti */
+  .forum-sidebar button:hover:not(.selected-forum) {
+    background-color: #003366; /* Blu più scuro al passaggio del mouse */
+  }

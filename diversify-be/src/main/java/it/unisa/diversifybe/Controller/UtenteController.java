@@ -13,12 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/utenti")
-
+@CrossOrigin(origins = "http://localhost:4200")  // Permette richieste solo da localhost:4200
 public class UtenteController {
+
 
     private final UtenteService utenteService;
     private final JwtUtils jwtUtils;
@@ -74,7 +76,7 @@ public class UtenteController {
             String result = utenteService.registerUser(registerRequest);
             if (result.equals("Utente registrato con successo!")) {
                 // Se la registrazione è riuscita, restituisci un messaggio di successo
-                return ResponseEntity.ok(result);
+                return ResponseEntity.ok(Map.of("message", result));
             } else {
                 // Se ci sono errori (ad esempio, l'username o l'email sono già in uso), restituisci un errore
                 return ResponseEntity.status(400).body(result);
@@ -138,7 +140,7 @@ public class UtenteController {
             // Salva l'utente con la nuova password tramite il repository del service
             utenteService.save(utente);
 
-            return ResponseEntity.ok("Password aggiornata con successo");
+            return ResponseEntity.ok(Map.of("message", "Password aggiornata con successo"));
 
         } catch (NoSuchAlgorithmException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'hashing della password");
@@ -153,19 +155,19 @@ public class UtenteController {
      * </p>
      *
      * @param recuperaPasswordRequest l'oggetto che contiene i dati necessari per il recupero della password:
-     *                                 <ul>
-     *                                     <li>email: l'indirizzo email dell'utente.</li>
-     *                                     <li>codiceFiscale: il codice fiscale dell'utente.</li>
-     *                                     <li>personalAnswer: la risposta alla domanda personale dell'utente.</li>
-     *                                     <li>newPassword: la nuova password da impostare.</li>
-     *                                 </ul>
+     *                                <ul>
+     *                                    <li>email: l'indirizzo email dell'utente.</li>
+     *                                    <li>codiceFiscale: il codice fiscale dell'utente.</li>
+     *                                    <li>personalAnswer: la risposta alla domanda personale dell'utente.</li>
+     *                                    <li>newPassword: la nuova password da impostare.</li>
+     *                                </ul>
      * @return una {@link ResponseEntity} che rappresenta il risultato dell'operazione:
-     *         <ul>
-     *             <li>HTTP 200 OK: se la password è stata aggiornata con successo.</li>
-     *             <li>HTTP 404 NOT FOUND: se non esiste un utente con i dati forniti (email o codice fiscale errati).</li>
-     *             <li>HTTP 401 UNAUTHORIZED: se la risposta alla domanda personale è errata.</li>
-     *             <li>HTTP 500 INTERNAL SERVER ERROR: se si verifica un errore durante l'hashing della password.</li>
-     *         </ul>
+     * <ul>
+     *     <li>HTTP 200 OK: se la password è stata aggiornata con successo.</li>
+     *     <li>HTTP 404 NOT FOUND: se non esiste un utente con i dati forniti (email o codice fiscale errati).</li>
+     *     <li>HTTP 401 UNAUTHORIZED: se la risposta alla domanda personale è errata.</li>
+     *     <li>HTTP 500 INTERNAL SERVER ERROR: se si verifica un errore durante l'hashing della password.</li>
+     * </ul>
      */
 
     @PostMapping("/recupera_password")
@@ -194,23 +196,37 @@ public class UtenteController {
 
             Utente utente = utenteOptional.get();
 
-            // Passo 2: Criptare la risposta fornita e confrontarla con quella salvata
-            String hashedAnswer = utenteService.hashPassword(recuperaPasswordRequest.getPersonalAnswer());
-            if (!hashedAnswer.equals(utente.getRispostaHash())) {
+            // Passo 2: Verifica risposta personale
+            String hashedAnswer;
+            try {
+                hashedAnswer = utenteService.hashPassword(recuperaPasswordRequest.getPersonalAnswer());
+            } catch (NoSuchAlgorithmException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
+            }
+
+            // Se hashedAnswer è null (non dovrebbe accadere, ma aggiungiamo ulteriore controllo)
+            if (hashedAnswer == null || !hashedAnswer.equals(utente.getRispostaHash())) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Risposta alla domanda personale errata");
             }
 
             // Passo 3: Criptare la nuova password e aggiornarla nel database
-            String hashedNewPassword = utenteService.hashPassword(recuperaPasswordRequest.getNewPassword());
+            String hashedNewPassword;
+            try {
+                hashedNewPassword = utenteService.hashPassword(recuperaPasswordRequest.getNewPassword());
+            } catch (NoSuchAlgorithmException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
+            }
+
             utente.setPasswordHash(hashedNewPassword);
             utenteService.save(utente);
 
             return ResponseEntity.ok("Password aggiornata con successo");
 
-        } catch (NoSuchAlgorithmException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante la crittografia dei dati");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
 
 
 
@@ -261,29 +277,67 @@ public class UtenteController {
      *     <li>HTTP 404 NOT FOUND: se l'utente associato al token non è stato trovato.</li>
      * </ul>
      */
-    @PostMapping("/delete-account")
-    public ResponseEntity<?> deleteAccount(@RequestHeader("Authorization") String authorizationHeader) {
+    @PostMapping("/elimina_account")
+    public ResponseEntity<?> deleteAccount(
+            @RequestBody String password,
+            @RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+
+        // Controllo sulla presenza dell'header Authorization
         if (authorizationHeader == null || authorizationHeader.isBlank()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Token non valido"); // Restituisce "Token non valido" se l'header è assente o vuoto
         }
 
+        // Verifica che l'header inizi con "Bearer "
         if (!authorizationHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token malformato");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Token malformato"); // Restituisce "Token malformato" se non c'è il prefisso "Bearer"
         }
 
-        String token = authorizationHeader.substring(7); // Rimuove "Bearer "
+        // Estrae il token dal prefisso "Bearer "
+        String token = authorizationHeader.substring(7).trim();
 
-        String response = utenteService.deleteUser(token);
-
-        if ("Utente non trovato".equals(response)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        // Se il token è vuoto dopo il prefisso "Bearer "
+        if (token.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Token non valido"); // Restituisce "Token non valido" per token vuoto
         }
 
-        if ("Token non valido".equals(response)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-        }
+        // Chiamata al servizio per eliminare l'utente
+        String response = utenteService.deleteUser(token, password);
 
-        return ResponseEntity.ok(response);
+        // Mappa le risposte del servizio ai rispettivi stati HTTP
+        return switch (response) {
+            case "Utente non trovato" -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Utente non trovato"); // Restituisce solo il messaggio
+            case "Token non valido", "Password errata" -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(response); // Restituisce direttamente il messaggio
+            case "Account eliminato con successo" ->
+                    ResponseEntity.ok(response); // Restituisce direttamente il messaggio
+            default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Errore durante l'eliminazione dell'account."); // Restituisce solo il messaggio
+        };
     }
 
+    /**
+     * Recupera un utente in base all'indirizzo email fornito.
+     * Questo metodo gestisce una richiesta POST al percorso "/recupera_domanda".
+     * Esso accetta una stringa contenente l'email di un utente come corpo della richiesta
+     * e restituisce una risposta contenente i dettagli dell'utente se trovato,
+     * oppure un messaggio di errore se l'utente non esiste.
+     *
+     * @param email La stringa contenente l'email dell'utente da cercare.
+     * @return Una risposta HTTP con il codice di stato 200 (OK) e i dettagli dell'utente
+     *         se l'utente esiste, altrimenti restituisce una risposta con il codice di stato 404
+     *         (NOT_FOUND) e un messaggio di errore.
+     */
+    @PostMapping("/recupera_domanda")
+    public ResponseEntity<?> getDomandaUser(@RequestBody String email) {
+        Utente utente = utenteService.getUserByEmail(email);
+        if (utente != null) {
+            return ResponseEntity.ok(utente);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato.");
+        }
+    }
 }

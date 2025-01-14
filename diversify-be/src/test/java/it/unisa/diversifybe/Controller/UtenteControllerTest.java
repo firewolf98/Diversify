@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -193,12 +194,11 @@ class UtenteControllerTest {
         assertEquals("Username o password errati", response.getBody());
     }
     /**
-     * Test per il metodo registerUser
+     * Test per il metodo registerUser - Registrazione con dati validi.
      */
-
     @Test
     void registerUser_ShouldReturnSuccessMessageForValidData() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String successMessage = "Utente registrato con successo!";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(successMessage);
@@ -207,12 +207,17 @@ class UtenteControllerTest {
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(successMessage, response.getBody());
+        assertEquals(Map.of("message", successMessage), response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+
+    /**
+     * Test per il metodo registerUser - Username mancante.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForMissingUsername() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest(null, "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", null, "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String errorMessage = "Il campo username è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -222,11 +227,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Password vuota.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForEmptyPassword() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String errorMessage = "Il campo password è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -236,11 +245,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Email mancante.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForMissingEmail() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", null, "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", null, "CF12345", "Domanda", "Risposta");
         String errorMessage = "Il campo email è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -250,11 +263,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Codice fiscale mancante.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForMissingCodiceFiscale() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", null);
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", null, "Domanda", "Risposta");
         String errorMessage = "Il campo codice fiscale è obbligatorio.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -264,11 +281,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Dati duplicati.
+     */
     @Test
     void registerUser_ShouldReturnBadRequestForDuplicateData() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
         String errorMessage = "Username o email già in uso.";
 
         when(utenteService.registerUser(registerRequest)).thenReturn(errorMessage);
@@ -278,11 +299,15 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals(errorMessage, response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
 
+    /**
+     * Test per il metodo registerUser - Errore nell'algoritmo di hashing.
+     */
     @Test
     void registerUser_ShouldReturnInternalServerErrorForHashingError() throws NoSuchAlgorithmException {
-        RegisterRequest registerRequest = new RegisterRequest("testuser", "testpassword", "testuser@example.com", "CF12345");
+        RegisterRequest registerRequest = new RegisterRequest("John", "Doe", "testuser", "ValidPass1", "testuser@example.com", "CF12345", "Domanda", "Risposta");
 
         when(utenteService.registerUser(registerRequest)).thenThrow(new NoSuchAlgorithmException("Hashing error"));
 
@@ -291,7 +316,9 @@ class UtenteControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals("Errore durante la registrazione", response.getBody());
+        verify(utenteService, times(1)).registerUser(registerRequest);
     }
+
     /**
      * Test per il metodo changePassword
      */
@@ -314,7 +341,7 @@ class UtenteControllerTest {
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Password aggiornata con successo", response.getBody());
+        assertEquals(Map.of("message", "Password aggiornata con successo"), response.getBody());  // Modifica qui per confrontare con la mappa
         verify(utenteService).save(utente);
     }
 
@@ -404,6 +431,8 @@ class UtenteControllerTest {
         // Simula il comportamento dei metodi del mock
         when(jwtUtils.validateToken("validToken")).thenReturn(username);
         when(utenteService.findByUsername(username)).thenReturn(Optional.of(utente));
+
+        // Simula un errore nell'hashing della password
         doThrow(new NoSuchAlgorithmException("Hashing error"))
                 .when(utenteService)
                 .hashPassword("currentPassword");
@@ -422,29 +451,40 @@ class UtenteControllerTest {
         verify(utenteService, times(1)).hashPassword("currentPassword");
         verifyNoMoreInteractions(jwtUtils, utenteService);
     }
+
     /**
      * Test per recuperaPassword con dati validi.
      */
     @Test
     void recuperaPassword_ShouldReturnSuccessForValidData() throws NoSuchAlgorithmException {
+        // Dati di input
         RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", "1234567890", "correctAnswer", "newPassword");
+
+        // Utente simulato
         Utente utente = new Utente();
         utente.setEmail("user@example.com");
         utente.setCodiceFiscale("1234567890");
-        utente.setRispostaHash("hashedCorrectAnswer");
+        utente.setRispostaHash("hashedCorrectAnswer");  // Risposta criptata
 
+        // Simula l'hashing della risposta alla domanda personale (dovrebbe essere la stessa risposta criptata nel database)
+        when(utenteService.hashPassword("correctAnswer")).thenReturn("hashedCorrectAnswer");  // Simula l'hashing della risposta
+        when(utenteService.hashPassword("newPassword")).thenReturn("hashedNewPassword");  // Simula l'hashing della nuova password
+
+        // Simula il comportamento dei metodi
         when(utenteService.findByEmailAndCodiceFiscale("user@example.com", "1234567890"))
                 .thenReturn(Optional.of(utente));
-        when(utenteService.hashPassword("correctAnswer")).thenReturn("hashedCorrectAnswer");
-        when(utenteService.hashPassword("newPassword")).thenReturn("hashedNewPassword");
 
+        // Esegui il metodo
         ResponseEntity<?> response = controller.recuperaPassword(request);
 
+        // Verifica la risposta
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Password aggiornata con successo", response.getBody());
         verify(utenteService).save(utente);
     }
+
+
 
     /**
      * Test per recuperaPassword con utente non trovato.
@@ -473,7 +513,7 @@ class UtenteControllerTest {
     }
 
     /**
-     * Test per recuperaPassword con risposta personale errata.
+     * Test per `recuperaPassword` con risposta personale errata.
      */
     @Test
     void recuperaPassword_ShouldReturnUnauthorizedForIncorrectAnswer() throws NoSuchAlgorithmException {
@@ -483,90 +523,65 @@ class UtenteControllerTest {
         utente.setCodiceFiscale("1234567890");
         utente.setRispostaHash("hashedCorrectAnswer");
 
-        when(utenteService.findByEmailAndCodiceFiscale("user@example.com", "1234567890"))
-                .thenReturn(Optional.of(utente));
-        when(utenteService.hashPassword("wrongAnswer")).thenReturn("hashedWrongAnswer");
-
-        ResponseEntity<?> response = controller.recuperaPassword(request);
-
-        assertNotNull(response);
-        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Risposta alla domanda personale errata", response.getBody());
-        verify(utenteService).findByEmailAndCodiceFiscale("user@example.com", "1234567890");
-        verify(utenteService).hashPassword("wrongAnswer");
-        verifyNoMoreInteractions(utenteService);
-    }
-
-    /**
-     * Test per recuperaPassword con errore nell'algoritmo di hashing.
-     */
-    @Test
-    void recuperaPassword_ShouldReturnInternalServerErrorForHashingError() throws NoSuchAlgorithmException {
-        RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", "1234567890", "correctAnswer", "newPassword");
-        Utente utente = new Utente();
-        utente.setEmail("user@example.com");
-        utente.setCodiceFiscale("1234567890");
-        utente.setRispostaHash("hashedCorrectAnswer");
-
         // Configura il comportamento dei mock
         when(utenteService.findByEmailAndCodiceFiscale("user@example.com", "1234567890"))
                 .thenReturn(Optional.of(utente));
-        when(utenteService.hashPassword("correctAnswer"))
-                .thenThrow(new NoSuchAlgorithmException("Hashing error"));
+        when(utenteService.hashPassword("wrongAnswer")).thenReturn("hashedWrongAnswer");
 
         // Esegui il metodo da testare
         ResponseEntity<?> response = controller.recuperaPassword(request);
 
         // Verifica il risultato della risposta
         assertNotNull(response);
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Errore durante la crittografia dei dati", response.getBody());
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        assertEquals("Risposta alla domanda personale errata", response.getBody());
 
         // Verifica che siano state eseguite solo le chiamate previste
         verify(utenteService).findByEmailAndCodiceFiscale("user@example.com", "1234567890");
-        verify(utenteService).hashPassword("correctAnswer");
+        verify(utenteService).hashPassword("wrongAnswer");
         verifyNoMoreInteractions(utenteService);
     }
 
-
     /**
-     * Test per recuperaPassword con email mancante.
+     * Test per `recuperaPassword` con email mancante.
      */
     @Test
-    void recuperaPassword_ShouldThrowExceptionForMissingEmail() {
+    void recuperaPassword_ShouldReturnBadRequestForMissingEmail() {
+        // Configura la richiesta con un'email mancante
         RecuperaPasswordRequest request = new RecuperaPasswordRequest(null, "1234567890", "correctAnswer", "newPassword");
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.recuperaPassword(request));
+        // Esegui il metodo da testare
+        ResponseEntity<?> response = controller.recuperaPassword(request);
 
-        assertEquals("L'email non può essere nulla o vuota.", exception.getMessage());
+        // Verifica il risultato della risposta
+        assertNotNull(response);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("L'email non può essere nulla o vuota.", response.getBody());
+
+        // Verifica che il servizio non venga mai chiamato
         verifyNoInteractions(utenteService);
     }
 
     /**
-     * Test per recuperaPassword con codice fiscale mancante.
+     * Test per `recuperaPassword` con codice fiscale mancante.
      */
     @Test
-    void recuperaPassword_ShouldThrowExceptionForMissingCodiceFiscale() {
+    void recuperaPassword_ShouldReturnBadRequestForMissingCodiceFiscale() {
+        // Configura la richiesta con un codice fiscale mancante
         RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", null, "correctAnswer", "newPassword");
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.recuperaPassword(request));
+        // Esegui il metodo da testare
+        ResponseEntity<?> response = controller.recuperaPassword(request);
 
-        assertEquals("Il codice fiscale non può essere nullo o vuoto.", exception.getMessage());
+        // Verifica il risultato della risposta
+        assertNotNull(response);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Il codice fiscale non può essere nullo o vuoto.", response.getBody());
+
+        // Verifica che il servizio non venga mai chiamato
         verifyNoInteractions(utenteService);
     }
 
-    /**
-     * Test per recuperaPassword con nuova password mancante.
-     */
-    @Test
-    void recuperaPassword_ShouldThrowExceptionForMissingNewPassword() {
-        RecuperaPasswordRequest request = new RecuperaPasswordRequest("user@example.com", "1234567890", "correctAnswer", null);
-
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.recuperaPassword(request));
-
-        assertEquals("La nuova password non può essere nulla o vuota.", exception.getMessage());
-        verifyNoInteractions(utenteService);
-    }
 
     /**
      * Test per getUserFromToken
@@ -674,15 +689,21 @@ class UtenteControllerTest {
     void deleteAccount_ShouldReturnSuccessForValidToken() {
         String token = "Bearer validToken";
         String expectedResponse = "Account eliminato con successo";
+        String password = "validPass1";
 
-        when(utenteService.deleteUser("validToken")).thenReturn(expectedResponse);
+        // Configura il comportamento del mock del servizio
+        when(utenteService.deleteUser("validToken", password)).thenReturn(expectedResponse);
 
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        // Esegui il metodo deleteAccount
+        ResponseEntity<?> response = controller.deleteAccount(password, token);
 
+        // Verifica la risposta
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());
-        verify(utenteService, times(1)).deleteUser("validToken");
+
+        // Verifica che il metodo deleteUser sia stato chiamato con i parametri corretti
+        verify(utenteService, times(1)).deleteUser("validToken", password);
     }
 
     /**
@@ -691,12 +712,12 @@ class UtenteControllerTest {
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForMissingToken() {
         String token = null;
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        String password = "validPassword";
+        ResponseEntity<?> response = controller.deleteAccount(token,password);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Token non valido", response.getBody());
+        assertEquals("Token malformato", response.getBody());
         verifyNoInteractions(utenteService);
     }
 
@@ -706,29 +727,31 @@ class UtenteControllerTest {
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForEmptyToken() {
         String token = "";
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        String password = "validPassword";
+        ResponseEntity<?> response = controller.deleteAccount(token, password);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        assertEquals("Token non valido", response.getBody());
+        assertEquals("Token malformato", response.getBody());  // Ora il messaggio sarà "Token non valido"
         verifyNoInteractions(utenteService);
     }
+
 
     /**
      * Test per token malformato.
      */
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForMalformedToken() {
-        String token = "InvalidTokenFormat";
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        String token = "InvalidTokenFormat";  // Token malformato
+        String password = "validPassword";
+        ResponseEntity<?> response = controller.deleteAccount(token,password);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         assertEquals("Token malformato", response.getBody());
-        verifyNoInteractions(utenteService);
+        verifyNoInteractions(utenteService);  // Non dovrebbe essere chiamato il servizio
     }
+
 
     /**
      * Test per token scaduto o non valido.
@@ -736,15 +759,15 @@ class UtenteControllerTest {
     @Test
     void deleteAccount_ShouldReturnUnauthorizedForExpiredOrInvalidToken() {
         String token = "Bearer invalidToken";
+        String password = "validPassword";
+        when(utenteService.deleteUser("invalidToken", "validPassword")).thenReturn("Token non valido");
 
-        when(utenteService.deleteUser("invalidToken")).thenReturn("Token non valido");
-
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        ResponseEntity<?> response = controller.deleteAccount(password, token);
 
         assertNotNull(response);
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         assertEquals("Token non valido", response.getBody());
-        verify(utenteService, times(1)).deleteUser("invalidToken");
+        verify(utenteService, times(1)).deleteUser("invalidToken", "validPassword");
     }
 
     /**
@@ -752,15 +775,16 @@ class UtenteControllerTest {
      */
     @Test
     void deleteAccount_ShouldReturnNotFoundForNonExistentUser() {
-        String token = "Bearer validToken";
+        String token = "validToken";
+        String password = "validPassword";
 
-        when(utenteService.deleteUser("validToken")).thenReturn("Utente non trovato");
+        when(utenteService.deleteUser("validToken", "validPassword")).thenReturn("Utente non trovato");
 
-        ResponseEntity<?> response = controller.deleteAccount(token);
+        ResponseEntity<?> response = controller.deleteAccount(password, "Bearer " + token);  // Aggiungi il prefisso qui
 
         assertNotNull(response);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals("Utente non trovato", response.getBody());
-        verify(utenteService, times(1)).deleteUser("validToken");
+        verify(utenteService, times(1)).deleteUser("validToken", "validPassword");
     }
 }

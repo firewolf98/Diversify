@@ -1,43 +1,36 @@
 <div class="chat-container" *ngIf="isChatOpen">
-    <div class="chat-header">
-      <div class="header-title">
-        <img src="brigid.png" alt="Icona Brigid" class="header-icon" />
-        <h3>Ciao sono Brigid, come posso aiutarti?</h3>
-      </div>
-      <button class="close-button" (click)="toggleChat()">-</button>
+  <div class="chat-header">
+    <div class="header-title">
+      <img src="brigid.png" alt="Icona Brigid" class="header-icon" />
+      <h3>Brigid - Supporting Chatbot</h3>
     </div>
-    <div class="chat-messages">
-        <!-- Messaggio del bot -->
-      <div class="bot-message">
-        <img src="brigid.png" alt="Brigid" class="avatar" />
-        <p>Ciao sono Brigid, come posso aiutarti?</p>
-      </div>
+    <button class="close-button" (click)="toggleChat()" aria-label="Chiudi chat">-</button>
+  </div>
 
-      <!-- Messaggio dell'utente -->
-      <div class="user-message">
-        <img src="User_chatbot.png" alt="Utente" class="avatar" />
-        <p>Mi servirebbero informazioni sui diritti LGBTQ+ in Russia</p>
-      </div>
-
-       <!-- Risposta del bot -->
-      <div class="bot-message">
-        <img src="brigid.png" alt="Brigid" class="avatar" />
-        <p>
-          Certo, ecco un link per approfondire le informazioni sui diritti LGBTQ+ in Russia:
-          <a href="https://www.dirittiLGBTQ+inRussia.com" target="_blank">www.dirittiLGBTQ+inRussia.com</a>
-        </p>
-      </div>
-
-          <!-- Messaggio dell'utente -->
-      <div class="user-message">
-        <img src="User_chatbot.png" alt="Utente" class="avatar" />
-        <p>Grazie!</p>
-      </div>
-    </div>
-
-     <!-- Input del messaggio -->
-    <div class="chat-input">
-      <input type="text" placeholder="Scrivi un messaggio..." />
-      <button>Invia</button>
+  <div class="chat-messages" #chatMessagesContainer>
+    <div *ngFor="let message of messages" [ngClass]="message.sender === 'user' ? 'user-message' : 'bot-message'">
+      <img
+        [src]="message.sender === 'user' ? 'User_chatbot.png' : 'brigid.png'"
+        [alt]="message.sender === 'user' ? 'Utente' : 'Brigid'"
+        class="avatar"
+      />
+      <p>{{ message.content }}</p>
     </div>
   </div>
+
+  <div class="chat-input">
+    <input
+      type="text"
+      placeholder="Scrivi un messaggio..."
+      [(ngModel)]="userInput"
+      (keydown.enter)="sendMessage()"
+      aria-label="Campo per scrivere un messaggio"
+    />
+    <button 
+      (click)="sendMessage()" 
+      [disabled]="userInput.trim() === ''" 
+      aria-label="Invia messaggio">
+      Invia
+    </button>
+  </div>
+</div>
