@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +21,9 @@ export class CampagnaService {
   }
 
   getAllCampagne(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl)   
   }
+  
 
   createCampagna(campaign: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, campaign);

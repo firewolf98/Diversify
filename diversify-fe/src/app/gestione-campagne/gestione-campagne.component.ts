@@ -42,18 +42,20 @@ export class GestioneCampagneComponent implements OnInit {
   isDropdownVisible: boolean = false;
   searchTerm: string = '';
   filteredCountries: string[] = [];
-  
+  imagePreview: string | undefined;
 
   constructor(private campagnaService: CampagnaService) {}
 
   ngOnInit(): void {
     this.loadCampaigns();
+    this.filteredCountries = this.countries;
   }
 
   // Carica le campagne dal backend
   loadCampaigns(): void {
     this.campagnaService.getAllCampagne().subscribe(
       (data) => {
+        console.log('Dati ricevuti dal backend:', data);
         this.campaigns = data.map((c) => this.mapCampaign(c)); // Mappatura dei dati ricevuti
         this.filterAndSortCampaigns();
       },
@@ -82,14 +84,21 @@ export class GestioneCampagneComponent implements OnInit {
 
   // Filtra e ordina le campagne
   filterAndSortCampaigns(): void {
+    console.log('Campagne prima di essere filtrate:', this.campaigns);
+    console.log('Paese selezionato:', this.selectedCountry);
+    console.log('Stato selezionato:', this.selectedStatus);
+
+    // Filtra le campagne in base ai criteri selezionati
     this.filteredCampaigns = this.campaigns
-      .filter(
-        (campaign) =>
-          (!this.selectedCountry || campaign.country === this.selectedCountry) &&
-          (!this.selectedStatus || campaign.status === this.selectedStatus)
-      )
+      .filter((campaign) => {
+        const matchesCountry = !this.selectedCountry || this.selectedCountry === 'Tutti' || campaign.country === this.selectedCountry;
+        const matchesStatus = !this.selectedStatus || campaign.status === this.selectedStatus;
+        return matchesCountry && matchesStatus;
+      })
       .sort((a, b) => a.title.localeCompare(b.title));
-  }
+
+    console.log('Campagne filtrate:', this.filteredCampaigns);
+}
 
   // Resetta i filtri
   resetFilters(): void {
@@ -188,12 +197,46 @@ export class GestioneCampagneComponent implements OnInit {
     }
   }
 
+  // Gestione immagine selezionata
+  onImageSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string; // Anteprima dell'immagine
+        this.campaign.backgroundImage = this.imagePreview;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  onSearchChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const searchValue = input.value.trim().toLowerCase();
+
+    this.isDropdownVisible = searchValue.length > 0;
+
+    if (searchValue.length === 0) {
+      this.filteredCountries = [];
+      return;
+    }
+
+    this.filteredCountries = this.countries
+      .filter((country) => country.toLowerCase().includes(searchValue))
+      .sort((a, b) => a.toLowerCase().indexOf(searchValue) - b.toLowerCase().indexOf(searchValue));
+  }
+
   onCountrySelected(country: string): void {
     this.selectedCountry = country;
     this.isDropdownVisible = false;
     this.filterAndSortCampaigns(); // Applica i filtri aggiornati
   }
-  
-  
-}
 
+  goBack(): void {
+    this.setActiveComponent('gestioneCampagne');
+  }
+}
