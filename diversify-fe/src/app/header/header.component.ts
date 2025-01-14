@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { SearchingCountryService } from '../services/searching-country.service';
+import { PopupService } from '../services/close-popup.service';
 
 const countriesDB = [
   'Austria', 'Belgio', 'Bulgaria', 'Cipro', 'Croazia', 'Danimarca', 'Estonia', 'Finlandia', 'Francia',
@@ -33,7 +34,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private userService: UserService,
-    private searchingCountryService: SearchingCountryService
+    private searchingCountryService: SearchingCountryService,
+    private popupService: PopupService
   ) {}
 
   ngOnInit(): void {
@@ -115,15 +117,18 @@ export class HeaderComponent implements OnInit {
 
   navigateTo(route: string): void {
     this.router.navigate([route]);
+    this.popupService.closePopup();
     this.closeMenu();
   }
 
   navigateToProfile(): void {
     if (this.ruoloUtente) {
       this.router.navigate(['/generale-amministratore']);
+      this.popupService.closePopup();
       this.closeMenu();
     } else {
       this.router.navigate(['/scheda-area-personale']);
+      this.popupService.closePopup();
       this.closeMenu();
     }
   }
