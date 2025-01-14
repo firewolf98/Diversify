@@ -152,7 +152,9 @@ public class PaeseService {
         }
 
         return paeseRepository.findAll().stream()
-                .filter(p -> p.getCampagneCrowdfunding() != null && p.getCampagneCrowdfunding().contains(idCampagna))
+                .filter(p -> p.getCampagneCrowdfunding() != null &&
+                        p.getCampagneCrowdfunding().stream()
+                                .anyMatch(campagna -> idCampagna.equals(campagna.getIdCampagna())))
                 .collect(Collectors.toList());
     }
 

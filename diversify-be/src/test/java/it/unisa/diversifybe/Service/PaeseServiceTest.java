@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.Benchmark;
+import it.unisa.diversifybe.Model.CampagnaCrowdFunding;
 import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Repository.PaeseRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -327,16 +330,30 @@ class PaeseServiceTest {
      */
     @Test
     void findPaesiByCampagna_ShouldReturnPaesiList() {
-        String idCampagna = "campagna1";
+        // Creazione di un oggetto CampagnaCrowdFunding
+        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding();
+
+        // Impostazione dei valori dei campi
+        campagna.setIdCampagna("campaign001");
+        campagna.setTitolo("Save the Forests");
+        campagna.setCategoria("Environment");
+        campagna.setDescrizione("A campaign to protect and restore forests worldwide.");
+        campagna.setDataInizio(LocalDate.of(2025, 1, 1));
+        campagna.setDataPrevistaFine(LocalDate.of(2025, 12, 31));
+        campagna.setSommaDaRaccogliere(new BigDecimal("50000"));
+        campagna.setSommaRaccolta(new BigDecimal("10000"));
+        campagna.setStato("attiva");
+        campagna.setImmagine("https://example.com/forest-campaign.jpg");
+        campagna.setPaese("Italy");
         List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", null, Collections.singletonList(idCampagna), null, "link1", null),
-                new Paese("2", "France", null, Collections.singletonList(idCampagna), null, "link2", null)
+                new Paese("1", "Italy", null, Collections.singletonList(campagna), null, "link1", null),
+                new Paese("2", "France", null, Collections.singletonList(campagna), null, "link2", null)
         );
 
         when(repository.findAll()).thenReturn(paesi);
 
         System.out.println("Testing findPaesiByCampagna with valid campaign ID and associated countries...");
-        List<Paese> result = service.findPaesiByCampagna(idCampagna);
+        List<Paese> result = service.findPaesiByCampagna(campagna.getIdCampagna());
 
         System.out.println("Result: " + result);
         assertEquals(2, result.size());

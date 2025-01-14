@@ -1,7 +1,9 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.CampagnaCrowdFunding;
+import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Repository.CampagnaCrowdFundingRepository;
+import it.unisa.diversifybe.Repository.PaeseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -60,6 +62,9 @@ class CampagnaCrowdFundingServiceTest {
     private CampagnaCrowdFundingService service;
 
     @Mock
+    private PaeseRepository paeseRepository;
+
+    @Mock
     private CampagnaCrowdFundingRepository repository;
 
     @BeforeEach
@@ -70,7 +75,7 @@ class CampagnaCrowdFundingServiceTest {
     @Test
     void getAllCampagne_ShouldReturnNonEmptyList() {
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
         );
 
         when(repository.findAll()).thenReturn(campagne);
@@ -98,9 +103,14 @@ class CampagnaCrowdFundingServiceTest {
     @Test
     void getCampagnaByIdCampagna_ShouldReturnCampagna() {
         String id = "1";
-        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy");
+        // Creazione della campagna
+        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
 
-        when(repository.findByIdCampagna(id)).thenReturn(List.of(campagna));
+        // Creazione del paese con la campagna associata
+        Paese paese = new Paese("1", "Italy", null, Collections.singletonList(campagna), null, "link1", null);
+
+        // Mock del comportamento del repository Paese
+        when(paeseRepository.findAll()).thenReturn(Collections.singletonList(paese));
 
         System.out.println("Testing getCampagnaByIdCampagna with valid ID...");
         Optional<CampagnaCrowdFunding> result = service.getCampagnaByIdCampagna(id);
@@ -108,22 +118,24 @@ class CampagnaCrowdFundingServiceTest {
         System.out.println("Result: " + result.orElse(null));
         assertTrue(result.isPresent());
         assertEquals(campagna, result.get());
-        verify(repository, times(1)).findByIdCampagna(id);
+        verify(paeseRepository, times(1)).findAll(); // Verifica che il metodo findAll sia stato chiamato
     }
 
     @Test
     void getCampagnaByIdCampagna_ShouldReturnEmpty() {
         String id = "1";
 
-        when(repository.findByIdCampagna(id)).thenReturn(Collections.emptyList());
+        // Creazione di un paese con nessuna campagna corrispondente
+        when(paeseRepository.findAll()).thenReturn(Collections.emptyList()); // Nessun paese da restituire
 
         System.out.println("Testing getCampagnaByIdCampagna with no matching ID...");
         Optional<CampagnaCrowdFunding> result = service.getCampagnaByIdCampagna(id);
 
         System.out.println("Result: " + result.orElse(null));
         assertTrue(result.isEmpty());
-        verify(repository, times(1)).findByIdCampagna(id);
+        verify(paeseRepository, times(1)).findAll(); // Verifica che il metodo findAll sia stato chiamato
     }
+
 
     @Test
     void getCampagnaByIdCampagna_InvalidId() {
@@ -139,7 +151,7 @@ class CampagnaCrowdFundingServiceTest {
     @Test
     void deleteCampagna_ShouldDeleteCampagna() {
         String id = "1";
-        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy");
+        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
 
         when(repository.findByIdCampagna(id)).thenReturn(List.of(campagna));
         doNothing().when(repository).delete(campagna);
@@ -155,7 +167,7 @@ class CampagnaCrowdFundingServiceTest {
     void getCampagneByTitolo_ShouldReturnCampagne() {
         String titolo = "Campaign 1";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", titolo, "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy")
+                new CampagnaCrowdFunding("1", titolo, "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
         );
 
         when(repository.findByTitolo(titolo)).thenReturn(campagne);
@@ -186,8 +198,8 @@ class CampagnaCrowdFundingServiceTest {
     void getCampagneByTitoloContaining_ShouldReturnCampagne() {
         String keyword = "Campaign";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy"),
-                new CampagnaCrowdFunding("2", "Campaign 2", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "France")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy"),
+                new CampagnaCrowdFunding("2", "Campaign 2", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage", "France")
         );
 
         when(repository.findByTitoloContaining(keyword)).thenReturn(campagne);
@@ -218,7 +230,7 @@ class CampagnaCrowdFundingServiceTest {
     void getCampagneByStato_ShouldReturnCampagne() {
         String stato = "attiva";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), stato, "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), stato, "ItalyImage", "Italy")
         );
 
         when(repository.findByStato(stato)).thenReturn(campagne);
@@ -249,7 +261,7 @@ class CampagnaCrowdFundingServiceTest {
     void getCampagneByDataInizio_ShouldReturnCampagne() {
         LocalDate dataInizio = LocalDate.now();
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, dataInizio, dataInizio.plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, dataInizio, dataInizio.plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
         );
 
         when(repository.findByDataInizio(dataInizio)).thenReturn(campagne);
@@ -280,7 +292,7 @@ class CampagnaCrowdFundingServiceTest {
     void getCampagneByDataPrevistaFine_ShouldReturnCampagne() {
         LocalDate dataFine = LocalDate.now().plusDays(30);
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), dataFine, new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), dataFine, new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
         );
 
         when(repository.findByDataPrevistaFine(dataFine)).thenReturn(campagne);
@@ -309,7 +321,7 @@ class CampagnaCrowdFundingServiceTest {
 
     @Test
     void createCampagna_ShouldSaveAndReturnCampagna() {
-        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Valid Campaign", "Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy");
+        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Valid Campaign", "Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
 
         when(repository.save(campagna)).thenReturn(campagna);
 
@@ -339,8 +351,8 @@ class CampagnaCrowdFundingServiceTest {
     @Test
     void updateCampagna_ShouldUpdateAndReturnCampagna() {
         String id = "1";
-        CampagnaCrowdFunding existingCampagna = new CampagnaCrowdFunding("1", "Old Campaign", "Old Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy");
-        CampagnaCrowdFunding updatedCampagna = new CampagnaCrowdFunding("1", "Updated Campaign", "Updated Description", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "France");
+        CampagnaCrowdFunding existingCampagna = new CampagnaCrowdFunding("1", "Old Campaign", "Old Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
+        CampagnaCrowdFunding updatedCampagna = new CampagnaCrowdFunding("1", "Updated Campaign", "Updated Description", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage", "France");
 
         when(repository.findByIdCampagna(id)).thenReturn(List.of(existingCampagna));
         when(repository.save(existingCampagna)).thenReturn(updatedCampagna);
@@ -357,7 +369,7 @@ class CampagnaCrowdFundingServiceTest {
     @Test
     void updateCampagna_ShouldThrowExceptionForInvalidData() {
         String id = "1";
-        CampagnaCrowdFunding existingCampagna = new CampagnaCrowdFunding("1", "Old Campaign", "Old Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy");
+        CampagnaCrowdFunding existingCampagna = new CampagnaCrowdFunding("1", "Old Campaign", "Old Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
         CampagnaCrowdFunding invalidCampagna = new CampagnaCrowdFunding();
 
         when(repository.findByIdCampagna(id)).thenReturn(List.of(existingCampagna));
@@ -374,7 +386,7 @@ class CampagnaCrowdFundingServiceTest {
     @Test
     void updateCampagna_ShouldThrowExceptionForInvalidId() {
         String id = "nonExistentId";
-        CampagnaCrowdFunding updatedCampagna = new CampagnaCrowdFunding("1", "Updated Campaign", "Updated Description", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "France");
+        CampagnaCrowdFunding updatedCampagna = new CampagnaCrowdFunding("1", "Updated Campaign", "Updated Description", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage", "France");
 
         when(repository.findByIdCampagna(id)).thenReturn(Collections.emptyList());
 
@@ -389,7 +401,7 @@ class CampagnaCrowdFundingServiceTest {
     @Test
     void deleteCampagna_ShouldDeleteExistingCampagna() {
         String id = "1";
-        CampagnaCrowdFunding existingCampagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy");
+        CampagnaCrowdFunding existingCampagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
 
         when(repository.findByIdCampagna(id)).thenReturn(List.of(existingCampagna));
         doNothing().when(repository).delete(existingCampagna);

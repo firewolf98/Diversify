@@ -80,15 +80,6 @@ public interface CampagnaCrowdFundingRepository extends MongoRepository<Campagna
     List<CampagnaCrowdFunding> findByStato(String stato);
 
     /**
-     * Trova una lista di campagne in base al Paese in cui sono state pubblicate.
-     *
-     * @param paese il Paese in cui è stata pubblicata la campagna (ad esempio: "Italia", "Malta").
-     * @return una lista di campagne pubblicate nel Paese specificato
-     */
-
-    List<CampagnaCrowdFunding> findByPaese(String paese);
-
-    /**
      * Trova una lista di campagne in base alla categoria della campagna.
      *
      * @param keyword la categoria della campagna (ad esempio: "Sostenibilità").

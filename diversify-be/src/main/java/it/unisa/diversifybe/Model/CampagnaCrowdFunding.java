@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * La classe rappresenta una campagna di crowdfunding.
@@ -68,4 +67,9 @@ public class CampagnaCrowdFunding {
      * Immagine dello sfondo della campagna
      */
     private String immagine;
+
+    /**
+     * Il Paese della campagna
+     */
+    private String paese;
 }

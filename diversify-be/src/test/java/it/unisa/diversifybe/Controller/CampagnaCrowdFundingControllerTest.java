@@ -74,8 +74,8 @@ class CampagnaCrowdFundingControllerTest {
     @Test
     void getAllCampagne_ShouldReturnCampagneList() {
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy"),
-                new CampagnaCrowdFunding("2", "Campaign 2", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "France")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy"),
+                new CampagnaCrowdFunding("2", "Campaign 2", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage", "France")
         );
 
         when(service.getAllCampagne()).thenReturn(campagne);
@@ -113,7 +113,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByPaese_ShouldReturnCampagneList() {
         String paese = "Italy";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", paese)
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", paese)
         );
 
         when(service.findCampagneByPaese(paese)).thenReturn(campagne);
@@ -149,7 +149,7 @@ class CampagnaCrowdFundingControllerTest {
     @Test
     void getCampagnaByIdCampagna_ShouldReturnCampagna() {
         String idCampagna = "1";
-        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy");
+        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
 
         when(service.getCampagnaByIdCampagna(idCampagna)).thenReturn(Optional.of(campagna));
 
@@ -182,7 +182,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByTitolo_ShouldReturnCampagneList() {
         String titolo = "Campaign 1";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", titolo, "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy")
+                new CampagnaCrowdFunding("1", titolo, "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
         );
 
         when(service.getCampagneByTitolo(titolo)).thenReturn(campagne);
@@ -221,8 +221,8 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByTitoloContaining_ShouldReturnCampagneList() {
         String keyword = "Campaign";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy"),
-                new CampagnaCrowdFunding("2", "Another Campaign", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "France")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy"),
+                new CampagnaCrowdFunding("2", "Another Campaign", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage", "France")
         );
 
         when(service.getCampagneByTitoloContaining(keyword)).thenReturn(campagne);
@@ -261,7 +261,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByStato_ShouldReturnCampagneList() {
         String stato = "attiva";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), stato, "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), stato, "ItalyImage", "Italy")
         );
 
         when(service.getCampagneByStato(stato)).thenReturn(campagne);
@@ -300,7 +300,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByDataInizio_ShouldReturnCampagneList() {
         LocalDate dataInizio = LocalDate.of(2024, 1, 1);
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, dataInizio, dataInizio.plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, dataInizio, dataInizio.plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
         );
 
         when(service.getCampagneByDataInizio(dataInizio)).thenReturn(campagne);
@@ -339,7 +339,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByDataPrevistaFine_ShouldReturnCampagneList() {
         LocalDate dataPrevistaFine = LocalDate.of(2024, 12, 31);
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), dataPrevistaFine, new BigDecimal("1000"), new BigDecimal("500"), "attiva", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), dataPrevistaFine, new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
         );
 
         when(service.getCampagneByDataPrevistaFine(dataPrevistaFine)).thenReturn(campagne);
