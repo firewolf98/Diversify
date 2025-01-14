@@ -12,7 +12,8 @@ import { ViewContainerRef } from '@angular/core';
 import { PopupGridComponent } from '../popup-grid/popup-grid.component';
 import { CountryService } from '../services/country.service';
 import { SearchingCountryService } from '../services/searching-country.service'; // importa il servizio
- 
+import { PopupService } from '../services/close-popup.service';
+
  
  
 const ueExtent = [
@@ -35,12 +36,15 @@ export class MapComponent implements OnInit, AfterViewInit {
   private vectorLayer: VectorLayer | undefined;
   private popupRef: ComponentRef<PopupGridComponent> | null = null;
 
-  constructor(private viewContainerRef: ViewContainerRef,
+  constructor(
+    private viewContainerRef: ViewContainerRef,
     private countryService: CountryService,
-    private searchingCountryService: SearchingCountryService
+    private searchingCountryService: SearchingCountryService,
+    private popupService: PopupService // Aggiunto il servizio PopupService
   ) {
+    // Ottieni i dati dei paesi
     this.countryService.getCountries().subscribe((data) => {
-      console.log('Dati ricevuti dal backend:', data); // Controlla se `idPaese` è presente
+    
       this.countries = data.map((country) => ({
         id: country.idPaese, // Assicurati che l'oggetto abbia un campo ID
         name: country.nome,
@@ -51,15 +55,22 @@ export class MapComponent implements OnInit, AfterViewInit {
         criticitaRazzismo: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità Razzismo')?.gravita,
         criticitaDonne: country.benchmark.find((b: { tipo: string; }) => b.tipo === 'Criticità Donne')?.gravita,
         tipoCriticita: country.benchmark[0].descrizione,
-        bandiera: country.linkImmagineBandiera
+        bandiera: country.linkImmagineBandiera,
       }));
       this.onCategoryChange({ target: { value: this.category } });
     });
-
+  
+    // Ascolta i cambiamenti del paese selezionato
     this.searchingCountryService.selectedCountry$.subscribe((country) => {
-      this.updateMapWithCountry(country); // aggiorna la mappa con il paese selezionato
+      this.updateMapWithCountry(country); // Aggiorna la mappa con il paese selezionato
+    });
+  
+    // Ascolta l'evento di chiusura del popup
+    this.popupService.closePopup$.subscribe(() => {
+      this.closePopupGrid(); // Chiudi il popup quando viene emesso l'evento
     });
   }
+  
 
   ngOnInit(): void {
     
