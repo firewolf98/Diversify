@@ -1,0 +1,2168 @@
+[{
+  "_id": {
+    "$oid": "677abcc7e5abfa75690fb8eb"
+  },
+  "idPaese": "ID1",
+  "nome": "Italia",
+  "forum": [],
+  "campagneCrowdfunding": [
+    {
+      "idCampagna": "CAMP01",
+      "titolo": "Ristrutturazione Centro  a Roma",
+      "categoria": "Edilizia Sociale",
+      "descrizione": "Una campagna per ristrutturare un centro comunitario nel cuore di Roma, per offrire servizi ai cittadini meno abbienti.",
+      "dataPrevistaFine": {
+        "$date": "2024-06-29T22:00:00.000Z"
+      },
+      "sommaDaRaccogliere": "50000",
+      "sommaRaccolta": "32000",
+      "stato": "attiva",
+      "immagine": "https://img.freepik.com/vettori-gratuito/acquerello-astratto-sfondo_23-2149038179.jpg?semt=ais_hybrid",
+      "linkDonazione": "https://www.donaora.it/campagna/CAMP01",
+      "paese": "Italia"
+    },
+    {
+      "idCampagna": "CAMP02",
+      "titolo": "Supporto agli Studenti Universitari in Italia",
+      "categoria": "Istruzione",
+      "descrizione": "Una campagna per fornire borse di studio agli studenti universitari italiani provenienti da famiglie con basso reddito.",
+      "dataInizio": {
+        "$date": "2024-01-31T23:00:00.000Z"
+      },
+      "dataPrevistaFine": {
+        "$date": "2024-08-30T22:00:00.000Z"
+      },
+      "sommaDaRaccogliere": "75000",
+      "sommaRaccolta": "40000",
+      "stato": "attiva",
+      "immagine": "https://img.freepik.com/vettori-gratuito/priorita-bassa-di-struttura-dell-acquerello-color-arcobaleno-pastello_1048-17703.jpg",
+      "linkDonazione": "https://www.donaora.it/campagna/CAMP02",
+      "paese": "Italia"
+    }
+  ],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di01",
+      "titolo": "La situazione attuale LBGTQ+ in Italia",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": "https://www.youtube.com/watch?v=XxD1iYTC1mA"
+    },
+    {
+      "idDocumentoInformativo": "Di02",
+      "titolo": "La situazione attuale sulla violenza sulle donne in Italia",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": "https://www.youtube.com/watch?v=xbpxCdtPnDQ"
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac119e5abfa75690fb8ec"
+  },
+  "idPaese": "ID2",
+  "nome": "Francia",
+  "forum": [],
+  "campagneCrowdfunding": [
+    {
+      "idCampagna": "CAMP05",
+      "titolo": "Restauro della Cattedrale di Reims",
+      "categoria": "Patrimonio Culturale",
+      "descrizione": "Una campagna per il restauro della storica cattedrale di Reims, uno dei più importanti simboli della cultura francese.",
+      "dataInizio": {
+        "$date": "2024-02-01T23:00:00.000Z"
+      },
+      "dataPrevistaFine": {
+        "$date": "2024-07-31T22:00:00.000Z"
+      },
+      "sommaDaRaccogliere": "120000",
+      "sommaRaccolta": "120000",
+      "stato": "chiusa",
+      "immagine": "https://example.com/reims.jpg",
+      "linkDonazione": "https://www.donaora.fr/campagna/CAMP05",
+      "paese": "Francia"
+    },
+    {
+      "idCampagna": "CAMP06",
+      "titolo": "Supporto ai Vigneti Francesi",
+      "categoria": "Agricoltura",
+      "descrizione": "Una campagna per sostenere i piccoli viticoltori colpiti da eventi climatici estremi in Borgogna.",
+      "dataInizio": {
+        "$date": "2024-03-01T23:00:00.000Z"
+      },
+      "dataPrevistaFine": {
+        "$date": "2024-08-31T22:00:00.000Z"
+      },
+      "sommaDaRaccogliere": "80000",
+      "sommaRaccolta": "40000",
+      "stato": "attiva",
+      "immagine": "https://example.com/vigneti.jpg",
+      "linkDonazione": "https://www.donaora.fr/campagna/CAMP06",
+      "paese": "Francia"
+    },
+    {
+      "idCampagna": "CAMP07",
+      "titolo": "Educazione per Tutti nelle Periferie Francesi",
+      "categoria": "Istruzione",
+      "descrizione": "Una campagna per finanziare programmi educativi nelle periferie francesi, migliorando l'accesso alla formazione per i giovani.",
+      "dataInizio": {
+        "$date": "2024-04-01T23:00:00.000Z"
+      },
+      "dataPrevistaFine": {
+        "$date": "2024-10-31T22:00:00.000Z"
+      },
+      "sommaDaRaccogliere": "50000",
+      "sommaRaccolta": "20000",
+      "stato": "attiva",
+      "immagine": "https://example.com/educazione.jpg",
+      "linkDonazione": "https://www.donaora.fr/campagna/CAMP07",
+      "paese": "Francia"
+    },
+    {
+      "idCampagna": "CAMP09",
+      "titolo": "Sostegno agli Artisti Emergenti Francesi",
+      "categoria": "Arte",
+      "descrizione": "Una campagna per sostenere giovani artisti francesi, fornendo loro spazi e materiali per creare nuove opere.",
+      "dataInizio": {
+        "$date": "2024-06-01T23:00:00.000Z"
+      },
+      "dataPrevistaFine": {
+        "$date": "2024-12-31T22:00:00.000Z"
+      },
+      "sommaDaRaccogliere": "70000",
+      "sommaRaccolta": "70000",
+      "stato": "chiusa",
+      "immagine": "https://example.com/artisti.jpg",
+      "linkDonazione": "https://www.donaora.fr/campagna/CAMP09",
+      "paese": "Francia"
+    }
+  ],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "3",
+      "descrizione": "Il paese presenta un discreto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "0",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/6/62/Flag_of_France.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di03",
+      "titolo": "La situazione attuale LBGTQ+ in Francia",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": "https://www.youtube.com/watch?v=am6lx7sHhlk"
+    },
+    {
+      "idDocumentoInformativo": "Di04",
+      "titolo": "La situazione attuale sulla violenza sulle donne in Francia",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": "https://www.youtube.com/watch?v=FXVBCGK1d2g"
+    },
+    {
+      "idDocumentoInformativo": "Di05",
+      "titolo": "La situazione attuale sulla disabilità in Francia",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": "https://www.youtube.com/watch?v=hhmN6BRaqlA"
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac28de5abfa75690fb8ed"
+  },
+  "idPaese": "ID3",
+  "nome": "Germania",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un discreto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/1000px-Flag_of_Germany.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di06",
+      "titolo": "La situazione attuale LBGTQ+ in Germania",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": "https://www.youtube.com/watch?v=UZmko23eb5I"
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac368e5abfa75690fb8ee"
+  },
+  "idPaese": "ID4",
+  "nome": "Spagna",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta minime problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/8/86/Flag_of_the_Kingdom_of_Spain_%28%22Correct%22_Heraldic_Coat_of_Arms%29.svg",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di07",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac3cee5abfa75690fb8ef"
+  },
+  "idPaese": "ID5",
+  "nome": "Portogallo",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta minime problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/R.dd917f1cf72cdc01e92d1ec391f4f92a?rik=Y1I7o8CW%2buD5ag&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fthumb%2f5%2f5c%2fFlag_of_Portugal.svg%2f1280px-Flag_of_Portugal.svg.png&ehk=zhuWcDaCNLHpepOY5bx%2bwxYWGU3N4dgFCihr6mjn644%3d&risl=&pid=ImgRaw&r=0",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di08",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac432e5abfa75690fb8f0"
+  },
+  "idPaese": "ID6",
+  "nome": "Regno Unito",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta poche problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.frzJZKgdtqJZDMlwWz05IAHaDt?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di09",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac478e5abfa75690fb8f1"
+  },
+  "idPaese": "ID7",
+  "nome": "Irlanda",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta poche problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Flag_of_Ireland.svg/1200px-Flag_of_Ireland.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di09",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac4c9e5abfa75690fb8f2"
+  },
+  "idPaese": "ID8",
+  "nome": "Belgio",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta minime problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Flag_of_Ireland.svg/1200px-Flag_of_Ireland.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di10",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac52ce5abfa75690fb8f3"
+  },
+  "idPaese": "ID9",
+  "nome": "Paesi Bassi",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "4",
+      "descrizione": "Il paese presenta un elevato grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "0",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/1200px-Flag_of_the_Netherlands.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di11",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac662e5abfa75690fb8f4"
+  },
+  "idPaese": "ID10",
+  "nome": "Svizzera",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "3",
+      "descrizione": "Il paese presenta un elevato grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/1024px-Flag_of_Switzerland.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "Di12",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac6f5e5abfa75690fb8f5"
+  },
+  "idPaese": "ID11",
+  "nome": "Austria",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "2",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/R.7804110520c88d98a1472801c61e7965?rik=At6hu2lGjAwR5Q&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f7%2f76%2fFlag_of_Austria.png&ehk=DwuvmtK2%2fOpFg3TnPsug5flucr4PKH%2fIUfAgSOB%2bNus%3d&risl=&pid=ImgRaw&r=0",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac742e5abfa75690fb8f6"
+  },
+  "idPaese": "ID12",
+  "nome": "Polonia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "5",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "2",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/7/7d/National_Flag_of_Poland.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac7a3e5abfa75690fb8f7"
+  },
+  "idPaese": "ID13",
+  "nome": "Svezia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.gg41IHdifGU3IHFxy88_NAHaEo?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac7ece5abfa75690fb8f8"
+  },
+  "idPaese": "ID14",
+  "nome": "Norvegia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.QxldtF5Gq1gRUUGWFqWfegHaFY?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac85fe5abfa75690fb8f9"
+  },
+  "idPaese": "ID15",
+  "nome": "Finlandia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "3",
+      "descrizione": "Il paese presenta un discreto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.wvaOM-rWmPZ-93yZaiRpbgHaEh?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac980e5abfa75690fb8fa"
+  },
+  "idPaese": "ID16",
+  "nome": "Danimarca",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "5",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://flagpedia.net/data/flags/w1600/dk.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac9c2e5abfa75690fb8fb"
+  },
+  "idPaese": "ID17",
+  "nome": "Estonia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://flagcdn.com/w2560/ee.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ac9ede5abfa75690fb8fc"
+  },
+  "idPaese": "ID18",
+  "nome": "Lettonia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "2",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/R.09ffed444a46893ade1603cde5b3ed94?rik=nMzMlXUT0VUAiQ&riu=http%3a%2f%2fwww.bandiere-mondo.it%2fdata%2fflags%2fnormal%2flv.png&ehk=3ucfmoqmL0pMZ%2f%2b09pS1T%2fbFxnuP%2foo0kLtcH%2bFk7YE%3d&risl=&pid=ImgRaw&r=0",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677aca3ce5abfa75690fb8fd"
+  },
+  "idPaese": "ID19",
+  "nome": "Lussembgurgo",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "4",
+      "descrizione": "Il paese presenta un alto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Flag_of_Luxembourg.svg/800px-Flag_of_Luxembourg.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677aca7ce5abfa75690fb8fe"
+  },
+  "idPaese": "ID20",
+  "nome": "Malta",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "5",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "0",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/1024px-Flag_of_Malta.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acacee5abfa75690fb8ff"
+  },
+  "idPaese": "ID21",
+  "nome": "Slovacchia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "3",
+      "descrizione": "Il paese presenta un disceto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "2",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/R.b8d73ae659bed6227239034e3fc04d9a?rik=07KWIXmxUo1n9w&riu=http%3a%2f%2fwebshop.corradflags.com%2fcustom%2fcorrad%2fimage%2fcache%2fw800h800m00%2fproduct%2fFlags%2fWallflag%2fNational+flags%2fEuropa%2fSlovakia+National+flag.jpg&ehk=1gwxlGmU7oDIAtHwjZFhv6%2fKvVoUHnr9IpnRpuzBGqc%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acb01e5abfa75690fb900"
+  },
+  "idPaese": "ID22",
+  "nome": "Slovenia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/R.cc50ad9ae9ffa7db69ed3ac9d5335732?rik=UIZgQFDNvJ9kNg&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fd%2fd2%2fFlag_of_Slovenia.png&ehk=PeZCDM0q0ROABofrHCuzDwSf2TJ5MfKe%2blXOiA4KJlg%3d&risl=&pid=ImgRaw&r=0",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acb38e5abfa75690fb901"
+  },
+  "idPaese": "ID23",
+  "nome": "Croazia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/R.d955396e3ca0fbc500ba11a4ba1ca4f8?rik=J8ZaVLz7XUPTog&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f5%2f58%2fFile-Unofficial_Croatian_Flag_(1990).png&ehk=06qH%2fot08hQ9Jl6Wi04%2bZFSuUG5BRHsV4OQpgBNpiMc%3d&risl=&pid=ImgRaw&r=0",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acbb1e5abfa75690fb902"
+  },
+  "idPaese": "ID24",
+  "nome": "Serbia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "4",
+      "descrizione": "Il paese presenta un alto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/R.d5e3c559c2ef6f7e317cb9befad11c5c?rik=n1pOqBYtUsdxaQ&pid=ImgRaw&r=0",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acc16e5abfa75690fb903"
+  },
+  "idPaese": "ID25",
+  "nome": "Bosnia ed Erzegovina",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "3",
+      "descrizione": "Il paese presenta un discreto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "2",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://cdn.britannica.com/02/6202-004-5E2B285D/Flag-Bosnia-and-Herzegovina.jpg",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acc6be5abfa75690fb904"
+  },
+  "idPaese": "ID26",
+  "nome": "Montenegro",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.DkXPTQbAtMn1-6zezBUzfAHaE7?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677accefe5abfa75690fb905"
+  },
+  "idPaese": "ID27",
+  "nome": "Albania",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "5",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://vignette.wikia.nocookie.net/althistory/images/7/7c/Flag_of_Albania_(1934-1939).png/revision/latest?cb=20150522030545&path-prefix=es",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acde9e5abfa75690fb906"
+  },
+  "idPaese": "ID28",
+  "nome": "Macedonia del Nord",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "0",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://www.starflagbandiere.it/wp-content/uploads/bandiera-macedonia-del-nord.webp",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ace30e5abfa75690fb907"
+  },
+  "idPaese": "ID29",
+  "nome": "Kosovo",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Flag_of_Kosovo.svg/1200px-Flag_of_Kosovo.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ace7ee5abfa75690fb908"
+  },
+  "idPaese": "ID30",
+  "nome": "Bulgaria",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Bulgaria.svg/1200px-Flag_of_Bulgaria.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acef3e5abfa75690fb909"
+  },
+  "idPaese": "ID31",
+  "nome": "Romania",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "5",
+      "descrizione": "Il paese presenta un altissimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Romania.svg/1200px-Flag_of_Romania.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acf4de5abfa75690fb90a"
+  },
+  "idPaese": "ID32",
+  "nome": "Ungheria",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "5",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.NpbuNBtjfA4nqVOdW0vlZwHaDt?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677acff9e5abfa75690fb90b"
+  },
+  "idPaese": "ID33",
+  "nome": "Moldavia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "4",
+      "descrizione": "Il paese presenta un alto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "0",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://flagflare.com/img-flag/md-moldova.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ad062e5abfa75690fb90c"
+  },
+  "idPaese": "ID34",
+  "nome": "Cipro",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "3",
+      "descrizione": "Il paese presenta un alto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "5",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "1",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.mWVvt0-nG6HDhV18Z4_KyQHaE8?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ad0a5e5abfa75690fb90d"
+  },
+  "idPaese": "ID35",
+  "nome": "Turchia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "2",
+      "descrizione": "Il paese presenta un lieve grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/1200px-Flag_of_Turkey.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ad0d5e5abfa75690fb90e"
+  },
+  "idPaese": "ID36",
+  "nome": "Ucraina",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "4",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.UbU9Pn88uWOHR-xXxlfEIAHaE8?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ad11be5abfa75690fb90f"
+  },
+  "idPaese": "ID37",
+  "nome": "Grecia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "1",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.xT2fpabm-8KrblpH_4iS2AHaD4?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ad168e5abfa75690fb911"
+  },
+  "idPaese": "ID38",
+  "nome": "Russia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "5",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "3",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ad1cce5abfa75690fb912"
+  },
+  "idPaese": "ID39",
+  "nome": "Bielorussia",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "4",
+      "descrizione": "Il paese presenta un alto grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "0",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "2",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://th.bing.com/th/id/OIP.u2IgQBZAGil5YqBEKKLfSwHaE8?rs=1&pid=ImgDetMain",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+},
+{
+  "_id": {
+    "$oid": "677ad206e5abfa75690fb913"
+  },
+  "idPaese": "ID40",
+  "nome": "Repubblica Ceca",
+  "forum": [],
+  "campagneCrowdfunding": [],
+  "benchmark": [
+    {
+      "idBenchmark": "Bm01",
+      "tipo": "Criticità Generale",
+      "gravita": "0",
+      "descrizione": "Il paese presenta un minimo grado di problematiche inerenti alla diversità"
+    },
+    {
+      "idBenchmark": "Bm02",
+      "tipo": "Criticità LGBTQ+",
+      "gravita": "1",
+      "descrizione": ""
+    },
+    {
+      "tipo": "Criticità Disabilità",
+      "gravita": "3",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm04",
+      "tipo": "Criticità Razzismo",
+      "gravita": "2",
+      "descrizione": ""
+    },
+    {
+      "idBenchmark": "Bm05",
+      "tipo": "Criticità Donne",
+      "gravita": "4",
+      "descrizione": ""
+    }
+  ],
+  "linkImmagineBandiera": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_Czech_Republic.svg/1200px-Flag_of_the_Czech_Republic.svg.png",
+  "documentiInformativi": [
+    {
+      "idDocumentoInformativo": "",
+      "titolo": "",
+      "descrizione": "",
+      "linkImmagine": "",
+      "linkVideo": ""
+    }
+  ],
+  "_class": "it.unisa.diversifybe.Model.Paese"
+}]
