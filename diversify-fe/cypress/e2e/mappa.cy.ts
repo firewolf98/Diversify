@@ -1,4 +1,4 @@
-describe('Componente Forum', () => {
+describe('Testing interattivo della mappa', () => {
   beforeEach(() => {
     cy.intercept('GET', '/api/paesi', {
       statusCode: 200,
@@ -61,32 +61,6 @@ describe('Componente Forum', () => {
       ]
     }).as('getCountries');
 
-        // Intercetta la chiamata di login e restituisce una risposta mockata
-        cy.intercept('POST', '/utenti/login', {
-          statusCode: 200,
-          body: {
-            idUtente: "1",
-            nome: "nome",
-            cognome: "cognome",
-            codiceFiscale: "1234567891123456",
-            email: "email@gmail.com",
-            username: "user",
-            passwordHash: "passworD1!",
-            rispostaHash: "cane",
-            blacklistForum: [
-              { idForum: "1" },
-              { idForum: "2" }
-            ],
-            ruolo: false,
-            banned: false,
-            token: "mocked-jwt-token"  // Aggiungi qui il token
-          }
-        }).as('getUtente');
-        
-    
-
-        
-    // Intercetta la chiamata API per ottenere i forum (simulazione del backend)
     cy.intercept('GET', '/api/forums/by-paese/Italia', {
       statusCode: 200,
       body: [
@@ -168,72 +142,55 @@ describe('Componente Forum', () => {
       ], // Dati mockati per i forum
     }).as('getForums');
 
-    // Intercetta la chiamata API per ottenere i post associati al forum (simulazione del backend)
-    cy.intercept('GET', '/api/posts/by-forum/*', { // Modifica l'endpoint se necessario
-      statusCode: 200,
-      body: [
-        { idPost: 1, titolo: 'L\'importanza dei diritti civili', id_autore: 'Giuseppe Rossi' },
-        { idPost: 2, titolo: 'I diritti delle minoranze', id_autore: 'Laura Neri' },
-      ], // Dati mockati per i post
-    }).as('getPosts');
-
-    // Visita la pagina del forum
-    cy.visit('/forum'); // Sostituisci con l'URL o il percorso corretto
-
-    cy.get('input[type="email"]').type('email@gmail.com'); // Inserisci username
-    cy.get('input[id="password"]').type('passworD1!'); // Inserisci password
-    cy.get('button[type="submit"]').click(); // Clicca sul bottone per il login
+    // Carica la pagina che contiene la mappa
+    cy.visit('/'); // Sostituisci con il tuo URL
   });
 
-  it.only('Dovrebbe mostrare il titolo "Forum" nella sidebar', () => {
-    cy.visit('forum?country=Italia&forumId=1')
-    cy.get('.forum-sidebar h3').should('contain.text', 'Forum');
-  });
-
-  it('Dovrebbe mostrare il link "Torna alla mappa"', () => {
-    cy.get('.forum-sidebar .back-link').should('contain.text', '← Torna alla mappa');
-  });
-
-  it('Dovrebbe generare dinamicamente i bottoni per ogni forum', () => {
-    // Controlla che ci siano i bottoni per ciascun forum
-    cy.get('.forum-sidebar ul li button', { timeout: 10000 })
-      .should('have.length', 3) // Ci sono tre forum mockati
-      .each((button, index) => {
-        const expectedTitles = ['Forum dei Diritti Umani', 'Forum sui Diritti LGBT', 'Forum sui Diritti'];
-        cy.wrap(button).should('contain.text', expectedTitles[index]);
-      });
-  });
-
-  it('Dovrebbe permettere di selezionare un forum', () => {
-    // Simula il click su un forum
-    cy.get('.forum-sidebar ul li button').first().click();
+    it('verifica che la mappa sia visibile', () => {
+      // Verifica che la mappa sia visibile
+      cy.get('#map').should('be.visible');
+    });
+  
+    it.only('verifica che i pin vengano aggiunti sulla mappa', () => {
+      // Attendere che la richiesta della mappa o dei pin venga completata (se applicabile)
+      cy.wait(2000); // O un altro valore in base alla tua applicazione
+      
+      // Verifica che i pin siano visibili
+      cy.get('img[src="pin-mappa.png"]').should('exist');
+    });
     
-    // Verifica che i post siano visibili nella sezione principale
-    cy.get('.forum-main h3').should('contain.text', 'Post del Forum');
+  
+    it('verifica che la selezione di una categoria cambi i pin', () => {
+      // Cambia la categoria
+      cy.get('#dropdown-container select').select('criticitaLgbt');
+      
+      // Verifica che i pin siano stati cambiati in base alla categoria selezionata
+      cy.get('img[src^="benchmark/"]').should('have.length.greaterThan', 0);
+  
+      // Verifica che la categoria venga effettivamente cambiata
+      cy.get('#dropdown-container select').should('have.value', 'criticitaLgbt');
+    });
+  
+    it('verifica l\'apertura del popup quando un paese è cliccato', () => {
+      // Simula un clic su un pin della mappa
+      cy.get('img[src="pin-mappa.png"]').first().click();
+      
+      // Verifica che il popup venga aperto
+      cy.get('.popup').should('be.visible');
+    });
+  
+    it('verifica che il popup si chiuda cliccando all\'esterno', () => {
+      // Clicca su un pin per aprire il popup
+      cy.get('img[src="pin-mappa.png"]').first().click();
+      
+      // Verifica che il popup sia visibile
+      cy.get('.popup').should('be.visible');
+      
+      // Clicca all'esterno del popup
+      cy.get('body').click(0, 0);
+      
+      // Verifica che il popup sia chiuso
+      cy.get('.popup').should('not.exist');
+    });
   });
-
-  it('Dovrebbe mostrare i post associati al forum selezionato', () => {
-    // Simula il click sul primo forum
-    cy.get('.forum-sidebar ul li button').first().click();
-    
-    // Aggiungi un log per tracciare il flusso
-    cy.log('Click sul forum, aspettiamo la chiamata API per i post');
-    
-    // Verifica che i post siano visibili nella sezione principale
-    cy.get('.forum-main .forum-post', { timeout: 10000 }) // Timeout più lungo
-      .should('have.length', 2) // Verifica che ci siano 2 post mockati
-      .each((post) => {
-        cy.wrap(post).find('a').should('not.be.empty'); // Verifica che ogni post abbia un link
-        cy.wrap(post).find('p').should('contain.text', 'Postato da'); // Verifica che contenga l'autore
-      });
-  });
-
-  // Opzionale: Verifica con chiamata API diretta per garantire che l'API restituisca i dati corretti
-  it('Dovrebbe verificare la risposta dell\'API per i forum', () => {
-    cy.request('GET', '/api/forums/by-paese/Italia')
-      .then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.body).to.have.length.greaterThan(0); // Controlla che ci siano forum
-      });
-  });
-});
+  

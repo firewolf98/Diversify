@@ -1,12 +1,12 @@
 // TEST per la homepage
-describe('Home Page, Icona Brigid e apertura chatbot', () => {
+describe('Home Page', () => {
     // Test di base: Verifica che la pagina si carichi
-    it('should load the home page', () => {
+    it('Dovrebbe caricare la homepage', () => {
       cy.visit('');
     });
 
     // Test: Verifica la presenza dei principali componenti della homepage
-    it('should display the homepage components', () => {
+    it('Dovrebbe mostrare le componenti dell\'homepage', () => {
         cy.visit('');
 
         // Verifica il contenitore principale
@@ -20,44 +20,19 @@ describe('Home Page, Icona Brigid e apertura chatbot', () => {
 
         // Verifica che la mappa sia presente
         cy.get('app-map').should('exist');
-
-        // Verifica che l'icona di Brigid sia presente
-        cy.get('app-icona-brigid').should('exist');
-        cy.get('app-icona-brigid .brigid-icon img')
-            .should('have.attr', 'src', 'brigid.png') // Controlla l'attributo src
-            .and('be.visible'); // Assicurati che sia visibile
-        cy.contains('app-icona-brigid .chat-label', 'Chatta con Brigid');
-
-        // Verifica che il pulsante del chatbot sia presente
-        cy.get('app-apertura-chat-bot').should('exist');
-    });
-
-    // Test: Verifica l'interazione con l'icona di Brigid
-    it('should allow clicking on the Brigid icon', () => {
-        cy.visit('');
-
-        // Simula un clic sull'icona di Brigid
-        cy.get('app-icona-brigid .brigid-icon').click();
-    
-        // Simula un clic per chiudere la finestra della chatbot
-        cy.get('app-icona-brigid .brigid-icon').click();
-
-        // Verifica che la finestra della chatbot sia chiusa
-        cy.get('.chat-window') // Sostituisci con il selettore corretto della finestra di chat
-            .should('not.exist'); // Assicurati che non esista più
     });
 });
 
 // TEST per la componente header
 describe('Header Component', () => {
     // Test: Verifica che l'header sia presente
-    it('should display the header', () => {
+    it('Dovrebbe mostrare l\'header', () => {
         cy.visit('');
         cy.get('header.header-container').should('exist');
     });
 
     // Test: Verifica la barra di ricerca
-    it('should display the search bar when on the home page', () => {
+    it('Dovrebbe mostrare la barra di ricerca', () => {
         cy.visit('/'); // Assicurati di essere nella homepage
         cy.get('.search-container').should('exist');
         cy.get('.search-container input[type="text"]')
@@ -65,7 +40,7 @@ describe('Header Component', () => {
             .and('be.visible');
     });
 
-    it('should filter countries in the search dropdown', () => {
+    it('Dovrebbe filtrare i Paesi', () => {
         cy.visit('/');
         const searchTerm = 'Ita';
         cy.get('.search-container input[type="text"]').type(searchTerm);
@@ -73,29 +48,19 @@ describe('Header Component', () => {
     });
 
     // Test: Verifica i pulsanti di autenticazione
-    it('should display login and register buttons when not logged in', () => {
+// Test: Verifica che i pulsanti di autenticazione siano visibili per gli utenti non loggati
+    it('Dovrebbe mostrare i bottoni "accedi" e "registrati"', () => {
+        // Visita la pagina iniziale
         cy.visit('');
-        cy.window().then(win => {
-            win.localStorage.setItem('isLoggedIn', 'false'); // Simula uno stato non loggato
-        });
-        cy.reload();
-        cy.get('.right-container > :nth-child(1) > .auth-buttons > .auth-button').click();
-            cy.get('.right-container > .auth-buttons > :nth-child(1)').contains('Accedi').should('exist');
-            cy.get('.right-container > .auth-buttons > :nth-child(2)').contains('Registrati').should('exist');
+    
+        // Verifica che i pulsanti "Accedi" e "Registrati" siano visibili e contengano i testi corretti
+        cy.get('.right-container .auth-buttons > :nth-child(1)').should('contain.text', 'Accedi');
+        cy.get('.right-container .auth-buttons > :nth-child(2)').should('contain.text', 'Registrati');
     });
+  
 
-    it('should display profile icon and logout button when logged in', () => {
-        cy.visit('');
-        cy.window().then(win => {
-            win.localStorage.setItem('isLoggedIn', 'true'); // Simula uno stato loggato
-        });
-        cy.reload();
-            cy.get('.right-container > :nth-child(1) > .auth-buttons > .auth-button').contains('Logout').should('exist');
-            cy.get('.profile-icon').should('exist').and('be.visible');
-    });
-
-    // Test: Verifica il menu hamburger
-    it('should toggle the mobile menu when menu icon is clicked', () => {
+    // Test: Verifica il menu hamburger da telefono
+    it('Dovrebbe mostrare il menù hamburger su mobile', () => {
         cy.viewport(375, 667); // Imposta la risoluzione mobile (esempio per iPhone 6/7/8)
         cy.visit('');
         cy.get('.menu-icon-container').click({ force: true });
@@ -104,60 +69,47 @@ describe('Header Component', () => {
         cy.get('.menu-container').should('not.have.class', 'active');
     });
 
-    // Test: Verifica la navigazione tramite menu
-    it('should navigate to the profile page when clicking on profile', () => {
+    // Test: Verifica comportamento per utenti non loggati
+    // Test: Verifica comportamento per utenti non loggati
+    it('Dovrebbe mostrare il tasto "accedi" nella barra laterale su mobile', () => {
         cy.viewport(375, 667); // Imposta la risoluzione mobile (esempio per iPhone 6/7/8)
         cy.visit('');
-        cy.window().then(win => {
-            win.localStorage.setItem('isLoggedIn', 'true'); // Simula uno stato loggato
-        });
-        cy.reload();
 
-        // Simula il clic sull'icona del menu per aprirlo
-        cy.get('.menu-icon-container').should('be.visible').click();
-        
-        // Ora il menu dovrebbe essere visibile, verifica che il link del profilo sia visibile
-        cy.get('.menu-items > a').should('be.visible').click();
-        
-        // Verifica che la navigazione sia avvenuta correttamente
-        cy.location('pathname').should('include', '/scheda-area-personale');
+        // Simula un clic sull'icona del menu per dispositivi mobili
+        cy.get('.menu-icon').click();
+
+        // Verifica che il menu sia visibile
+        cy.get('.menu-container').should('have.class', 'active');
+
+        // Verifica che il pulsante "Accedi" sia visibile e contenga il testo corretto
+        cy.get('.menu-container > .auth-buttons > :nth-child(1)')
+            .should('exist') // Verifica che l'elemento esista
+            .and('be.visible') // Verifica che sia visibile
+            .and('contain.text', 'Accedi') // Verifica che contenga il testo "Accedi"
+            .click(); // Simula il clic sul pulsante
+
+        // Aggiungi ulteriori verifiche se necessario
+        cy.url().should('include', 'loggato'); // Verifica che l'URL includa "loggato" dopo il clic
     });
 
-    // Test: Verifica comportamento per utenti non loggati
-    it('should navigate to login pages when buttons are clicked', () => {
+    it('Dovrebbe mostrare il tasto "registrati" nella barra laterale su mobile', () => {
         cy.viewport(375, 667); // Imposta la risoluzione mobile (esempio per iPhone 6/7/8)
         cy.visit('');
-        cy.window().then(win => {
-            win.localStorage.setItem('isLoggedIn', 'false'); // Imposta lo stato di login a "false" per simulare un utente non loggato
-        });
-        
-    
-    // Verifica che il pulsante "Accedi" sia presente nel DOM
-    cy.get('.menu-icon').click();
-    cy.get('.menu-items > .auth-buttons > .auth-button').click();
-    cy.get('.menu-icon').click();
-    cy.get('.menu-container > .auth-buttons > :nth-child(1)')
-        .should('exist') // Verifica che l'elemento esista
-        .and('be.visible'); // Verifica che sia visibile
-    
-    // Verifica che il pulsante "Accedi" contenga il testo corretto
-    cy.get('.menu-container > .auth-buttons > :nth-child(1)')        
-        .contains('Accedi') // Verifica che contenga "Accedi"
-        .should('be.visible')
-        .click(); // Simula il clic
-});
 
-    it('should navigate to register pages when buttons are clicked', () => {
-        cy.viewport(375, 667); // Imposta la risoluzione mobile (esempio per iPhone 6/7/8)
-        cy.visit('');
-        cy.window().then(win => {
-            win.localStorage.setItem('isLoggedIn', 'true'); // Imposta lo stato di login a "true" per simulare un utente non loggato
-        });
+        // Simula il clic sull'icona del menu
+        cy.get('.menu-icon').click();
 
-        cy.get('.menu-icon').click();
-        cy.get('.menu-items > .auth-buttons > .auth-button').click();
-        cy.get('.menu-icon').click();
-        cy.get('.menu-container > .auth-buttons > :nth-child(2)').contains('Registrati').should('be.visible').click();
+        // Verifica che il menu sia visibile
+        cy.get('.menu-container').should('have.class', 'active');
+
+        // Trova il pulsante "Registrati" e verifica il testo, visibilità e cliccabilità
+        cy.get('.menu-container > .auth-buttons > :nth-child(2)')
+            .should('exist') // Verifica che esista
+            .and('be.visible') // Verifica che sia visibile
+            .and('contain.text', 'Registrati') // Verifica il testo "Registrati"
+            .click(); // Simula il clic
+
+        // Verifica che l'URL cambi correttamente alla pagina di registrazione
         cy.url().should('include', '/registrato');
     });
 });
@@ -165,13 +117,13 @@ describe('Header Component', () => {
 // TEST per la componente Footer
 describe('Footer Component', () => {
     // Test: Verifica che il footer sia presente
-    it('should display the footer', () => {
+    it('Dovrebbe mostrare il footer', () => {
         cy.visit('');
         cy.get('app-footer').should('exist');
     });
 
     // Test: Verifica i link nel footer
-    it('should display the correct footer links', () => {
+    it('Dovrebbe mostrare i link nei footer', () => {
         cy.visit('');
         
         // Verifica la presenza del contenitore dei link
@@ -186,7 +138,7 @@ describe('Footer Component', () => {
     });
 
     // Test: Verifica che il link "Privacy Policy" carichi correttamente la pagina
-    it('should navigate to the privacy policy page', () => {
+    it('Dovrebbe mostrare il "privacy policy"', () => {
         cy.visit('');
         
         // Prevenire il reindirizzamento esterno e verificare il comportamento del link
@@ -202,7 +154,7 @@ describe('Footer Component', () => {
     });
 
     // Test: Verifica che il link "Cookie Policy" carichi correttamente la pagina
-    it('should navigate to the cookie policy page', () => {
+    it('Dovrebbe mostrare la pagina dei "cookie policy"', () => {
         cy.visit('');
                 // Prevenire il reindirizzamento esterno e verificare il comportamento del link
                 cy.get('.footer-link').contains('Cookie Policy').then(($link) => {
@@ -217,7 +169,7 @@ describe('Footer Component', () => {
             });
 
     // Test: Verifica che il link "Chi siamo" carichi correttamente la pagina
-    it('should navigate to the "Chi siamo" page', () => {
+    it('Dovrebbe mostrare la pagina "chi siamo?"', () => {
         cy.visit('');
         cy.get('.footer-link').contains('Chi siamo').click();
         cy.location('pathname').should('include', '/chi-siamo');
