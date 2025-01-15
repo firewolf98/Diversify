@@ -44,10 +44,6 @@ class PaeseControllerTest {
      * - ID valido con Paese associato.
      * - ID valido senza Paese associato.
      * - ID non valido.
-     * Metodo findPaesiByForum:
-     * - ID forum valido con Paesi associati.
-     * - ID forum valido senza Paesi associati.
-     * - ID forum non valido.
      * Metodo findPaesiByCampagna:
      * - ID campagna valido con Paesi associati.
      * - ID campagna valido senza Paesi associati.
@@ -83,9 +79,10 @@ class PaeseControllerTest {
     @Test
     void getAllPaesi_ShouldReturnPaesiList() {
         List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", null, null, null, "link1", null),
-                new Paese("2", "France", null, null, null, "link2", null)
+                new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of()),
+                new Paese("2", "FR", "France", List.of(), List.of(), List.of(), "link2", List.of())
         );
+
 
         when(paeseService.getAllPaesi()).thenReturn(paesi);
 
@@ -116,7 +113,7 @@ class PaeseControllerTest {
      */
     @Test
     void getPaeseById_ShouldReturnPaese() {
-        Paese paese = new Paese("1", "Italy", null, null, null, "link1", null);
+        Paese paese = new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
         when(paeseService.getPaeseById("1")).thenReturn(Optional.of(paese));
 
         System.out.println("Testing getPaeseById with a valid ID...");
@@ -155,7 +152,7 @@ class PaeseControllerTest {
      */
     @Test
     void createPaese_ShouldCreateAndReturnPaese() {
-        Paese paese = new Paese("1", "Italy", null, null, null, "link1", null);
+        Paese paese =new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         when(paeseService.createPaese(paese)).thenReturn(paese);
 
@@ -183,7 +180,7 @@ class PaeseControllerTest {
 
     @Test
     void createPaese_ShouldThrowExceptionForDuplicatePaese() {
-        Paese duplicatePaese = new Paese("1", "Italy", null, null, null, "link1", null);
+        Paese duplicatePaese = new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         when(paeseService.createPaese(duplicatePaese)).thenThrow(new IllegalArgumentException("Paese already exists"));
 
@@ -200,7 +197,7 @@ class PaeseControllerTest {
     @Test
     void updatePaese_ShouldUpdateAndReturnPaese() {
         String id = "1";
-        Paese updatedPaese = new Paese("1", "Updated Italy", null, null, null, "newLink", null);
+        Paese updatedPaese = new Paese("1", "IT", "Updated Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         when(paeseService.updatePaese(eq(id), any(Paese.class))).thenReturn(Optional.of(updatedPaese));
 
@@ -230,7 +227,7 @@ class PaeseControllerTest {
     @Test
     void updatePaese_ShouldReturnNotFound() {
         String id = "1";
-        Paese updatedPaese = new Paese("1", "Updated Italy", null, null, null, "newLink", null);
+        Paese updatedPaese =new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         when(paeseService.updatePaese(eq(id), any(Paese.class))).thenReturn(Optional.empty());
 
@@ -245,7 +242,7 @@ class PaeseControllerTest {
     @Test
     void updatePaese_ShouldThrowExceptionForInvalidId() {
         String id = null;
-        Paese updatedPaese = new Paese("1", "Updated Italy", null, null, null, "newLink", null);
+        Paese updatedPaese = new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         System.out.println("Testing updatePaese with invalid ID...");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.updatePaese(id, updatedPaese));
@@ -296,63 +293,16 @@ class PaeseControllerTest {
     }
 
     /**
-     * Test per findPaesiByForum.
-     */
-    @Test
-    void findPaesiByForum_ShouldReturnPaesiList() {
-        String idForum = "123";
-        List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", null, null, null, "link1", null),
-                new Paese("2", "France", null, null, null, "link2", null)
-        );
-
-        when(paeseService.findPaesiByForum(eq(idForum))).thenReturn(paesi);
-
-        System.out.println("Testing findPaesiByForum with valid ID and associated Paesi...");
-        List<Paese> result = controller.findPaesiByForum(idForum);
-
-        System.out.println("Result: " + result);
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        verify(paeseService, times(1)).findPaesiByForum(eq(idForum));
-    }
-
-    @Test
-    void findPaesiByForum_ShouldReturnEmptyList() {
-        String idForum = "123";
-
-        when(paeseService.findPaesiByForum(eq(idForum))).thenReturn(Collections.emptyList());
-
-        System.out.println("Testing findPaesiByForum with valid ID but no associated Paesi...");
-        List<Paese> result = controller.findPaesiByForum(idForum);
-
-        System.out.println("Result: " + result);
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(paeseService, times(1)).findPaesiByForum(eq(idForum));
-    }
-
-    @Test
-    void findPaesiByForum_ShouldThrowExceptionForInvalidId() {
-        String idForum = null;
-
-        System.out.println("Testing findPaesiByForum with invalid ID...");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.findPaesiByForum(idForum));
-
-        System.out.println("Exception: " + exception.getMessage());
-        verify(paeseService, never()).findPaesiByForum(anyString());
-    }
-
-    /**
      * Test per findPaesiByBenchmark.
      */
     @Test
     void findPaesiByBenchmark_ShouldReturnPaesiList() {
         String benchmark = "ValidBenchmark";
         List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", null, null, null, "link1", null),
-                new Paese("2", "France", null, null, null, "link2", null)
+                new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of()),
+                new Paese("2", "FR", "France", List.of(), List.of(), List.of(), "link2", List.of())
         );
+
 
         when(paeseService.findPaesiByBenchmark(benchmark)).thenReturn(paesi);
 
@@ -406,6 +356,7 @@ class PaeseControllerTest {
         when(documentoInformativoService.findByIdPaese(idPaese)).thenReturn(documenti);
 
         System.out.println("Testing getDocumentiInformativiByPaese with a valid country ID...");
+        @SuppressWarnings("unchecked")
         ResponseEntity<List<DocumentoInformativo>> response = (ResponseEntity<List<DocumentoInformativo>>) controller.getDocumentiInformativiByPaese(idPaese);
 
         System.out.println("Response: " + response);
@@ -421,6 +372,7 @@ class PaeseControllerTest {
         when(documentoInformativoService.findByIdPaese(idPaese)).thenReturn(Collections.emptyList());
 
         System.out.println("Testing getDocumentiInformativiByPaese with no associated documents...");
+        @SuppressWarnings("unchecked")
         ResponseEntity<List<DocumentoInformativo>> response = (ResponseEntity<List<DocumentoInformativo>>) controller.getDocumentiInformativiByPaese(idPaese);
 
         System.out.println("Response: " + response);

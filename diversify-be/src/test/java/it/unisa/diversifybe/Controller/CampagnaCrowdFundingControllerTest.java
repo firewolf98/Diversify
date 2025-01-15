@@ -54,8 +54,9 @@ import static org.mockito.Mockito.*;
  * - ID valido con dati validi ma ruolo non valido.
  * - ID non valido.
  * Metodo deleteCampagna:
- * - ID valido e ruolo valido.
- * - ID valido ma ruolo non valido.
+ * - ID valido ed esistente
+ * - ID valido e non esistente
+ * - ID nullo
  */
 
 class CampagnaCrowdFundingControllerTest {
@@ -74,9 +75,11 @@ class CampagnaCrowdFundingControllerTest {
     @Test
     void getAllCampagne_ShouldReturnCampagneList() {
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy"),
-                new CampagnaCrowdFunding("2", "Campaign 2", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage", "France")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Categoria 1", "Description 1", LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage","link.com" ,"Italy"),
+                new CampagnaCrowdFunding("2", "Campaign 2", "Categoria 2", "Description 2", LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage","link.com" , "France"),
+                new CampagnaCrowdFunding("3", "Campaign 3", "Categoria 3", "Description 3", LocalDate.now(), LocalDate.now().plusDays(45), new BigDecimal("3000"), new BigDecimal("2500"), "attiva", "GermanyImage","link.com" , "Germany")
         );
+
 
         when(service.getAllCampagne()).thenReturn(campagne);
 
@@ -113,8 +116,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByPaese_ShouldReturnCampagneList() {
         String paese = "Italy";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", paese)
-        );
+                new CampagnaCrowdFunding("1", "Campaign 1", "Categoria 1", "Description 1", LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage","link.com" ,paese));
 
         when(service.findCampagneByPaese(paese)).thenReturn(campagne);
 
@@ -149,7 +151,7 @@ class CampagnaCrowdFundingControllerTest {
     @Test
     void getCampagnaByIdCampagna_ShouldReturnCampagna() {
         String idCampagna = "1";
-        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy");
+        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding("1", "Campaign 1", "Categoria 1", "Description 1", LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage","link.com" ,"Italy");
 
         when(service.getCampagnaByIdCampagna(idCampagna)).thenReturn(Optional.of(campagna));
 
@@ -182,7 +184,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByTitolo_ShouldReturnCampagneList() {
         String titolo = "Campaign 1";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", titolo, "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Categoria 1", "Description 1", LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage","link.com" ,"Italy")
         );
 
         when(service.getCampagneByTitolo(titolo)).thenReturn(campagne);
@@ -221,8 +223,8 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByTitoloContaining_ShouldReturnCampagneList() {
         String keyword = "Campaign";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy"),
-                new CampagnaCrowdFunding("2", "Another Campaign", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage", "France")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Categoria 1", "Description 1", LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage","link.com" ,"Italy"),
+                new CampagnaCrowdFunding("2", "Another Campaign", "Description 2", null, LocalDate.now(), LocalDate.now().plusDays(60), new BigDecimal("2000"), new BigDecimal("1500"), "attiva", "FranceImage","link.com", "France")
         );
 
         when(service.getCampagneByTitoloContaining(keyword)).thenReturn(campagne);
@@ -261,7 +263,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByStato_ShouldReturnCampagneList() {
         String stato = "attiva";
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), stato, "ItalyImage", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), LocalDate.now().plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), stato, "ItalyImage","link.com", "Italy")
         );
 
         when(service.getCampagneByStato(stato)).thenReturn(campagne);
@@ -300,7 +302,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByDataInizio_ShouldReturnCampagneList() {
         LocalDate dataInizio = LocalDate.of(2024, 1, 1);
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, dataInizio, dataInizio.plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, dataInizio, dataInizio.plusDays(30), new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage","link.com", "Italy")
         );
 
         when(service.getCampagneByDataInizio(dataInizio)).thenReturn(campagne);
@@ -339,7 +341,7 @@ class CampagnaCrowdFundingControllerTest {
     void getCampagneByDataPrevistaFine_ShouldReturnCampagneList() {
         LocalDate dataPrevistaFine = LocalDate.of(2024, 12, 31);
         List<CampagnaCrowdFunding> campagne = List.of(
-                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), dataPrevistaFine, new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage", "Italy")
+                new CampagnaCrowdFunding("1", "Campaign 1", "Description 1", null, LocalDate.now(), dataPrevistaFine, new BigDecimal("1000"), new BigDecimal("500"), "attiva", "ItalyImage","link.com", "Italy")
         );
 
         when(service.getCampagneByDataPrevistaFine(dataPrevistaFine)).thenReturn(campagne);
@@ -375,31 +377,27 @@ class CampagnaCrowdFundingControllerTest {
     }
 
     @Test
-    void deleteCampagna_ValidIdAndRole() {
-        String id = "1";
-        boolean ruolo = true;
+    void deleteCampagna_ShouldReturnNoContent_WhenIdIsValid() {
+        String idCampagna = "validId";
 
-        doNothing().when(service).deleteCampagna(id);
+        doNothing().when(service).deleteCampagna(idCampagna);
 
-        System.out.println("Testing deleteCampagna with valid ID and role...");
-        ResponseEntity<Void> response = controller.deleteCampagna(id, ruolo);
+        ResponseEntity<Void> response = controller.deleteCampagna(idCampagna);
 
-        System.out.println("Response status: " + response.getStatusCode());
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-        verify(service, times(1)).deleteCampagna(id);
+        verify(service, times(1)).deleteCampagna(idCampagna);
     }
 
     @Test
-    void deleteCampagna_ValidIdInvalidRole() {
-        String id = "1";
-        boolean ruolo = false;
+    void deleteCampagna_ShouldReturnNoContent_WhenIdDoesNotExist() {
+        String idCampagna = "nonExistentId";
 
-        System.out.println("Testing deleteCampagna with valid ID and invalid role...");
-        ResponseEntity<Void> response = controller.deleteCampagna(id, ruolo);
+        doNothing().when(service).deleteCampagna(idCampagna);
 
-        System.out.println("Response status: " + response.getStatusCode());
-        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
-        verify(service, never()).deleteCampagna(anyString());
+        ResponseEntity<Void> response = controller.deleteCampagna(idCampagna);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        verify(service, times(1)).deleteCampagna(idCampagna);
     }
 
 }

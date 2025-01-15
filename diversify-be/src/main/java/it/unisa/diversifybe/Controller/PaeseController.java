@@ -109,22 +109,6 @@ public class PaeseController {
         return ResponseEntity.noContent().build();
     }
 
-
-    /**
-     * Restituisce i paesi associati a un forum specifico.
-     *
-     * @param idForum l'ID del forum.
-     * @return una lista di {@link Paese} associati.
-     * @throws IllegalArgumentException se l'ID del forum è nullo o vuoto.
-     */
-    @GetMapping("/forum/{idForum}")
-    public List<Paese> findPaesiByForum(@PathVariable String idForum) {
-        if (idForum == null || idForum.trim().isEmpty()) {
-            throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
-        }
-        return paeseService.findPaesiByForum(idForum);
-    }
-
     /**
      * Restituisce i paesi associati a una campagna di crowdfunding specifica.
      *

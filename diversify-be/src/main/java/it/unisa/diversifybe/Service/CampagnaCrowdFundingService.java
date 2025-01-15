@@ -22,7 +22,6 @@ public class CampagnaCrowdFundingService {
 
     private final PaeseRepository paeseRepository;
     private final CampagnaCrowdFundingRepository repository;
-    private final CampagnaCrowdFundingRepository campagnaCrowdFundingRepository;
 
     /**
      * Restituisce tutte le campagne di crowdfunding.
@@ -194,6 +193,10 @@ public class CampagnaCrowdFundingService {
     public CampagnaCrowdFunding updateCampagna(String idCampagna, CampagnaCrowdFunding updatedCampagna) {
         if (idCampagna == null || idCampagna.isBlank()) {
             throw new IllegalArgumentException("L'ID della campagna non può essere nullo o vuoto.");
+        }
+
+        if (updatedCampagna == null || updatedCampagna.getTitolo() == null || updatedCampagna.getTitolo().isBlank()) {
+            throw new IllegalArgumentException("I dati aggiornati della campagna non possono essere nulli o incompleti.");
         }
 
         // Cerca nei documenti della collection Paese

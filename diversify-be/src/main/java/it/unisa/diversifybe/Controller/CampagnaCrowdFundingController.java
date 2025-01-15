@@ -150,6 +150,25 @@ public class CampagnaCrowdFundingController {
         }
     }
 
+    /**
+     * Gestisce la richiesta di eliminazione di una campagna di crowdfunding.
+     *
+     * <p>Questo endpoint consente di eliminare una campagna specificata tramite il suo identificativo.
+     * Se l'eliminazione viene completata con successo, restituisce una risposta senza contenuto
+     * (HTTP 204). In caso di violazione delle autorizzazioni, restituisce un errore di sicurezza
+     * (HTTP 403).</p>
+     *
+     * @param idCampagna l'identificativo univoco della campagna di crowdfunding da eliminare.
+     *                   Deve essere una stringa valida non nulla o vuota.
+     * @return {@link ResponseEntity} con uno dei seguenti codici di stato:
+     *         <ul>
+     *             <li><b>204 No Content</b>: se la campagna viene eliminata con successo.</li>
+     *             <li><b>403 Forbidden</b>: se si verifica una violazione delle autorizzazioni.</li>
+     *         </ul>
+     * @throws IllegalArgumentException se {@code idCampagna} è nullo o vuoto.
+     */
+
+
     @PostMapping("/delete")
     public ResponseEntity<Void> deleteCampagna(@RequestBody String idCampagna) {
         try {
