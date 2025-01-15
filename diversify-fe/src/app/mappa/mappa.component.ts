@@ -181,8 +181,11 @@ export class MapComponent implements OnInit, AfterViewInit {
           case '4':
             pinColor = 'benchmark-rosso.png';
             break;
-          default:
+          case '5':
             pinColor = 'benchmark-nero.png';
+            break;  
+          default:
+            pinColor = '';
         }
    
         secondPin.setStyle(new Style({

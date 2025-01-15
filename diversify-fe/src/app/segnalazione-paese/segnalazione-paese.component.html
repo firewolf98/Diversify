@@ -43,7 +43,7 @@
             </div>
             
             <div>
-                <h3>Benchmark dei diritti per le persone con disabilità per {{ selectedCountry }}</h3>
+                <h3>Benchmark dei diritti per le persone con disabilitÃ  per {{ selectedCountry }}</h3>
                 <input type="range" min="0" max="5" [(ngModel)]="disabilityRightsBenchmark" (change)="onBenchmarkChange(disabilityRightsBenchmark, 'disability')" />
                 <p>{{ disabilityRightsBenchmark }}</p>
                 <span class="benchmark-comment">{{ getBenchmarkComment(disabilityRightsBenchmark) }}</span>
@@ -65,7 +65,7 @@
 
             <br><br>
             
-            <button class="save-button">Salva modifiche</button>
+            <button class="save-button" (click)="salvaModifiche()">Salva modifiche</button>
         </div>
     </div>
 </div>

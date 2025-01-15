@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-commento',
@@ -10,15 +11,28 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
 })
 export class CommentoComponent {
-  @Input() comment!: {
-    authorName: string;
-    authorAvatar: string;
-    text: string;
-    date: string;
-    likes: number;
-    replies: { authorAvatar: string; authorName: string; text: string; date: string }[];
-  };
+  @Input() comment:any;
 
+  authorName: string | undefined;
+
+  constructor(private utenteService: UserService) {} // Iniezione del servizio
+
+  ngOnInit() {
+    this.fetchAuthorName();
+  }
+
+  fetchAuthorName() {
+    if (this.comment.idAutore) {
+      this.utenteService.getUtenteById(this.comment.idAutore).subscribe({
+        next: (user) => {
+          this.authorName = user.nome;
+        },
+        error: (err) => {
+          console.error("Errore nel recupero dell'utente:", err);
+        }
+      });
+    }
+  }
   newComment = { text: '' };
   isReplying: boolean = false;
   hasLiked: boolean = false;
@@ -93,7 +107,7 @@ export class CommentoComponent {
         text: replyText,
         date: new Date().toLocaleString(),
       };
-      this.comment.replies.push(newReply);
+      this.comment.subcommenti.push(newReply);
       this.isReplying = false;
     }
   }

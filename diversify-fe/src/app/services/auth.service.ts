@@ -8,7 +8,6 @@ import { UserService } from './user.service';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/utenti';
-  private apiPostUrl = 'http://localhost:8080/posts';
   private readonly TOKEN_KEY = 'auth_token';
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
   private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -117,9 +116,4 @@ export class AuthService {
     return user ? user.banned : false;
   }
 
-  savePost(postData: { titolo: string; contenuto: string; categoria: string; userAutore: string }): Observable<any> {
-    return this.http.post(this.apiPostUrl, postData, {
-      headers: { Authorization: `Bearer ${this.getToken()}` },
-    });
-  }
 }

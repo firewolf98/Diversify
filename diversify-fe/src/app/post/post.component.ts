@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentoComponent } from '../commento/commento.component';
 import { ActivatedRoute } from '@angular/router';
+import { ForumService } from '../services/forum.service';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
  
 @Component({
   selector: 'app-post',
@@ -12,27 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./post.component.css'],
 })
 export class PostComponent {
-  comments = [
-    {
-      authorName: 'Mario Rossi',
-      authorAvatar: 'Avatar.png',
-      text: 'Questo è un commento di esempio.',
-      date: '2025-01-02',
-      likes: 5,
-      replies: [
-        { authorAvatar: 'Avatar.png', authorName: 'Luigi Verdi', text: 'Ecco un subcommento!', date: '2025-01-02' },
-        { authorAvatar: 'Avatar.png', authorName: 'Giovanni Bianchi', text: 'Risposta al subcommento!', date: '2025-01-02' }
-      ]
-    },
-    {
-      authorName: 'Giulia Verdi',
-      authorAvatar: 'Avatar.png',
-      text: 'Sono d’accordo! Grazie per aver condiviso.',
-      date: '2024-12-18T12:00:00Z',
-      likes: 0,
-      replies: []
-    },
-  ];
+  comments: any[] = [];
  
   postLikes = 0;
   hasLikedPost = false;
@@ -47,16 +30,49 @@ export class PostComponent {
   reportingUser = 'UtenteCorrente'; // Username segnalante (esempio: utente loggato)
   reportType = 'post'; // Tipo di segnalazione (in questo caso, "post")
  
-  postId: string | null = null;
+  postId: string ='';
   forumId: string | null = null;
+  posts: any;
+  post: any;
+  autore: any;
+
+  commentoToAdd:any;
+  idUser: any;
  
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private forumService: ForumService,private userService: UserService, private authService: AuthService) {}
  
   ngOnInit(): void {
-    this.postId = this.route.snapshot.paramMap.get('postId');
-    this.forumId = this.route.snapshot.paramMap.get('selectedForumId');
-    console.log("POSTID",this.postId);
-    console.log("FORUMID",this.forumId);
+    this.postId = ''+this.route.snapshot.paramMap.get('postId');
+    this.forumId = ''+this.route.snapshot.paramMap.get('selectedForumId');
+    this.forumService.getPost(this.forumId).subscribe({
+      next: (data) => {
+        this.posts = data;
+        this.post = this.posts.find((item : any) => item.idPost === this.postId);
+        this.comments = this.post.commenti;
+        this.postLikes = this.post.like;
+
+        this.userService.getUtenteById(this.post.idAutore).subscribe({
+          next: (user) => {
+            this.autore = user;
+          },
+          error: (err) => {
+            console.error("Errore durante il recupero dell'autore:", err);
+          }
+      })
+      },
+      error: (err) => {
+        console.error("Errore durante il recupero dell'autore:", err);
+      }
+    });
+
+    this.authService.getUser().subscribe({
+      next: (user) => {
+        this.idUser = user.idUtente;
+      },
+      error: (err) => {
+        console.error("Errore durante il recupero dell'autore:", err);
+      }
+    })
   }
  
   // Apre il modale di segnalazione
@@ -99,17 +115,21 @@ export class PostComponent {
   // Aggiungi un commento
   addComment() {
     if (this.newComment.text.trim()) {
-      const newComment = {
-        authorName: 'Nuovo Utente',
-        authorAvatar: 'Avatar.png',
-        text: this.newComment.text,
-        date: new Date().toISOString(),
-        likes: 0,
-        replies: []
+      this.commentoToAdd = {
+        idAutore: this.idUser,
+        contenuto: this.newComment.text,
+        idPost: this.postId
       };
-      this.comments.push(newComment);
       this.newComment.text = '';
     }
+    this.forumService.aggiungiCommento(this.postId,this.commentoToAdd).subscribe({
+      next: (data) => {
+        this.comments.push(data);
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
   }
  
   // Mi Piace per il post

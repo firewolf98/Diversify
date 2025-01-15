@@ -1,24 +1,24 @@
 <div class="comment-container">
   <div class="comment-header">
     <div class="avatar-container">
-      <img [src]="comment.authorAvatar" alt="Avatar" class="comment-avatar" />
+      <img src="Avatar.png" alt="Avatar" class="comment-avatar" />
     </div>
-    <div class="comment-author">{{ comment.authorName }}</div>
+    <div class="comment-author">{{ authorName }}</div>
     <div class="comment-date">
-      {{ comment.date | date: 'short' }}
+      {{ comment.dataCreazione | date: 'short' }}
       <!-- Bottone Segnala -->
       <button class="report-button" (click)="openReportModal(comment)">
         <img src="flag-icon.png" alt="Segnala" class="flag-icon" />
       </button>
     </div>
   </div>
-  <p class="comment-text">{{ comment.text }}</p>
+  <p class="comment-text">{{ comment.contenuto }}</p>
 
   <!-- Sezione footer per Rispondi -->
   <div class="comment-footer">
     <button (click)="likeComment()" class="like-button">
       {{ hasLiked ? '👎 Togli Mi Piace' : '👍 Mi Piace' }}
-      <span *ngIf="comment.likes > 0">({{ comment.likes }})</span>
+      <span *ngIf="comment.like > 0">({{ comment.like }})</span>
     </button>
     <button class="reply-button" (click)="onReply()">
       {{ isReplying ? 'Annulla' : 'Rispondi' }}
@@ -41,8 +41,8 @@
   </div>
 
   <!-- Visualizza le risposte -->
-  <div *ngIf="comment.replies.length > 0" class="replies">
-    <div class="comment-container" *ngFor="let reply of comment.replies">
+  <div *ngIf="comment.subcommenti.length > 0" class="replies">
+    <div class="comment-container" *ngFor="let reply of comment.subcommenti">
       <div class="comment-header">
         <div class="avatar-container">
           <img [src]="reply.authorAvatar" alt="Avatar" class="comment-avatar" />
