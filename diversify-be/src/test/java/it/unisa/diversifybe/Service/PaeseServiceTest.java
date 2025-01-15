@@ -45,10 +45,6 @@ class PaeseServiceTest {
      * - ID valido con paese associato.
      * - ID valido senza paese associato.
      * - ID non valido (e.g., null o vuoto).
-     * Metodo findPaesiByForum:
-     * - ID forum valido con paesi associati.
-     * - ID forum valido senza paesi associati.
-     * - ID forum non valido (e.g., null o vuoto).
      * Metodo findPaesiByCampagna:
      * - ID campagna valido con paesi associati.
      * - ID campagna valido senza paesi associati.

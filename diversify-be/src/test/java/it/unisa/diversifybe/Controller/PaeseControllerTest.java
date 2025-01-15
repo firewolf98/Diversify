@@ -1,5 +1,6 @@
 package it.unisa.diversifybe.Controller;
 
+import it.unisa.diversifybe.Model.Benchmark;
 import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Model.DocumentoInformativo;
 import it.unisa.diversifybe.Service.PaeseService;
@@ -391,5 +392,60 @@ class PaeseControllerTest {
         System.out.println("Exception: " + exception.getMessage());
         verify(documentoInformativoService, never()).findByIdPaese(anyString());
     }
+
+    /**
+     * Test di update banchmark by name
+     */
+    @Test
+    void updateBenchmarkByName_ShouldReturnUpdatedPaese_WhenInputsAreValid() {
+        String nomePaese = "Italy";
+        List<Benchmark> benchmark = List.of(new Benchmark("indice1", "valore1","",""), new Benchmark("indice2", "valore2","",""));
+
+        Paese updatedPaese = new Paese("1", nomePaese, nomePaese, List.of(), List.of(), benchmark, "http://flag.link", List.of());
+
+        when(paeseService.updateBenchmarkByPaese(nomePaese, benchmark)).thenReturn(updatedPaese);
+
+        ResponseEntity<Paese> response = controller.updateBenchmarkByName(nomePaese, benchmark);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(updatedPaese, response.getBody());
+        verify(paeseService, times(1)).updateBenchmarkByPaese(nomePaese, benchmark);
+    }
+
+    @Test
+    void updateBenchmarkByName_ShouldThrowException_WhenNomePaeseIsNull() {
+        String nomePaese = null;
+        List<Benchmark> benchmark = List.of(new Benchmark("indice1", "valore1","",""));
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.updateBenchmarkByName(nomePaese, benchmark));
+
+        assertEquals("Il nome del Paese non può essere nullo o vuoto.", exception.getMessage());
+        verify(paeseService, never()).updateBenchmarkByPaese(anyString(), anyList());
+    }
+
+    @Test
+    void updateBenchmarkByName_ShouldThrowException_WhenBenchmarkIsNull() {
+        String nomePaese = "Italy";
+        List<Benchmark> benchmark = null;
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.updateBenchmarkByName(nomePaese, benchmark));
+
+        assertEquals("Il benchmark non può essere nullo o vuoto.", exception.getMessage());
+        verify(paeseService, never()).updateBenchmarkByPaese(anyString(), anyList());
+    }
+
+    @Test
+    void updateBenchmarkByName_ShouldThrowException_WhenBenchmarkIsEmpty() {
+        String nomePaese = "Italy";
+        List<Benchmark> benchmark = List.of();
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> controller.updateBenchmarkByName(nomePaese, benchmark));
+
+        assertEquals("Il benchmark non può essere nullo o vuoto.", exception.getMessage());
+        verify(paeseService, never()).updateBenchmarkByPaese(anyString(), anyList());
+    }
+
+
 
 }
