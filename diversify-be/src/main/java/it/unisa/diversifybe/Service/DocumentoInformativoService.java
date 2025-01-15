@@ -1,18 +1,23 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.DocumentoInformativo;
+import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Repository.DocumentoInformativoRepository;
+import it.unisa.diversifybe.Repository.PaeseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class DocumentoInformativoService {
 
     private final DocumentoInformativoRepository documentoInformativoRepository;
+    private final PaeseRepository paeseRepository;
 
-    public DocumentoInformativoService(DocumentoInformativoRepository documentoInformativoRepository) {
+    public DocumentoInformativoService(DocumentoInformativoRepository documentoInformativoRepository, PaeseRepository paeseRepository) {
         this.documentoInformativoRepository = documentoInformativoRepository;
+        this.paeseRepository = paeseRepository;
     }
 
     /**
@@ -30,7 +35,14 @@ public class DocumentoInformativoService {
         if (idPaese == null || idPaese.isBlank()) {
             throw new IllegalArgumentException("ID Paese non può essere nullo o vuoto.");
         }
-        return documentoInformativoRepository.findByIdPaese(idPaese);
+        List<DocumentoInformativo> documenti= new ArrayList<>();
+        List<Paese> paesi= paeseRepository.findAll();
+        for (Paese paese: paesi) {
+            if (paese.getIdPaese().equals(idPaese)) {
+                documenti.addAll(paese.getDocumentiInformativi());
+            }
+        }
+        return documenti;
     }
 
 }

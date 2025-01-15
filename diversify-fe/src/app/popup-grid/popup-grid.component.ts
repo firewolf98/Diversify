@@ -67,15 +67,12 @@ export class PopupGridComponent {
   private updateButtons(): void {
     this.buttons = [
       {
-        label: `Leggi di ${this.countryName} sulla sicurezza e l'inclusività`,
+        label: `Documenti informativi`,
         color: 'pink',
         size: 'medium',
         action: () => {
-          if (this.videoLink) {
-            this.openVideo(this.videoLink);
-          } else {
-            alert('Video non disponibile per questo paese.');
-          }
+          this.closePopup.emit();
+          this.router.navigate(['/documentoinformativo', this.idPaese]);
         },
       },
       ...(this.forum && this.forum.length > 0
