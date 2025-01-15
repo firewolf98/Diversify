@@ -162,6 +162,15 @@
             <textarea id="description" [(ngModel)]="campaign.description" name="description" required></textarea>
         </div>
 
+        <!-- Status-->
+        <div class="campo-status">
+            <label for="status">Status campagna:</label>
+            <select id="status" [(ngModel)]="campaign.status" name="status" required>
+                <option value="attiva">Attiva</option>
+                <option value="chiusa">Chiusa</option>
+            </select>
+        </div>
+
         <!-- Target dei Fondi -->
         <div class="campo-target-fondi">
             <label for="targetFunds">Target Fondi (€):</label>

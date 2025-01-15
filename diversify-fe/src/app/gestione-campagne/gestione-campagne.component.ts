@@ -103,7 +103,7 @@ filterAndSortCampaigns(): void {
 
   // Resetta i filtri
   resetFilters(): void {
-    this.selectedCountry = '';
+    this.selectedCountry = 'Tutti';
     this.selectedStatus = '';
     this.filterAndSortCampaigns();
   }

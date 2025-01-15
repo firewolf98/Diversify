@@ -363,13 +363,13 @@ footer a:hover {
     position: relative;
     background-color: #fdece8; /* Colore di sfondo caldo */
     border-radius: 20px; /* Angoli arrotondati */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
     padding: 10px;
     max-width: 90%; /* Imposta una larghezza massima relativa alla finestra */
     max-height: 90%; /* Imposta un'altezza massima relativa alla finestra */
     margin: auto; /* Centra automaticamente */
-    overflow: auto; /* Rendi scrollabile se necessario */
     box-sizing: border-box;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombra morbida */
+    border:1px solid #d1d1d1;
 }
 
 /* Contenuto principale del pop-up */
@@ -381,10 +381,10 @@ footer a:hover {
     display: flex;
     justify-content: center; /* Centra orizzontalmente */
     align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Prendi tutta l'altezza della finestra */
+    padding: 30px;
+    width:100%;
     padding: 20px; /* Aggiungi spazio intorno per evitare il taglio */
     box-sizing: border-box; /* Assicurati che padding venga incluso */
-    overflow: auto; /* Rendi il contenitore scrollabile se necessario */
 }
 
 
