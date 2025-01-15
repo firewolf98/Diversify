@@ -1,0 +1,284 @@
+[{
+  "_id": {
+    "$oid": "673ba18cdc8693cd0cbb10ff"
+  },
+  "titolo": "LGBTQ Italia",
+  "descrizione": "Un forum dedicato alla comunità LGBTQ in Italia.",
+  "post": [
+    {
+      "_id": {
+        "$oid": "673ba18cdc8693cd0cbb10fe"
+      },
+      "titolo": "Aiuto coming out!",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab50"
+      },
+      "contenuto": "Buonasera a tutti vorrei avere dei consigli da voi per fare coming out! :)",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": [
+        {
+          "id_autore": "673732690f93b094c609ab51",
+          "contenuto": "Ciao! Posso consigliarti di iniziare con persone di cui ti fidi molto.",
+          "data_creazione": "2024-11-02T10:00:00.000+00:00",
+          "like": 2,
+          "subcommenti": [
+            {
+              "id_autore": "673732690f93b094c609ab52",
+              "contenuto": "Ottimo consiglio! Io ho iniziato proprio così, ed è stato utile.",
+              "data_creazione": "2024-11-02T12:00:00.000+00:00"
+            },
+            {
+              "id_autore": "673732690f93b094c609ab53",
+              "contenuto": "Anch'io consiglio di fare lo stesso, soprattutto con un amico stretto.",
+              "data_creazione": "2024-11-02T12:30:00.000+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "677c3439ba1fed5cc8b73e12"
+      },
+      "titolo": "Titolo di un forum",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab50"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    }
+  ],
+  "paese": "Italia"
+},
+{
+  "_id": {
+    "$oid": "677c26ccba1fed5cc8b73e11"
+  },
+  "titolo": "Forum Italia",
+  "descrizione": "Forum",
+  "post": [
+    {
+      "_id": {
+        "$oid": "673ba18cdc8693cd0cbb10fe"
+      },
+      "titolo": "Post generico!",
+      "id_autore": "673732690f93b094c609ab50",
+      "contenuto": "Buonasera a tutti vorrei avere dei consigli da voi per fare coming out! :)",
+      "data_creazione": "2024-11-01T00:00:00.000+00:00",
+      "like": 0,
+      "commenti": [
+        {
+          "id_autore": "673732690f93b094c609ab51",
+          "contenuto": "Ciao! Posso consigliarti di iniziare con persone di cui ti fidi molto.",
+          "data_creazione": "2024-11-02T10:00:00.000+00:00",
+          "like": 2,
+          "subcommenti": [
+            {
+              "id_autore": "673732690f93b094c609ab52",
+              "contenuto": "Ottimo consiglio! Io ho iniziato proprio così, ed è stato utile.",
+              "data_creazione": "2024-11-02T12:00:00.000+00:00"
+            },
+            {
+              "id_autore": "673732690f93b094c609ab53",
+              "contenuto": "Anch'io consiglio di fare lo stesso, soprattutto con un amico stretto.",
+              "data_creazione": "2024-11-02T12:30:00.000+00:00"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "paese": "Italia"
+},
+{
+  "_id": {
+    "$oid": "677d76c4cc67066d163626cc"
+  },
+  "titolo": "LGBTQ Italia",
+  "descrizione": "Un forum dedicato alla comunità LGBTQ in Italia.",
+  "post": [
+    {
+      "_id": {
+        "$oid": "673ba18cdc8693cd0cbb10fe"
+      },
+      "titolo": "Aiuto coming out!",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab50"
+      },
+      "contenuto": "Buonasera a tutti vorrei avere dei consigli da voi per fare coming out! :)",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": [
+        {
+          "id_autore": "673732690f93b094c609ab51",
+          "contenuto": "Ciao! Posso consigliarti di iniziare con persone di cui ti fidi molto.",
+          "data_creazione": {
+            "$date": "2024-11-02T10:00:00.000Z"
+          },
+          "like": 2,
+          "subcommenti": [
+            {
+              "id_autore": "673732690f93b094c609ab52",
+              "contenuto": "Ottimo consiglio! Io ho iniziato proprio così, ed è stato utile.",
+              "data_creazione": {
+                "$date": "2024-11-02T12:00:00.000Z"
+              }
+            },
+            {
+              "id_autore": "673732690f93b094c609ab53",
+              "contenuto": "Anch'io consiglio di fare lo stesso, soprattutto con un amico stretto.",
+              "data_creazione": {
+                "$date": "2024-11-02T12:30:00.000Z"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "677c3439ba1fed5cc8b73e12"
+      },
+      "titolo": "Titolo di un forum",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a0c9a5f6d8e0b03e5c"
+      },
+      "titolo": "Titolo 3",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a1c9a5f6d8e0b03e5d"
+      },
+      "titolo": "Titolo 4",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a2c9a5f6d8e0b03e5e"
+      },
+      "titolo": "Titolo 5",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a3c9a5f6d8e0b03e5f"
+      },
+      "titolo": "Titolo 6",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a4c9a5f6d8e0b03e60"
+      },
+      "titolo": "Titolo 7",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a5c9a5f6d8e0b03e61"
+      },
+      "titolo": "Titolo 8",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a6c9a5f6d8e0b03e62"
+      },
+      "titolo": "Titolo 9",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    },
+    {
+      "_id": {
+        "$oid": "64d3f8a7c9a5f6d8e0b03e63"
+      },
+      "titolo": "Titolo 10",
+      "id_autore": {
+        "$oid": "673732690f93b094c609ab52"
+      },
+      "contenuto": "",
+      "data_creazione": {
+        "$date": "2024-11-01T00:00:00.000Z"
+      },
+      "like": 0,
+      "commenti": []
+    }
+  ],
+  "paese": "Italia"
+}]

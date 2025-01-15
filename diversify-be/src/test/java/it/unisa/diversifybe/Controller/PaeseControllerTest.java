@@ -406,7 +406,7 @@ class PaeseControllerTest {
         when(documentoInformativoService.findByIdPaese(idPaese)).thenReturn(documenti);
 
         System.out.println("Testing getDocumentiInformativiByPaese with a valid country ID...");
-        ResponseEntity<List<DocumentoInformativo>> response = controller.getDocumentiInformativiByPaese(idPaese);
+        ResponseEntity<List<DocumentoInformativo>> response = (ResponseEntity<List<DocumentoInformativo>>) controller.getDocumentiInformativiByPaese(idPaese);
 
         System.out.println("Response: " + response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -421,7 +421,7 @@ class PaeseControllerTest {
         when(documentoInformativoService.findByIdPaese(idPaese)).thenReturn(Collections.emptyList());
 
         System.out.println("Testing getDocumentiInformativiByPaese with no associated documents...");
-        ResponseEntity<List<DocumentoInformativo>> response = controller.getDocumentiInformativiByPaese(idPaese);
+        ResponseEntity<List<DocumentoInformativo>> response = (ResponseEntity<List<DocumentoInformativo>>) controller.getDocumentiInformativiByPaese(idPaese);
 
         System.out.println("Response: " + response);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());

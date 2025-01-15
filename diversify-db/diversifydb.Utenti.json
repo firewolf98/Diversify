@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "6786fd21ee758a1e6a28d04a"
+  },
+  "nome": "Giancarlo",
+  "cognome": "Esposito",
+  "codiceFiscale": "KNDTSN02F07C138K",
+  "email": "adminfigure@gmail.com",
+  "username": "Administrator",
+  "passwordHash": "a3c89babeee94d3b04a078a80726fa49051ce873bdefc5a0d41fd205f2745a16",
+  "tipoDomanda": "Come si chiama tuo padre?",
+  "rispostaHash": "Cristiano",
+  "ruolo": true,
+  "banned": false,
+  "_class": "it.unisa.diversifybe.Model.Utente"
+}]
