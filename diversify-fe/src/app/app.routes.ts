@@ -14,6 +14,7 @@ import { ForumAccessGuard } from './guards/forum-access.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { CampagnaCrowdfundingComponent } from './campagna-crowdfunding/campagna-crowdfunding.component';
+import { DocumentoInformativoComponent } from './documento-informativo/documento-informativo.component';
 
 
 export const routes: Routes = [
@@ -90,4 +91,9 @@ export const routes: Routes = [
     component: CampagnaCrowdfundingComponent,
     canActivate: [AuthGuard], 
   },
+
+  {
+    path: 'documentoinformativo/:paese',
+    component: DocumentoInformativoComponent,
+  }
 ];
