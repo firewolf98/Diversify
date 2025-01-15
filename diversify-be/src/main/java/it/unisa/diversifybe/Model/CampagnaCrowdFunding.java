@@ -60,7 +60,7 @@ public class CampagnaCrowdFunding {
 
     /**
      * Stato attuale della campagna di crowdfunding.
-     * Gli stati possibili includono "terminata", "attiva", "in sospensione".
+     * Gli stati possibili includono "attiva" e "chiusa".
      */
     private String stato;
 

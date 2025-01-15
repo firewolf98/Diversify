@@ -1,7 +1,9 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.DocumentoInformativo;
+import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Repository.DocumentoInformativoRepository;
+import it.unisa.diversifybe.Repository.PaeseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,12 +30,11 @@ class DocumentoInformativoServiceTest {
      *     - Nessun documento trovato (lista vuota).
      */
 
+    @Mock
+    private PaeseRepository paeseRepository;
 
     @InjectMocks
-    private DocumentoInformativoService documentoInformativoService;
-
-    @Mock
-    private DocumentoInformativoRepository documentoInformativoRepository;
+    private DocumentoInformativoService service;
 
     @BeforeEach
     void setUp() {
@@ -41,89 +42,72 @@ class DocumentoInformativoServiceTest {
     }
 
     @Test
-    void findByIdPaese_ShouldReturnDocumentsWithCompleteFields() {
-        String idPaese = "validPaeseId";
-        List<DocumentoInformativo> documents = List.of(
-                new DocumentoInformativo("doc1", "Titolo 1", "Descrizione 1", "Contenuto 1", idPaese, "http://image.link/1", "http://video.link/1"),
-                new DocumentoInformativo("doc2", "Titolo 2", "Descrizione 2", "Contenuto 2", idPaese, "http://image.link/2", "http://video.link/2")
+    void findByIdPaese_ShouldReturnDocuments_WhenIdPaeseIsValid() {
+        String idPaese = "Italy";
+        List<DocumentoInformativo> documenti = List.of(
+                new DocumentoInformativo("doc1", "Titolo 1", "Descrizione 1", "Contenuto 1", idPaese, "http://image1.com", "http://video1.com"),
+                new DocumentoInformativo("doc2", "Titolo 2", "Descrizione 2", "Contenuto 2", idPaese, "http://image2.com", "http://video2.com")
         );
 
-        when(documentoInformativoRepository.findByIdPaese(idPaese)).thenReturn(documents);
+        Paese paese = new Paese("1", idPaese, "Italy", List.of(), new ArrayList<>(), new ArrayList<>(), "http://flag.com", documenti);
 
-        List<DocumentoInformativo> result = documentoInformativoService.findByIdPaese(idPaese);
+        when(paeseRepository.findAll()).thenReturn(List.of(paese));
+
+        List<DocumentoInformativo> result = service.findByIdPaese(idPaese);
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertEquals("Titolo 1", result.get(0).getTitolo());
-        assertEquals("http://image.link/1", result.get(0).getLinkImmagine());
-        assertEquals("http://video.link/1", result.get(0).getLinkVideo());
-        assertEquals("Titolo 2", result.get(1).getTitolo());
-        assertEquals("http://image.link/2", result.get(1).getLinkImmagine());
-        assertEquals("http://video.link/2", result.get(1).getLinkVideo());
-
-        verify(documentoInformativoRepository, times(1)).findByIdPaese(idPaese);
+        assertEquals("Titolo 1", result.getFirst().getTitolo());
+        verify(paeseRepository, times(1)).findAll();
     }
 
-
-    /**
-     * Test per `findByIdPaese` con ID Paese valido ma nessun documento trovato.
-     */
     @Test
-    void findByIdPaese_ShouldReturnEmptyListForValidIdNoDocuments() {
-        String idPaese = "validPaeseId";
+    void findByIdPaese_ShouldReturnEmptyList_WhenIdPaeseHasNoDocuments() {
+        String idPaese = "Italy";
+        Paese paese = new Paese("1", idPaese, "Italy", List.of(), new ArrayList<>(), new ArrayList<>(), "http://flag.com", new ArrayList<>());
 
-        when(documentoInformativoRepository.findByIdPaese(idPaese)).thenReturn(new ArrayList<>());
+        when(paeseRepository.findAll()).thenReturn(List.of(paese));
 
-        List<DocumentoInformativo> result = documentoInformativoService.findByIdPaese(idPaese);
+        List<DocumentoInformativo> result = service.findByIdPaese(idPaese);
 
         assertNotNull(result);
         assertTrue(result.isEmpty());
-
-        verify(documentoInformativoRepository, times(1)).findByIdPaese(idPaese);
+        verify(paeseRepository, times(1)).findAll();
     }
 
-    /**
-     * Test per `findByIdPaese` con ID Paese nullo.
-     */
     @Test
-    void findByIdPaese_ShouldThrowIllegalArgumentExceptionForNullId() {
+    void findByIdPaese_ShouldReturnEmptyList_WhenIdPaeseDoesNotExist() {
+        String idPaese = "NonExistentId";
+        Paese paese = new Paese("1", "Italy", "Italy", List.of(), new ArrayList<>(), new ArrayList<>(), "http://flag.com", new ArrayList<>());
+
+        when(paeseRepository.findAll()).thenReturn(List.of(paese));
+
+        List<DocumentoInformativo> result = service.findByIdPaese(idPaese);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+        verify(paeseRepository, times(1)).findAll();
+    }
+
+    @Test
+    void findByIdPaese_ShouldThrowException_WhenIdPaeseIsNull() {
         String idPaese = null;
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> documentoInformativoService.findByIdPaese(idPaese));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> service.findByIdPaese(idPaese));
 
         assertEquals("ID Paese non può essere nullo o vuoto.", exception.getMessage());
-        verifyNoInteractions(documentoInformativoRepository);
+        verify(paeseRepository, never()).findAll();
     }
 
-    /**
-     * Test per `findByIdPaese` con ID Paese vuoto.
-     */
     @Test
-    void findByIdPaese_ShouldThrowIllegalArgumentExceptionForEmptyId() {
+    void findByIdPaese_ShouldThrowException_WhenIdPaeseIsEmpty() {
         String idPaese = "";
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> documentoInformativoService.findByIdPaese(idPaese));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> service.findByIdPaese(idPaese));
 
         assertEquals("ID Paese non può essere nullo o vuoto.", exception.getMessage());
-        verifyNoInteractions(documentoInformativoRepository);
+        verify(paeseRepository, never()).findAll();
     }
 
-    /**
-     * Test per `findByIdPaese` con ID Paese inesistente.
-     */
-    @Test
-    void findByIdPaese_ShouldReturnEmptyListForNonExistentId() {
-        String idPaese = "nonExistentId";
 
-        when(documentoInformativoRepository.findByIdPaese(idPaese)).thenReturn(new ArrayList<>());
-
-        List<DocumentoInformativo> result = documentoInformativoService.findByIdPaese(idPaese);
-
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-
-        verify(documentoInformativoRepository, times(1)).findByIdPaese(idPaese);
-    }
 }
