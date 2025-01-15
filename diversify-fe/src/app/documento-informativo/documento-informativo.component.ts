@@ -1,57 +1,69 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DocumentoInformativoService } from '../services/documento-informativo.service';
+import { ActivatedRoute } from '@angular/router';
+import { data, error } from 'cypress/types/jquery';
+import { FormsModule } from '@angular/forms';
+import { any } from 'cypress/types/bluebird';
 
 @Component({
   selector: 'app-documento-informativo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './documento-informativo.component.html',
   styleUrls: ['./documento-informativo.component.css']
 })
 export class DocumentoInformativoComponent {
-  documents: string[] = [
-    'Documento 1 (Placeholder)',
-    'Documento 2 (Placeholder)',
-    'Documento 3 (Placeholder)'
-  ];
   
-  // Array per i video
-  videos: { name: string, url: string }[] = [
-    { name: 'Video 1 - Introduzione', url: 'https://www.youtube.com/watch?v=video1' },
-    { name: 'Video 2 - Tutorial', url: 'https://www.youtube.com/watch?v=video2' },
-    { name: 'Video 3 - Approfondimento', url: 'https://www.youtube.com/watch?v=video3' }
-  ];
+  @ViewChild('videoContainer', { static: true }) videoContainer!: ElementRef;
+  selectedDocument: any;
+  docs: any[]= [];
+  paese: any;
+  selectedValue: any;
 
-  // Array per i testi
-  texts: { name: string, url: string }[] = [
-    { name: 'TESTO 1', url: 'https://example.com/testo1' },
-    { name: 'TESTO 2', url: 'https://example.com/testo2' },
-    { name: 'TESTO 3', url: 'https://example.com/testo3' }
-  ];
-  
-  selectedDocument: string | null = null;
-  selectedVideo: string | null = null;
-  selectedText: string | null = null;
+  constructor (private documentoInformativoService: DocumentoInformativoService, private route: ActivatedRoute, private renderer: Renderer2) {
+  }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.paese = params.get('paese') || ''; // Ottieni il parametro 'paese'
+      this.documentoInformativoService.getDocumentiInformativi(this.paese).subscribe(
+        (data) => {
+          this.docs= data;
+        },
+        (error) => {
+          console.log("Errore nel recupero dei dati: ", error);
+        },
+      );
+    });
+  }
 
   onDocumentChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     this.selectedDocument = selectElement.value;
   }
 
-  onVideoChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedVideo = this.videos.find(video => video.name === selectElement.value);
-    if (selectedVideo) {
-      window.open(selectedVideo.url, '_blank');
-    }
-  }
-
   // Funzione per gestire il cambio del menù dei testi
   onTextChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedText = this.texts.find(text => text.name === selectElement.value);
-    if (selectedText) {
-      window.open(selectedText.url, '_blank');
+    const selectElement = this.docs.find(item=> item.idPaese===this.selectedValue);
+    if(selectElement?.descrizione != undefined)
+      this.selectedDocument=selectElement.descrizione;
+    else {
+      const videoElement = this.renderer.createElement('video');
+      this.renderer.setAttribute(videoElement, 'width', '640');
+      this.renderer.setAttribute(videoElement, 'height', '360');
+      this.renderer.setAttribute(videoElement, 'controls', 'true');
+
+    // Creazione dinamica della sorgente video
+      const sourceElement = this.renderer.createElement('source');
+      this.renderer.setAttribute(sourceElement, 'src', 'https://www.w3schools.com/html/mov_bbb.mp4');
+      this.renderer.setAttribute(sourceElement, 'type', 'video/mp4');
+
+    // Aggiungi la sorgente al video
+      this.renderer.appendChild(videoElement, sourceElement);
+      this.renderer.appendChild(this.videoContainer.nativeElement, videoElement);
+
+    //  this.selectedDocument= videoElement; 
     }
   }
 

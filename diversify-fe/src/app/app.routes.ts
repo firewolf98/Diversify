@@ -93,7 +93,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'documentoinformativo',
+    path: 'documentoinformativo/:paese',
     component: DocumentoInformativoComponent,
   }
 ];
