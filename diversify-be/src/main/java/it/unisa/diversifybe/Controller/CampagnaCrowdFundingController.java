@@ -124,14 +124,9 @@ public class CampagnaCrowdFundingController {
      * @return la campagna creata.
      */
 
-    @PostMapping("/api/campagne")
-    public ResponseEntity<CampagnaCrowdFunding> createCampagna(@RequestBody CampagnaCrowdFunding campagna, @RequestParam boolean ruolo) {
+    @PostMapping("/create")
+    public ResponseEntity<CampagnaCrowdFunding> createCampagna(@RequestBody CampagnaCrowdFunding campagna) {
         try {
-            // Controlla il ruolo dell'utente
-            if (!ruolo) {
-                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
-            }
-
             CampagnaCrowdFunding createdCampagna = service.createCampagna(campagna);
             return ResponseEntity.ok(createdCampagna);
         } catch (SecurityException e) {
@@ -145,14 +140,9 @@ public class CampagnaCrowdFundingController {
      * @return la campagna aggiornata.
      */
 
-    @PutMapping("/{idCampagna}")
-    public ResponseEntity<CampagnaCrowdFunding> updateCampagna(@PathVariable String idCampagna, @RequestBody CampagnaCrowdFunding campagna, @RequestParam boolean ruolo) {
+    @PutMapping("update/{idCampagna}")
+    public ResponseEntity<CampagnaCrowdFunding> updateCampagna(@PathVariable String idCampagna, @RequestBody CampagnaCrowdFunding campagna) {
         try {
-            // Controlla il ruolo dell'utente
-            if (!ruolo) {
-                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
-            }
-
             CampagnaCrowdFunding updatedCampagna = service.updateCampagna(idCampagna, campagna);
             return ResponseEntity.ok(updatedCampagna);
         } catch (SecurityException e) {
@@ -160,14 +150,9 @@ public class CampagnaCrowdFundingController {
         }
     }
 
-    @PostMapping("/{idCampagna}")
-    public ResponseEntity<Void> deleteCampagna(@PathVariable String idCampagna, @RequestParam boolean ruolo) {
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteCampagna(@RequestBody String idCampagna) {
         try {
-            // Controlla il ruolo dell'utente
-            if (!ruolo) {
-                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
-            }
-
             service.deleteCampagna(idCampagna);
             return ResponseEntity.noContent().build();
         } catch (SecurityException e) {

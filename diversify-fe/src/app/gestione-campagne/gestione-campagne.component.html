@@ -7,9 +7,10 @@
         <div class="filters">
             <label for="countryFilter">Paese:</label>
             <select id="countryFilter" class="filter-select" [(ngModel)]="selectedCountry" (change)="filterAndSortCampaigns()">
+                <option value="Tutti">Tutti</option>
                 <option *ngFor="let country of countries" [value]="country">
                     {{ country }}
-                  </option>
+                </option>
             </select>
 
             <label for="statusFilter">Status:</label>
@@ -36,7 +37,7 @@
                 <tbody>
                     <tr *ngFor="let campaign of filteredCampaigns">
                         <td>{{ campaign.title }}</td>
-                        <td>{{ campaign.country }}</td>
+                       <td>{{ campaign.country }}</td>
                         <td>{{ campaign.status }}</td>
                         <td>
                             <div class="button-container">
@@ -64,7 +65,7 @@
 <div *ngIf="activeComponent === 'createCampagna'" class="container-modifica">
     <button class="btn back-btn" (click)="setActiveComponent('')">Annulla</button>
     <h3>Crea Nuova Campagna</h3>
-    <form (ngSubmit)="saveCampaign()">
+    <form (ngSubmit)="saveCampaign(true)">
         <!-- Paese -->
         <div class="campo-paese">
             <label for="country">Paese:</label>
@@ -84,12 +85,7 @@
         <!-- Categoria -->
         <div class="campo-categoria">
             <label for="category">Categoria della Campagna:</label>
-            <select id="category" [(ngModel)]="campaign.category" name="category" required>
-                <option value="">Seleziona una categoria</option>
-                <option value="Educazione">Educazione</option>
-                <option value="Inclusione">Inclusione</option>
-                <option value="Sostenibilità">Sostenibilità</option>
-            </select>
+            <input id="category" type="text" [(ngModel)]="campaign.category" name="category" required />
         </div>
 
         <!-- Descrizione -->
@@ -142,20 +138,10 @@
 <div *ngIf="activeComponent === 'editCampagna'" class="container-modifica">
     <button class="btn back-btn" (click)="setActiveComponent('')">Indietro</button>
     <h3>Modifica Campagna</h3>
-    <form (ngSubmit)="saveCampaign()">
+    <form (ngSubmit)="saveCampaign(false)">
         <div class="search-container">
-            <label class="label-country">Scegli un Paese UE:</label> <br>
-            <select id="countryFilter" class="filter-select" [(ngModel)]="campaign.country" name="country">
-                <option *ngFor="let country of countries" [value]="country">
-                    {{ country }}
-                  </option>
-            </select>
-            <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
-                <li *ngFor="let country of filteredCountries" (click)="onCountrySelected(country)">
-                    {{ country }}
-                  </li>
-                  
-            </ul>
+            <label class="label-country">Paese UE:</label> <br>
+            <p><strong>{{ campaign.country }}</strong></p>
         </div>
 
         <!-- Titolo -->
@@ -167,18 +153,22 @@
         <!-- Categoria -->
         <div class="campo-categoria">
             <label for="category">Categoria della Campagna:</label>
-            <select id="category" [(ngModel)]="campaign.category" name="category" required>
-                <option value="">Seleziona una categoria</option>
-                <option value="Educazione">Educazione</option>
-                <option value="Inclusione">Inclusione</option>
-                <option value="Sostenibilità">Sostenibilità</option>
-            </select>
+            <input id="category" type="text" [(ngModel)]="campaign.category" name="category" required />
         </div>
 
         <!-- Descrizione -->
         <div class="campo-descrizione">
             <label for="description">Descrizione della Campagna:</label>
             <textarea id="description" [(ngModel)]="campaign.description" name="description" required></textarea>
+        </div>
+
+        <!-- Status-->
+        <div class="campo-status">
+            <label for="status">Status campagna:</label>
+            <select id="status" [(ngModel)]="campaign.status" name="status" required>
+                <option value="attiva">Attiva</option>
+                <option value="chiusa">Chiusa</option>
+            </select>
         </div>
 
         <!-- Target dei Fondi -->

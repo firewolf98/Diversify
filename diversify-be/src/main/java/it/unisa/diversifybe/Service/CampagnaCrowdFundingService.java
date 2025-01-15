@@ -164,8 +164,22 @@ public class CampagnaCrowdFundingService {
         if (campagna == null || campagna.getTitolo() == null || campagna.getTitolo().isBlank()) {
             throw new IllegalArgumentException("I dati della campagna non possono essere nulli o incompleti.");
         }
-        return repository.save(campagna);
+        String paese=campagna.getPaese();
+        // Trova il paese di riferimento
+        Paese paeseEntity = paeseRepository.findByNome(paese).stream().findFirst()
+                .orElseThrow(() -> new RuntimeException("Paese non trovato: " + paese));
+
+        // Aggiungi la campagna alla lista
+        if (paeseEntity.getCampagneCrowdfunding() == null) {
+            paeseEntity.setCampagneCrowdfunding(new ArrayList<>());
+        }
+        paeseEntity.getCampagneCrowdfunding().add(campagna);
+
+        // Salva il paese aggiornato
+        paeseRepository.save(paeseEntity);
+        return campagna;
     }
+
 
 
     /**
@@ -178,17 +192,40 @@ public class CampagnaCrowdFundingService {
      */
 
     public CampagnaCrowdFunding updateCampagna(String idCampagna, CampagnaCrowdFunding updatedCampagna) {
-        return repository.findByIdCampagna(idCampagna).stream().findFirst()
-                .map(existingCampagna -> {
-                    existingCampagna.setTitolo(updatedCampagna.getTitolo());
-                    existingCampagna.setDescrizione(updatedCampagna.getDescrizione());
-                    existingCampagna.setCategoria(updatedCampagna.getCategoria());
-                    existingCampagna.setDataPrevistaFine(updatedCampagna.getDataPrevistaFine());
-                    existingCampagna.setSommaDaRaccogliere(updatedCampagna.getSommaDaRaccogliere());
-                    existingCampagna.setSommaRaccolta(updatedCampagna.getSommaRaccolta());
-                    existingCampagna.setStato(updatedCampagna.getStato());
-                    return repository.save(existingCampagna);
-                }).orElseThrow(() -> new RuntimeException("Campagna non trovata con ID: " + idCampagna));
+        if (idCampagna == null || idCampagna.isBlank()) {
+            throw new IllegalArgumentException("L'ID della campagna non può essere nullo o vuoto.");
+        }
+
+        // Cerca nei documenti della collection Paese
+        List<Paese> paesi = paeseRepository.findAll();
+
+        for (Paese paese : paesi) {
+            if (paese.getCampagneCrowdfunding() != null) {
+                for (CampagnaCrowdFunding campagna : paese.getCampagneCrowdfunding()) {
+                    if (idCampagna.equals(campagna.getIdCampagna())) {
+
+                        // Aggiorna i dettagli della campagna
+                        campagna.setTitolo(updatedCampagna.getTitolo());
+                        campagna.setDescrizione(updatedCampagna.getDescrizione());
+                        campagna.setCategoria(updatedCampagna.getCategoria());
+                        campagna.setDataInizio(updatedCampagna.getDataInizio());
+                        campagna.setDataPrevistaFine(updatedCampagna.getDataPrevistaFine());
+                        campagna.setSommaDaRaccogliere(updatedCampagna.getSommaDaRaccogliere());
+                        campagna.setSommaRaccolta(updatedCampagna.getSommaRaccolta());
+                        campagna.setStato(updatedCampagna.getStato());
+                        campagna.setLinkDonazione(updatedCampagna.getLinkDonazione());
+                        campagna.setImmagine(updatedCampagna.getImmagine());
+                        campagna.setPaese(updatedCampagna.getPaese());
+
+                        // Salva il paese aggiornato
+                        paeseRepository.save(paese);
+                        return campagna;
+                    }
+                }
+            }
+        }
+
+        throw new RuntimeException("Campagna non trovata con ID: " + idCampagna);
     }
 
     /**
@@ -203,12 +240,31 @@ public class CampagnaCrowdFundingService {
             throw new IllegalArgumentException("L'ID della campagna non può essere nullo o vuoto.");
         }
 
-        Optional<CampagnaCrowdFunding> campagna = repository.findByIdCampagna(idCampagna).stream().findFirst();
-        if (campagna.isPresent()) {
-            repository.delete(campagna.get());
-        } else {
+        // Cerca nei documenti della collection Paese
+        List<Paese> paesi = paeseRepository.findAll();
+
+        boolean campagnaTrovata = false;
+
+        for (Paese paese : paesi) {
+            if (paese.getCampagneCrowdfunding() != null) {
+                List<CampagnaCrowdFunding> campagne = paese.getCampagneCrowdfunding();
+
+                // Rimuovi la campagna con l'ID specificato
+                boolean campagnaRimossa = campagne.removeIf(campagna -> idCampagna.equals(campagna.getIdCampagna()));
+
+                if (campagnaRimossa) {
+                    // Salva il Paese aggiornato
+                    paeseRepository.save(paese);
+                    campagnaTrovata = true;
+                    break; // Esci dal ciclo poiché la campagna è stata trovata e rimossa
+                }
+            }
+        }
+
+        if (!campagnaTrovata) {
             throw new RuntimeException("Campagna non trovata con ID: " + idCampagna);
         }
     }
+
 
 }
