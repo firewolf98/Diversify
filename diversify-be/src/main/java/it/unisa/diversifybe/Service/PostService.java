@@ -1,22 +1,26 @@
 package it.unisa.diversifybe.Service;
+import it.unisa.diversifybe.Model.Forum;
+import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Model.Post;
+import it.unisa.diversifybe.Repository.ForumRepository;
 import it.unisa.diversifybe.Repository.PostRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PostService {
 
     private final PostRepository postRepository;
     private final UtenteService utenteService;
+    private final ForumService forumService;
+    private final ForumRepository forumRepository;
 
-    public PostService(PostRepository postRepository, UtenteService utenteService) {
+    public PostService(PostRepository postRepository, UtenteService utenteService, ForumService forumService, ForumRepository forumRepository) {
         this.postRepository = postRepository;
         this.utenteService = utenteService;
+        this.forumService = forumService;
+        this.forumRepository = forumRepository;
     }
 
     /**
@@ -51,13 +55,8 @@ public class PostService {
             throw new IllegalArgumentException("Il contenuto del post non può essere nullo o vuoto.");
         }
 
-        // Recupera l'ID dell'autore dal nome utente
-        if (post.getIdAutore() == null || post.getIdAutore().isEmpty()) {
-            String idAutore = utenteService.getIdByUsername(post.getIdAutore());
-            if (idAutore == null || idAutore.isEmpty()) {
-                throw new IllegalArgumentException("Impossibile trovare l'autore del post.");
-            }
-            post.setIdAutore(idAutore);
+        if (post.getIdPost() == null || post.getIdPost().isEmpty()) {
+            post.setIdPost(UUID.randomUUID().toString());
         }
 
         // Imposta i valori mancanti
@@ -74,8 +73,17 @@ public class PostService {
             throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
         }
 
-        // Salva il post nel repository
-        return postRepository.save(post);
+        List<Forum> forumList = forumRepository.findByIdForum(post.getIdForum());
+        Forum updated = new Forum();
+        if (!forumList.isEmpty()) {
+            for (Forum forum : forumList) {
+                List<Post> posts = forum.getPost();
+                posts.add(post);
+                forum.setPost(posts);
+                updated = forumRepository.save(forum);
+            }
+        }
+        return post;
     }
 
     /**
@@ -127,6 +135,6 @@ public class PostService {
      * @return Una lista di post che appartengono al forum specificato.
      */
     public List<Post> findPostsByForum(String idForum) {
-        return postRepository.findByIdForum(idForum);
+        return forumRepository.findById(idForum).get().getPost();
     }
 }

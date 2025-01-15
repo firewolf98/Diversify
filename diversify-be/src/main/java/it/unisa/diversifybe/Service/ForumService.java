@@ -5,6 +5,8 @@ import it.unisa.diversifybe.Repository.ForumRepository;
 import it.unisa.diversifybe.Repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +57,7 @@ public class ForumService {
         if (!ruolo) {
             throw new SecurityException("Solo gli amministratori possono aggiungere un forum.");
         }
+        forum.setPost(new ArrayList<>());
         return forumRepository.save(forum);
     }
 
