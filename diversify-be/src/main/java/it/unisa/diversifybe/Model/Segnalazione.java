@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 
@@ -17,7 +18,7 @@ public class Segnalazione {
     /**
      * L'identificativo univoco della segnalazione.
      */
-
+    @Id
     private String idSegnalazione;
 
     /**

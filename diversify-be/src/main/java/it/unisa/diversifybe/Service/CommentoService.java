@@ -99,27 +99,30 @@ public class CommentoService {
             throw new IllegalArgumentException("Il subcommento deve avere un autore e un contenuto valido.");
         }
 
-        Optional<Commento> optionalCommento = commentoRepository.findById(idCommento);
+        // Imposta i dati del subcommento
+        subcommento.setDataCreazione(new Date());
 
-        if (optionalCommento.isPresent()) {
-            Commento commento = optionalCommento.get();
-
-            // Imposta i dati del subcommento
-            subcommento.setDataCreazione(new Date());
-            subcommentoRepository.save(subcommento);
-
-            // Aggiunge il subcommento alla lista dei subcommenti
-            if (commento.getSubcommenti() == null) {
-                commento.setSubcommenti(new ArrayList<>());
+        List<Forum> forums = forumRepository.findAll();
+        for(Forum forum : forums) {
+            List<Post> posts = forum.getPost();
+            if(posts != null) {
+                for(Post post : posts) {
+                    List<Commento> commenti = post.getCommenti();
+                    for(Commento commento : commenti) {
+                        if(commento.getIdCommento()!=null && commento.getIdCommento().equals(idCommento)) {
+                            List<Subcommento> subcommenti = commento.getSubcommenti();
+                            subcommenti.add(subcommento);
+                            commento.setSubcommenti(subcommenti);
+                            post.setCommenti(commenti);
+                            forum.setPost(posts);
+                            forumRepository.save(forum);
+                        }
+                    }
+                }
             }
-            commento.getSubcommenti().add(subcommento);
-
-            // Salva il commento aggiornato
-            commentoRepository.save(commento);
-            return subcommento;
-        } else {
-            throw new IllegalArgumentException("Commento con ID " + idCommento + " non trovato.");
         }
+
+        return subcommento;
     }
 
     /**
