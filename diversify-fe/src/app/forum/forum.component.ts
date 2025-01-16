@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { RouterModule } from '@angular/router';
 import { ForumService } from '../services/forum.service';
+import { UserService } from '../services/user.service';
  
 @Component({
   selector: 'app-forum',
@@ -17,8 +18,9 @@ export class ForumComponent {
   posts: any[] = []; // Lista dei post del forum selezionato
   selectedForumId: string | null = null; // ID del forum selezionato
   countryName: string = 'Italia';
+  autori: { [id: string]: string } = {};
  
-  constructor(private route: ActivatedRoute,private http: HttpClient, private router: Router,private forumService: ForumService) {}
+  constructor(private route: ActivatedRoute,private http: HttpClient, private router: Router,private forumService: ForumService, private userService: UserService) {}
  
   ngOnInit(): void {
     // Recupera query parameters (country e forumId)
@@ -45,7 +47,13 @@ export class ForumComponent {
     this.selectedForumId = forumId;
     const forum = this.forums.find(f => f.idForum === forumId);
     if (forum) {
-      this.posts = forum.post; // Imposta i post del forum selezionato
+      this.posts = forum.post; 
+      this.posts.forEach(post => {
+        // Recupera il nome dell'autore per ogni post
+        this.userService.getUtenteById(post.idAutore).subscribe(autore => {
+          this.autori[post.idAutore] = autore.nome; // Salva il nome dell'autore nell'oggetto
+        });
+      });// Imposta i post del forum selezionato
     } else {
       this.posts = [];
     }

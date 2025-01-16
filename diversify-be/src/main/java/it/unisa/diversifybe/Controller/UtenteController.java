@@ -340,4 +340,23 @@ public class UtenteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato.");
         }
     }
+
+    /**
+     * Recupera un utente in base al suo ID.
+     *
+     * @param id l'ID dell'utente da recuperare.
+     * @return una {@link ResponseEntity} contenente i dettagli dell'utente se trovato,
+     *         altrimenti restituisce un messaggio di errore.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable String id) {
+        Optional<Utente> utenteOptional = utenteService.findById(id);
+
+        if (utenteOptional.isPresent()) {
+            return ResponseEntity.ok(utenteOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utente non trovato.");
+        }
+    }
+
 }

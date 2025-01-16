@@ -1,14 +1,12 @@
 <div class="background-container">
   <div class="post-container">
     <a href="#" class="back-link">← Torna alla mappa</a>
-    <h1 class="post-title">La Diversità di Genere</h1>
     
     <div class="post-content">
       <!-- Header del post -->
       <div class="post-header">
         <img src="Discussione.png" alt="Discussione" class="post-icon" />
-        <span class="post-title-text">Risorse Utili per Comprendere la Diversità di Genere</span>
-        <span class="badge">Discussione</span>
+        <span class="post-title-text">{{post.titolo}}</span>
         
         <!-- Icona della bandiera per segnala -->
         <button class="flag-button" (click)="openReportModal()">
@@ -19,13 +17,11 @@
       <!-- Autore sotto il titolo e il badge -->
       <div class="post-author-container">
         <img src="Avatar.png" alt="Avatar" class="post-author-avatar" />
-        <span class="post-author-name">Lucia</span>
+        <span class="post-author-name">{{autore.nome}}</span>
       </div>
       
       <p class="post-description">
-        Benvenuti nel nostro post dedicato alla diversità di genere e ai diritti umani. Questo spazio è stato creato
-        per promuovere il dialogo, l'informazione e la condivisione di esperienze su temi legati all'identità di
-        genere, all'uguaglianza e al rispetto delle differenze.
+        {{post.contenuto}}
       </p>
       
       <div class="post-footer">

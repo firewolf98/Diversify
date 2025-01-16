@@ -20,7 +20,7 @@
     <h3>Post del Forum</h3>
     <div *ngFor="let post of posts" class="forum-post">
       <a (click)="navigateToPost(post.idPost)">{{ post.titolo }}</a>
-      <p>Postato da {{ post.id_autore }}</p>
+      <p>Postato da {{ autori[post.idAutore] || 'Caricamento...' }}</p>
     </div>
  
     <ng-template #noPosts>
@@ -32,4 +32,3 @@
 
   </div>
 </div>
- 

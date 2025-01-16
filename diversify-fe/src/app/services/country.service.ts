@@ -15,5 +15,9 @@ export class CountryService {
       tap((data) => console.log('Countries from backend:', data))
     );
   }
+
+  updateBenchmarkByName(nomePaese: string, benchmark: any[]): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${nomePaese}/benchmark`, benchmark);
+  }
 }
  

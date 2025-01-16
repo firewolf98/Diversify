@@ -346,4 +346,18 @@ public class UtenteService {
         Optional<Utente> utenteOptional = utenteRepository.findByEmail(email);
         return utenteOptional.get();
     }
+
+    /**
+     * Trova un utente in base al suo ID.
+     *
+     * @param id l'ID dell'utente da cercare.
+     * @return un {@link Optional} contenente l'utente se trovato, altrimenti vuoto.
+     */
+    public Optional<Utente> findById(String id) {
+        try {
+            return utenteRepository.findById(id);
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+    }
 }

@@ -175,7 +175,7 @@ public class PaeseController {
      */
 
     @PutMapping("/{nomePaese}/benchmark")
-    public ResponseEntity<Paese> updateBenchmarkByName(@PathVariable String nomePaese, @RequestParam List<Benchmark> benchmark) {
+    public ResponseEntity<Paese> updateBenchmarkByName(@PathVariable String nomePaese, @RequestBody List<Benchmark> benchmark) {
         if (nomePaese == null || nomePaese.trim().isEmpty()) {
             throw new IllegalArgumentException("Il nome del Paese non può essere nullo o vuoto.");
         }
