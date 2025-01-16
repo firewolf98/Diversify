@@ -9,8 +9,8 @@
             <h2>{{ campagnaSingola.titolo }}</h2>
             <p>{{ campagnaSingola.descrizione }}</p>
             <p><strong>Categoria:</strong> {{ campagnaSingola.categoria }}</p>
-            <p><strong>Target:</strong> {{ campagnaSingola.sommaDaRaccogliere | currency }}</p>
-            <p><strong>Raggiunti:</strong> {{ campagnaSingola.sommaRaccolta | currency }}</p>
+            <p><strong>Target:</strong> {{ campagnaSingola.sommaDaRaccogliere | currency:'EUR' }}</p>
+            <p><strong>Raggiunti:</strong> {{ campagnaSingola.sommaRaccolta | currency:'EUR' }}</p>
             <p><strong>Data di Terminazione:</strong> {{ campagnaSingola.dataPrevistaFine | date }}</p>
             <a [href]="campagnaSingola.linkDonazione" target="_blank" class="donation-link">Dona Ora</a>
           </div>
@@ -30,8 +30,8 @@
             <h2>{{ campagna.titolo }}</h2>
             <p>{{ campagna.descrizione }}</p>
             <p><strong>Categoria:</strong> {{ campagna.categoria }}</p>
-            <p><strong>Target:</strong> {{ campagna.sommaDaRaccogliere | currency }}</p>
-            <p><strong>Raggiunti:</strong> {{ campagna.sommaRaccolta | currency }}</p>
+            <p><strong>Target:</strong> {{ campagna.sommaDaRaccogliere | currency:'EUR' }}</p>
+            <p><strong>Raggiunti:</strong> {{ campagna.sommaRaccolta | currency:'EUR' }}</p>
             <p><strong>Data di Terminazione:</strong> {{ campagna.dataPrevistaFine | date }}</p>
             <a [href]="campagna.linkDonazione" target="_blank" class="donation-link">Dona Ora</a>
           </div>
