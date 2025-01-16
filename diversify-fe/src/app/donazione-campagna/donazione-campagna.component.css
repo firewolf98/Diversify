@@ -50,12 +50,13 @@
   
   /* Pulsante per aggiornare l'importo */
   .donation-button {
-    background-color: #004997;
+    background-color: #0176f4;
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
