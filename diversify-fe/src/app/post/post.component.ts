@@ -24,11 +24,7 @@ export class PostComponent {
   // Variabili per il modale di segnalazione
   showReportModal = false;
   reportReason = '';
- 
-  // Dati della segnalazione
-  reportedUser = 'Lucia'; // Username segnalato (esempio: autore del post)
-  reportingUser = 'UtenteCorrente'; // Username segnalante (esempio: utente loggato)
-  reportType = 'post'; // Tipo di segnalazione (in questo caso, "post")
+  reportType = 'Post'; // Tipo di segnalazione (in questo caso, "post")
  
   postId: string ='';
   forumId: string | null = null;
@@ -89,7 +85,7 @@ export class PostComponent {
   // Conferma la segnalazione
   confirmReport() {
     if (this.reportReason.trim()) {
-      this.submitReport(this.reportedUser, this.reportingUser, this.reportReason, this.reportType);
+      this.submitReport(this.post.idAutore, this.idUser, this.reportReason, this.reportType);
       this.closeReportModal();
     } else {
       alert('Per favore, inserisci una motivazione.');
@@ -99,17 +95,20 @@ export class PostComponent {
   // Funzione per inviare la segnalazione
   submitReport(reportedUser: string, reportingUser: string, reason: string, type: string) {
     const reportData = {
-      reportedUser: reportedUser, // Username segnalato
-      reportingUser: reportingUser, // Username segnalante
-      reason: reason, // Motivazione della segnalazione
-      type: type // Tipo di segnalazione (es. "post")
+      idSegnalato: reportedUser, // Username segnalato
+      idSegnalante: reportingUser, // Username segnalante
+      motivazione: reason, // Motivazione della segnalazione
+      tipoSegnalazione: type // Tipo di segnalazione (es. "post")
     };
- 
-    // Stampa i dati della segnalazione in console
-    console.log('Segnalazione inviata:', reportData);
- 
-    // Qui puoi aggiungere la logica per inviare i dati a un servizio backend
-    // Esempio: this.reportService.submitReport(reportData).subscribe(...);
+
+    this.forumService.addReport(reportData).subscribe({
+      next: (data) => {
+        alert("Segnalazione inviata");
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
   }
  
   // Aggiungi un commento
@@ -135,7 +134,15 @@ export class PostComponent {
   // Mi Piace per il post
   toggleLikePost() {
     this.hasLikedPost = !this.hasLikedPost;
-    this.postLikes += this.hasLikedPost ? 1 : -1;
+    this.post.like += this.hasLikedPost ? 1 : -1;
+    this.forumService.addLikeToPost(this.postId).subscribe({
+      next: (data) => {
+        
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
   }
  
   // Mi Piace per i commenti
