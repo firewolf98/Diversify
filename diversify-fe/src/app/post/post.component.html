@@ -27,7 +27,7 @@
       <div class="post-footer">
         <button (click)="toggleLikePost()" class="like-button">
           {{ hasLikedPost ? '👎 Togli Mi Piace' : '👍 Mi Piace' }}
-          <span *ngIf="postLikes > 0">({{ postLikes }})</span>
+          <span *ngIf="post.like > 0">({{ post.like }})</span>
         </button> 
       </div>
       

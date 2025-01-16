@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ForumService } from '../services/forum.service';
 
 
 @Component({
@@ -10,36 +11,26 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class SegnalazioniUtentiComponent {
-  segnalazioni = [
-    {
-      segnalato: 'utenteSegnalato1',
-      segnalatore: 'utenteSegnalatore1',
-      motivo: 'Lingaggio offensivo',
-      tipo: 'Post',
-      data: '2021-06-01'
-    },
-    {
-      segnalato: 'utenteSegnalato2',
-      segnalatore: 'utenteSegnalatore2',
-      motivo: 'Contenuto inappropriato',
-      tipo: 'Commento',
-      data: '2021-06-01'
-    },
-    {
-      segnalato: 'ciro',
-      segnalatore: 'gennaro',
-      motivo: 'è napoletano ma tifa juve',
-      tipo: 'post',
-      data: '2021-06-01'
-    },
-    {
-      segnalato: 'mariarca',
-      segnalatore: 'mariaines',
-      motivo: 'non ha sceso il panaro quando gliel\'ho chiesto',
-      tipo: 'commento',
-      data: '2021-06-01'
-    },
-  ];
+  segnalazioni: any;
+
+  constructor(private forumService: ForumService) {
+
+  }
+
+  ngOnInit() {
+    this.fetchSegnalazioni();
+  }
+
+  fetchSegnalazioni() {
+    this.forumService.getAllReport().subscribe({
+      next: (data) => {
+        this.segnalazioni = data;
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
+  }
 
   // Variabili per gestire il popup di ban
   showBanPopup = false;
@@ -58,12 +49,16 @@ export class SegnalazioniUtentiComponent {
   }
 
   // Funzione per bannare l'utente
-  banUser() {
-    const index = this.segnalazioni.indexOf(this.selectedReport);
-    if (index > -1) {
-      // Rimuoviamo la segnalazione dalla lista
-      this.segnalazioni.splice(index, 1);
-    }
+  banUser(report: any) {
+    this.forumService.banUser(report.idSegnalazione).subscribe({
+      next: (data) => {
+        alert("Utente bannato");
+        this.fetchSegnalazioni();
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
     this.closeBanPopup();  // Chiudiamo il popup dopo aver bannato
   }
 }

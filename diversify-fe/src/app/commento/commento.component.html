@@ -45,18 +45,18 @@
     <div class="comment-container" *ngFor="let reply of comment.subcommenti">
       <div class="comment-header">
         <div class="avatar-container">
-          <img [src]="reply.authorAvatar" alt="Avatar" class="comment-avatar" />
+          <img src="Avatar.png" alt="Avatar" class="comment-avatar" />
         </div>
         <div class="comment-author">{{ reply.authorName }}</div>
         <div class="comment-date">
-          {{ reply.date | date: 'short' }}
+          {{ reply.dataCreazione | date: 'short' }}
           <!-- Bottone Segnala per i subcommenti -->
           <button class="report-button" (click)="openReportModal(reply)">
             <img src="flag-icon.png" alt="Segnala" class="flag-icon" />
           </button>
         </div>
       </div>
-      <p class="comment-text">{{ reply.text }}</p>
+      <p class="comment-text">{{ reply.contenuto }}</p>
     </div>
   </div>
 </div>
