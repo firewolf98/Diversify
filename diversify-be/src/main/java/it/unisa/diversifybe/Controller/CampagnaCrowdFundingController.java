@@ -124,14 +124,9 @@ public class CampagnaCrowdFundingController {
      * @return la campagna creata.
      */
 
-    @PostMapping("/api/campagne")
-    public ResponseEntity<CampagnaCrowdFunding> createCampagna(@RequestBody CampagnaCrowdFunding campagna, @RequestParam boolean ruolo) {
+    @PostMapping("/create")
+    public ResponseEntity<CampagnaCrowdFunding> createCampagna(@RequestBody CampagnaCrowdFunding campagna) {
         try {
-            // Controlla il ruolo dell'utente
-            if (!ruolo) {
-                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
-            }
-
             CampagnaCrowdFunding createdCampagna = service.createCampagna(campagna);
             return ResponseEntity.ok(createdCampagna);
         } catch (SecurityException e) {
@@ -145,14 +140,9 @@ public class CampagnaCrowdFundingController {
      * @return la campagna aggiornata.
      */
 
-    @PutMapping("/{idCampagna}")
-    public ResponseEntity<CampagnaCrowdFunding> updateCampagna(@PathVariable String idCampagna, @RequestBody CampagnaCrowdFunding campagna, @RequestParam boolean ruolo) {
+    @PutMapping("update/{idCampagna}")
+    public ResponseEntity<CampagnaCrowdFunding> updateCampagna(@PathVariable String idCampagna, @RequestBody CampagnaCrowdFunding campagna) {
         try {
-            // Controlla il ruolo dell'utente
-            if (!ruolo) {
-                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
-            }
-
             CampagnaCrowdFunding updatedCampagna = service.updateCampagna(idCampagna, campagna);
             return ResponseEntity.ok(updatedCampagna);
         } catch (SecurityException e) {
@@ -160,14 +150,28 @@ public class CampagnaCrowdFundingController {
         }
     }
 
-    @PostMapping("/{idCampagna}")
-    public ResponseEntity<Void> deleteCampagna(@PathVariable String idCampagna, @RequestParam boolean ruolo) {
-        try {
-            // Controlla il ruolo dell'utente
-            if (!ruolo) {
-                return ResponseEntity.status(403).build(); // Accesso negato se non amministratore
-            }
+    /**
+     * Gestisce la richiesta di eliminazione di una campagna di crowdfunding.
+     *
+     * <p>Questo endpoint consente di eliminare una campagna specificata tramite il suo identificativo.
+     * Se l'eliminazione viene completata con successo, restituisce una risposta senza contenuto
+     * (HTTP 204). In caso di violazione delle autorizzazioni, restituisce un errore di sicurezza
+     * (HTTP 403).</p>
+     *
+     * @param idCampagna l'identificativo univoco della campagna di crowdfunding da eliminare.
+     *                   Deve essere una stringa valida non nulla o vuota.
+     * @return {@link ResponseEntity} con uno dei seguenti codici di stato:
+     *         <ul>
+     *             <li><b>204 No Content</b>: se la campagna viene eliminata con successo.</li>
+     *             <li><b>403 Forbidden</b>: se si verifica una violazione delle autorizzazioni.</li>
+     *         </ul>
+     * @throws IllegalArgumentException se {@code idCampagna} è nullo o vuoto.
+     */
 
+
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteCampagna(@RequestBody String idCampagna) {
+        try {
             service.deleteCampagna(idCampagna);
             return ResponseEntity.noContent().build();
         } catch (SecurityException e) {

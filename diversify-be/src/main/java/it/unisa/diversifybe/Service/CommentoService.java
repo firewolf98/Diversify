@@ -1,26 +1,32 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.Commento;
+import it.unisa.diversifybe.Model.Forum;
 import it.unisa.diversifybe.Model.Post;
 import it.unisa.diversifybe.Model.Subcommento;
 import it.unisa.diversifybe.Repository.CommentoRepository;
+import it.unisa.diversifybe.Repository.ForumRepository;
 import it.unisa.diversifybe.Repository.PostRepository;
 import it.unisa.diversifybe.Repository.SubcommentoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CommentoService {
 
+    @Autowired
     private CommentoRepository commentoRepository;
 
+    @Autowired
     private PostRepository postRepository;
 
+    @Autowired
     private SubcommentoRepository subcommentoRepository;
+
+    @Autowired
+    private ForumRepository forumRepository;
 
     /**
      * Aggiunge un commento a un post specifico.
@@ -42,28 +48,35 @@ public class CommentoService {
             throw new IllegalArgumentException("Il commento deve avere un autore e un contenuto valido.");
         }
 
-        Optional<Post> optionalPost = postRepository.findById(idPost);
-
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
-
-            // Imposta i dati del commento
-            commento.setDataCreazione(new Date());
-            commento.setIdPost(idPost);
-            commentoRepository.save(commento);
-
-            // Aggiunge il commento alla lista dei commenti del post
-            if (post.getCommenti() == null) {
-                post.setCommenti(new ArrayList<>());
-            }
-            post.getCommenti().add(commento);
-
-            // Salva il post aggiornato
-            postRepository.save(post);
-            return commento;
-        } else {
-            throw new IllegalArgumentException("Post con ID " + idPost + " non trovato.");
+        if (commento.getIdCommento() == null || commento.getIdCommento().isEmpty()) {
+            commento.setIdCommento(UUID.randomUUID().toString());
         }
+
+        // Imposta i valori mancanti
+        if (commento.getDataCreazione() == null) {
+            commento.setDataCreazione(new Date());
+        }
+        if (commento.getSubcommenti() == null) {
+            commento.setSubcommenti(new ArrayList<>());
+        }
+        commento.setLike(0);
+
+        List<Forum> forums = forumRepository.findAll();
+        for(Forum forum : forums) {
+            List<Post> posts = forum.getPost();
+            if(posts != null) {
+                for(Post post : posts) {
+                    if(post.getIdPost().equals(idPost)) {
+                        List<Commento> commenti = post.getCommenti();
+                        commenti.add(commento);
+                        post.setCommenti(commenti);
+                        forum.setPost(posts);
+                        forumRepository.save(forum);
+                    }
+                }
+            }
+        }
+        return commento;
     }
 
     /**
@@ -86,27 +99,30 @@ public class CommentoService {
             throw new IllegalArgumentException("Il subcommento deve avere un autore e un contenuto valido.");
         }
 
-        Optional<Commento> optionalCommento = commentoRepository.findById(idCommento);
+        // Imposta i dati del subcommento
+        subcommento.setDataCreazione(new Date());
 
-        if (optionalCommento.isPresent()) {
-            Commento commento = optionalCommento.get();
-
-            // Imposta i dati del subcommento
-            subcommento.setDataCreazione(new Date());
-            subcommentoRepository.save(subcommento);
-
-            // Aggiunge il subcommento alla lista dei subcommenti
-            if (commento.getSubcommenti() == null) {
-                commento.setSubcommenti(new ArrayList<>());
+        List<Forum> forums = forumRepository.findAll();
+        for(Forum forum : forums) {
+            List<Post> posts = forum.getPost();
+            if(posts != null) {
+                for(Post post : posts) {
+                    List<Commento> commenti = post.getCommenti();
+                    for(Commento commento : commenti) {
+                        if(commento.getIdCommento()!=null && commento.getIdCommento().equals(idCommento)) {
+                            List<Subcommento> subcommenti = commento.getSubcommenti();
+                            subcommenti.add(subcommento);
+                            commento.setSubcommenti(subcommenti);
+                            post.setCommenti(commenti);
+                            forum.setPost(posts);
+                            forumRepository.save(forum);
+                        }
+                    }
+                }
             }
-            commento.getSubcommenti().add(subcommento);
-
-            // Salva il commento aggiornato
-            commentoRepository.save(commento);
-            return subcommento;
-        } else {
-            throw new IllegalArgumentException("Commento con ID " + idCommento + " non trovato.");
         }
+
+        return subcommento;
     }
 
     /**

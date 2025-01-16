@@ -1,0 +1,20 @@
+<div class="donation-container">
+    <h1 class="donation-title">Supporta la Campagna</h1>
+    <p class="donation-description">Scegli l'importo che desideri donare e contribuisci alla nostra causa.</p>
+  
+    <div class="donation-input-container">
+      <label for="donationAmount" class="donation-label">Importo della donazione (EUR):</label>
+      <input
+        type="number"
+        id="donationAmount"
+        [(ngModel)]="donationAmount"
+        placeholder="Inserisci l'importo"
+        class="donation-input"
+      />
+      <button (click)="updateDonationAmount()" class="donation-button">Aggiorna importo</button>
+    </div>
+  
+    <div *ngIf="payPalConfig" class="paypal-container">
+      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    </div>
+  </div>

@@ -1,10 +1,10 @@
 package it.unisa.diversifybe.Model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * La classe rappresenta una campagna di crowdfunding.
@@ -60,7 +60,7 @@ public class CampagnaCrowdFunding {
 
     /**
      * Stato attuale della campagna di crowdfunding.
-     * Gli stati possibili includono "terminata", "attiva", "in sospensione".
+     * Gli stati possibili includono "attiva" e "chiusa".
      */
     private String stato;
 
@@ -68,4 +68,14 @@ public class CampagnaCrowdFunding {
      * Immagine dello sfondo della campagna
      */
     private String immagine;
+
+    /**
+     * Link per effettuare la donazione
+     */
+    private String linkDonazione;
+
+    /**
+     * Attributo utile per individuare facilmente l'appartenenza della campagna a un Paese  
+     */
+    private String paese;
 }

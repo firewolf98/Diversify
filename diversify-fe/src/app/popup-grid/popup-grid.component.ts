@@ -67,15 +67,12 @@ export class PopupGridComponent {
   private updateButtons(): void {
     this.buttons = [
       {
-        label: `Leggi di ${this.countryName} sulla sicurezza e l'inclusività`,
+        label: `Documenti informativi`,
         color: 'pink',
-        size: 'large',
+        size: 'medium',
         action: () => {
-          if (this.videoLink) {
-            this.openVideo(this.videoLink);
-          } else {
-            alert('Video non disponibile per questo paese.');
-          }
+          this.closePopup.emit();
+          this.router.navigate(['/documentoinformativo', this.idPaese]);
         },
       },
       ...(this.forum && this.forum.length > 0
@@ -83,7 +80,7 @@ export class PopupGridComponent {
             {
               label: this.forum[0].titolo,
               color: 'green',
-              size: 'large',
+              size: 'medium',
               action: () => this.goToSpecificForum(this.forum[0].idForum),
             },
           ]
@@ -98,6 +95,16 @@ export class PopupGridComponent {
             },
           ]
         : []),
+        ...(this.forum && this.forum.length > 1
+          ? [
+              {
+                label: "Tutti i forum",
+                color: 'pink',
+                size: 'medium',
+                action: () => this.goToForum(),
+              },
+            ]
+          : []),
       {
         label: `Tutte le campagne di crowdfunding`,
         color: 'blue',
@@ -107,7 +114,7 @@ export class PopupGridComponent {
       {
         label: `Campagna di crowdfunding: ${this.countryName}`,
         color: 'green',
-        size: 'medium',
+        size: 'large',
         action: () => this.goToSpecificCampagna('CAMP01'), // Passa l'ID specifico
       },
     ];

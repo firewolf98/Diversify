@@ -98,14 +98,14 @@ public class SegnalazioneController {
      * Elimina una segnalazione specifica per ID.
      *
      * @param id l'ID della segnalazione da eliminare.
-     * @return una risposta HTTP 204 (NO CONTENT) se la segnalazione è stata eliminata,
+     * @return una risposta HTTP 204 (NO CONTENT) se la segnalazione Ã¨ stata eliminata,
      *         oppure una risposta HTTP 404 (NOT FOUND) se la segnalazione non esiste.
      */
     @PostMapping("/delete/{id}")
     public ResponseEntity<?> deleteSegnalazione(@PathVariable("id") String id) {
         Optional<Segnalazione> existingSegnalazione = segnalazioneService.getSegnalazioneById(id);
         if (existingSegnalazione.isPresent()) {
-            segnalazioneService.deleteSegnalazione(id);
+            segnalazioneService.deleteSegnalazione(id, existingSegnalazione.get().getIdSegnalato());
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Segnalazione eliminata");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Segnalazione non trovata");

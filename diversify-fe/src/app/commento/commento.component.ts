@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { ForumService } from '../services/forum.service';
 
 @Component({
   selector: 'app-commento',
@@ -10,19 +13,46 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
 })
 export class CommentoComponent {
-  @Input() comment!: {
-    authorName: string;
-    authorAvatar: string;
-    text: string;
-    date: string;
-    likes: number;
-    replies: { authorAvatar: string; authorName: string; text: string; date: string }[];
-  };
+  @Input() comment:any;
 
+  authorName: string | undefined;
+  idUser: any;
+
+  constructor(private utenteService: UserService, private authService: AuthService, private forumService: ForumService) {} // Iniezione del servizio
+
+  ngOnInit() {
+    this.fetchAuthorName();
+
+    this.authService.getUser().subscribe({
+      next: (user) => {
+        this.idUser = user.idUtente;
+      },
+      error: (err) => {
+        console.error("Errore durante il recupero dell'autore:", err);
+      }
+    });
+
+    this.loadSubCommentAuthors();
+  }
+
+  fetchAuthorName() {
+    if (this.comment.idAutore) {
+      this.utenteService.getUtenteById(this.comment.idAutore).subscribe({
+        next: (user) => {
+          this.authorName = user.nome;
+        },
+        error: (err) => {
+          console.error("Errore nel recupero dell'utente:", err);
+        }
+      });
+    }
+  }
   newComment = { text: '' };
   isReplying: boolean = false;
   hasLiked: boolean = false;
   replyText: string = '';
+  replyToAdd: any;
+  reportType = 'Commento';
 
   // Variabili per il modale di segnalazione
   showReportModal = false;
@@ -45,28 +75,32 @@ export class CommentoComponent {
     this.reportedComment = null; // Resetta il commento segnalato
   }
 
-  // Conferma la segnalazione
   confirmReport() {
-    if (this.reportReason.trim() && this.reportedComment) {
-      console.log('Segnalazione inviata:', {
-        reportedUser: this.reportedComment.authorName, // Usa l'autore del commento/subcommento segnalato
-        reportingUser: 'UtenteCorrente', // Esempio: utente loggato
-        reason: this.reportReason,
-        type: 'comment' // Puoi distinguere tra "comment" e "reply" se necessario
-      });
-
-      // Mostra il messaggio di conferma
-      this.showConfirmation = true;
-
-      // Nascondi il messaggio dopo 3 secondi
-      setTimeout(() => {
-        this.showConfirmation = false;
-      }, 3000);
-
+    if (this.reportReason.trim()) {
+      this.submitReport(this.comment.idAutore, this.idUser, this.reportReason, this.reportType);
       this.closeReportModal();
     } else {
       alert('Per favore, inserisci una motivazione.');
     }
+  }
+ 
+  // Funzione per inviare la segnalazione
+  submitReport(reportedUser: string, reportingUser: string, reason: string, type: string) {
+    const reportData = {
+      idSegnalato: reportedUser, // Username segnalato
+      idSegnalante: reportingUser, // Username segnalante
+      motivazione: reason, // Motivazione della segnalazione
+      tipoSegnalazione: type // Tipo di segnalazione (es. "post")
+    };
+
+    this.forumService.addReport(reportData).subscribe({
+      next: (data) => {
+        alert("Segnalazione inviata");
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
   }
 
   onReply(): void {
@@ -78,23 +112,55 @@ export class CommentoComponent {
 
   likeComment(): void {
     if (this.hasLiked) {
-      this.comment.likes -= 1;
+      this.comment.like -= 1;
     } else {
-      this.comment.likes += 1;
+      this.comment.like += 1;
     }
     this.hasLiked = !this.hasLiked;
+    this.forumService.addLikeToCommento(this.comment.idCommento).subscribe({
+      next: (data) => {
+
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
   }
 
   submitReply(replyText: string): void {
     if (replyText.trim()) {
-      const newReply = {
-        authorAvatar: 'Avatar.png',
-        authorName: 'Utente',
-        text: replyText,
-        date: new Date().toLocaleString(),
+      this.replyToAdd = {
+        idAutore: this.idUser,
+        contenuto: replyText
       };
-      this.comment.replies.push(newReply);
-      this.isReplying = false;
+      this.replyText = '';
+    }
+    this.forumService.aggiungiSubCommento(this.comment.idCommento,this.replyToAdd).subscribe({
+      next: (data) => {
+        this.isReplying = false;
+        this.comment.subcommenti.push(data);
+        this.loadSubCommentAuthors();
+      },
+      error: (err) => {
+        console.error("Errore:", err);
+      }
+    });
+  }
+
+  loadSubCommentAuthors() {
+    if (this.comment.subcommenti && this.comment.subcommenti.length > 0) {
+      this.comment.subcommenti.forEach((subcomment: any) => {
+        if (subcomment.idAutore) {
+          this.utenteService.getUtenteById(subcomment.idAutore).subscribe({
+            next: (user) => {
+              subcomment.authorName = user.nome; // Aggiunge il nome dell'autore al subcommento
+            },
+            error: (err) => {
+              console.error("Errore nel recupero del nome dell'autore del subcommento:", err);
+            }
+          });
+        }
+      });
     }
   }
 }

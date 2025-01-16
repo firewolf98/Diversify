@@ -1,6 +1,7 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.Benchmark;
+import it.unisa.diversifybe.Model.CampagnaCrowdFunding;
 import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Repository.PaeseRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -42,10 +45,6 @@ class PaeseServiceTest {
      * - ID valido con paese associato.
      * - ID valido senza paese associato.
      * - ID non valido (e.g., null o vuoto).
-     * Metodo findPaesiByForum:
-     * - ID forum valido con paesi associati.
-     * - ID forum valido senza paesi associati.
-     * - ID forum non valido (e.g., null o vuoto).
      * Metodo findPaesiByCampagna:
      * - ID campagna valido con paesi associati.
      * - ID campagna valido senza paesi associati.
@@ -74,9 +73,10 @@ class PaeseServiceTest {
     @Test
     void getAllPaesi_ShouldReturnPaesiList() {
         List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", null, null, null, "link1", null),
-                new Paese("2", "France", null, null, null, "link2", null)
+                new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of()),
+                new Paese("2", "FR", "France", List.of(), List.of(), List.of(), "link2", List.of())
         );
+
 
         when(repository.findAll()).thenReturn(paesi);
 
@@ -108,7 +108,7 @@ class PaeseServiceTest {
     @Test
     void getPaeseById_ShouldReturnPaese() {
         String id = "1";
-        Paese paese = new Paese(id, "Italy", null, null, null, "link1", null);
+        Paese paese = new Paese(id, "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         when(repository.findById(id)).thenReturn(Optional.of(paese));
 
@@ -151,7 +151,7 @@ class PaeseServiceTest {
      */
     @Test
     void createPaese_ShouldSaveAndReturnPaese() {
-        Paese paese = new Paese("1", "Italy", null, null, null, "link1", null);
+        Paese paese = new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         when(repository.save(paese)).thenReturn(paese);
 
@@ -177,7 +177,7 @@ class PaeseServiceTest {
 
     @Test
     void createPaese_ShouldThrowExceptionForDuplicatePaese() {
-        Paese paese = new Paese("1", "Italy", null, null, null, "link1", null);
+        Paese paese =new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
 
         when(repository.existsById(paese.getIdPaese())).thenReturn(true);
 
@@ -193,8 +193,8 @@ class PaeseServiceTest {
     @Test
     void updatePaese_ShouldReturnUpdatedPaese() {
         String id = "1";
-        Paese existingPaese = new Paese(id, "Italy", null, null, null, "link1", null);
-        Paese updatedPaese = new Paese(id, "Updated Italy", null, null, null, "updatedLink", null);
+        Paese existingPaese = new Paese("1", "IT", "Italy", List.of(), List.of(), List.of(), "link1", List.of());
+        Paese updatedPaese = new Paese("1", "IT", "Updated Italy", List.of(), List.of(), List.of(), " updated.link1.com", List.of());
 
         when(repository.findById(id)).thenReturn(Optional.of(existingPaese));
         when(repository.save(any(Paese.class))).thenReturn(updatedPaese);
@@ -224,7 +224,7 @@ class PaeseServiceTest {
     @Test
     void updatePaese_ShouldReturnEmptyForNonExistentPaese() {
         String id = "1";
-        Paese updatedPaese = new Paese(id, "Updated Italy", null, null, null, "updatedLink", null);
+        Paese updatedPaese = new Paese("1", "IT", "Updated Italy", List.of(), List.of(), List.of(), "updatedlink1.com", List.of());
 
         when(repository.findById(id)).thenReturn(Optional.empty());
 
@@ -240,7 +240,7 @@ class PaeseServiceTest {
     @Test
     void updatePaese_ShouldThrowExceptionForInvalidId() {
         String id = null;
-        Paese updatedPaese = new Paese("1", "Updated Italy", null, null, null, "updatedLink", null);
+        Paese updatedPaese = new Paese("1", "IT", "Updated Italy", List.of(), List.of(), List.of(), "link1.update", List.of());
 
         System.out.println("Testing updatePaese with invalid ID...");
         Exception exception = assertThrows(IllegalArgumentException.class, () -> service.updatePaese(id, updatedPaese));
@@ -277,66 +277,38 @@ class PaeseServiceTest {
         verify(repository, never()).existsById(anyString());
         verify(repository, never()).deleteById(anyString());
     }
-    /**
-     * Test per findPaesiByForum.
-     */
-    @Test
-    void findPaesiByForum_ShouldReturnPaesiList() {
-        String idForum = "forum1";
-        List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", Collections.singletonList(idForum), null, null, "link1", null),
-                new Paese("2", "France", Collections.singletonList(idForum), null, null, "link2", null)
-        );
-
-        when(repository.findAll()).thenReturn(paesi);
-
-        System.out.println("Testing findPaesiByForum with valid forum ID and associated countries...");
-        List<Paese> result = service.findPaesiByForum(idForum);
-
-        System.out.println("Result: " + result);
-        assertEquals(2, result.size());
-        verify(repository, times(1)).findAll();
-    }
-
-    @Test
-    void findPaesiByForum_ShouldReturnEmptyList() {
-        String idForum = "forum1";
-        when(repository.findAll()).thenReturn(Collections.emptyList());
-
-        System.out.println("Testing findPaesiByForum with valid forum ID but no associated countries...");
-        List<Paese> result = service.findPaesiByForum(idForum);
-
-        System.out.println("Result: " + result);
-        assertTrue(result.isEmpty());
-        verify(repository, times(1)).findAll();
-    }
-
-    @Test
-    void findPaesiByForum_ShouldThrowExceptionForInvalidId() {
-        String idForum = null;
-
-        System.out.println("Testing findPaesiByForum with invalid forum ID...");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> service.findPaesiByForum(idForum));
-
-        System.out.println("Exception: " + exception.getMessage());
-        verify(repository, never()).findAll();
-    }
 
     /**
      * Test per findPaesiByCampagna.
      */
     @Test
     void findPaesiByCampagna_ShouldReturnPaesiList() {
-        String idCampagna = "campagna1";
+        // Creazione di un oggetto CampagnaCrowdFunding
+        CampagnaCrowdFunding campagna = new CampagnaCrowdFunding();
+
+        // Impostazione dei valori dei campi
+        campagna.setIdCampagna("campaign001");
+        campagna.setTitolo("Save the Forests");
+        campagna.setCategoria("Environment");
+        campagna.setDescrizione("A campaign to protect and restore forests worldwide.");
+        campagna.setDataInizio(LocalDate.of(2025, 1, 1));
+        campagna.setDataPrevistaFine(LocalDate.of(2025, 12, 31));
+        campagna.setSommaDaRaccogliere(new BigDecimal("50000"));
+        campagna.setSommaRaccolta(new BigDecimal("10000"));
+        campagna.setStato("attiva");
+        campagna.setImmagine("https://example.com/forest-campaign.jpg");
+        campagna.setPaese("Italy");
+
         List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", null, Collections.singletonList(idCampagna), null, "link1", null),
-                new Paese("2", "France", null, Collections.singletonList(idCampagna), null, "link2", null)
+                new Paese("1", "IT", "Italy", List.of(), Collections.singletonList(campagna), List.of(), "link1", List.of()),
+                new Paese("2", "FR", "France", List.of(), Collections.singletonList(campagna), List.of(), "link2", List.of())
         );
+
 
         when(repository.findAll()).thenReturn(paesi);
 
         System.out.println("Testing findPaesiByCampagna with valid campaign ID and associated countries...");
-        List<Paese> result = service.findPaesiByCampagna(idCampagna);
+        List<Paese> result = service.findPaesiByCampagna(campagna.getIdCampagna());
 
         System.out.println("Result: " + result);
         assertEquals(2, result.size());
@@ -376,8 +348,8 @@ class PaeseServiceTest {
         Benchmark benchmark = new Benchmark(idBenchmark, "Economico", "Alta", "Valutazione economica globale");
 
         List<Paese> paesi = Arrays.asList(
-                new Paese("1", "Italy", null, null, Collections.singletonList(benchmark), "link1", null),
-                new Paese("2", "France", null, null, Collections.singletonList(benchmark), "link2", null)
+                new Paese("1", "IT", "Italy", List.of(), List.of(),Collections.singletonList(benchmark), "link1", List.of()),
+                new Paese("2", "FR", "France", List.of(), List.of(), Collections.singletonList(benchmark), "link2", List.of())
         );
 
         when(repository.findAll()).thenReturn(paesi);

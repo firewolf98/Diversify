@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service'; // Importa il servizio di autenticazione
+import { ForumService } from '../services/forum.service';
 
 @Component({
   selector: 'app-form-post',
@@ -14,29 +15,44 @@ export class FormPostComponent {
   moduloPost: FormGroup;
   errorMessage: string | null = null; // Variabile per messaggi di errore
   successMessage: string | null = null; // Variabile per messaggi di successo
+  idForum: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private forumService: ForumService) {
     this.moduloPost = this.fb.group({
       titolo: ['', [Validators.required, Validators.minLength(5)]],
       contenuto: ['', [Validators.required, Validators.minLength(20)]],
     });
+
+    const queryParams = new URLSearchParams(window.location.search);
+    this.idForum = ''+queryParams.get('forumId');
   }
   inviaPost(): void {
     this.clearMessages(); // Resetta eventuali messaggi precedenti
 
     if (this.moduloPost.valid) {
-      const author = this.authService.getLoggedUsername();
-      if (!author) {
-        this.errorMessage = 'Errore: Utente non loggato.';
-        return;
-      }
+      let idAutore = '';
+      this.authService.getUser().subscribe({
+        next: (author) => {
+          if (author) {
+            idAutore = author.idUtente; // Ora puoi accedere a `id`
+          } else {
+            console.error("Nessun autore trovato");
+          }
+        },
+        error: (err) => {
+          console.error("Errore durante il recupero dell'autore:", err);
+        }
+      });
+
+      const idForum = this.idForum;
 
       const postData = {
         ...this.moduloPost.value,
-        author, // Aggiunge l'autore ai dati del post
+        idForum,
+        idAutore, // Aggiunge l'autore ai dati del post
       };
-
-      this.authService.savePost(postData).subscribe({
+      console.log("STAMPA",postData);
+      this.forumService.savePost(postData).subscribe({
         next: (response) => {
           console.log('Post salvato con successo:', response);
           this.successMessage = 'Post pubblicato con successo!';
@@ -56,4 +72,5 @@ export class FormPostComponent {
     this.errorMessage = null;
     this.successMessage = null;
   }
+
 }

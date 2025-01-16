@@ -16,6 +16,10 @@ public class CommentoController {
 
     private CommentoService commentoService;
 
+    public CommentoController(CommentoService commentoService) {
+        this.commentoService = commentoService;
+    }
+
     /**
      * Endpoint per aggiungere un commento a un post.
      *

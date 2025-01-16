@@ -38,7 +38,7 @@ public class PostController {
      * @param post L'oggetto Post da salvare.
      * @return Il post creato.
      */
-    @PostMapping
+    @PostMapping("createPost")
     public Post createPost(@RequestBody Post post) {
         if (post == null) {
             throw new NullPointerException("Il post fornito è nullo.");

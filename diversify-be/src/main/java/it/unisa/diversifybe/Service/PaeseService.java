@@ -1,5 +1,6 @@
 package it.unisa.diversifybe.Service;
 
+import it.unisa.diversifybe.Model.Benchmark;
 import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Repository.PaeseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,25 +119,6 @@ public class PaeseService {
     }
 
     /**
-     * Restituisce i paesi associati a un forum specifico.
-     *<p>
-     * Questo metodo verifica se l'ID del forum è nullo o vuoto e solleva un'eccezione {@link IllegalArgumentException}.
-     * Restituisce una lista di paesi associati al forum specificato.
-     *
-     * @param idForum l'ID del forum.
-     * @return una lista di {@link Paese} associati al forum specificato.
-     * @throws IllegalArgumentException se l'ID del forum è nullo o vuoto.
-     */
-    public List<Paese> findPaesiByForum(String idForum) {
-        if (idForum == null || idForum.isBlank()) {
-            throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
-        }
-
-        return paeseRepository.findAll().stream()
-                .filter(p -> p.getForum() != null && p.getForum().contains(idForum))
-                .collect(Collectors.toList());
-    }
-    /**
      * Restituisce i paesi associati a una campagna di crowdfunding specifica.
      *<p>
      * Questo metodo verifica se l'ID della campagna è nullo o vuoto e solleva un'eccezione {@link IllegalArgumentException}.
@@ -152,7 +134,9 @@ public class PaeseService {
         }
 
         return paeseRepository.findAll().stream()
-                .filter(p -> p.getCampagneCrowdfunding() != null && p.getCampagneCrowdfunding().contains(idCampagna))
+                .filter(p -> p.getCampagneCrowdfunding() != null &&
+                        p.getCampagneCrowdfunding().stream()
+                                .anyMatch(campagna -> idCampagna.equals(campagna.getIdCampagna())))
                 .collect(Collectors.toList());
     }
 
@@ -174,6 +158,26 @@ public class PaeseService {
                         p.getBenchmark().stream()
                                 .anyMatch(b -> b.getIdBenchmark().equals(idBenchmark))) // Confronta con gli ID dei benchmark
                 .collect(Collectors.toList());
+    }
+
+    public Paese updateBenchmarkByPaese(String nomePaese, List<Benchmark> benchmark) {
+        if (nomePaese == null ||  nomePaese.trim().isEmpty()) {
+            throw new IllegalArgumentException("Il nome del Paese non può essere nullo o vuoto.");
+        }
+        if (benchmark == null || benchmark.isEmpty()) {
+            throw new IllegalArgumentException("La lista di benchmark non può essere nulla o vuota.");
+        }
+
+        List<Paese> paesi = paeseRepository.findByNome(nomePaese);
+        Paese updated = new Paese();
+        if (!paesi.isEmpty()) {
+            for (Paese paese : paesi) {
+                paese.setBenchmark(benchmark); // Imposta i nuovi benchmark
+                updated = paeseRepository.save(paese); // Salva le modifiche
+            }
+            return updated; // Restituisce la lista di Paesi aggiornati
+        }
+        return null;
     }
 
 }

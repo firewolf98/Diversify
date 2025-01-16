@@ -1,5 +1,6 @@
 package it.unisa.diversifybe.Controller;
 
+import it.unisa.diversifybe.Model.Benchmark;
 import it.unisa.diversifybe.Model.DocumentoInformativo;
 import it.unisa.diversifybe.Model.Paese;
 import it.unisa.diversifybe.Service.DocumentoInformativoService;
@@ -109,22 +110,6 @@ public class PaeseController {
         return ResponseEntity.noContent().build();
     }
 
-
-    /**
-     * Restituisce i paesi associati a un forum specifico.
-     *
-     * @param idForum l'ID del forum.
-     * @return una lista di {@link Paese} associati.
-     * @throws IllegalArgumentException se l'ID del forum è nullo o vuoto.
-     */
-    @GetMapping("/forum/{idForum}")
-    public List<Paese> findPaesiByForum(@PathVariable String idForum) {
-        if (idForum == null || idForum.trim().isEmpty()) {
-            throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
-        }
-        return paeseService.findPaesiByForum(idForum);
-    }
-
     /**
      * Restituisce i paesi associati a una campagna di crowdfunding specifica.
      *
@@ -168,6 +153,37 @@ public class PaeseController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(documentiInformativi);
+    }
+
+    /**
+     * Aggiorna i benchmark associati a un Paese specificato tramite il nome.
+     *
+     * <p>Questo endpoint consente di aggiornare i benchmark per un Paese esistente
+     * identificato dal parametro {@code nomePaese}. I benchmark vengono forniti come una lista di oggetti.</p>
+     *
+     * @param nomePaese il nome del Paese per cui aggiornare i benchmark.
+     *                  Non può essere nullo o vuoto.
+     * @param benchmark una lista di oggetti {@link Benchmark} da associare al Paese.
+     *                  Non può essere nulla o vuota.
+     * @return {@link ResponseEntity} contenente:
+     *         <ul>
+     *             <li><b>200 OK</b>: se i benchmark sono stati aggiornati con successo,
+     *                 con il Paese aggiornato come corpo della risposta.</li>
+     *         </ul>
+     * @throws IllegalArgumentException se {@code nomePaese} è nullo o vuoto,
+     *                                  o se {@code benchmark} è nullo o vuoto.
+     */
+
+    @PutMapping("/{nomePaese}/benchmark")
+    public ResponseEntity<Paese> updateBenchmarkByName(@PathVariable String nomePaese, @RequestBody List<Benchmark> benchmark) {
+        if (nomePaese == null || nomePaese.trim().isEmpty()) {
+            throw new IllegalArgumentException("Il nome del Paese non può essere nullo o vuoto.");
+        }
+        if (benchmark == null ||  benchmark.isEmpty()) {
+            throw new IllegalArgumentException("Il benchmark non può essere nullo o vuoto.");
+        }
+        Paese updatedPaese = paeseService.updateBenchmarkByPaese(nomePaese, benchmark);
+        return ResponseEntity.ok(updatedPaese);
     }
 
 }

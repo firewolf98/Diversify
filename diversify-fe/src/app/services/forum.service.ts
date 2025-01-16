@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class ForumService {
 
-  private apiUrl = 'http://localhost:8080/api/forums'; // URL del backend
+  private apiUrl = 'http://localhost:8080/api/forums';
+  private apiPostUrl = 'http://localhost:8080/posts';
+  private apiCommentoUrl = 'http://localhost:8080/api/commenti';
+  private apiLikeUrl = 'http://localhost:8080/like';
+  private apiReportUrl = 'http://localhost:8080/segnalazioni';
 
   constructor(private http: HttpClient) {}
 
@@ -40,5 +44,41 @@ export class ForumService {
 
   loadForums(country: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/by-paese/${country}`);
+  }
+
+  savePost(postData: { titolo: string; contenuto: string; idForum: string; idAutore: string }): Observable<any> {
+    return this.http.post(`${this.apiPostUrl}/createPost`, postData);
+  }
+
+  getPost(forumId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiPostUrl}/forum/${forumId}`);
+  }
+
+  aggiungiCommento(idPost: string, commento: any): Observable<any> {
+    return this.http.post<any>(`${this.apiCommentoUrl}/post/${idPost}`, commento);
+  }
+
+  aggiungiSubCommento(idCommento: string, subcommento: any): Observable<any> {
+    return this.http.post<any>(`${this.apiCommentoUrl}/subcommento/${idCommento}`, subcommento);
+  }
+
+  addLikeToPost(postId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiLikeUrl}/post/${postId}`, {});
+  }
+
+  addLikeToCommento(commentoId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiLikeUrl}/commento/${commentoId}`, {});
+  }
+
+  addReport(segnalazione: any): Observable<any> {
+    return this.http.post<any>(`${this.apiReportUrl}`, segnalazione);
+  }
+
+  getAllReport(): Observable<any> {
+    return this.http.get<any>(`${this.apiReportUrl}`);
+  }
+
+  banUser(id: string): Observable<any> {
+    return this.http.post<any>(`${this.apiReportUrl}/delete/${id}`, {});
   }
 }
