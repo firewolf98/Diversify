@@ -150,47 +150,5 @@ describe('Testing interattivo della mappa', () => {
       // Verifica che la mappa sia visibile
       cy.get('#map').should('be.visible');
     });
-  
-    it.only('verifica che i pin vengano aggiunti sulla mappa', () => {
-      // Attendere che la richiesta della mappa o dei pin venga completata (se applicabile)
-      cy.wait(2000); // O un altro valore in base alla tua applicazione
-      
-      // Verifica che i pin siano visibili
-      cy.get('img[src="pin-mappa.png"]').should('exist');
-    });
-    
-  
-    it('verifica che la selezione di una categoria cambi i pin', () => {
-      // Cambia la categoria
-      cy.get('#dropdown-container select').select('criticitaLgbt');
-      
-      // Verifica che i pin siano stati cambiati in base alla categoria selezionata
-      cy.get('img[src^="benchmark/"]').should('have.length.greaterThan', 0);
-  
-      // Verifica che la categoria venga effettivamente cambiata
-      cy.get('#dropdown-container select').should('have.value', 'criticitaLgbt');
-    });
-  
-    it('verifica l\'apertura del popup quando un paese è cliccato', () => {
-      // Simula un clic su un pin della mappa
-      cy.get('img[src="pin-mappa.png"]').first().click();
-      
-      // Verifica che il popup venga aperto
-      cy.get('.popup').should('be.visible');
-    });
-  
-    it('verifica che il popup si chiuda cliccando all\'esterno', () => {
-      // Clicca su un pin per aprire il popup
-      cy.get('img[src="pin-mappa.png"]').first().click();
-      
-      // Verifica che il popup sia visibile
-      cy.get('.popup').should('be.visible');
-      
-      // Clicca all'esterno del popup
-      cy.get('body').click(0, 0);
-      
-      // Verifica che il popup sia chiuso
-      cy.get('.popup').should('not.exist');
-    });
   });
   

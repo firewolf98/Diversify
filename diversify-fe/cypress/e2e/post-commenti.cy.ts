@@ -1,8 +1,52 @@
 describe('Test del componente Post e Commenti', () => {
-    beforeEach(() => {
-      // Naviga alla pagina del post prima di ogni test
-      cy.visit('/post'); // Cambia con il path corretto della tua applicazione
+  beforeEach(() => {
+    // Intercetta la richiesta per ottenere i dati dell'utente (se necessario)
+    cy.intercept('GET', '/utenti/recupera_utente', {
+      statusCode: 200,
+      body: {
+        idUtente: "1",
+        nome: "nome",
+        cognome: "cognome",
+        codiceFiscale: "1234567891123456",
+        email: "email@gmail.com",
+        username: "user",
+        passwordHash: "passworD1!",
+        tipoDomanda: "come si chiama tuo padre?", // Modifica qui il campo
+        rispostaHash: "giuseppe",
+        blacklistForum: [
+          { idForum: "1" },
+          { idForum: "2" }
+        ],
+        ruolo: false,
+        banned: false
+      }
+    }).as('getUtente');
+    
+    // Intercetta la chiamata API per ottenere i forum
+    cy.intercept('GET', '/api/forums/by-paese/Italia', {
+      statusCode: 200,
+      body: [
+        {
+          idForum: 1,
+          titolo: 'Forum dei Diritti Umani',
+          descrizione: 'Un forum per discutere i diritti umani in vari paesi.',
+          paese: 'Italia',
+          post: [
+            { idPost: 1, titolo: 'La Diversità di Genere', idAutore: 'Lucia', contenuto: 'Il diritto alla libertà di espressione è fondamentale in una società democratica.' },
+            { idPost: 2, titolo: 'I diritti delle minoranze', idAutore: 'Laura Neri', contenuto: 'Le minoranze etniche e religiose spesso sono vittime di discriminazioni.' }
+          ]
+        }
+      ]
+  }).as('getForums');
+    
+
+  // Visita la pagina 'post' e imposta il token JWT mockato nel localStorage
+  cy.visit('/post/1/1', {
+      onBeforeLoad: (win) => {
+        win.localStorage.setItem('auth_token', 'mocked-jwt-token');
+      },
     });
+  });
   
     it('Verifica la presenza degli elementi principali del post', () => {
       cy.get('.background-container').should('exist');

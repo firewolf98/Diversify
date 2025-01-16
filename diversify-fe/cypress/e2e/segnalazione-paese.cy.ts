@@ -1,12 +1,37 @@
 // cypress/e2e/segnalazione-paese.spec.ts
 
 describe('Segnalazione Paese', () => {
-    beforeEach(() => {
-      // Visita la pagina del generale amministratore
-      cy.visit('/generale-amministratore');
-      // Seleziona il componente "Segnalazione Paese"
-      cy.contains('Segnalazione Paese').click();
-    });
+      beforeEach(() => {
+        cy.intercept('GET', '/utenti/recupera_utente', {
+          statusCode: 200,
+          body: {
+            idUtente: "1",
+            nome: "nome",
+            cognome: "cognome",
+            codiceFiscale: "1234567891123456",
+            email: "email@gmail.com",
+            username: "user",
+            passwordHash: "passworD1!",
+            tipoDomanda: "come si chiama tuo padre?", // Modifica qui il campo
+            rispostaHash: "giuseppe",
+            blacklistForum: [
+              { idForum: "1" },
+              { idForum: "2" }
+            ],
+            ruolo: true,
+            banned: false
+          }
+        }).as('getUtente');
+  
+        // Visita la pagina dell'area personale
+        cy.visit('/generale-amministratore', {
+          onBeforeLoad: (win) => {
+            win.localStorage.setItem('auth_token', 'mocked-jwt-token');
+          },
+        });
+            // Seleziona il componente "Segnalazione Paese"
+            cy.contains('Segnalazione Paese').click();       
+      });
   
     it('Dovrebbe visualizzare correttamente il componente Segnalazione Paese', () => {
       // Verifica che il componente sia visibile

@@ -59,12 +59,21 @@ describe('Test RegistrazioneFormComponent', () => {
   });
 
   it('Verifica la validazione dell\'email', () => {
+    // Inserisci un'email non valida
     cy.get('input[id="email"]').type('invalid-email');
+  
+    // Simula un clic fuori (blur) per attivare la validazione
+    cy.get('input[id="email"]').blur();
+  
+    // Verifica che la validazione non passi
     cy.get('form').then($form => {
       expect($form[0].checkValidity()).to.be.false;
     });
+  
+    // Verifica che il messaggio di errore sia visibile
     cy.get('.error-message').contains('L\'email non è valida').should('be.visible');
   });
+  
 
   it('Verifica la validazione del codice fiscale', () => {
     cy.get('input[id="cf"]').type('INVALIDCF');
