@@ -1,10 +1,36 @@
 describe('Gestione Campagne', () => {
     beforeEach(() => {
-            // Visita la pagina del generale amministratore
-            cy.visit('/generale-amministratore');
+        cy.intercept('GET', '/utenti/recupera_utente', {
+          statusCode: 200,
+          body: {
+            idUtente: "1",
+            nome: "nome",
+            cognome: "cognome",
+            codiceFiscale: "1234567891123456",
+            email: "email@gmail.com",
+            username: "user",
+            passwordHash: "passworD1!",
+            tipoDomanda: "come si chiama tuo padre?", // Modifica qui il campo
+            rispostaHash: "giuseppe",
+            blacklistForum: [
+              { idForum: "1" },
+              { idForum: "2" }
+            ],
+            ruolo: true,
+            banned: false
+          }
+        }).as('getUtente');
+  
+        // Visita la pagina dell'area personale
+        cy.visit('/generale-amministratore', {
+          onBeforeLoad: (win) => {
+            win.localStorage.setItem('auth_token', 'mocked-jwt-token');
+          },
+        });
             // Seleziona il componente "Segnalazione Paese"
-            cy.contains('Gestione Campagne').click();
-          });
+            cy.contains('Gestione Campagne').click();        
+
+    });
   
     it('Visualizza la lista delle campagne con i filtri iniziali', () => {
       cy.get('.campaign-table tbody tr').should('have.length.greaterThan', 0);

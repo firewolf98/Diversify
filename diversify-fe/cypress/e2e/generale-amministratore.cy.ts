@@ -2,8 +2,33 @@
 
 describe('Area Personale Amministratore', () => {
     beforeEach(() => {
+      cy.intercept('GET', '/utenti/recupera_utente', {
+        statusCode: 200,
+        body: {
+          idUtente: "1",
+          nome: "nome",
+          cognome: "cognome",
+          codiceFiscale: "1234567891123456",
+          email: "email@gmail.com",
+          username: "user",
+          passwordHash: "passworD1!",
+          tipoDomanda: "come si chiama tuo padre?", // Modifica qui il campo
+          rispostaHash: "giuseppe",
+          blacklistForum: [
+            { idForum: "1" },
+            { idForum: "2" }
+          ],
+          ruolo: true,
+          banned: false
+        }
+      }).as('getUtente');
+
       // Visita la pagina dell'area personale
-      cy.visit('/generale-amministratore');
+      cy.visit('/generale-amministratore', {
+        onBeforeLoad: (win) => {
+          win.localStorage.setItem('auth_token', 'mocked-jwt-token');
+        },
+      });
     });
   
     it('Dovrebbe visualizzare correttamente i dettagli dell\'utente', () => {

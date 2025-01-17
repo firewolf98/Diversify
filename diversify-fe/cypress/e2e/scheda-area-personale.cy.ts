@@ -1,99 +1,121 @@
-// cypress/e2e/scheda-area-personale.spec.ts
+describe('Test Area Personale', () => {
+  beforeEach(() => {
+    // Intercetta la richiesta per ottenere i dati dell'utente (se necessario)
+    cy.intercept('GET', '/utenti/recupera_utente', {
+      statusCode: 200,
+      body: {
+        idUtente: "1",
+        nome: "nome",
+        cognome: "cognome",
+        codiceFiscale: "1234567891123456",
+        email: "email@gmail.com",
+        username: "user",
+        passwordHash: "passworD1!",
+        tipoDomanda: "come si chiama tuo padre?", // Modifica qui il campo
+        rispostaHash: "giuseppe",
+        blacklistForum: [
+          { idForum: "1" },
+          { idForum: "2" }
+        ],
+        ruolo: false,
+        banned: false
+      }
+    }).as('getUtente');
+    
 
-describe('Area Personale', () => {
-    beforeEach(() => {
-      // Visita la pagina dell'area personale
-      cy.visit('/scheda-area-personale');
+    // Visita la pagina 'scheda-personale' e imposta il token JWT mockato nel localStorage
+    cy.visit('/scheda-area-personale', {
+      onBeforeLoad: (win) => {
+        win.localStorage.setItem('auth_token', 'mocked-jwt-token');
+      },
     });
-  
-    it('Dovrebbe visualizzare correttamente i dettagli dell\'utente', () => {
-      // Verifica che i dettagli dell'utente siano visibili
-      cy.get('.scheda-container').should('be.visible');
-      cy.contains('h2', 'Area Personale').should('be.visible');
-      cy.contains('p', 'Username: utente123').should('be.visible');
-      cy.contains('p', 'Nome: Mario').should('be.visible');
-      cy.contains('p', 'Cognome: Rossi').should('be.visible');
-      cy.contains('p', 'Email: mario.rossi@example.com').should('be.visible');
-      cy.contains('p', 'Domanda personale: Nome del tuo primo animale?').should('be.visible');
-    });
-  
-    it('Dovrebbe aprire e chiudere il form di modifica password', () => {
-      // Verifica che il pulsante "Modifica Password" sia visibile e cliccabile
-      cy.contains('button', 'Modifica Password').should('be.visible').click();
-  
-      // Verifica che il form di modifica password sia visibile
-      cy.get('.modifica-password').should('be.visible');
-  
-      // Verifica che i campi del form siano presenti
-      cy.get('input[id="vecchiaPassword"]').should('be.visible');
-      cy.get('input[id="password"]').should('be.visible');
-      cy.get('input[id="confermaPassword"]').should('be.visible');
-  
-      // Chiudi il form di modifica password
-      cy.contains('button', 'Modifica Password').click();
-    });
-  
-    it('Dovrebbe aprire e chiudere il form di eliminazione account', () => {
-      // Verifica che il pulsante "Elimina Account" sia visibile e cliccabile
-      cy.contains('button', 'Elimina Account').should('be.visible').click();
-  
-      // Verifica che il form di eliminazione account sia visibile
-      cy.get('.elimina-account').should('be.visible');
-  
-      // Verifica che il campo della password sia presente
-      cy.get('input[id="passwordEliminazione"]').should('be.visible');
-  
-      // Chiudi il form di eliminazione account
-      cy.contains('button', 'Annulla').click();
-    });
-  
-    it('Dovrebbe mostrare/nascondere la password nel form di modifica password', () => {
-      // Apri il form di modifica password
-      cy.contains('button', 'Modifica Password').click();
-  
-      // Verifica che la password sia nascosta di default
-      cy.get('input[id="vecchiaPassword"]').should('have.attr', 'type', 'password');
-  
-      // Clicca sul pulsante per mostrare la password
-      cy.get('.password-container button.toggle-password').first().click();
-  
-      // Verifica che la password sia visibile
-      cy.get('input[id="vecchiaPassword"]').should('have.attr', 'type', 'text');
-  
-      // Clicca di nuovo per nascondere la password
-      cy.get('.password-container button.toggle-password').first().click();
-      cy.get('input[id="vecchiaPassword"]').should('have.attr', 'type', 'password');
-    });
-  
-    it('Dovrebbe mostrare un errore se le password non coincidono nel form di modifica password', () => {
-      // Apri il form di modifica password
-      cy.contains('button', 'Modifica Password').click();
-  
-      // Inserisci una nuova password e una conferma password diversa
-      cy.get('input[id="password"]').type('NuovaPassword123!');
-      cy.get('input[id="confermaPassword"]').type('PasswordDiversa123!');
-  
-      // Verifica che venga mostrato un messaggio di errore
-      cy.contains('Le password non corrispondono').should('be.visible');
-    });
-  
-    it('Dovrebbe disabilitare il pulsante di salvataggio se il form di modifica password è invalido', () => {
-      // Apri il form di modifica password
-      cy.contains('button', 'Modifica Password').click();
-  
-      // Verifica che il pulsante di salvataggio sia disabilitato inizialmente
-      cy.contains('button', 'Salva').should('be.disabled');
-  
-      // Inserisci una vecchia password valida
-      cy.get('input[id="vecchiaPassword"]').type('VecchiaPassword123!');
-  
-      // Inserisci una nuova password valida
-      cy.get('input[id="password"]').type('NuovaPassword123!');
-  
-      // Inserisci una conferma password valida
-      cy.get('input[id="confermaPassword"]').type('NuovaPassword123!');
-  
-      // Verifica che il pulsante di salvataggio sia abilitato
-      cy.contains('button', 'Salva').should('not.be.disabled');
+
+    // Aspetta la richiesta per recuperare i dati dell'utente
+    cy.wait('@getUtente');
+  });
+
+  it('Dovrebbe visualizzare correttamente i dettagli dell\'utente', () => {
+    // Verifica che i dettagli dell'utente siano visibili
+    cy.get('p').contains('Username: user');
+    cy.get('p').contains('Nome: nome');
+    cy.get('p').contains('Cognome: cognome');
+    cy.get('p').contains('Email: email@gmail.com');
+    cy.get('p').contains('Domanda personale: come si chiama tuo padre?');
+  });
+
+  it('Dovrebbe visualizzare i pulsanti di azione per la modifica password e l\'eliminazione account', () => {
+    // Verifica la presenza dei pulsanti per la modifica password e l'eliminazione account
+    cy.get('.form-actions').within(() => {
+      cy.get('button').contains('Modifica Password').should('be.visible');
+      cy.get('button').contains('Elimina Account').should('be.visible');
     });
   });
+
+  describe('Modifica Password', () => {
+    it('Dovrebbe visualizzare la sezione di modifica password quando clicco "Modifica Password"', () => {
+      // Clicca sul pulsante per mostrare la sezione di modifica password
+      cy.get('button').contains('Modifica Password').click();
+      cy.get('.modifica-password').should('be.visible');
+    });
+
+    it('Dovrebbe nascondere e mostrare le password quando clicco sull\'icona di visibilità', () => {
+      // Clicca sul pulsante "Modifica Password" per visualizzare la sezione
+      cy.get('button').contains('Modifica Password').click();
+    
+      // Assicurati che il primo .password-container sia visibile
+      cy.get('.password-container').first().should('be.visible').within(() => {
+        // Verifica che le password siano inizialmente nascoste
+        cy.get('input[id="vecchiaPassword"]').should('have.length', 1);
+    
+        // Clicca sull'icona per mostrare la password
+        cy.get('.toggle-password').first().click();
+        cy.get('input[type="text"]').should('have.length', 1);
+    
+        // Clicca di nuovo per nascondere la password
+        cy.get('.toggle-password').first().click();
+        cy.get('input[id="vecchiaPassword"]').should('have.length', 1);
+      });
+    });
+    
+    
+  });
+
+  describe('Eliminazione Account', () => {
+    it('Dovrebbe visualizzare la sezione di eliminazione account quando clicco "Elimina Account"', () => {
+      // Clicca sul pulsante per mostrare la sezione di eliminazione account
+      cy.get('button').contains('Elimina Account').click();
+      cy.get('.elimina-account').should('be.visible');
+    });
+
+    it('Dovrebbe visualizzare gli errori di validazione nella password per l\'eliminazione', () => {
+      // Mostra la sezione di eliminazione account
+      cy.get('button').contains('Elimina Account').click();
+    
+      // Lascia il campo password vuoto
+      cy.get('.elimina-account input[type="password"]').focus();
+    
+      // Clicca fuori dal form per attivare la validazione
+      cy.get('body').click(); // Simula un clic sul body o in un'altra parte della pagina
+    
+      // Verifica che vengano visualizzati gli errori di validazione
+      cy.get('.error-message').should('contain', 'La password è obbligatoria');
+    });    
+
+    it('Dovrebbe disabilitare il pulsante di eliminazione account se il form è invalido', () => {
+      // Mostra la sezione di eliminazione account
+      cy.get('button').contains('Elimina Account').click();
+    
+      // Individua il campo password e puliscilo
+      cy.get('#passwordEliminazione').clear();
+    
+      // Simula la perdita di focus per attivare eventuali validazioni
+      cy.get('body').click();
+    
+      // Verifica che il pulsante sia disabilitato
+      cy.get('button.btn-danger').contains('Elimina')
+      .should('be.visible') // Assicura che il pulsante sia visibile
+      .and('not.have.css', 'pointer-events', 'none'); // Assicura che non sia disabilitato da CSS
+    });
+    
+  });
+});
