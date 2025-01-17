@@ -61,15 +61,22 @@ public class CommentoService {
         }
         commento.setLike(0);
 
+        // Salva il commento nel repository
+        commentoRepository.save(commento);
+
         List<Forum> forums = forumRepository.findAll();
-        for(Forum forum : forums) {
+        for (Forum forum : forums) {
             List<Post> posts = forum.getPost();
-            if(posts != null) {
-                for(Post post : posts) {
-                    if(post.getIdPost().equals(idPost)) {
+            if (posts != null) {
+                for (Post post : posts) {
+                    if (post.getIdPost().equals(idPost)) {
                         List<Commento> commenti = post.getCommenti();
                         commenti.add(commento);
                         post.setCommenti(commenti);
+
+                        // Salva il post aggiornato
+                        postRepository.save(post);
+
                         forum.setPost(posts);
                         forumRepository.save(forum);
                     }
@@ -78,6 +85,9 @@ public class CommentoService {
         }
         return commento;
     }
+
+
+
 
     /**
      * Aggiunge un subcommento a un commento principale.
@@ -102,28 +112,21 @@ public class CommentoService {
         // Imposta i dati del subcommento
         subcommento.setDataCreazione(new Date());
 
-        List<Forum> forums = forumRepository.findAll();
-        for(Forum forum : forums) {
-            List<Post> posts = forum.getPost();
-            if(posts != null) {
-                for(Post post : posts) {
-                    List<Commento> commenti = post.getCommenti();
-                    for(Commento commento : commenti) {
-                        if(commento.getIdCommento()!=null && commento.getIdCommento().equals(idCommento)) {
-                            List<Subcommento> subcommenti = commento.getSubcommenti();
-                            subcommenti.add(subcommento);
-                            commento.setSubcommenti(subcommenti);
-                            post.setCommenti(commenti);
-                            forum.setPost(posts);
-                            forumRepository.save(forum);
-                        }
-                    }
-                }
-            }
-        }
+        // Trova il commento nel repository
+        Commento commento = commentoRepository.findById(idCommento)
+                .orElseThrow(() -> new IllegalArgumentException("Commento non trovato con ID: " + idCommento));
+
+        // Aggiungi il subcommento al commento
+        commento.getSubcommenti().add(subcommento);
+
+        // Salva il subcommento e il commento aggiornato
+        subcommentoRepository.save(subcommento);
+        commentoRepository.save(commento);
 
         return subcommento;
     }
+
+
 
     /**
      * Recupera tutti i commenti associati a un post.

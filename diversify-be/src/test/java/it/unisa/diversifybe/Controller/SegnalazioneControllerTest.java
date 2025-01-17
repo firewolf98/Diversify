@@ -238,31 +238,42 @@ class SegnalazioneControllerTest {
     // Categoria: Eliminazione di una segnalazione
     @Test
     void testDeleteSegnalazione_Found() {
-        // Partizioni
+        // Preparazione
         Segnalazione segnalazione = new Segnalazione();
+        segnalazione.setIdSegnalato("2"); // Supponiamo che "2" sia l'ID del segnalato
         when(segnalazioneService.getSegnalazioneById("1")).thenReturn(Optional.of(segnalazione));
 
         // Test
         ResponseEntity<?> response = segnalazioneController.deleteSegnalazione("1");
+
+        // Output di debug
         System.out.println("Response status: " + response.getStatusCode());
         System.out.println("Response body: " + response.getBody());
+
+        // Asserzioni
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-        verify(segnalazioneService, times(1)).deleteSegnalazione("1");
+        verify(segnalazioneService, times(1)).deleteSegnalazione("1", "2"); // Passa entrambi i parametri
     }
+
 
     @Test
     void testDeleteSegnalazione_NotFound() {
-        // Partizioni
+        // Preparazione
         when(segnalazioneService.getSegnalazioneById("1")).thenReturn(Optional.empty());
 
         // Test
         ResponseEntity<?> response = segnalazioneController.deleteSegnalazione("1");
+
+        // Output di debug
         System.out.println("Response status: " + response.getStatusCode());
         System.out.println("Response body: " + response.getBody());
+
+        // Asserzioni
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals("Segnalazione non trovata", response.getBody());
-        verify(segnalazioneService, times(0)).deleteSegnalazione("1");
+        verify(segnalazioneService, times(0)).deleteSegnalazione(anyString(), anyString()); // Nessuna chiamata al metodo con due parametri
     }
+
 
     // Categoria: Recupero segnalazioni per utente
     @Test

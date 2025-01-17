@@ -73,18 +73,22 @@ public class PostService {
             throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
         }
 
+        // Trova il forum in base all'ID
         List<Forum> forumList = forumRepository.findByIdForum(post.getIdForum());
-        Forum updated = new Forum();
+        Forum updated = null;
         if (!forumList.isEmpty()) {
             for (Forum forum : forumList) {
                 List<Post> posts = forum.getPost();
                 posts.add(post);
                 forum.setPost(posts);
-                updated = forumRepository.save(forum);
+                updated = forumRepository.save(forum);  // Salva il forum con il nuovo post
             }
         }
-        return post;
+
+        // Salva il post nel repository
+        return postRepository.save(post);  // Assicurati che il post venga salvato
     }
+
 
     /**
      * Aggiorna un post esistente.
@@ -135,6 +139,11 @@ public class PostService {
      * @return Una lista di post che appartengono al forum specificato.
      */
     public List<Post> findPostsByForum(String idForum) {
-        return forumRepository.findById(idForum).get().getPost();
+        Optional<Forum> forum = forumRepository.findById(idForum);
+        if (forum.isPresent()) {
+            return forum.get().getPost();
+        } else {
+            return new ArrayList<>();  // Restituisci una lista vuota se il forum non esiste
+        }
     }
 }

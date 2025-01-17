@@ -4,7 +4,9 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.unisa.diversifybe.Model.Commento;
+import it.unisa.diversifybe.Model.Forum;
 import it.unisa.diversifybe.Model.Post;
+import it.unisa.diversifybe.Repository.ForumRepository;
 import it.unisa.diversifybe.Repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,10 @@ import java.util.Optional;
 class PostServiceTest {
 
     @Mock
-    private PostRepository postRepository;  // Mock del repository
+    private PostRepository postRepository;
+
+    @Mock
+    private ForumRepository forumRepository;
 
     @InjectMocks
     private PostService postService;  // L'istanza di PostService da testare
@@ -156,7 +161,7 @@ class PostServiceTest {
 
     @Test
     void testSave_ValidPost() {
-        // Categoria 1: post valido
+        //post valido
         Post post = new Post();
         post.setIdPost("123");  // ID del post
         post.setTitolo("Titolo del post");  // Titolo del post
@@ -169,24 +174,18 @@ class PostServiceTest {
 
         // Comportamento atteso: il post viene salvato nel repository
         when(postRepository.save(post)).thenReturn(post);
+        when(forumRepository.findByIdForum(post.getIdForum())).thenReturn(new ArrayList<>());  // Mock del forum
 
-        System.out.println("Test Save con Post valido:");
-        System.out.println("ID Post: " + post.getIdPost());
-        System.out.println("Titolo: " + post.getTitolo());
-        System.out.println("Contenuto: " + post.getContenuto());
-        System.out.println("ID Forum: " + post.getIdForum());
-        System.out.println("ID Autore: " + post.getIdAutore());
-        System.out.println("Data di creazione: " + post.getDataCreazione());
-        System.out.println("Numero di like: " + post.getLike());
-        System.out.println("Numero di commenti: " + post.getCommenti().size());
-
+        // Esegui il metodo
         postService.save(post);
 
         // Verifica che il metodo save sia stato chiamato una volta
         verify(postRepository, times(1)).save(post);
+        verify(forumRepository, times(1)).findByIdForum(post.getIdForum());
 
         System.out.println("Metodo save chiamato correttamente.");
     }
+
 
     @Test
     void testSave_InvalidPost() {
@@ -463,7 +462,7 @@ class PostServiceTest {
         post2.setDataCreazione(new Date());
         post2.setLike(5);
         post2.setCommenti(new ArrayList<>());
-        post2.setIdForum("forum2");
+        post2.setIdForum("forum1");
 
         Post post3 = new Post();
         post3.setIdPost("125");
@@ -473,18 +472,21 @@ class PostServiceTest {
         post3.setDataCreazione(new Date());
         post3.setLike(8);
         post3.setCommenti(new ArrayList<>());
-        post3.setIdForum("forum3");
+        post3.setIdForum("forum1");
 
-        // Lista di post da restituire come risultato
-        List<Post> posts = List.of(post1, post2, post3);
+        // Crea un forum che contiene i post
+        Forum forum = new Forum();
+        forum.setIdForum(idForum);
+        forum.setPost(List.of(post1, post2, post3));
 
         // Mock del comportamento del repository
-        when(postRepository.findByIdForum(idForum)).thenReturn(posts);
+        when(forumRepository.findById(idForum)).thenReturn(Optional.of(forum));
 
         // Stampa dei dettagli prima dell'esecuzione del metodo
         System.out.println("Prima della ricerca:");
         System.out.println("ID del forum: " + idForum);
         System.out.println("Post nel repository:");
+        List<Post> posts = List.of(post1, post2, post3);
         posts.forEach(System.out::println);
 
         // Esecuzione del metodo di ricerca
@@ -497,9 +499,10 @@ class PostServiceTest {
 
         // Verifiche
         assertEquals(3, result.size());
-        assertEquals(post1, result.getFirst());
-        System.out.println("Primo post trovato: " + result.getFirst());
+        assertEquals(post1, result.get(0)); // Verifica che il primo post trovato sia quello giusto
+        System.out.println("Primo post trovato: " + result.get(0));
     }
+
 
     @Test
     void testFindPostsByForum_InvalidIdForum() {
@@ -540,8 +543,8 @@ class PostServiceTest {
         // Aggiunta dei post in una lista (anche se non verranno trovati per idForum non valido)
         List<Post> posts = List.of(post1, post2, post3);
 
-        // Mock del comportamento del repository per idForum non valido
-        when(postRepository.findByIdForum(idForum)).thenReturn(new ArrayList<>());
+        // Mock del comportamento del repository per forum non valido
+        when(forumRepository.findById(idForum)).thenReturn(Optional.empty());
 
         // Stampa dei dettagli prima dell'esecuzione del metodo
         System.out.println("Prima della ricerca:");
@@ -561,52 +564,14 @@ class PostServiceTest {
         System.out.println("Nessun post trovato per idForum essendo invalido: " + idForum);
     }
 
+
     @Test
     void testFindPostsByForum_NullIdForum() {
         // Categoria 3: idForum null
         String idForum = null;
 
-        // Creazione di tre post con valori di prova
-        Post post1 = new Post();
-        post1.setIdPost("101");
-        post1.setTitolo("Primo Post");
-        post1.setIdAutore("Autore1");
-        post1.setContenuto("Contenuto del primo post");
-        post1.setDataCreazione(new Date());
-        post1.setLike(10);
-        post1.setCommenti(new ArrayList<>());
-        post1.setIdForum("forum1");
-
-        Post post2 = new Post();
-        post2.setIdPost("102");
-        post2.setTitolo("Secondo Post");
-        post2.setIdAutore("Autore2");
-        post2.setContenuto("Contenuto del secondo post");
-        post2.setDataCreazione(new Date());
-        post2.setLike(20);
-        post2.setCommenti(new ArrayList<>());
-        post2.setIdForum("forum2");
-
-        Post post3 = new Post();
-        post3.setIdPost("103");
-        post3.setTitolo("Terzo Post");
-        post3.setIdAutore("Autore3");
-        post3.setContenuto("Contenuto del terzo post");
-        post3.setDataCreazione(new Date());
-        post3.setLike(30);
-        post3.setCommenti(new ArrayList<>());
-        post3.setIdForum("forum3");
-
-        // Aggiunta dei post in una lista
-        List<Post> posts = List.of(post1, post2, post3);
-
         // Mock del comportamento del repository per idForum null
-        when(postRepository.findByIdForum(idForum)).thenReturn(List.of());
-
-        // Stampa dei dettagli prima dell'esecuzione del metodo
-        System.out.println("Prima della ricerca:");
-        System.out.println("Post nel repository:");
-        posts.forEach(System.out::println);
+        when(forumRepository.findById(idForum)).thenReturn(Optional.empty());
 
         // Esecuzione del metodo di ricerca
         List<Post> result = postService.findPostsByForum(idForum);
@@ -620,6 +585,7 @@ class PostServiceTest {
         assertTrue(result.isEmpty());
         System.out.println("Nessun post trovato per idForum: " + idForum);
     }
+
 
     @Test
     void testFindPostsByForum_EmptyIdForum() {
@@ -660,25 +626,17 @@ class PostServiceTest {
         // Aggiunta dei post in una lista
         List<Post> posts = List.of(post1, post2, post3);
 
-        // Mock del comportamento del repository per idForum vuoto
-        when(postRepository.findByIdForum(idForum)).thenReturn(List.of());
-
-        // Stampa dei dettagli prima dell'esecuzione del metodo
-        System.out.println("Prima della ricerca:");
-        System.out.println("Post nel repository:");
-        posts.forEach(System.out::println);
+        // Mock del comportamento del forumRepository per idForum vuoto
+        when(forumRepository.findById(idForum)).thenReturn(Optional.empty());
 
         // Esecuzione del metodo di ricerca
         List<Post> result = postService.findPostsByForum(idForum);
 
-        // Stampa dei dettagli dopo l'esecuzione del metodo
-        System.out.println("Dopo la ricerca:");
-        System.out.println("Risultati trovati:");
-        result.forEach(System.out::println);
-
-        // Verifiche
+        // Verifica che la lista risultante sia vuota
         assertTrue(result.isEmpty());
         System.out.println("Nessun post trovato per idForum: " + idForum);
-    }
 
+        // Verifica le interazioni con il mock
+        verify(forumRepository, times(1)).findById(idForum);
+    }
 }

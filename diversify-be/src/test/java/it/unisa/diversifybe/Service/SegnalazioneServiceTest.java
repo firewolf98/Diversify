@@ -155,18 +155,22 @@ class SegnalazioneServiceTest {
 
     @Test
     void deleteSegnalazione_Success() {
-        // Configura un ID di segnalazione da eliminare
+        // Configura gli ID per il test
         String id = "1";
+        String idSegnalato = "2";
+
+        // Simula il comportamento del repository
         doNothing().when(segnalazioneRepository).deleteById(id);
 
         // Esegui il test
         System.out.println("Testing deleteSegnalazione...");
-        segnalazioneService.deleteSegnalazione(id);
+        segnalazioneService.deleteSegnalazione(id, idSegnalato);
 
         // Verifica il comportamento
-        System.out.println("Segnalazione deleted for ID: " + id);
+        System.out.println("Segnalazione deleted for ID: " + id + ", Segnalato ID: " + idSegnalato);
         verify(segnalazioneRepository, times(1)).deleteById(id);
     }
+
 
     @Test
     void getSegnalazioniByIdSegnalante_ListPopulated() {

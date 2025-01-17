@@ -113,14 +113,18 @@ class LikeControllerTest {
     void addLikeToPost_ShouldReturnNotFoundForNonExistentId() {
         String postId = "nonExistentPostId";
 
+        // Configura il comportamento del mock per il postService
         when(postService.findById(postId)).thenReturn(Optional.empty());
 
+        // Esegui il metodo del controller
         ResponseEntity<?> response = likeController.addLikeToPost(postId);
 
+        // Verifica il risultato
         assertNotNull(response);
         assertEquals(404, response.getStatusCode().value());
         assertEquals("Post non trovato", response.getBody());
 
+        // Verifica le interazioni con i mock
         verify(postService, times(1)).findById(postId);
         verify(postService, never()).save(any());
     }
@@ -216,14 +220,18 @@ class LikeControllerTest {
     void addLikeToCommento_ShouldReturnNotFoundForNonExistentId() {
         String commentoId = "nonExistentCommentoId";
 
+        // Configura il comportamento del mock per il commentoService
         when(commentoService.findById(commentoId)).thenReturn(Optional.empty());
 
+        // Esegui il metodo del controller
         ResponseEntity<?> response = likeController.addLikeToCommento(commentoId);
 
+        // Verifica il risultato
         assertNotNull(response);
         assertEquals(404, response.getStatusCode().value());
         assertEquals("Commento non trovato", response.getBody());
 
+        // Verifica le interazioni con i mock
         verify(commentoService, times(1)).findById(commentoId);
         verify(commentoService, never()).save(any());
     }

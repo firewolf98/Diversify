@@ -8,6 +8,7 @@ import it.unisa.diversifybe.Repository.ForumRepository;
 import it.unisa.diversifybe.Service.CommentoService;
 import it.unisa.diversifybe.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,21 +41,18 @@ public class LikeController {
 
     @PostMapping("/post/{postId}")
     public ResponseEntity<?> addLikeToPost(@PathVariable String postId) {
-        List<Forum> forums = forumRepository.findAll();
-        for(Forum forum : forums) {
-            List<Post> posts = forum.getPost();
-            if(posts != null) {
-                for(Post post : posts) {
-                    if(post.getIdPost().equals(postId)) {
-                        post.setLike(post.getLike() + 1);
-                        forum.setPost(posts);
-                        forumRepository.save(forum);
-                    }
-                }
-            }
+        Optional<Post> optionalPost = postService.findById(postId);
+        if (optionalPost.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post non trovato");
         }
+
+        Post post = optionalPost.get();
+        post.setLike(post.getLike() + 1);
+        postService.save(post);  // Salva il post aggiornato
+
         return ResponseEntity.ok("Like aggiunto al post con successo");
     }
+
 
     /**
      * Rimuove un like da un post specifico.
@@ -86,25 +84,18 @@ public class LikeController {
 
     @PostMapping("/commento/{commentoId}")
     public ResponseEntity<?> addLikeToCommento(@PathVariable String commentoId) {
-        List<Forum> forums = forumRepository.findAll();
-        for(Forum forum : forums) {
-            List<Post> posts = forum.getPost();
-            if(posts != null) {
-                for(Post post : posts) {
-                    List<Commento> commenti = post.getCommenti();
-                    for(Commento commento : commenti) {
-                        if(commento.getIdCommento()!=null && commento.getIdCommento().equals(commentoId)) {
-                            commento.setLike(commento.getLike() + 1);
-                            post.setCommenti(commenti);
-                            forum.setPost(posts);
-                            forumRepository.save(forum);
-                        }
-                    }
-                }
-            }
+        Optional<Commento> optionalCommento = commentoService.findById(commentoId);
+        if (optionalCommento.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Commento non trovato");
         }
+
+        Commento commento = optionalCommento.get();
+        commento.setLike(commento.getLike() + 1);
+        commentoService.save(commento);  // Salva il commento aggiornato
+
         return ResponseEntity.ok("Like aggiunto al commento con successo");
     }
+
 
     /**
      * Rimuove un like da un commento specifico.
