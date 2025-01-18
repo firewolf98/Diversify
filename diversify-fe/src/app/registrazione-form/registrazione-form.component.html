@@ -72,6 +72,7 @@
           formControlName="email"
           class="form-control"
           placeholder="Inserisci il tuo indirizzo email"
+          autocomplete="email"
         />
         <div *ngIf="moduloRegistrazione.get('email')?.touched && moduloRegistrazione.get('email')?.invalid" class="error-message">
           <div *ngIf="moduloRegistrazione.get('email')?.hasError('required')">L'email è obbligatoria</div>
@@ -142,6 +143,7 @@
           formControlName="username"
           class="form-control"
           placeholder="Inserisci il tuo username"
+          autocomplete="username"
         />
         <div *ngIf="moduloRegistrazione.get('username')?.touched && moduloRegistrazione.get('username')?.invalid" class="error-message">
           <div *ngIf="moduloRegistrazione.get('username')?.hasError('required')">Lo username è obbligatorio</div>

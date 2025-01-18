@@ -80,13 +80,17 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.n
     margin-top: 5px;
 }
 
+a.back-link {
+    color: rgb(0, 33, 163) !important;
+}
+
 /* Pulsante per l'invio */
 button {
     width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #045ab6;
     color: white;
     font-size: 16px;
     font-family: 'Arial', sans-serif;
@@ -101,7 +105,7 @@ button:hover {
 
 /* Bottone disabilitato */
 button:disabled {
-    background-color: #aaa;
+    background-color: #6c6a6a;
     cursor: not-allowed;
 }
 

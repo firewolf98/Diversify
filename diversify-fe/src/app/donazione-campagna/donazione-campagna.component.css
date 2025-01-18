@@ -47,10 +47,10 @@
     margin-bottom: 10px;
     box-sizing: border-box;
   }
-  
+
   /* Pulsante per aggiornare l'importo */
   .donation-button {
-    background-color: #0176f4;
+    background-color: #0154ac;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -62,7 +62,7 @@
   }
   
   .donation-button:hover {
-    background-color: #0056b3;
+    background-color: #01458e;
   }
   
   /* Contenitore di PayPal */

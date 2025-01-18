@@ -12,7 +12,7 @@
     display: flex;             /* Posiziona i link uno accanto all'altro */
     justify-content: center;   /* Centra i link orizzontalmente */
     gap: 15px;                 /* Spazio tra i link */
-    font-family: Arial, sans-serif; /* Font leggibile */
+    font-family: 'Roboto', sans-serif; /* Font leggibile */
     font-size: 14px;           /* Dimensione del testo */
 }
 

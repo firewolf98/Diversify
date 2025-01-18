@@ -89,6 +89,7 @@ select {
 /* Stile per il pulsante di download */
 .download-button {
   background-color: #007bff;
+  font-family: 'Roboto', sans-serif;
   color: #fff;
   border: none;
   padding: 12px 24px;

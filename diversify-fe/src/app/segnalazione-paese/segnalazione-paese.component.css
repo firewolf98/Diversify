@@ -279,7 +279,7 @@ button {
     padding: 12px 25px;
     font-size: 18px;
     font-weight: 700;
-    background-color: #ff7a60;
+    background-color: #0461c5;
     color: #fff;
     border: none;
     border-radius: 30px;
@@ -289,7 +289,7 @@ button {
 
 /* Hover sui bottoni */
 button:hover {
-    background-color: #ff8a65;
+    background-color: #004288;
     transform: scale(1.05);
 }
 
@@ -395,7 +395,7 @@ footer a:hover {
     font-size: 18px;
     font-weight: 600;
     padding: 12px 30px;
-    background-color: #ff7a60;
+    background-color: #0461c5;
     color: #fff;
     border: none;
     border-radius: 30px;
@@ -406,7 +406,7 @@ footer a:hover {
 
 /* Hover per il tasto */
 .save-button:hover {
-    background-color: #ff8a65;
+    background-color: #034287;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
@@ -453,7 +453,7 @@ footer a:hover {
     font-size: 18px;
     font-weight: 600; /* Un peso leggermente più forte per il testo */
     padding: 12px 30px; /* Spaziatura interna per farlo sembrare più grande */
-    background-color: #ff7a60; /* Colore caldo arancio */
+    background-color: #0461c5; /* Colore caldo arancio */
     color: #fff; /* Colore del testo bianco */
     border: none; /* Rimuove il bordo */
     border-radius: 30px; /* Bordo arrotondato */
@@ -464,7 +464,7 @@ footer a:hover {
 
 /* Effetto hover per il pulsante */
 .save-button:hover {
-    background-color: #ff8a65; /* Colore più chiaro al passaggio del mouse */
+    background-color: #034183; /* Colore più chiaro al passaggio del mouse */
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Ombra più intensa al passaggio del mouse */
     transform: translateY(-2px); /* Leggero spostamento verso l'alto */
 }

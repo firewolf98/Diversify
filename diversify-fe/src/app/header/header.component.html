@@ -12,6 +12,7 @@
             <div *ngIf="isLoggedIn(); else notLoggedInHomePage" class="ricerca-bottoni">
                 <div class="search-wrapper">
                     <input
+                        id="barra-di-ricerca"
                         type="text"
                         placeholder="Cerca un Paese"
                         (input)="onSearchChange($event)"
@@ -30,6 +31,7 @@
                 <!-- Barra di ricerca per utenti non loggati -->
                 <input
                     type="text"
+                    id="barra-di-ricerca"
                     placeholder="Cerca un Paese"
                     (input)="onSearchChange($event)"
                     [(ngModel)]="searchTerm"

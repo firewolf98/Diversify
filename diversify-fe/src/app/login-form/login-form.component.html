@@ -5,7 +5,7 @@
 		<div class="form-group">
 			<label for="email">Email</label>
 			<input type="email" id="email" class="form-control" formControlName="email"
-				placeholder="Inserisci la tua email" />
+				placeholder="Inserisci la tua email" autocomplete="email"/>
 
 			<!-- Messaggio di errore se il controllo 'email' non è stato compilato -->
 			<div *ngIf="hasError('email', 'required')" class="text-danger error-message">

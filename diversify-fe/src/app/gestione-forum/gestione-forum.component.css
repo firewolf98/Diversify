@@ -64,7 +64,7 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: #007bff;
+  border-color: #0461c5;
   outline: none;
 }
 
@@ -96,7 +96,7 @@ textarea:focus {
   color: #222;
   font-weight: bold;
   margin-right: 10px;
-  color: #007bff;
+  color: #0461c5;
 }
 
 .forums-list li .forum-details {
@@ -118,7 +118,7 @@ button {
   padding: 10px 15px;
   font-size: 1rem;
   color: #ffffff;
-  background-color: #007bff;
+  background-color: #0461c5;
   margin: 2px;
   margin-top: 10px;
   border: none;
@@ -173,7 +173,7 @@ button:hover {
   }
   
   .btn-primary {
-    background-color: #007bff;
+    background-color: #0461c5;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -183,7 +183,7 @@ button:hover {
   }
   
   .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #024791;
   }
   
   .posts {

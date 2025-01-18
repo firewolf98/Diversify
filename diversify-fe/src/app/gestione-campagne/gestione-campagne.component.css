@@ -21,7 +21,7 @@
 }
 
 button.reset-btn {
-    background-color: #6C63FF; /* Colore viola */
+    background-color: #0461c5; /* Colore viola */
     color: white;
     padding: 10px 20px; /* Padding ridotto */
     border-radius: 8px; /* Bordi arrotondati */
@@ -33,7 +33,7 @@ button.reset-btn {
 }
 
 button.reset-btn:hover {
-    background-color: #5a52e0; /* Colore più scuro al passaggio del mouse */
+    background-color: #023c7b; /* Colore più scuro al passaggio del mouse */
     transform: scale(1.05); /* Effetto di ingrandimento */
 }
 
@@ -90,7 +90,7 @@ button.reset-btn:hover {
 }
 
 .filters select:focus {
-    border-color: #007bff; /* Blu per il focus */
+    border-color: #0461c5; /* Blu per il focus */
     outline: none;
     box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.6);
 }
@@ -186,7 +186,7 @@ button {
     border-radius: 8px; /* Bordi più arrotondati */
     font-size: 16px;
     cursor: pointer;
-    background-color: #6C63FF; /* Colore viola */
+    background-color: #0461c5; /* Colore viola */
     color: white;
     border: none;
     width: auto; /* Larghezza automatica */
@@ -194,7 +194,7 @@ button {
 }
 
 button:hover {
-    background-color: #5a52e0; /* Colore più scuro al passaggio del mouse */
+    background-color: #034791; /* Colore più scuro al passaggio del mouse */
     transform: scale(1.05); /* Effetto di ingrandimento */
 }
 
@@ -207,7 +207,7 @@ button.remove-btn:hover {
 }
 
 button.create-campaign-btn {
-    background-color: #6C63FF; /* Colore verde */
+    background-color: #0461c5; /* Colore verde */
     padding: 15px 30px; /* Padding aumentato */
     font-size: 18px; /* Dimensione del font aumentata */
     border-radius: 8px; /* Bordi più arrotondati */
@@ -215,7 +215,7 @@ button.create-campaign-btn {
 }
 
 button.create-campaign-btn:hover {
-    background-color: #5d56e0; /* Colore più scuro al passaggio del mouse */
+    background-color: #044386; /* Colore più scuro al passaggio del mouse */
     transform: scale(1.05); /* Effetto di ingrandimento */
 }
 /* Pulsante di creazione campagna */
@@ -292,7 +292,7 @@ input, select, textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-    border-color: #6C63FF; /* Colore viola per il focus */
+    border-color: #0461c5; /* Colore viola per il focus */
     outline: none;
     box-shadow: 0px 0px 8px rgba(108, 99, 255, 0.3); /* Ombra più pronunciata */
 }
@@ -353,6 +353,18 @@ img{
 
 /* Per dispositivi piccoli (smartphone) */
 @media (max-width: 600px) {
+
+    .campaign-table {
+        overflow-x: auto;
+        display: block;
+    }
+
+    .campaign-table th,
+    .campaign-table td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
     .campaign-list-container {
         width: 90%; /* Utilizza il 90% della larghezza disponibile */
         padding: 15px; /* Riduce il padding */
@@ -433,6 +445,7 @@ img{
 
 /* Per desktop (oltre i 900px) */
 @media (min-width: 901px) {
+
     .campaign-list-container {
         width: 90%; /* Utilizza il 90% della larghezza disponibile */
         

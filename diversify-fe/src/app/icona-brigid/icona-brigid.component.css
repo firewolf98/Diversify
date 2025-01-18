@@ -34,8 +34,8 @@
   }
   
   .chat-label {
-    font-size: 14px;
-    color: #4a4a4a; /* Colore testo */
+    font-size: 16px;
+    color: #272626; /* Colore testo */
     font-weight: bold;
     margin-left: 10px; /* Spazio a sinistra rispetto all'immagine */
     white-space: nowrap; /* Impedisce il testo di andare a capo */

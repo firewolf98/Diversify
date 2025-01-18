@@ -10,6 +10,7 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column; /* Disposizione verticale */
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Titolo del modulo */
@@ -17,7 +18,12 @@
     text-align: center;
     margin-bottom: 20px;
     color: #333333; /* Testo scuro */
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    color:#0056b3 !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 /* Gruppi di input */
@@ -31,7 +37,7 @@ label {
     font-weight: bold;
     display: block;
     color: #555555; /* Grigio scuro */
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Gestione della visibilità della password */
@@ -123,7 +129,7 @@ button {
   background-color: #007bff;
   color: white;
   font-size: 16px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   margin-top: 10px; /* Spazio tra i pulsanti */
 }
@@ -135,7 +141,7 @@ button:hover {
 
 /* Bottone disabilitato */
 button:disabled {
-    background-color: #aaa;
+    background-color: #797676 !important;
     cursor: not-allowed;
 }
 
@@ -147,7 +153,7 @@ select {
     border: 1px solid #d1d1d1;
     border-radius: 5px;
     background-color: #ffffff;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
 }
 
