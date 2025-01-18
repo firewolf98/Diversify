@@ -238,17 +238,23 @@ class SegnalazioneControllerTest {
     // Categoria: Eliminazione di una segnalazione
     @Test
     void testDeleteSegnalazione_Found() {
-        // Partizioni
-        Segnalazione segnalazione = new Segnalazione();
+        // Crea un oggetto Segnalazione mock con idSegnalato configurato
+        Segnalazione segnalazione = mock(Segnalazione.class);
+        when(segnalazione.getIdSegnalato()).thenReturn("2");
+
+        // Configura il comportamento del servizio
         when(segnalazioneService.getSegnalazioneById("1")).thenReturn(Optional.of(segnalazione));
 
-        // Test
+        // Esegui il test
         ResponseEntity<?> response = segnalazioneController.deleteSegnalazione("1");
+
+        // Verifica il comportamento
         System.out.println("Response status: " + response.getStatusCode());
         System.out.println("Response body: " + response.getBody());
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-        verify(segnalazioneService, times(1)).deleteSegnalazione("1");
+        verify(segnalazioneService, times(1)).deleteSegnalazione("1", "2");
     }
+
 
     @Test
     void testDeleteSegnalazione_NotFound() {
@@ -261,7 +267,7 @@ class SegnalazioneControllerTest {
         System.out.println("Response body: " + response.getBody());
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals("Segnalazione non trovata", response.getBody());
-        verify(segnalazioneService, times(0)).deleteSegnalazione("1");
+        verify(segnalazioneService, times(0)).deleteSegnalazione("1","2");
     }
 
     // Categoria: Recupero segnalazioni per utente

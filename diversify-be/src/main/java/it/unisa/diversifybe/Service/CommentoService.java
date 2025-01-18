@@ -20,12 +20,6 @@ public class CommentoService {
     private CommentoRepository commentoRepository;
 
     @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private SubcommentoRepository subcommentoRepository;
-
-    @Autowired
     private ForumRepository forumRepository;
 
     /**
