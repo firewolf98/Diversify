@@ -1,7 +1,9 @@
 package it.unisa.diversifybe.Service;
 
 import it.unisa.diversifybe.Model.Segnalazione;
+import it.unisa.diversifybe.Model.Utente;
 import it.unisa.diversifybe.Repository.SegnalazioneRepository;
+import it.unisa.diversifybe.Repository.UtenteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,6 +24,9 @@ class SegnalazioneServiceTest {
 
     @Mock
     private SegnalazioneRepository segnalazioneRepository;
+
+    @Mock
+    private UtenteRepository utenteRepository;
 
     @BeforeEach
     void setUp() {
@@ -157,16 +162,31 @@ class SegnalazioneServiceTest {
     void deleteSegnalazione_Success() {
         // Configura un ID di segnalazione da eliminare
         String id = "1";
+        String idtoBan = "2";
+
+        // Crea un mock di un oggetto Utente
+        Utente utenteMock = new Utente();
+        utenteMock.setBanned(false);
+
+        // Configura i mock per i repository
         doNothing().when(segnalazioneRepository).deleteById(id);
+        when(utenteRepository.findById(idtoBan)).thenReturn(Optional.of(utenteMock));
+        when(utenteRepository.save(any(Utente.class))).thenReturn(utenteMock);
 
         // Esegui il test
         System.out.println("Testing deleteSegnalazione...");
-        segnalazioneService.deleteSegnalazione(id);
+        segnalazioneService.deleteSegnalazione(id, idtoBan);
 
         // Verifica il comportamento
         System.out.println("Segnalazione deleted for ID: " + id);
         verify(segnalazioneRepository, times(1)).deleteById(id);
+        verify(utenteRepository, times(1)).findById(idtoBan);
+        verify(utenteRepository, times(1)).save(utenteMock);
+
+        // Asserzione per verificare che l'utente sia stato bannato
+        assertTrue(utenteMock.isBanned());
     }
+
 
     @Test
     void getSegnalazioniByIdSegnalante_ListPopulated() {

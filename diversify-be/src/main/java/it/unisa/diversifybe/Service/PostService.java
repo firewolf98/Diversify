@@ -134,7 +134,11 @@ public class PostService {
      * @param idForum L'ID del forum di cui recuperare i post.
      * @return Una lista di post che appartengono al forum specificato.
      */
-    public List<Post> findPostsByForum(String idForum) {
+    public List<Post> findPostsByForum(String idForum)
+    {
+        if (idForum == null || idForum.isEmpty()) {
+            throw new IllegalArgumentException("L'ID del forum non può essere nullo o vuoto.");
+        }
         return forumRepository.findById(idForum).get().getPost();
     }
 }
