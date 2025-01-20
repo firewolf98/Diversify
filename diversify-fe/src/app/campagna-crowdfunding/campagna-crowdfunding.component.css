@@ -59,7 +59,7 @@
     display: inline-block;
     margin-top: 10px;
     padding: 10px 15px;
-    background-color: #007BFF;
+    background-color: #0256af;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -68,7 +68,7 @@
 }
 
 .donation-link:hover {
-    background-color: #e64a19;
+    background-color: #003483;
 }
 
 /* Effetto hover sulla card */

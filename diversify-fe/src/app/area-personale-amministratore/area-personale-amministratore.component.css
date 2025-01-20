@@ -32,7 +32,7 @@
   .form-actions button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #0461c5;
     color: white;
     border: none;
     border-radius: 5px;
@@ -41,7 +41,7 @@
   }
   
   .form-actions button:hover {
-    background-color: #0056b3;
+    background-color: #004186;
   }
   
   .password-container {

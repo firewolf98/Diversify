@@ -6,7 +6,7 @@
     padding: 20px;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
-    background-color: #ffe9d6; /* Colore pesca chiaro */
+    background-color: #fdece8; /* Colore pesca chiaro */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column; /* Disposizione verticale */
@@ -17,13 +17,13 @@
     text-align: center;
     margin-bottom: 20px;
     color: #333333; /* Testo scuro */
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Gruppi di informazioni utente */
 .scheda p {
     margin-bottom: 10px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: #333;
 }
@@ -63,22 +63,22 @@ button {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #0252a7;
     color: white;
     font-size: 16px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     cursor: pointer;
     margin-top: 10px; /* Spazio tra i pulsanti */
 }
 
 /* Effetto hover per i pulsanti */
 button:hover {
-    background-color: #0056b3; /* Blu più scuro */
+    background-color: #013d7c; /* Blu più scuro */
 }
 
 /* Bottone disabilitato */
 button:disabled {
-    background-color: #aaa;
+    background-color: #616161;
     cursor: not-allowed;
 }
 
@@ -102,7 +102,7 @@ button.btn-danger:hover {
     text-align: center;
     margin-bottom: 10px;
     color: #333;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 18px;
 }
 
@@ -117,7 +117,7 @@ label {
     font-weight: bold;
     display: block;
     color: #555555; /* Grigio scuro */
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Input degli utenti */
@@ -128,7 +128,7 @@ input {
     border: 1px solid #d1d1d1;
     border-radius: 5px;
     background-color: #ffffff;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
 }
 

@@ -24,6 +24,10 @@
 	/* Centra gli elementi orizzontalmente */
 }
 
+a {
+	color:#0056b3 !important;
+}
+
 /* Titolo del modulo */
 .login-container h2 {
 	text-align: center;
@@ -140,7 +144,7 @@ button:hover {
 
 /* Quando il bottone è disabilitato */
 button:disabled {
-	background-color: #aaa;
+	background-color: #797676 !important;
 	/* Colore di sfondo grigio quando disabilitato */
 	cursor: not-allowed;
 	/* Cambia il cursore per indicare che non è possibile cliccare */
