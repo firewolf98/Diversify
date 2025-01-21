@@ -1,0 +1,24 @@
+<div class="popup-wrapper">
+  <div class="popup-background">
+    <h3>Lista delle Segnalazioni</h3>
+    <ul class="report-list">
+      <li *ngFor="let report of segnalazioni" class="report-item">
+        <p><strong>Utente segnalato:</strong> {{ report.idSegnalato }}</p>
+        <p><strong>Segnalante:</strong> {{ report.idSegnalante }}</p>
+        <p><strong>Motivo:</strong> {{ report.motivazione }}</p>
+        <p><strong>Tipo:</strong> {{ report.tipoSegnalazione }}</p>
+        <button (click)="openBanPopup(report)">Ban</button>  <!-- Aggiunto tasto "Ban" -->
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Popup di conferma del Ban -->
+<div *ngIf="showBanPopup" class="ban-popup-wrapper">
+<div class="ban-popup-background">
+  <h3>Conferma Ban</h3>
+  <p>Sei sicuro di voler bannare l'utente <strong>{{ selectedReport.idSegnalato }}</strong>?</p>
+  <button (click)="banUser(selectedReport)">Conferma Ban</button>
+  <button (click)="closeBanPopup()">Annulla</button>
+</div>
+</div>

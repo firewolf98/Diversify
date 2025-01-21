@@ -1,0 +1,51 @@
+<div *ngIf="campagnaSingola; else campaignList">
+    <div class="campaign-container">
+      <div class="campaign-card">
+        <div
+          class="campaign-background"
+          [style.backgroundImage]="'url(' + campagnaSingola.immagine + ')'"
+        >
+          <div class="campaign-content">
+            <h2>{{ campagnaSingola.titolo }}</h2>
+            <p>{{ campagnaSingola.descrizione }}</p>
+            <p><strong>Categoria:</strong> {{ campagnaSingola.categoria }}</p>
+            <p><strong>Target:</strong> {{ campagnaSingola.sommaDaRaccogliere | currency:'EUR' }}</p>
+            <p><strong>Raggiunti:</strong> {{ campagnaSingola.sommaRaccolta | currency:'EUR' }}</p>
+            <p><strong>Data di Terminazione:</strong> {{ campagnaSingola.dataPrevistaFine | date }}</p>
+            <a [href]="campagnaSingola.linkDonazione" target="_blank" class="donation-link">Dona Ora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #campaignList>
+    <div class="campaign-container" *ngIf="campagne && campagne.length > 0">
+      <div class="campaign-card" *ngFor="let campagna of campagne">
+        <div
+          class="campaign-background"
+          [style.backgroundImage]="'url(' + campagna.immagine + ')'"
+        >
+          <div class="campaign-content">
+            <h2>{{ campagna.titolo }}</h2>
+            <p>{{ campagna.descrizione }}</p>
+            <p><strong>Categoria:</strong> {{ campagna.categoria }}</p>
+            <p><strong>Target:</strong> {{ campagna.sommaDaRaccogliere | currency:'EUR' }}</p>
+            <p><strong>Raggiunti:</strong> {{ campagna.sommaRaccolta | currency:'EUR' }}</p>
+            <p><strong>Data di Terminazione:</strong> {{ campagna.dataPrevistaFine | date }}</p>
+            <a [href]="campagna.linkDonazione" target="_blank" class="donation-link">Dona Ora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="campagne && campagne.length === 0">
+      <div class="campaign-container">
+        <div class="campaign-card">
+          <div class="campaign-content">
+            <p>Nessuna campagna disponibile</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  

@@ -1,0 +1,441 @@
+/* Stile generale per l'header */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fdece8; /* Colore di sfondo rosa pesca */
+  padding: 10px 0;
+}
+
+::placeholder {
+  color: #4f4e4e;
+  font-style: italic;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Contenitore centrale per la barra di ricerca o la scritta "Home" */
+.center-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+/* Contenitore per i bottoni a destra */
+.right-container {
+  display: flex;
+  align-items: center; /* Allinea gli elementi verticalmente al centro */
+  gap: 10px; /* Spazio tra il bottone "Logout" e l'icona del profilo */
+  margin-right: 10px;
+}
+
+.logo-container {
+  margin-left: 10px;
+  flex-shrink: 0; /* Evita che il contenitore si riduca */
+  margin-right: 20px; /* Distanza tra logo e barra di ricerca */
+}
+
+.logo {
+  height: 85px; /* Altezza del logo */
+  width: auto; /* Mantieni le proporzioni */
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 50px;
+}
+
+.icona {
+  position: absolute;
+  left: 5px;
+  top: 50%; /* Centra verticalmente */
+  transform: translateY(-50%);
+  height: 11px;
+  width: auto;
+  cursor: pointer;
+}
+
+/* Stile per l'icona del menu (hamburger) */
+.menu-icon-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  transition: transform 0.3s ease; /* Aggiungi una transizione per l'animazione */
+}
+
+/* Effetto hover per l'icona */
+.menu-icon-container:hover {
+  border-radius: 5px; /* Arrotonda gli angoli */
+  padding: 5px; /* Aggiungi un po' di spazio attorno */
+}
+
+/* Lo stile dell'icona del menu */
+.menu-icon {
+  width: 35px; /* Aumenta la larghezza per renderla più visibile */
+  height: 25px; /* Aumenta l'altezza per una forma più grande */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; /* Allinea le linee al centro */
+  margin-right: 20px;
+}
+
+.menu-icon span {
+  display: block;
+  height: 5px; /* Aumenta la larghezza delle linee */
+  width: 100%;
+  background-color: #333; /* Colore scuro per le linee dell'hamburger */
+  border-radius: 2px; /* Arrotonda gli angoli delle linee */
+  transition: transform 0.3s ease; /* Aggiungi una transizione per l'animazione */
+}
+
+/* Effetto per quando l'icona è attiva (quando il menu è aperto) */
+.menu-icon-container.active .menu-icon span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg); /* Ruota la prima linea per formare un "X" */
+}
+
+.menu-icon-container.active .menu-icon span:nth-child(2) {
+  opacity: 0; /* Nasconde la seconda linea */
+}
+
+.menu-icon-container.active .menu-icon span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg); /* Ruota la terza linea per completare l'"X" */
+}
+
+.menu-container {
+  position: fixed; /* Fisso sul lato dello schermo */
+  top: 0;
+  right: -100%; /* Nascondilo inizialmente fuori dallo schermo */
+  height: 100%;
+  width: 300px;
+  background-color: #fdece8;
+  border-left: 1px solid #ccc;
+  transition: right 0.3s ease; /* Animazione dello scorrimento */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Menu visibile */
+.menu-container.active {
+  right: 0; /* Spostalo dentro lo schermo */
+}
+
+/* Stile per i tasti nel menu */
+.menu-items {
+  display: flex;
+  flex-direction: column; /* Disposizione verticale */
+  align-items: center; /* Centra il contenuto orizzontalmente */
+  gap: 10px; /* Riduci la spaziatura tra i tasti */
+  padding: 10px; /* Spaziatura attorno ai tasti */
+  width: 100%; /* Assicura che il menu occupi tutta la larghezza */
+  box-sizing: border-box; /* Include padding nelle dimensioni */
+  flex: 0;
+}
+
+.menu-items a {
+  font-size: 16px; /* Dimensione del font */
+  text-align: center; /* Centra il testo */
+  padding: 8px 12px; /* Riduci la spaziatura interna */
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  width: 80%; /* Fai in modo che i tasti non siano troppo larghi */
+  border-radius: 6px; /* Arrotondamento leggero */
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.menu-items a:hover {
+  color: #007bff;
+  background-color: #ffebe2;
+}
+
+.menu-items img {
+  width: 30px; /* Imposta la larghezza dell'immagine */
+  height: auto; /* Mantieni le proporzioni */
+}
+
+.menu-icon span:nth-child(1),
+.menu-icon span:nth-child(2) {
+  margin-bottom: 6px;
+}
+
+.menu-icon-container:hover .menu-icon span {
+  background-color: #555; /* Colore più chiaro al passaggio del mouse */
+}
+
+/* Stile per la barra di ricerca */
+input[type="text"] {
+  padding: 12px 15px; /* Riduci il padding */
+  font-size: 16px; /* Riduci la dimensione del font */
+  font-family: Helvetica, Arial, sans-serif;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: whitesmoke;
+}
+
+input[type="text"]:focus {
+  border-color: #ffeba7;
+  box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2);
+}
+
+.search-wrapper {
+  position: relative; /* Posizionamento relativo per il contenitore */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; /* Regola questa larghezza in base alle tue esigenze */
+}
+
+/* Stile per la lista dei risultati */
+ul {
+  list-style-type: none;
+  padding: 0 !important;
+  margin: 5px !important;
+  position: absolute !important;
+  top: 100% !important; /* Modifica questa linea per posizionare la lista direttamente sotto la barra di ricerca */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100% !important;
+  max-width: 330px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000 !important;
+  background-color: #ffebe2;
+}
+
+ul.active {
+  border-color: #ffeba7;
+}
+
+li {
+  padding: 15px;
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+
+li:hover {
+  background-color: #fff5f1;
+  color: #642102;
+  transform: scale(1.001);
+}
+
+/* Stile per il contenitore dei bottoni Accedi e Registrati */
+.auth-buttons {
+  display: flex; /* Disporre i bottoni in orizzontale */
+  align-items: center; /* Allinea gli elementi verticalmente al centro */
+  gap: 10px; /* Spazio tra i pulsanti */
+  padding: 10px;
+  flex-direction: column;
+}
+
+/* Stile per i bottoni Accedi e Registrati */
+.auth-buttons button {
+  background-color: #0055b0; /* Colore di base */
+  color: white; /* Colore del testo */
+  border: none; /* Nessun bordo */
+  border-radius: 5px; /* Angoli arrotondati */
+  padding: 10px 20px; /* Padding per i bottoni */
+  font-size: 16px; /* Dimensione del testo */
+  font-weight: bold; /* Testo in grassetto */
+  cursor: pointer; /* Cambia il cursore al passaggio sopra */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transizione per l'effetto hover */
+}
+
+/* Effetto hover per i bottoni */
+.auth-buttons button:hover {
+  background-color: #013872; /* Colore più scuro per il hover */
+  transform: scale(1.05); /* Leggero ingrandimento al passaggio sopra */
+}
+
+/* Effetto focus per i bottoni */
+.auth-buttons button:focus {
+  outline: none; /* Rimuove il bordo di focus predefinito */
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.6); /* Aggiungi un'ombra blu quando il bottone è selezionato */
+}
+
+/* Aggiungi uno stile per il bottone 'Registrati' */
+.auth-buttons button:last-child {
+  background-color: #28a745; /* Colore verde per 'Registrati' */
+}
+
+.auth-buttons button:last-child:hover {
+  background-color: #218838; /* Colore più scuro per il hover di 'Registrati' */
+}
+
+/* Stile per il link "Home" */
+.home-link {
+  color: #01448c; /* Colore del testo blu */
+  font-size: 18px; /* Dimensione del font */
+  font-weight: bold; /* Testo in grassetto */
+  text-decoration: none; /* Rimuove la sottolineatura */
+  transition: color 0.3s ease, transform 0.2s ease; /* Transizione per il cambio di colore e effetto hover */
+  text-align: center; /* Centra il testo orizzontalmente */
+}
+
+.home-link:hover {
+  color: #012a56; /* Colore più scuro al passaggio del mouse */
+  transform: translateY(-3px); /* Piccola animazione di spostamento */
+}
+
+.home-link:focus {
+  outline: none; /* Rimuove l'effetto di contorno quando il link è selezionato */
+}
+
+.home-link:active {
+  color: #012851; /* Colore più scuro quando il link è cliccato */
+  transform: translateY(1px); /* Spostamento verso il basso durante il click */
+}
+
+/* Stile per l'icona del profilo */
+.profile-icon {
+  width: 30px; /* Imposta la larghezza dell'icona del profilo */
+  height: auto; /* Mantieni le proporzioni */
+  cursor: pointer; /* Cambia il cursore al passaggio sopra */
+  transition: transform 0.2s ease; /* Aggiungi una transizione per l'effetto hover */
+}
+
+.profile-icon:hover {
+  transform: scale(1.1); /* Leggero ingrandimento al passaggio sopra */
+}
+
+/* Media query per schermi più piccoli (max-width 1024px) */
+@media screen and (max-width: 1024px) {
+  .header-container {
+    justify-content: space-between;
+    padding: 0 12px;
+  }
+
+  .menu-icon-container {
+    display: flex; /* Mostra l'icona del menu hamburger */
+  }
+
+  ul{
+    z-index: 1000 !important;
+  }
+
+  .right-container .auth-buttons {
+    display: none; /* Nascondi i bottoni "Accedi" e "Registrati" nel contenitore destro */
+  }
+
+  .menu-container {
+    display: none; /* Nascondi il menu hamburger di default */
+  }
+
+  .menu-container.active {
+    display: flex; /* Mostra il menu hamburger quando è attivo */
+  }
+
+  /* Centra la barra di ricerca o la scritta "Home" */
+  .center-container {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    align-items: center;
+  }
+
+  /* Allinea i bottoni a destra */
+  .right-container {
+    display: flex;
+    align-items: center; /* Allinea gli elementi verticalmente al centro */
+    gap: 10px; /* Spazio tra il bottone "Logout" e l'icona del profilo */
+  }
+
+  /* Mostra il menu hamburger solo quando è attivo */
+  .menu-container.active {
+    right: 0;
+  }
+  
+}
+
+@media screen and (min-width: 1025px) {
+  .menu-icon-container {
+    display: none; /* Nascondi l'icona del menu hamburger su schermi grandi */
+  }
+
+  .menu-container {
+    display: none; /* Nascondi il menu hamburger su schermi grandi */
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* o specifica un'altezza */
+  }
+
+  .menu-items {
+    display: flex; /* Mostra i tasti */
+    flex-direction: row; /* Allinea i tasti orizzontalmente */
+    gap: 20px; /* Aggiungi spazio tra i tasti */
+  }
+
+  /* I bottoni sono sempre visibili su dispositivi desktop */
+  .auth-buttons {
+    display: flex; /* Rendi i bottoni visibili su schermi grandi */
+    flex-direction: row; /* Allinea i bottoni orizzontalmente */
+    gap: 15px;
+    justify-content: center;
+  }
+
+  input[type="text"] {
+    width: 500px; /* Limita la larghezza massima */
+    padding: 12px 15px;
+    font-size: 16px;
+    font-family: Helvetica, Arial, sans-serif;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: whitesmoke;
+  }
+
+  .ricerca-bottoni {
+    display: flex;
+  }
+
+  .home-bottoni {
+    display: flex;
+  }
+
+  .search-wrapper {
+      position: relative; /* Questo è obbligatorio */
+      display: inline-block;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 500px; /* Regola questa larghezza in base alle tue esigenze */
+  }
+
+  .search-wrapper input {
+    font-size: 14px; /* Riduci la dimensione del testo */
+    padding-left: 10px; /* Riduci il padding a sinistra per lasciare spazio all'icona */
+    padding-right: 80px; /* Riduci il padding a destra per icona */
+    width: 500px;
+  }
+
+  /* Contenitore a destra */
+  .right-container {
+    justify-content: center; /* Centra il contenuto orizzontalmente */
+    display: flex;
+    align-items: center; /* Centra gli elementi verticalmente */
+  }
+}

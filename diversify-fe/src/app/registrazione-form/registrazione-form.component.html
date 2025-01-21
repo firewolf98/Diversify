@@ -1,0 +1,167 @@
+<div class="registrazione-form">
+    <h2>Registrazione</h2>
+  
+    <form [formGroup]="moduloRegistrazione" (ngSubmit)="inviaDati()">
+  
+      <!-- Campo Nome -->
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          formControlName="nome"
+          class="form-control"
+          placeholder="Inserisci il tuo nome"
+        />
+        <div *ngIf="moduloRegistrazione.get('nome')?.touched && moduloRegistrazione.get('nome')?.invalid" class="error-message">
+          <div *ngIf="moduloRegistrazione.get('nome')?.hasError('required')">Il nome è obbligatorio</div>
+          <div *ngIf="moduloRegistrazione.get('nome')?.hasError('pattern')">Solo la prima lettera del nome è maiuscola e il nome non può contenere simboli eccetto spazi</div>
+        </div>
+      </div>
+  
+      <!-- Campo Cognome -->
+      <div class="form-group">
+        <label for="cognome">Cognome</label>
+        <input
+          id="cognome"
+          type="text"
+          formControlName="cognome"
+          class="form-control"
+          placeholder="Inserisci il tuo cognome"
+        />
+        <div *ngIf="moduloRegistrazione.get('cognome')?.touched && moduloRegistrazione.get('cognome')?.invalid" class="error-message">
+          <div *ngIf="moduloRegistrazione.get('cognome')?.hasError('required')">Il cognome è obbligatorio</div>
+          <div *ngIf="moduloRegistrazione.get('cognome')?.hasError('pattern')">Il cognome deve iniziare con una lettera maiuscola</div>
+        </div>
+      </div>
+  
+      <!-- Campo Domanda -->
+      <div class="form-group">
+        <label for="domanda">Domanda Personale</label>
+        <select id="domanda" formControlName="domanda" class="form-control">
+          <option value="">Seleziona una domanda</option>
+          <option value="Come si chiama tuo padre?">Come si chiama tuo padre?</option>
+          <option value="Chi è il tuo migliore amico?">Chi è il tuo migliore amico?</option>
+        </select>
+        <div *ngIf="moduloRegistrazione.get('domanda')?.touched && moduloRegistrazione.get('domanda')?.invalid" class="error-message">
+          <div *ngIf="moduloRegistrazione.get('domanda')?.hasError('required')">La domanda è obbligatoria</div>
+        </div>
+      </div>
+  
+      <!-- Campo Risposta -->
+      <div class="form-group">
+        <label for="risposta">Risposta</label>
+        <input
+          id="risposta"
+          type="text"
+          formControlName="risposta"
+          class="form-control"
+          placeholder="Inserisci la tua risposta"
+        />
+        <div *ngIf="moduloRegistrazione.get('risposta')?.touched && moduloRegistrazione.get('risposta')?.invalid" class="error-message">
+          <div *ngIf="moduloRegistrazione.get('risposta')?.hasError('required')">La risposta è obbligatoria</div>
+        </div>
+      </div>
+  
+      <!-- Campo Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="Inserisci il tuo indirizzo email"
+          autocomplete="email"
+        />
+        <div *ngIf="moduloRegistrazione.get('email')?.touched && moduloRegistrazione.get('email')?.invalid" class="error-message">
+          <div *ngIf="moduloRegistrazione.get('email')?.hasError('required')">L'email è obbligatoria</div>
+          <div *ngIf="moduloRegistrazione.get('email')?.hasError('email')">L'email non è valida</div>
+        </div>
+      </div>
+  
+<!-- Campo Password -->
+<div class="form-group">
+  <label for="password">Password</label>
+  <div class="password-container">
+    <input id="password" [type]="isPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Inserisci la tua password" formControlName="password" />
+    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('password')" aria-label="Mostra/Nascondi password">
+      <i class="fa" [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+    </button>
+  </div>
+  <div *ngIf="moduloRegistrazione.get('password')?.touched && moduloRegistrazione.get('password')?.invalid" class="error-message">
+    <div *ngIf="moduloRegistrazione.get('password')?.hasError('required')">La password è obbligatoria</div>
+    <div *ngIf="moduloRegistrazione.get('password')?.hasError('minlength')">La password deve contenere almeno 8 caratteri</div>
+    <div *ngIf="moduloRegistrazione.get('password')?.hasError('pattern')">La password deve contenere almeno una lettera maiuscola, un numero e un carattere speciale</div>
+  </div>
+</div>
+
+<!-- Campo Conferma Password -->
+<div class="form-group">
+  <label for="confermaPassword">Conferma Password</label>
+  <div class="password-container">
+    <input id="confermaPassword" [type]="isConfermaPasswordVisible ? 'text' : 'password'" class="form-control" placeholder="Conferma la tua password" formControlName="confermaPassword" />
+    <button type="button" class="toggle-password" (click)="togglePasswordVisibility('confermaPassword')" aria-label="Mostra/Nascondi password">
+      <i class="fa" [ngClass]="isConfermaPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+    </button>
+  </div>
+  <div *ngIf="moduloRegistrazione.get('confermaPassword')?.touched && moduloRegistrazione.get('confermaPassword')?.invalid" class="error-message">
+    <div *ngIf="moduloRegistrazione.get('confermaPassword')?.hasError('required')">La conferma della password è obbligatoria</div>
+  </div>
+  <div *ngIf="moduloRegistrazione.hasError('passwordsNonCoincidenti') && moduloRegistrazione.get('confermaPassword')?.touched" class="error-message">
+    Le password non corrispondono
+  </div>
+</div>
+  
+
+      <!-- Campo Codice Fiscale -->
+      <div class="form-group">
+        <label for="cf">Codice Fiscale</label>
+        <input
+          id="cf"
+          type="text"
+          formControlName="cf"
+          class="form-control"
+          placeholder="Inserisci il tuo codice fiscale"
+        />
+        <div *ngIf="moduloRegistrazione.get('cf')?.touched && moduloRegistrazione.get('cf')?.invalid" class="error-message">
+          <div *ngIf="moduloRegistrazione.get('cf')?.hasError('required')">Il codice fiscale è obbligatorio</div>
+          <div *ngIf="moduloRegistrazione.get('cf')?.hasError('pattern')">Il codice fiscale deve contenere esattamente 16 caratteri</div>
+          <div *ngIf="moduloRegistrazione.get('cf')?.hasError('cfEsistente')">Il codice fiscale è già presente nel sistema</div>
+          <div *ngIf="moduloRegistrazione.get('cf')?.hasError('notUppercase')">
+            Il codice fiscale deve essere scritto in lettere maiuscole.
+          </div>
+        </div>
+      </div>
+  
+      <!-- Campo Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="form-control"
+          placeholder="Inserisci il tuo username"
+          autocomplete="username"
+        />
+        <div *ngIf="moduloRegistrazione.get('username')?.touched && moduloRegistrazione.get('username')?.invalid" class="error-message">
+          <div *ngIf="moduloRegistrazione.get('username')?.hasError('required')">Lo username è obbligatorio</div>
+          <div *ngIf="moduloRegistrazione.get('username')?.hasError('minlength')">Lo username deve essere lungo almeno 5 caratteri</div>
+          <div *ngIf="moduloRegistrazione.get('username')?.hasError('usernameEsistente')">Lo username è già presente nel sistema</div>
+        </div>
+      </div>
+  
+    <!-- Link se sei già registrato per condurti alla componente login-->
+		<div class="login-link">
+			<small>
+			  Sei già registrato? 
+			  <a href="javascript:void(0);" (click)="navigateToLogin()">Effettua il login</a>
+			</small>
+		</div>
+
+      <!-- Pulsante di Registrazione -->
+      <button type="submit" class="btn btn-primary" [disabled]="moduloRegistrazione.invalid">Registrati</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,507 @@
+body {
+  background-color: #fff; /* Colore di sfondo bianco per la pagina */
+  margin: 0;
+  padding: 0;
+  height: 100%; 
+}
+
+/* Stile per il tasto Mi Piace del post */
+.like-button {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 10px 20px; /* Aumentiamo il padding per renderlo più grande */
+  cursor: pointer;
+  font-size: 16px; /* Aumentiamo la dimensione del font */
+  color: #333;
+  transition: background-color 0.3s;
+  margin-top: 15px; /* Aggiungi più spazio sopra il tasto */
+  margin-bottom: 15px; /* Aggiungi più spazio sotto il tasto */
+  border-radius: 20px;
+}
+
+.like-button:hover {
+  background-color: #e2e8f0;
+}
+
+.like-button:active {
+  background-color: #cbd5e0;
+}
+
+.like-button svg {
+  width: 18px; /* Ridurre la dimensione dell'icona */
+  height: 18px;
+}
+
+/* Icona di Mi Piace (Aggiunta) */
+.like-button .like-icon {
+  font-size: 16px; /* Dimensione dell'icona */
+}
+
+/* Contenitore dell'autore nel post */
+/* Contenitore dell'autore nel post */
+.post-author-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  margin-bottom: 15px; /* Spazio sotto l'autore */
+}
+
+/* Immagine dell'autore */
+.post-author-avatar {
+  width: 40px; /* Dimensione simile a quella dei commenti */
+  height: 40px;
+  border-radius: 50%; /* Rende l'immagine rotonda */
+  margin-right: 10px; /* Spazio tra immagine e nome */
+}
+
+/* Nome dell'autore nel post */
+.post-author-name {
+  font-size: 16px; /* Dimensione simile a quella dei commenti */
+  font-weight: bold;
+  color: #333; /* Colore scuro per il nome */
+}
+
+.background-container {
+background-color: #ffe3d8;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px; /* Riduce lo spazio */
+height: auto;
+max-height: none; 
+margin: 20px 5%; /* Riduce il margine */
+}
+
+/* Contenitore del post */
+.post-container {
+  position: relative; /* Necessario per il posizionamento assoluto dell'icona di segnalazione */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px 50px;
+  width: calc(100% - 40px);
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+}
+
+/* "Torna alla mappa" */
+.back-link {
+color: #3182ce;
+font-size: 14px;
+font-weight: bold; /* Grassetto */
+text-decoration: none;
+display: inline-block;
+margin: 10px 0;
+}
+
+.back-link:hover {
+color: #2b6cb0;
+text-decoration: underline;
+}
+
+/* Stile per il contenitore del commento */
+/* Stile per il contenitore del commento */
+.comment-container {
+  display: flex; /* Disposizione in linea */
+  flex-direction: column; /* Allinea gli elementi in verticale */
+  align-items: flex-start; /* Allinea gli elementi a sinistra */
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Bottone "Aggiungi Commento" */
+.comment-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: auto; /* Sposta il bottone completamente a destra */
+}
+
+/* Stile per il tasto segnala con bandiera */
+.flag-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%; /* Rende il bottone rotondo */
+  transition: background-color 0.3s;
+  margin-left: auto; /* Sposta l'icona di segnalazione a destra */
+}
+
+.flag-button:hover {
+  background-color: #e2e8f0; /* Cambia colore al passaggio del mouse */
+}
+
+.flag-icon {
+  width: 25px; /* Dimensione dell'icona */
+  height: 25px;
+  vertical-align: middle;
+}
+
+/* Effetto hover per il bottone */
+.comment-button:hover {
+  background-color: #0056b3; /* Blu più scuro quando si passa sopra */
+}
+
+/* Ridimensionamento delle immagini */
+.comment-avatar {
+width: 50px; /* Larghezza fissa per l'immagine */
+height: 50px; /* Altezza fissa per l'immagine */
+border-radius: 50%; 
+margin-right: 10px; /* Spaziatura tra immagine e nome */
+}
+
+/* Nome dell'autore */
+.comment-author {
+font-size: 16px;
+font-weight: bold;
+margin-right: 10px;
+}
+
+/* Testo del commento */
+.comment-text {
+font-size: 14px;
+line-height: 1.5;
+color: #555;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #888; /* Colore grigio per distinguere la data */
+  margin-left: auto; /* Sposta la data completamente a destra */
+  text-align: right; /* Allinea il testo della data a destra */
+}
+
+/* Stile per il titolo "Commenti" */
+.comments-section h2 {
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+  font-size: 20px; /* Aumenta la dimensione del testo */
+  font-weight: 700; /* Rende il titolo grassetto */
+  color: #36454f; /* Colore accentuato per il titolo */
+  margin-top: 30px; /* Aggiungi spazio sopra il titolo */
+  margin-bottom: 15px; /* Aggiungi spazio sotto il titolo */
+  border-bottom: 2px solid #36454f; /* Aggiungi una linea sotto per separare visivamente */
+  padding-bottom: 10px; /* Distanza dalla linea */
+  text-align: left; /* Centra il titolo */
+}
+
+/* Campo di testo per i commenti */
+.comment-textarea {
+  width: 97%; /* Larghezza al 100% per adattarsi bene */
+  height: 60px; /* Altezza simile al campo dei subcommenti */
+  padding: 10px; /* Aggiungi padding per spazio interno */
+  border-radius: 8px; /* Angoli arrotondati per un aspetto più morbido */
+  border: 1px solid #ccc; /* Colore del bordo simile al campo dei subcommenti */
+  font-size: 14px; /* Dimensione del testo */
+  font-family: Roboto, sans-serif; /* Font simile a quello dei subcommenti */
+  color: #333; /* Colore del testo simile a quello dei subcommenti */
+  background-color: #f9f9f9; /* Colore di sfondo chiaro */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Ombra leggera per dare profondità */
+  resize: none; /* Impedisce il ridimensionamento del campo */
+  margin-bottom: 10px; /* Spazio sotto il campo di testo */
+}
+
+/* Stato al passaggio del mouse */
+.comment-textarea:hover {
+  border-color: #3182ce; /* Colore bordo quando il campo è in focus */
+  background-color: #f1f8ff; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+/* Stato al focus */
+.comment-textarea:focus {
+  border-color: #3182ce; /* Colore del bordo quando il campo è in focus */
+  background-color: #f1f8ff; /* Colore di sfondo al focus */
+  outline: none; /* Rimuove il contorno blu di default */
+}
+
+/* Titolo principale */
+.post-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Contenuto del post */
+.post-content {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Header del post */
+.post-header {
+  display: flex; /* Allinea gli elementi in orizzontale */
+  align-items: center; /* Centra verticalmente gli elementi */
+  margin-bottom: 15px;
+}
+
+.post-icon {
+  font-size: 30px;
+  color: #3182ce;
+  margin-right: 10px;
+}
+
+.post-title-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3182ce;
+}
+
+.badge {
+  background-color: #bee3f8;
+  color: #2b6cb0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+/* Descrizione */
+.post-description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.post-footer .post-author a {
+  color: #3182ce; 
+  text-decoration: none;
+  margin-left: 3px; /* Ridurre il margine tra il nome "Lucia" e le azioni */
+
+}
+
+.post-footer .post-author a:hover {
+  text-decoration: underline; /* Aggiungi sottolineatura al passaggio del mouse */
+}
+
+/* Footer del post */
+.post-footer {
+  margin-top: 5px; /* Aggiunge spazio sopra il footer */
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Azioni del post (Rispondi, Condividi) */
+.post-action {
+color: #3182ce;
+text-decoration: none;
+font-size: 14px;
+}
+
+.post-footer .post-action + .post-action {
+margin-left: 10px; /* Margine uniforme tra le azioni */
+}
+
+.post-action:hover {
+text-decoration: underline;
+}
+
+/* Ridurre lo spazio tra il nome e le azioni */
+.post-footer .post-author {
+margin-right: 10px; /* Ridurre il margine tra il nome "Lucia" e le azioni */
+}
+
+/* Ridurre ulteriormente lo spazio tra le due azioni */
+.post-footer .post-action + .post-action {
+margin-left: 10px; /* Spazio uniforme tra "Rispondi" e "Condividi" */
+}
+
+/* Stile per il contenitore delle azioni, per garantirne l'allineamento orizzontale */
+.post-actions-container {
+display: block; /* Disposizione verticale o eliminare completamente */
+gap: 8px; /* Riduci lo spazio tra le azioni */
+}
+
+.post-icon {
+  width: 30px; /* Dimensione dell'icona */
+  height: 30px;
+  margin-right: 10px; /* Spazio tra l'icona e il testo */
+  vertical-align: middle; /* Allinea l'icona verticalmente */
+}
+
+/* Media query per dispositivi con larghezza massima di 1024px (Tablet) */
+@media screen and (max-width: 1024px) {
+  .background-container {
+    padding: 20px; /* Ridurre il padding laterale e superiore */
+    margin-left: 5%; /* Ridurre i margini laterali per avere più spazio */
+    margin-right: 5%; /* Ridurre i margini laterali per avere più spazio */
+  }
+
+  .post-container {
+    width: 90%; /* Ridurre la larghezza del post per adattarlo meglio ai tablet */
+    padding: 15px 25px; /* Ridurre il padding interno */
+  }
+
+  .post-title {
+    font-size: 30px; /* Ridurre la dimensione del titolo */
+    margin-bottom: 15px; /* Spazio ridotto sotto il titolo */
+  }
+
+  .post-description {
+    font-size: 14px; /* Ridurre la dimensione del testo */
+  }
+
+  .post-footer {
+    font-size: 12px; /* Ridurre la dimensione del testo del footer */
+  }
+
+  .post-action {
+    font-size: 14px; /* Ridurre la dimensione del testo per le azioni */
+    margin-left: 10px; /* Ridurre il margine tra le azioni */
+  }
+  
+/* Media query per dispositivi con larghezza massima di 600px (Telefono) */
+@media screen and (max-width: 600px) {
+  .background-container {
+    padding: 10px; /* Ridurre ulteriormente il padding */
+    margin-left: 0; /* Rimuovere il margine laterale per adattarlo meglio alla larghezza */
+    margin-right: 0; /* Rimuovere il margine laterale per adattarlo meglio alla larghezza */
+  }
+
+  .post-container {
+    width: 100%; /* Rimuovere il limite di larghezza per occupare tutta la larghezza disponibile */
+    padding: 10px 15px; /* Ridurre il padding interno */
+  }
+
+  .post-title {
+    font-size: 24px; /* Ridurre ulteriormente la dimensione del titolo */
+    margin-bottom: 10px; /* Spazio ridotto sotto il titolo */
+  }
+
+  .post-description {
+    font-size: 12px; /* Ridurre ulteriormente la dimensione del testo */
+  }
+
+  .post-footer {
+    font-size: 10px; /* Ridurre ulteriormente la dimensione del testo del footer */
+  }
+
+  .post-action {
+    font-size: 12px; /* Ridurre ulteriormente la dimensione del testo per le azioni */
+    margin-left: 5px; /* Ridurre il margine tra le azioni */
+  }
+
+  .search-bar {
+    max-width: 150px; /* Ridurre ulteriormente la larghezza massima della barra di ricerca */
+    padding: 4px 8px; /* Ridurre il padding */
+  }
+
+  .search-input {
+    font-size: 10px; /* Ridurre la dimensione del testo */
+    padding-left: 15px; /* Ridurre il padding */
+    padding-right: 30px; /* Ridurre il padding */
+  }
+
+  .menu-icon {
+    width: 16px; /* Ridurre le dimensioni dell'icona del menu */
+    height: 12px; /* Ridurre l'altezza */
+  }
+
+  .menu-icon-container {
+    margin-left: 0; /* Rimuovere il margine sinistro */
+    padding: 0 2px; /* Ridurre il padding */
+  }
+
+  .menu-icon span {
+    width: 40%; /* Ridurre la larghezza delle linee */
+  }
+}
+}
+
+/* Stile per il modale di segnalazione */
+.report-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Sfondo semi-trasparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Assicura che il modale sia sopra tutto */
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px; /* Angoli più arrotondati */
+  width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centra il testo */
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+  font-weight: 500; /* Peso del font Roboto */
+}
+
+.report-textarea {
+  width: calc(100% - 24px); /* Larghezza calcolata considerando il padding */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Angoli più arrotondati */
+  font-size: 14px;
+  margin-bottom: 15px;
+  resize: vertical; /* Permette all'utente di ridimensionare verticalmente */
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Aggiunge transizioni */
+  box-sizing: border-box; /* Include padding e bordi nella larghezza totale */
+}
+
+.report-textarea:focus {
+  border-color: #3182ce; /* Cambia colore del bordo quando in focus */
+  box-shadow: 0 0 5px rgba(49, 130, 206, 0.5); /* Aggiunge un'ombra al focus */
+  outline: none; /* Rimuove l'outline di default */
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center; /* Centra i pulsanti */
+  gap: 10px;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px; /* Angoli più arrotondati */
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif; /* Applica il font Roboto */
+  transition: background-color 0.3s; /* Aggiunge transizioni */
+}
+
+.confirm-button {
+  background-color: #3182ce;
+  color: #fff;
+}
+
+.confirm-button:hover {
+  background-color: #2b6cb0;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #cbd5e0;
+}

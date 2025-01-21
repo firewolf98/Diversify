@@ -1,0 +1,15 @@
+<div class="search-container">
+    <input 
+      type="text" 
+      placeholder="Cerca un Paese" 
+      (input)="onSearchChange($event)" 
+      [(ngModel)]="searchTerm" 
+      (click)="toggleDropdown()"  
+    />
+    <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+      <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
+        {{ country }}
+      </li>
+    </ul>
+  </div>
+  

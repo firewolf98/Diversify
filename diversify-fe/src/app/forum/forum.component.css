@@ -1,0 +1,173 @@
+/* Imposta lo sfondo per tutto il body */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffebe2; /* Colore dello sfondo principale */
+    min-height: 100vh; /* Copre l'altezza della finestra */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenitore del forum */
+/* Forum container: Altezza dinamica considerando header e footer */
+.forum-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+    flex: 1; 
+    background-color: transparent; 
+    height: 80vh; 
+    box-sizing: border-box; 
+    overflow: hidden; 
+}
+
+/* "Torna alla mappa" */
+.back-link {
+    color: #004b8f; /* Colore blu */
+    font-size: 14px;
+    font-weight: bold; /* Grassetto */
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.back-link:hover {
+    color: #2b6cb0; /* Blu più scuro al passaggio del mouse */
+    text-decoration: underline;
+}
+
+/* Sidebar del forum */
+.forum-sidebar {
+    width: 45%;
+    background-color: #ffebe2; /* Sfondo della sidebar */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-y: scroll;
+}
+
+/* Aggiungi una distanza tra il titolo "Forum" e il bordo della sidebar */
+.forum-sidebar h3 {
+    margin-top: 0;
+}
+
+.forum-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.forum-sidebar li {
+    margin-bottom: 10px;
+}
+
+.forum-sidebar button {
+    width: 100%;
+    background-color: #004b8f; /* Blu più scuro per i bottoni */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.forum-sidebar button:hover {
+    background-color: #003366; /* Blu ancora più scuro al passaggio del mouse */
+}
+
+/* Sezione principale del forum (in evidenza) */
+.forum-main {
+    width: 55%;
+    background-color: #ffebe2; /* Sfondo per il contenuto in evidenza */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    overflow-y: scroll;
+}
+
+/* Stile per i singoli post */
+.forum-post {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.forum-post a {
+    text-decoration: none;
+    color: #004b8f; /* Blu più scuro per i link */
+    font-weight: bold;
+}
+
+.forum-post a:hover {
+    color: #003366; /* Blu più scuro al passaggio del mouse */
+}
+
+
+/* Footer del forum */
+.footer-container {
+    text-align: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    position: relative;
+    margin-top: auto; /* Posiziona in basso */
+}
+
+/* Paginazione */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #004b8f; /* Blu più scuro per i bottoni */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.pagination button:hover {
+    background-color: #003366; /* Blu ancora più scuro al passaggio del mouse */
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Stile per il bottone "New Post" */
+.new-post-button {
+    display: block;
+    margin: 0 0 15px auto; /* Aggiunge margine solo a sinistra per spingerlo verso destra */
+    padding: 10px 30px; /* Aumenta il padding per renderlo più lungo */
+    background-color: #004b8f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /*cursore puntatore */
+}
+
+.new-post-button:hover {
+    background-color: #003366; /* Blu più scuro al passaggio del mouse */
+}
+
+.new-post-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button.selected-forum {
+    background-color: #003366 !important; /* Sfondo scuro */
+    color: #fff !important;           /* Testo bianco */
+    font-weight: bold;                /* Grassetto */
+    border: 2px solid #000;           /* Bordo nero */
+    pointer-events: none;             /* Disabilita il comportamento hover */
+  }
+ 
+  /* Mantieni l'effetto hover per gli altri pulsanti */
+  .forum-sidebar button:hover:not(.selected-forum) {
+    background-color: #003366; /* Blu più scuro al passaggio del mouse */
+  }

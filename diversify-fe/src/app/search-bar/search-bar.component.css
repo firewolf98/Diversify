@@ -1,0 +1,119 @@
+/* Stile per la barra di ricerca */
+input[type="text"] {
+    width: 100%;
+    max-width: 400px;  /* Imposta la larghezza massima */
+    padding: 15px 20px;
+    font-size: 18px;  /* Aumenta la dimensione del testo */
+    font-family: Helvetica, Arial, sans-serif;  /* Font Helvetica */
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra più morbida */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffebe2; /* Colore di sfondo caldo */
+}
+
+input[type="text"]:focus {
+    border-color: #ffeba7; /* Colore di bordo caldo quando l'input è attivo */
+    box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2); /* Ombra arancio */
+}
+
+/* Stile per la lista dei risultati */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 110%;  /* Stacca la tendina un po' più dalla barra */
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%; /* Imposta la larghezza della lista alla stessa dell'input */
+    box-sizing: border-box;  /* Assicura che la larghezza includa padding e bordo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Ombra leggera per la tendina */
+    z-index: 1000;
+    background-color: #ffebe2; /* Colore di sfondo caldo */
+}
+
+/* Aggiunta di un bordo attivo per la tendina */
+ul.active {
+    border-color: #ffeba7; /* Colore del bordo quando la barra di ricerca è in focus */
+}
+
+/* Stile per gli item della lista */
+li {
+    padding: 15px;
+    font-size: 16px;  /* Aumenta la dimensione del testo */
+    font-family: Helvetica, Arial, sans-serif;  /* Font Helvetica */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+
+/* Hover sugli item della lista */
+li:hover {
+    background-color: #fff5f1; /* Colore di sfondo arancio al passaggio del mouse */
+    color: #642102; /* Colore del testo blu chiaro al passaggio del mouse */
+    transform: scale(1.03); /* Leggero ingrandimento al passaggio del mouse */
+}
+
+/* Posizionamento del contenitore della barra di ricerca */
+div {
+    position: relative;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* La barra di ricerca occupa il 100% della larghezza disponibile */
+}
+
+.search-input {
+    width: 100%; /* La barra di ricerca occupa tutta la larghezza */
+    padding: 12px 20px;
+    font-size: 18px; /* Aumenta la dimensione del testo */
+    font-family: Helvetica, Arial, sans-serif;  /* Font Helvetica */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #ffebe2; /* Colore di sfondo caldo */
+}
+
+/* Stile per la tendina dei risultati */
+.search-dropdown {
+    position: absolute;
+    top: 110%;  /* Stacca la tendina un po' più dalla barra */
+    left: 0;
+    width: 100%; /* La tendina prende la stessa larghezza della barra di ricerca */
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #ffebe2; /* Colore di sfondo caldo */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    z-index: 999;
+}
+
+/* Aggiunta bordo attivo alla tendina */
+.search-dropdown.active {
+    border-color: #ffeba7; /* Imposta il colore del bordo della tendina quando la barra di ricerca è attiva */
+}
+
+.search-item {
+    padding: 12px 20px;
+    font-size: 16px;  /* Aumenta la dimensione del testo */
+    font-family: Helvetica, Arial, sans-serif;  /* Font Helvetica */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover sugli item della tendina */
+.search-item:hover {
+    background-color: #fac8b1; /* Colore di sfondo al passaggio del mouse */
+    color: #345b86; /* Colore del testo blu chiaro */
+}

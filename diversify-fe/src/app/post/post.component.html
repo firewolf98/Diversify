@@ -1,0 +1,75 @@
+<div class="background-container">
+  <div class="post-container">
+    <a href="#" class="back-link">← Torna alla mappa</a>
+    
+    <div class="post-content">
+      <!-- Header del post -->
+      <div class="post-header">
+        <img src="Discussione.png" alt="Discussione" class="post-icon" />
+        <span class="post-title-text">{{post.titolo}}</span>
+        
+        <!-- Icona della bandiera per segnala -->
+        <button class="flag-button" (click)="openReportModal()">
+          <img src="flag-icon.png" alt="Segnala" class="flag-icon" />
+        </button>
+      </div>
+
+      <!-- Autore sotto il titolo e il badge -->
+      <div class="post-author-container">
+        <img src="Avatar.png" alt="Avatar" class="post-author-avatar" />
+        <span class="post-author-name">{{autore.nome}}</span>
+      </div>
+      
+      <p class="post-description">
+        {{post.contenuto}}
+      </p>
+      
+      <div class="post-footer">
+        <button (click)="toggleLikePost()" class="like-button">
+          {{ hasLikedPost ? '👎 Togli Mi Piace' : '👍 Mi Piace' }}
+          <span *ngIf="post.like > 0">({{ post.like }})</span>
+        </button> 
+      </div>
+      
+      <!-- Sezione per i commenti -->
+      <div class="comments-section">
+        <h2>Commenti</h2>
+
+        <!-- Sezione per scrivere un nuovo commento -->
+        <div class="new-comment">
+          <textarea
+            [(ngModel)]="newComment.text"
+            placeholder="💬 Scrivi un commento..."
+            rows="2"
+            class="comment-textarea"
+          ></textarea>
+          <br />
+          <button (click)="addComment()" class="comment-button">
+            Aggiungi Commento
+          </button>
+        </div>
+        
+        <!-- Lista dei commenti -->
+        <app-commento *ngFor="let comment of comments" [comment]="comment"></app-commento>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale di segnalazione -->
+<div *ngIf="showReportModal" class="report-modal">
+  <div class="modal-content">
+    <h3>Segnala il Post</h3>
+    <p>Per favore, descrivi il motivo della segnalazione:</p>
+    <textarea
+      [(ngModel)]="reportReason"
+      placeholder="Inserisci la motivazione..."
+      rows="4"
+      class="report-textarea"
+    ></textarea>
+    <div class="modal-actions">
+      <button (click)="confirmReport()" class="confirm-button">Conferma</button>
+      <button (click)="closeReportModal()" class="cancel-button">Annulla</button>
+    </div>
+  </div>
+</div>

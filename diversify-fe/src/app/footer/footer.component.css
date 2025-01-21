@@ -1,0 +1,34 @@
+.footer-container {
+    position: relative; /* Posizionamento predefinito sotto la mappa */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px;
+    background-color: #fdece8 ; /* Colore di sfondo rosa pesca */
+    height: 60px; /* Altezza del footer */
+}
+
+.footer-links {
+    display: flex;             /* Posiziona i link uno accanto all'altro */
+    justify-content: center;   /* Centra i link orizzontalmente */
+    gap: 15px;                 /* Spazio tra i link */
+    font-family: 'Roboto', sans-serif; /* Font leggibile */
+    font-size: 14px;           /* Dimensione del testo */
+}
+
+.footer-link {
+    text-decoration: none;     /* Rimuove la sottolineatura */
+    color: #333;               /* Colore del testo scuro */
+    transition: color 0.3s ease; /* Animazione al passaggio del mouse */
+}
+
+.footer-link:hover {
+    color: #ff5733;            /* Cambia colore al passaggio del mouse */
+}
+
+.footer-link:not(:last-child)::after {
+    content: " | ";            /* Aggiunge il separatore solo dopo i primi due link */
+    color: #333;            /* Colore nero del separatore */
+    margin-left: 10px;          /* Distanza tra il link e il separatore */
+    margin-right: 10spx;         /* Distanza tra il separatore e il link successivo */
+}

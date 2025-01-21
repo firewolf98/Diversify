@@ -1,0 +1,277 @@
+/* Contenitore del modulo di registrazione */
+.registrazione-form {
+    width: 100%;
+    max-width: 350px; /* Imposta una larghezza massima per il contenitore */
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #fdece8; /* Colore pesca chiaro */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Titolo del modulo */
+.registrazione-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333; /* Testo scuro */
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    color:#0056b3 !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+/* Gruppi di input */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%; /* Assicura che gli input non escano dal contenitore */
+}
+
+/* Etichette dei campi */
+label {
+    font-weight: bold;
+    display: block;
+    color: #555555; /* Grigio scuro */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Gestione della visibilità della password */
+.password-container {
+  position: relative;
+}
+
+button.toggle-password {
+  position: absolute;
+  width: 10%;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+  padding: 0;
+}
+
+button.toggle-password:hover {
+  background-color: #a7a7a7;
+}
+
+input[type="password"], input[type="text"] {
+  padding-right: 40px; /* Aggiungi spazio per il pulsante di visibilità */
+}
+
+
+/* Input degli utenti */
+input {
+    width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
+    padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
+    margin-top: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
+}
+
+/* Cambia il colore del bordo quando un input è in focus */
+input:focus, select:focus {
+    border-color: #007bff !important; /* Colore blu quando l'input è in focus */
+    outline: none !important;
+}
+
+/* Cambia il colore del bordo mentre l'utente sta scrivendo (ng-dirty) */
+input.ng-dirty, select.ng-dirty {
+    border-color: #007bff !important; /* Bordo blu mentre si scrive */
+}
+
+/* Cambia il colore del bordo quando il campo è valido e ha ricevuto un input */
+input.ng-dirty.ng-valid, select.ng-dirty.ng-valid {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido e modificato */
+}
+
+/* Cambia il colore del bordo quando il campo è valido */
+input.ng-valid.ng-touched, select.ng-valid.ng-touched {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido */
+}
+
+/* Validazione dei campi: quando il campo è invalido */
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border-color: red !important; /* Bordo rosso quando il campo è invalido */
+}
+
+/* Messaggi di errore */
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* Form principale */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Allinea gli elementi a sinistra */
+    justify-content: flex-start;
+    gap: 15px; /* Distanza tra i campi di input */
+}
+
+/* Pulsante di registrazione */
+button {
+  width: 100%; /* Bottone che occupa tutta la larghezza disponibile */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  margin-top: 10px; /* Spazio tra i pulsanti */
+}
+
+/* Effetto hover per il bottone */
+button:hover {
+    background-color: #0056b3; /* Blu più scuro */
+}
+
+/* Bottone disabilitato */
+button:disabled {
+    background-color: #797676 !important;
+    cursor: not-allowed;
+}
+
+/* Campo Domanda Personale */
+select {
+    width: 100%; /* Gli input e select occuperanno tutta la larghezza disponibile */
+    padding: 10px 10px 10px 30px; /* Spazio a sinistra per l'icona */
+    margin-top: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box; /* Il padding non influisce sulla larghezza totale */
+}
+
+/* Cambia il colore del bordo quando un select è in focus */
+select:focus {
+    border-color: #007bff !important; /* Colore blu quando il select è in focus */
+    outline: none !important;
+}
+
+/* Cambia il colore del bordo mentre l'utente sta scrivendo (ng-dirty) */
+select.ng-dirty {
+    border-color: #007bff !important; /* Bordo blu mentre si scrive */
+}
+
+/* Cambia il colore del bordo quando il campo è valido e ha ricevuto un input */
+select.ng-dirty.ng-valid {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido e modificato */
+}
+
+/* Cambia il colore del bordo quando il campo è valido */
+select.ng-valid.ng-touched {
+    border-color: #007bff !important; /* Bordo blu quando il campo è valido */
+}
+
+/* Cambia il colore del bordo quando il campo è invalido */
+select.ng-invalid.ng-touched {
+    border-color: red !important; /* Bordo rosso quando il campo è invalido */
+}
+
+.login-link {
+	text-align: center;
+	margin-top: 20px;
+}
+  
+.login-link small {
+	font-size: 14px;
+	color: #555;
+}
+  
+.login-link a {
+	color: #007bff;
+	font-weight: bold;
+	text-decoration: none;
+}
+  
+.login-link a:hover {
+	text-decoration: underline;
+}
+
+/* Media Query per dispositivi mobili (smartphone) - Registrazione */
+@media (max-width: 600px) {
+    /* Contenitore principale */
+    .registrazione-form {
+      width: 90%; /* La larghezza del contenitore si adatta al 90% */
+      margin: 20px auto; /* Aggiunge margine sopra e sotto */
+    }
+  
+    /* Titolo del modulo */
+    .registrazione-form h2 {
+      font-size: 1.5rem; /* Riduce la dimensione del titolo */
+    }
+  
+    /* Gruppi di input */
+    .form-group {
+      margin-bottom: 10px; /* Riduce lo spazio tra i campi */
+    }
+  
+    /* Etichette dei campi */
+    label {
+      font-size: 0.9rem; /* Riduce la dimensione del testo dell'etichetta */
+    }
+  
+    /* Input e Select */
+    input, select {
+      padding: 8px 10px; /* Riduce il padding */
+      font-size: 1rem; /* Riduce la dimensione del testo */
+    }
+  
+    /* Pulsante */
+    button {
+      padding: 12px; /* Aumenta un po' l'altezza del bottone */
+      font-size: 14px; /* Riduce la dimensione del font del bottone */
+    }
+  }
+
+  /* Media Query per dispositivi tablet (max-width: 1024px) - Registrazione */
+@media (max-width: 1024px) {
+    /* Contenitore principale */
+    .registrazione-form {
+      width: 80%; /* Riduce la larghezza per tablet */
+      margin: 30px auto; /* Margine superiore ridotto */
+    }
+  
+    /* Titolo del modulo */
+    .registrazione-form h2 {
+      font-size: 1.75rem; /* Riduce la dimensione del titolo */
+    }
+  
+    /* Gruppi di input */
+    .form-group {
+      margin-bottom: 12px; /* Distanza ridotta tra i campi */
+    }
+  
+    /* Etichette dei campi */
+    label {
+      font-size: 1rem; /* Riduce la dimensione del testo dell'etichetta */
+    }
+  
+    /* Input e Select */
+    input, select {
+      padding: 10px 12px; /* Aumenta leggermente il padding */
+      font-size: 1.1rem; /* Aumenta la dimensione del testo */
+    }
+  
+    /* Pulsante */
+    button {
+      padding: 14px; /* Aumenta l'altezza del bottone */
+      font-size: 16px; /* Aumenta la dimensione del font del bottone */
+    }
+  }
+  

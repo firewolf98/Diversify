@@ -1,0 +1,30 @@
+<head>
+  <!-- Aggiungi questo link al tuo head -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<div *ngIf="isVisible" class="popup-container">
+  <!-- Tasto Torna alla mappa -->
+  <a class="back-link" (click)="goBack()">← Torna alla mappa</a>
+  <!-- Titolo con bandiera -->
+  <div class="title">
+    <img [src]="flag" alt="Bandiera" class="small-flag"/>
+    <h2>{{ countryName }}</h2>
+  </div>
+
+  <!-- Mostra solo se tipoCriticita è presente -->
+  <div *ngIf="tipoCriticita" class="tipo-criticita">
+    <p><strong>Tipo Criticità:</strong> {{ tipoCriticita }}</p>
+  </div>
+
+  <!-- Griglia dei bottoni -->
+  <div class="grid-container">
+    <button
+      *ngFor="let btn of buttons"
+      class="grid-item"
+      [ngClass]="[btn.color, btn.size]"
+      (click)="btn.action ? btn.action() : null"
+    >
+      {{ btn.label }}
+    </button>
+  </div>
+</div>

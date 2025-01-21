@@ -1,0 +1,496 @@
+/* Posizionamento del contenitore della barra di ricerca */
+div {
+    position: relative;
+    width: 100%;  /* Assicurati che il contenitore occupi tutta la larghezza disponibile */
+}
+
+/* Stile per il campo di testo */
+.text-area-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: whitesmoke; /* Colore di sfondo caldo */
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #ffeba7; /* Colore del bordo quando il campo di testo è attivo */
+    box-shadow: 0 4px 12px rgba(255, 87, 51, 0.2); /* Ombra arancio */
+}
+
+
+/* Stile per la barra di ricerca */
+input[type="text"] {
+    width: 100%;
+    max-width: 400px;  /* Imposta la larghezza massima */
+    padding: 15px 20px;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 30px;
+    border: 1px solid #ffb6b9;
+    background: whitesmoke;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Per includere padding e bordi nella larghezza totale */
+}
+
+/* Stile quando l'input è in focus */
+input[type="text"]:focus {
+    border-color: #ff8a65;
+    box-shadow: 0 8px 20px rgba(255, 138, 101, 0.3);
+    background: white;
+}
+
+/* Stile per la lista dei risultati */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 110%;  /* Posiziona la lista sotto l'input */
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    width: 100%;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    background-color: #ffffff;
+    opacity: 0.9;
+    box-sizing: border-box; /* Includi bordi e padding nel calcolo della larghezza */
+    display: none;
+    visibility: hidden;
+}
+
+/* Aggiunta di un bordo attivo per la tendina */
+ul.active {
+    border-color: #ff8a65;
+}
+
+ul.visible {
+    display: block;
+    visibility: visible;
+  }
+
+/* Stile per gli item della lista */
+li {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+    box-sizing: border-box; /* Per una gestione più precisa dei margini */
+}
+
+/* Hover sugli item della lista */
+li:hover {
+    background-color: #fffae6;
+    color: #ff8a65;
+    transform: scale(1.03);
+}
+
+/* Stile per la tendina dei risultati */
+.search-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.9;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+/* Aggiunta bordo attivo alla tendina */
+.search-dropdown.active {
+    border-color: #ff8a65;
+}
+
+/* Stile per gli item della tendina */
+.search-item {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Hover sugli item della tendina */
+.search-item:hover {
+    background-color: #fffae6;
+    color: #ff8a65;
+    transform: scale(1.03);
+}
+/* Imposta il font di tutta la pagina su Roboto */
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo della pagina */
+body {
+    background-color: #f8f8f8; /* Colore di sfondo neutro */
+    color: #333; /* Colore del testo scuro per leggibilità */
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 30px;
+}
+
+/* Contenitore principale */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Ombra morbida per il contenitore */
+    border-radius: 12px;
+}
+
+/* Testo titoli e sottotitoli */
+h1, h2, h3 {
+    color: #642102; /* Colore scuro per i titoli */
+    margin-bottom: 15px;
+    margin-top: 20px;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 36px;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 28px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+/* Barra di ricerca */
+.search-container {
+    position: relative;
+    width: 100%;
+    margin-bottom:20px;
+    overflow: visible; /* Assicurati che gli elementi siano visibili */
+}
+
+
+.search-input {
+    width: 100%;
+    max-width: 450px;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 40px;
+    border: 2px solid #ff7a60;
+    background: linear-gradient(to right, #ffede1, #ffb6b9);
+    color: #642102;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Barra di ricerca in focus */
+.search-input:focus {
+    border-color: #ff8a65;
+    background: linear-gradient(to right, #fffae6, #ffb6b9);
+    box-shadow: 0 12px 30px rgba(255, 138, 101, 0.3);
+    color: #642102;
+    transform: scale(1.02);
+}
+
+.dropdown-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+
+/* Lista dei risultati */
+ul.search-dropdown {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0.95;
+    z-index: 999;
+    box-sizing: border-box;
+
+}
+
+/* Aggiunta di un bordo attivo alla tendina */
+ul.active {
+    border-color: #ff8a65;
+}
+
+/* Elementi della lista */
+li.search-item {
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #642102;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fffbf6;
+    border-radius: 10px;
+}
+
+/* Hover sugli item della lista */
+li.search-item:hover {
+    background-color: #ff7a60;
+    color: #fff;
+    transform: scale(1.03);
+    transition: all 0.3s ease;
+}
+
+/* Bottoni generali */
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #0461c5;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hover sui bottoni */
+button:hover {
+    background-color: #004288;
+    transform: scale(1.05);
+}
+
+/* Sezione del contenuto */
+.section {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Aggiungi ombre eleganti alle card o contenitori */
+.card {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Tabelle e dati */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+th {
+    background-color: #ff7a60;
+    color: #fff;
+}
+
+td {
+    background-color: #fff;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    text-align: center;
+    padding: 20px;
+    background-color: #642102;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+    color: #ff7a60;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Contenitore dello sfondo per il pop-up */
+.popup-background {
+    position: relative;
+    background-color: #fdece8; /* Colore di sfondo caldo */
+    border-radius: 20px; /* Angoli arrotondati */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    max-width: 90%; /* Imposta una larghezza massima relativa alla finestra */
+    max-height: 90%; /* Imposta un'altezza massima relativa alla finestra */
+    margin: auto; /* Centra automaticamente */
+    box-sizing: border-box;
+    border:1px solid #d1d1d1;
+}
+
+/* Contenuto principale del pop-up */
+.popup {
+    padding: 20px;
+}
+
+.popup-wrapper {
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    padding: 30px;
+    width:100%;
+    padding: 20px; /* Aggiungi spazio intorno per evitare il taglio */
+    box-sizing: border-box; /* Assicurati che padding venga incluso */
+}
+
+
+
+/* Stile per il tasto "Salva modifiche" */
+.save-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 30px;
+    background-color: #0461c5;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Hover per il tasto */
+.save-button:hover {
+    background-color: #034287;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Click sul tasto */
+.save-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Stile per la scritta "Scegli un Paese UE" */
+.label-country {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px; /* Aumenta la dimensione del font */
+    font-weight: 700; /* Grassetto per maggiore impatto */
+    color: #642102; /* Colore scuro elegante */
+    text-transform: uppercase; /* Tutto maiuscolo per un effetto deciso */
+    letter-spacing: 2px; /* Spaziatura tra le lettere */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1); /* Ombra morbida per dare profondità */
+    margin-bottom: 15px; /* Distanza dal contenuto sottostante */
+    position: relative;
+    display: inline-block;
+    padding-bottom: 7px;
+    z-index: inherit;
+}
+
+/* Aggiunta di una linea colorata sotto il testo */
+.label-country::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff7a60; /* Colore dinamico sotto la scritta */
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Stile per il tasto "Salva modifiche" */
+.save-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 600; /* Un peso leggermente più forte per il testo */
+    padding: 12px 30px; /* Spaziatura interna per farlo sembrare più grande */
+    background-color: #0461c5; /* Colore caldo arancio */
+    color: #fff; /* Colore del testo bianco */
+    border: none; /* Rimuove il bordo */
+    border-radius: 30px; /* Bordo arrotondato */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ombra morbida per dare profondità */
+    transition: all 0.3s ease;
+}
+
+/* Effetto hover per il pulsante */
+.save-button:hover {
+    background-color: #034183; /* Colore più chiaro al passaggio del mouse */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Ombra più intensa al passaggio del mouse */
+    transform: translateY(-2px); /* Leggero spostamento verso l'alto */
+}
+
+/* Effetto click (quando il pulsante viene premuto) */
+.save-button:active {
+    transform: translateY(1px); /* Ritorna al basso per simulare la pressione */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ombra più piccola */
+}
+
+
+
+/* Media Queries per schermi piccoli */
+@media (max-width: 768px) {
+    .search-input {
+        max-width: 100%;
+    }
+
+    .container {
+        padding: 15px;
+    }
+    
+    button {
+        width: 100%;
+    }
+}
+
+
+

@@ -1,0 +1,36 @@
+<div class="chat-container" *ngIf="isChatOpen && isLogged">
+  <div class="chat-header">
+    <div class="header-title">
+      <img src="brigid.png" alt="Icona Brigid" class="header-icon" />
+      <h3>Brigid - Supporting Chatbot</h3>
+    </div>
+    <button class="close-button" (click)="toggleChat()" aria-label="Chiudi chat">-</button>
+  </div>
+
+  <div class="chat-messages" #chatMessagesContainer>
+    <div *ngFor="let message of messages" [ngClass]="message.sender === 'user' ? 'user-message' : 'bot-message'">
+      <img
+        [src]="message.sender === 'user' ? 'User_chatbot.png' : 'brigid.png'"
+        [alt]="message.sender === 'user' ? 'Utente' : 'Brigid'"
+        class="avatar"
+      />
+      <p>{{ message.content }}</p>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input
+      type="text"
+      placeholder="Scrivi un messaggio..."
+      [(ngModel)]="userInput"
+      (keydown.enter)="sendMessage()"
+      aria-label="Campo per scrivere un messaggio"
+    />
+    <button 
+      (click)="sendMessage()" 
+      [disabled]="userInput.trim() === ''" 
+      aria-label="Invia messaggio">
+      Invia
+    </button>
+  </div>
+</div>

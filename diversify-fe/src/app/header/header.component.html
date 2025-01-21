@@ -1,0 +1,91 @@
+<header class="header-container">
+    <div class="logo-container">
+        <a href="">
+            <img src="Logodiversify.png" alt="Logo Diversify" class="logo">
+        </a>
+    </div>
+
+    <!-- Contenitore per la barra di ricerca o la scritta "Home" -->
+    <div class="center-container">
+        <div *ngIf="isHomePage(); else nothomePage" class="search-container">
+            <!-- Barra di ricerca -->
+            <div *ngIf="isLoggedIn(); else notLoggedInHomePage" class="ricerca-bottoni">
+                <div class="search-wrapper">
+                    <input
+                        id="barra-di-ricerca"
+                        type="text"
+                        placeholder="Cerca un Paese"
+                        (input)="onSearchChange($event)"
+                        [(ngModel)]="searchTerm"
+                        (click)="toggleDropdown()"
+                    >
+                    <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+                        <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)">
+                            {{ country }}
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            <ng-template #notLoggedInHomePage>
+                <!-- Barra di ricerca per utenti non loggati -->
+                <input
+                    type="text"
+                    id="barra-di-ricerca"
+                    placeholder="Cerca un Paese"
+                    (input)="onSearchChange($event)"
+                    [(ngModel)]="searchTerm"
+                    (click)="toggleDropdown()"  
+                />
+                <ul *ngIf="isDropdownVisible && filteredCountries.length > 0">
+                    <li *ngFor="let country of filteredCountries" (click)="selectCountry(country)" (keydown)="selectCountry(country)">
+                        {{ country }}
+                    </li>
+                </ul>
+            </ng-template>
+        </div>
+        <ng-template #nothomePage>
+            <!-- Scritta "Home" -->
+            <a href="" class="home-link">Home</a>
+        </ng-template>
+    </div>
+
+    <!-- Contenitore per i bottoni -->
+    <div class="right-container">
+        <div *ngIf="isLoggedIn(); else notLoggedIn">
+            <div class="auth-buttons">
+                <button class="auth-button" (click)="logout()">Disconnetti</button>
+                <img src="AreaUtenteIcona.png" alt="Profilo" (click)="navigateToProfile()" class="profile-icon">
+            </div>
+        </div>
+        <ng-template #notLoggedIn>
+            <div class="auth-buttons">
+                <button class="auth-button" (click)="navigateTo('loggato')">Accedi</button>
+                <button class="auth-button" (click)="navigateTo('registrato')">Registrati</button>
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- Menu icon per dispositivi mobili -->
+    <div class="menu-icon-container" (click)="toggleMenu()" (keydown)="toggleMenu()">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<!-- Menu Hamburger -->
+<div class="menu-container" [ngClass]="{'active': menuVisible}">
+    <div *ngIf="isLoggedIn()" class="menu-items">
+        <a (click)="navigateToProfile()" >Gestione Profilo</a>
+        <div class="auth-buttons">
+            <button class="auth-button" (click)="logout()">Disconnetti</button>
+        </div>
+    </div>
+    <div *ngIf="!isLoggedIn()" class="auth-buttons">
+        <button (click)="navigateTo('loggato')">Accedi</button>
+        <button (click)="navigateTo('registrato')">Registrati</button>
+    </div>
+</div>

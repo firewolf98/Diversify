@@ -1,0 +1,31 @@
+.homepage-container {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: flex-start;
+	height: 100vh;
+	padding-left: 30px;
+	padding-right: 30px;
+	position: relative; 
+}
+
+
+app-map {
+	position: relative;
+	flex: 1;
+	width: 100%;
+	padding: 30px 0;
+	margin: 0;
+}
+
+app-icona-brigid{
+	position: absolute;
+}
+
+app-chi-siamo{
+	position: relative;
+	flex: 1;
+	width: 100%;
+	padding: 30px 0;
+	margin: 0;
+}

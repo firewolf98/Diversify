@@ -1,0 +1,18 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    margin: 0; /* Elimina margini esterni */
+    padding: 0; /* Elimina padding */
+}
+
+router-outlet {
+  flex: 0; /* Occupa lo spazio rimanente */
+}
+
+app-footer {
+  margin: 0; /* Elimina eventuali margini */
+  padding: 0; /* Elimina eventuali padding */
+  flex-shrink: 0; /* Impedisce al footer di ridursi */
+}
+ 
+  

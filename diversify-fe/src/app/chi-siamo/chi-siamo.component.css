@@ -1,0 +1,94 @@
+/* Stile per il contenitore principale */
+.about-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto; /* Centro il contenitore */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    background-color: #ffe9d6; /* Colore pesca chiaro */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    height: 90vh; /* Calcola l'altezza tenendo conto di header e footer */
+    box-sizing: border-box;
+    overflow-y:scroll;
+}
+
+/* Titolo della sezione */
+.about-container h2 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: #333333; /* Colore del testo scuro */
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5rem; /* Dimensione del testo adattabile */
+}
+
+/* Paragrafi di testo */
+.about-container p {
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5; /* Migliora la leggibilità */
+}
+
+/* "Torna alla mappa" */
+.back-link {
+    color: #17436b; /* Colore blu */
+    font-size: 14px;
+    font-weight: bold; /* Grassetto */
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 0;
+  }
+  
+  .back-link:hover {
+    color: #2b6cb0; /* Blu più scuro al passaggio del mouse */
+    text-decoration: underline;
+  }
+
+/* Footer e layout */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garantisce che la pagina occupi sempre l'intera altezza */
+    margin: 0;
+}
+
+main {
+    flex: 1; /* Riempie lo spazio tra header e footer */
+}
+
+/* Media Queries */
+
+/* Per dispositivi piccoli (max-width: 600px) */
+@media (max-width: 600px) {
+    .about-container {
+        padding: 15px;
+    }
+
+    .about-container h2 {
+        font-size: 1.2rem; /* Riduce la dimensione del titolo */
+    }
+
+    .about-container p {
+        font-size: 14px; /* Riduce la dimensione del testo */
+    }
+}
+
+/* Per tablet (max-width: 900px) */
+@media (max-width: 900px) {
+    .about-container {
+        width: 90%;
+    }
+
+    .about-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .about-container p {
+        font-size: 15px;
+    }
+}

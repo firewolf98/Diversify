@@ -1,0 +1,50 @@
+.brigid-icon-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: #fdece8; /* Sfondo rosa pesca */
+    border-radius: 50%; /* Solo l'icona è visibile inizialmente */
+    border-color: rgba(0, 86, 179, 0.6);
+    border-style:double;
+    padding: 10px; /* Spazio intorno all'icona */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    width: 50px; /* Dimensione iniziale della container */
+    height: 50px;
+    overflow: hidden; 
+  }
+  
+  .brigid-icon-container:hover {
+    width: auto; /* Espande la larghezza per mostrare il testo */
+    border-radius: 15px; /* Angoli arrotondati quando espanso */
+    padding: 6px 10px; /* Regola padding durante l'espansione */
+    transition: all 0.3s ease; 
+  }
+  
+  .brigid-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .chat-label {
+    font-size: 16px;
+    color: #272626; /* Colore testo */
+    font-weight: bold;
+    margin-left: 10px; /* Spazio a sinistra rispetto all'immagine */
+    white-space: nowrap; /* Impedisce il testo di andare a capo */
+    opacity: 0; /* Testo nascosto inizialmente */
+    visibility: hidden; /* Non visibile inizialmente */
+    transition: opacity 0.3s ease; /* Transizione per il testo */
+  }
+  
+  .brigid-icon-container:hover .chat-label {
+    opacity: 1; /* Mostra il testo */
+    visibility: visible; /* Rendi visibile il testo */
+  }

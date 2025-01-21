@@ -1,0 +1,52 @@
+<div class="popup">
+  <form [formGroup]="forumForm" (ngSubmit)="onSubmit()">
+    <div class="form-container">
+      <label for="country-select">Seleziona un Paese:</label>
+      <select id="country-select" formControlName="paese">
+        <option value="" disabled>-- Seleziona un Paese --</option>
+        <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+      </select>
+      <div *ngIf="hasError('country', 'required')" class="error">
+        Il Paese è obbligatorio.
+      </div>
+
+      <label for="forum-title">Titolo Forum:</label>
+      <input id="forum-title" type="text" formControlName="titolo" placeholder="Inserisci il titolo">
+      <div *ngIf="hasError('title', 'required')" class="error">
+        Il titolo è obbligatorio.
+      </div>
+      <div *ngIf="hasError('title', 'minlength')" class="error">
+        Il titolo deve avere almeno 3 caratteri.
+      </div>
+
+      <label for="forum-description">Descrizione Forum:</label>
+      <textarea id="forum-description" formControlName="descrizione" placeholder="Inserisci la descrizione"></textarea>
+      <div *ngIf="hasError('description', 'required')" class="error">
+        La descrizione è obbligatoria.
+      </div>
+      <div *ngIf="hasError('description', 'minlength')" class="error">
+        La descrizione deve avere almeno 10 caratteri.
+      </div>
+
+      <button type="submit" class="btn-primary">
+        {{ editingForumId === null ? 'Crea Forum' : 'Modifica Forum' }}
+      </button>
+    </div>
+  </form>
+
+  <div class="posts">
+    <h2>Lista dei Forum</h2>
+    <ul>
+      <li *ngFor="let forum of forums; let i = index">
+        <div class="forum-details">
+          <strong>{{ forum.titolo }}</strong> ({{ forum.paese }}): {{ forum.descrizione }}
+        </div>
+        <div class="actions">
+          <button (click)="editForum(forum.idForum)">Modifica</button>
+          <button (click)="deleteForum(forum.idForum)" class="btn-delete">Elimina</button>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+</div>

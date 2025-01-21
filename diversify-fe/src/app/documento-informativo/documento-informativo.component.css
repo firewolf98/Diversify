@@ -1,0 +1,124 @@
+/* Stile per il contenitore principale */
+.container {
+  font-family: 'Roboto', sans-serif;
+  background-color: #fdece8;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 50px auto;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+iframe {
+  width: 100%;
+  height: 360px; /* Altezza fissa */
+  border: none; /* Rimuove il bordo */
+  border-radius: 8px; /* Bordi arrotondati */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+}
+
+/* Stile per il titolo principale */
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Stile per il menu a tendina */
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Stile per il contenuto del documento */
+.document-content {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  margin-top: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile per il titolo del documento */
+.document-content h2 {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+}
+
+/* Stile per il testo del documento */
+.document-text {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.8;
+  color: #444;
+  font-size: 16px;
+}
+
+/* Stile per i paragrafi del testo */
+.document-text p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+/* Stile per l'immagine */
+.document-image {
+  max-width: 50%; /* Larghezza massima ridotta */ 
+  height: auto; /* Altezza automatica */
+  border-radius: 8px;
+  margin: 0 20px 20px 0; /* Margine a destra e in basso */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  float: left; /* Testo fluisce attorno all'immagine */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effetto hover sull'immagine */
+.document-image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Stile per il pulsante di download */
+.download-button {
+  background-color: #007bff;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+/* Effetto hover sul pulsante di download */
+.download-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Stile per il contenitore del video */
+#videoContainer {
+  margin-top: 20px;
+  clear: both; /* Evita che il video si sovrapponga all'immagine */
+  width: 100%;
+  max-width: 640px; /* Larghezza massima */
+  margin: 20px auto; /* Centrato */
+}
+
+/* Stile per il video */
+#videoContainer video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
